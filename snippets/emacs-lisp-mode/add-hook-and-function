@@ -1,0 +1,9 @@
+# -*- mode: snippet; -*-
+#name: add-hook-and-function
+#key: add-hook-func
+#key: ahf
+# --
+(add-hook '${1:name}-hook '${2:prefix}-$1-hook)
+(defun $2-$1-hook ()
+$0
+)

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: todo-state-heading-todo
+# key: todo
+# key: t
+# --
+TODO $0

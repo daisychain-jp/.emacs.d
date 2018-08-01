@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: template-level-0
+# key: tmp0
+# --
+#+SETUPFILE: ~/.emacs.d/org-templates/level-0.org
+#+TITLE:

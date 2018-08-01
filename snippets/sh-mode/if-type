@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: if type
+# key: ift
+# --
+if type ${1:cmd} >/dev/null 2>&1 ; then
+$0
+fi

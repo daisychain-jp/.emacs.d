@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: drop user
+# key: du
+# --
+DROP USER '${1:user}'@'${2:hostname}'

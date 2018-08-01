@@ -1,0 +1,4 @@
+# -*- mode: snippet -*-
+# name: git-clone-ssh
+# --
+git clone ssh://${1:user}@${2:host}/${3:path}

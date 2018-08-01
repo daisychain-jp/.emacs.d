@@ -1,0 +1,34 @@
+# -*- mode: snippet -*-
+# name: cost
+# key: cost
+# --
+* Cost
+** table
+#+COLUMNS: %25ITEM %Cost %Expense
+#+BEGIN: columnview :hlines 1 :vlines nil :id global :skip-empty-rows t
+#+tblname: cost_data
+#+END:
+** sum
+#+BEGIN_SRC python :preamble "# -*- coding: utf-8 -*-" :var data=cost_data :exports results
+import numpy as np
+
+a = np.array(data)
+b = a[:,1:2].astype(np.int)
+c = b.sum()
+return(c)
+#+END_SRC
+** breakdown
+#+BEGIN_SRC python :preamble "# -*- coding: utf-8 -*-" :var data=cost_data :results file :exports results
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+df = pd.DataFrame(data)
+df = df.iloc[:,1::]
+sum_df = df.groupby(2).sum()
+lbl = sum_df.index
+plt.pie(sum_df, labels=lbl, counterclock=True, startangle=90)
+
+plt.savefig('graph.png')
+return 'graph.png'
+#+END_SRC

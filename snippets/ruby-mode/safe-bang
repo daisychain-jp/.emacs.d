@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: safe-bang
+# key: s!
+# --
+#! /bin/sh
+exec ruby -S -x "\$0" "$@"
+#! ruby

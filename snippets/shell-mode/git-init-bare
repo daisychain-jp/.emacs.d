@@ -1,0 +1,4 @@
+# -*- mode: snippet -*-
+# name: git-init-bare
+# --
+git init --bare --shared ${1:repo.git}

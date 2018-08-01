@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: describe table
+# key: desc
+# --
+DESCRIBE ${1:tbl_name}

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: drop table
+# key: dt
+# --
+DROP TABLE ${1:tbl_name}

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: todo-state-heading-new
+# key: new
+# key: n
+# --
+NEW $0

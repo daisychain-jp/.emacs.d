@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: habit-todo-entry
+# key: habit
+# key: hbt
+# --
+* HBT ${1:title}
+SCHEDULED: <2017-01-01 Sun +1d>
+:PROPERTIES:
+:STYLE:    habit
+:END:

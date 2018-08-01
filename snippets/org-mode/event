@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: event
+# key: event
+# key: ev
+# --
+#+SETUPFILE: ~/.emacs.d/org-templates/level-0.org
+#+SETUPFILE: ~/.emacs.d/org-templates/theme-bigblow.org
+#+SETUPFILE: ~/.emacs.d/org-templates/event.org
+#+TITLE: $1
+
+* Agenda
+* Schedule
+cost$0

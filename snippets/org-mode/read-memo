@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: read-memo
+# key: rm
+# --
+${1:title}${2:(p.${3:page})}
+${4:text}
+${5:+ ${6:comment}}

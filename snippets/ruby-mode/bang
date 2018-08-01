@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: bang
+# key: !
+# group : general
+# --
+#!/usr/bin/env ruby
+$0

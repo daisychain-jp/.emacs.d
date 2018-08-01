@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: heln-dash docset
+# key: dash
+# --
+(let ((helm-dash-docsets '("${1:docset}")))
+(helm-dash "${2:words}"))

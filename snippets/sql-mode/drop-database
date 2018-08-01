@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: drop database
+# key: dd
+# --
+DROP DATABASE ${1:db_name}

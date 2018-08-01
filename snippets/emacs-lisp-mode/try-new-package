@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: try-new-package
+# key: try-new-pkg
+# key: trypkg
+# key: tryp
+# --
+(el-get-bundle ${1:package_name})
+(use-package $1$0)

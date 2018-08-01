@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: recipe
+# key: recipe
+# key: rcp
+# key: rp
+# --
+* ${1:menu}
+  - 材料
+    | 材料 | 分量 |
+    |------+------|
+    | $0   |      |
+  - 手順
+  - メモ
+  - 参考

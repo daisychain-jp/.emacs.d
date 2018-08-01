@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: memo-heading
+# key: memo
+# key: m
+# --
+[memo] $0

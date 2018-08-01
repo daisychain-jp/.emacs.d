@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: show grants
+# key: sg
+# --
+SHOW GRANTS FOR '${1:user}'@'${2:hostname}'

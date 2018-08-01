@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: show databases
+# key: sd
+# --
+SHOW DATABASES

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: select all user
+# key: au
+# --
+SELECT User, Host FROM mysql.user

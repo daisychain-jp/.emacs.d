@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: mount-dvdiso
+# key: mdvdiso
+# --
+mount -t iso9660 -o loop ${1:isofile} ${2:dir}$0

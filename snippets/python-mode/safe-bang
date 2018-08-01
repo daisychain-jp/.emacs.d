@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: safe-bang
+# key: s!
+# --
+#!/bin/sh
+""":" .
+
+exec python "\$0" "$@"
+"""
+
+__doc__ = """
+The above defines the script's __doc__ string. You can fix it by like this."""

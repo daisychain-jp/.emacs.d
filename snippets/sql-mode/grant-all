@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: grant all
+# key: ga
+# --
+GRANT ALL PRIVILEGES ON ${1:db_name}.* TO '${2:user}'@'${3:hostname}'

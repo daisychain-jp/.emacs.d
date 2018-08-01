@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: thor
+# key: thor
+# --
+require 'thor'
+
+class ${1:Class} < Thor
+  desc "${2:usage}", "${3:comment}"
+  def ${4:method}(${5:arg})
+    $0
+  end
+end
+
+$1.start(ARGV)

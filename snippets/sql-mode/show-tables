@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: show tables
+# key: st
+# --
+SHOW TABLES${1: FROM ${2:db_name}}

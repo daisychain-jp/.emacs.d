@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: note
+# key: note
+# --
+* ${1:note}
+  [`(format-time-string "%Y-%m-%d %a %H:%M")`]
+  $0

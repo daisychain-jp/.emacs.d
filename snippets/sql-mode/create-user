@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: create user
+# key: cu
+# --
+CREATE USER '${1:user}'@'${2:hostname}' IDENTIFIED BY '${3:password}'
