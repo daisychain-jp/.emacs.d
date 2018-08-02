@@ -1,5 +1,5 @@
 ;; directory
-(defvar env-proj-dir "~/var/git")
+(defvar env-proj-dir "~/git")
 (defvar env-doc-dir "~/org")
 (defvar env-data-dir (concat env-proj-dir "/data"))
 (defvar env-emacs-data-dir (concat env-data-dir "/emacs"))
