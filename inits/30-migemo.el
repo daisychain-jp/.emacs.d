@@ -1,5 +1,5 @@
 (use-package migemo
-  :ensure t
+  :straight t
   :ensure-system-package cmigemo
   :custom
   (migemo-command "cmigemo")

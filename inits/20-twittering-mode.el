@@ -1,5 +1,5 @@
 (use-package twittering-mode
-  :ensure t
+  :straight t
   :after (hydra)
   :custom
   (twittering-private-info-file

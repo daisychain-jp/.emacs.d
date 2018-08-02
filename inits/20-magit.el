@@ -9,5 +9,5 @@
 
 (use-package orgit
   :disabled
-  :ensure t
+  :straight t
   :after (magit org))

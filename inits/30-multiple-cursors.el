@@ -1,5 +1,5 @@
 (use-package multiple-cursors
-  :ensure t
+  :straight t
   :custom
   (mc/list-file (format "%s/mc-lists.el" env-emacs-data-dir)))
 

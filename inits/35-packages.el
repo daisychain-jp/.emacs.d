@@ -16,11 +16,12 @@
   (setq epg-gpg-program "/usr/bin/gpg"))
 
 (use-package selected
-  :ensure t
+  :straight t
   :hook (after-init . selected-global-mode)
   :diminish selected-minor-mode
   :bind (:map selected-keymap
               ("t" . google-translate-enja-or-jaen)
+              ("a" . xah-lookup-amazon)
               ("e" . xah-lookup-eijiro)
               ("g" . xah-lookup-google)
               ("w" . xah-lookup-wikipedia)

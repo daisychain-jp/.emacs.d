@@ -1,5 +1,5 @@
 (use-package elfeed
-  :ensure t
+  :straight t
   :commands (elfeed)
   :custom
   (elfeed-db-directory (concat env-var-dir "/lib/elfeed/db"))
@@ -59,7 +59,7 @@
   (add-to-list 'elfeed-search-face-alist '(checked elfeed-search-checked-title-face)))
 
 (use-package elfeed-org
-  :ensure t
+  :straight t
   :after (elfeed)
   :config
   (elfeed-org)

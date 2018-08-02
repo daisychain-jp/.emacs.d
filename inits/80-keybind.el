@@ -36,7 +36,7 @@
            ("C-o" . open-thing-at-point))
 
 (use-package hydra
-  :ensure t
+  :straight t
   :after (yasnippet multiple-cursors)
   :config
   (defhydra hydra-lookup
@@ -246,7 +246,7 @@
     ("M-a" avy-goto-char-timer "avy" :exit t)))
 
 (use-package restart-emacs
-  :ensure t
+  :straight t
   :after (hydra)
   :config
   (defhydra hydra-exit (global-map "C-M-<backspace>"
