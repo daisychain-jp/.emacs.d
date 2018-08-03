@@ -87,14 +87,6 @@
                 ((string= system-type "darwin") "darwin"))))
           (file-expand-wildcards
            (concat system-type-dir system-type-short "*.el"))))
-  ;; load .el files depends on 'system-name
-  (mapc (lambda (file)
-          (load-file file))
-        (let ((system-name-dir (concat user-emacs-directory "/inits/system-name/")))
-          (append
-           (file-expand-wildcards
-            (concat system-name-dir (system-name) "*.el"))
-           (make-list 1 (concat system-name-dir "common.el")))))
   ;; load rest of all .el files
   (mapc (lambda (file)
           (load-file file))

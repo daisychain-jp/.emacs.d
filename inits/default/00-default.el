@@ -92,10 +92,27 @@
             (interactive)
             (blink-cursor-mode 1)))
 
+;; message box
+(defalias 'message-box 'message)
+(setq use-dialog-box nil)
+
 ;; text
 (setq-default indent-tabs-mode nil)
 (setq text-scale-mode-step 1.0625)
 
-;; disable message box
-(defalias 'message-box 'message)
-(setq use-dialog-box nil)
+;; sound
+; override play-sound to play various type of sound file
+(defun play-sound (sound)
+  (apply 'call-process
+         `(,(car play-sound-external-command) nil nil nil
+           ,@(cdr play-sound-external-command)
+           ,(file-truename (plist-get (cdr sound) :file)))))
+
+;; alarm
+(defun system-alarm ()
+  (let* ((vol (string-trim (shell-command-to-string "source ~/.bash_aliases && volget"))))
+    (if (string= vol "0")
+        (let ((visible-bell t))
+          (beep))
+      (start-process-shell-command "system-alarm" nil (format "mpg321 %s" gtd-finish-sound)))))
+(setq visible-bell nil)
