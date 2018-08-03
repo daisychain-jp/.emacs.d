@@ -172,7 +172,7 @@
     ("s" shell)
     ("d" dired-jump)
     ("t" twit)
-    ("g" magit)
+    ("g" magit-status)
     ("w" eww)
     ("m" mu4e)
     ("M" mu4e-alert-view-unread-mails)
