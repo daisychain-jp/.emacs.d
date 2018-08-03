@@ -1,12 +1,17 @@
 (el-get-bundle ddskk)
 
+;; HACK: straight.el does not support arbitrary build command (make) yet.
+;;       this section will be activated when this feature is implemented.
+;; (use-package ddskk
+;;   :straight t
+;;   :defer t
+;;   :bind (("C-x C-j" . skk-mode)
+;;          ("C-x j" . skk-mode)))
+
 (require 'skk-autoloads)
 
-;; overbind skk-auto-fill-mode to skk-mode
-(bind-keys :map global-map
-           ("C-x C-j" . skk-mode)
+(bind-keys ("C-x C-j" . skk-mode)
            ("C-x j" . skk-mode))
-(unbind-key "C-x t") ; unbind skk-tutorial
 
 (setq default-input-method "japanese-skk")
 

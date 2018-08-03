@@ -56,6 +56,7 @@
 (use-package use-package-ensure-system-package :ensure t)
 
 ;; install straight.el
+(setq straight-recipes-gnu-elpa-use-mirror t)
 (let ((bootstrap-file
        (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
       (bootstrap-version 4))
