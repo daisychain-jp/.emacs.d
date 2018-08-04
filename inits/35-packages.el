@@ -13,7 +13,8 @@
 (el-get-bundle adaptive-wrap)
 (use-package epa-file
   :config
-  (setq epg-gpg-program "/usr/bin/gpg"))
+  (setq epg-gpg-program "/usr/bin/gpg")
+  (setq epa-pinentry-mode 'loopback))
 
 (use-package selected
   :straight t
