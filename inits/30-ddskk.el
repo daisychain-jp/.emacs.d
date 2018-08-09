@@ -71,8 +71,8 @@
 
 ; jisyo setting
 
-(setq skk-jisyo-dir (concat env-data-dir "/skk"))
-(setq skk-var-dir (concat env-var-dir "/lib/skk"))
+(setq skk-data-dir (concat env-var-dir "/lib/skk"))
+(setq skk-priv-jisyo-dir (format "%s/private-jisyo" skk-data-dir))
 
 (setq skk-server-host "localhost")
 (setq skk-server-portnum nil)
@@ -80,20 +80,20 @@
 ;; copy user jisyo data from master
 (add-hook 'skk-load-hook
           (lambda ()
-            (copy-file (concat skk-jisyo-dir "/skk-jisyo.euc-jp")
-                       (concat skk-jisyo-dir "/skk-jisyo-ddskk.euc-jp") t)))
+            (copy-file (concat skk-priv-jisyo-dir "/skk-jisyo.euc-jp")
+                       (concat skk-priv-jisyo-dir "/skk-jisyo-ddskk.euc-jp") t)))
 
 ;; variable definition
 (setq skk-get-jisyo-directory
-      (concat skk-var-dir "/get-jisyo"))
+      (concat skk-data-dir "/get-jisyo"))
 (setq skk-user-jisyo-directory
-      (concat skk-var-dir "/user-jisyo"))
-(setq skk-record-file (concat skk-var-dir "/record"))
-(setq skk-emacs-id-file (concat skk-var-dir "/emacs-id"))
+      (concat skk-data-dir "/user-jisyo"))
+(setq skk-record-file (concat skk-data-dir "/record"))
+(setq skk-emacs-id-file (concat skk-data-dir "/emacs-id"))
 
 ;; local jisyo file
-(setq skk-jisyo (concat skk-jisyo-dir "/skk-jisyo-ddskk.euc-jp"))
-(setq skk-backup-jisyo (concat skk-jisyo-dir "/skk-jisyo.bak"))
+(setq skk-jisyo (concat skk-priv-jisyo-dir "/skk-jisyo-ddskk.euc-jp"))
+(setq skk-backup-jisyo (concat skk-priv-jisyo-dir "/skk-jisyo.bak"))
 (setq skk-large-jisyo (concat skk-get-jisyo-directory "/SKK-JISYO.L"))
 (setq skk-extra-jisyo-file-list
       (append
@@ -102,8 +102,8 @@
 
 ;; study
 (require 'skk-study)
-(setq skk-study-file (concat skk-var-dir "/study"))
-(setq skk-study-backup-file (concat skk-var-dir "/study.bak"))
+(setq skk-study-file (concat skk-data-dir "/study"))
+(setq skk-study-backup-file (concat skk-data-dir "/study.bak"))
 
 ;; jisyo settings
 (setq skk-share-private-jisyo t)
