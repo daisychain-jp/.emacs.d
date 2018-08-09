@@ -262,7 +262,7 @@
            (let ((confirm-kill-processes nil))
              (save-buffers-kill-emacs)))
      "force to save buffers and kill emacs")
-    ("k" kill-emacs
-     "just kill emacs")
+    ("k" kill-emacs "just kill emacs")
     ("c" nil "cancel")
-    ("q" nil "cancel")))
+    ("C-g" nil "quit")
+    ("q" nil "quit")))
