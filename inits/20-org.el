@@ -326,7 +326,7 @@ If 'ARG' is passed, shred afile instead delete."
               (reveal-mode 1)))
 
   ;; save all org files every hour
-  (run-at-time 120 3600 'org-save-all-org-buffers)
+  (run-at-time 10 300 'org-save-all-org-buffers)
 
   (with-eval-after-load "50-org-life.el" (org-life)))
 
