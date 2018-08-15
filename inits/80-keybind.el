@@ -249,7 +249,7 @@
   :straight t
   :after (hydra)
   :config
-  (defhydra hydra-exit (global-map "C-M-<backspace>"
+  (defhydra hydra-exit (global-map "C-M-<delete>"
                                    :exit t)
     "Exit"
     ("r" restart-emacs)
