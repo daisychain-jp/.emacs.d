@@ -35,3 +35,10 @@
               ("=" . count-words-region)
               ("m" . org-tags-view-archive)
               ("q" . selected-off)))
+
+(use-package expand-region
+  :straight t
+  :bind (("C-,"   . er/expand-region)
+         ("C-M-," . er/contract-region))
+  :config
+  (push 'er/mark-outside-pairs er/try-expand-list))
