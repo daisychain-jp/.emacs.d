@@ -1,13 +1,8 @@
-(el-get-bundle Bad-ptr/persp-mode.el)
-
 (use-package persp-mode
+  :straight t
   :config
   (setq persp-nil-name "default")
-  (add-hook 'persp-activated-hook 'persp-register-buffers-on-create)
-
-  (bind-keys :map global-map
-             ("s-W" . persp-mode))
-  )
+  (add-hook 'persp-activated-hook 'persp-register-buffers-on-create))
 
 (defun persp-register-buffers-on-create ()
   (interactive)

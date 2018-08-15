@@ -177,6 +177,7 @@
     ("M" mu4e-alert-view-unread-mails)
     ("j" open-junk-file)
     ("e" elfeed)
+    ("p" persp-mode)
     ("q" nil "cancel"))
   (defvar hlc/beginning-func nil "")
   (defvar hlc/end-func nil "")
