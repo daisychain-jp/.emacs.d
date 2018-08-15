@@ -47,7 +47,6 @@
 (defvar mode-line-cleaner-alist
   '( ;; For minor-mode, first char is 'space'
     (buffer-face-mode         . "")
-    (anzu-mode                . "")
     (ace-isearch-mode         . "")
     (company-mode             . " Co")
     (eldoc-mode               . "")

@@ -1,3 +1,5 @@
+; search
+
 (bind-keys :map isearch-mode-map
            ("C-j" . isearch-exit)
            ("M-w" . copy-isearch-region)
@@ -27,3 +29,14 @@
           (goto-char (mark))
           (isearch-repeat-forward)))
     ad-do-it))
+
+; replace
+
+(use-package visual-regexp
+  :straight t
+  :bind ("C-%" . vr/query-replace))
+(use-package visual-regexp-steroids
+  :straight t
+  :after (visual-regexp)
+  :config
+  (setq vr/engine 'python))
