@@ -1,9 +1,5 @@
-(el-get-bundle ruby-mode)
-(el-get-bundle inf-ruby)
-(el-get-bundle yaml-mode)
-
-;; ruby-mode
 (use-package ruby-mode
+  :straight t
   :mode (("\\.rb$"   . ruby-mode)
          ("Capfile$" . ruby-mode)
          ("Gemfile$" . ruby-mode))
@@ -26,6 +22,7 @@
                  ruby-forward-sexp nil)))
 
 (use-package inf-ruby
+  :straight t
   :config
   (setq inf-ruby-default-implementation "pry")
   (add-to-list 'inf-ruby-implementations '("pry" . "pry"))
@@ -33,4 +30,5 @@
   (setq inf-ruby-first-prompt-pattern "^\\[[0-9]+\\] pry\\((.*)\\)> *")
   (setq inf-ruby-prompt-pattern "^\\[[0-9]+\\] pry\\((.*)\\)[>*\"'] *"))
 
-(el-get-bundle yaml-mode)
+(use-package yaml-mode
+  :straight t)
