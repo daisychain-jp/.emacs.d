@@ -1,16 +1,21 @@
 ;; take over path settings from shell
-(el-get-bundle exec-path-from-shell)
-(exec-path-from-shell-initialize)
+(use-package exec-path-from-shell
+  :straight t
+  :config
+  (when (memq window-system '(mac ns x))
+    (exec-path-from-shell-initialize)))
 
 ;; hideshow
-(require 'hideshow)
-(diminish 'hs-minor-mode "hs")
+(use-package hideshow
+  :diminish "hs")
 
 ;; transpose mark
-(el-get-bundle kwrooijen/transpose-mark)
-(require 'transpose-mark)
+(use-package transpose-mark
+  :straight t)
 
-(el-get-bundle adaptive-wrap)
+(use-package adaptive-wrap
+  :straight t)
+
 (use-package epa-file
   :config
   (setq epg-gpg-program "/usr/bin/gpg")

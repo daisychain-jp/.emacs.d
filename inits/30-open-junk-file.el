@@ -1,6 +1,5 @@
-(el-get-bundle open-junk-file)
-
 (use-package open-junk-file
+  :straight t
   :bind ("s-j" . open-junk-file)
   :config
   (setq open-junk-file-format
