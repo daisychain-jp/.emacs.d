@@ -11,7 +11,6 @@
            ("M-SPC" . cycle-spacing)
            ("M-k"   . kill-whole-line)
            ("C-x k" . kill-this-buffer)
-           ("C-x O" . maximize-next-window)
            ("M-<up>" . (lambda ()
                          (interactive)
                          (transpose-lines 1)
