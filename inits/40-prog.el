@@ -14,3 +14,10 @@
               (yas-minor-mode 1)
               (yas-reload-all)
               (setq-local truncate-lines t))))
+
+(use-package comment-dwim-2
+  :straight t
+  :defer 1
+  :bind ("M-;" . comment-dwim-2)
+  :config
+  (setq comment-dwim-2--inline-comment-behavior 'reindent-comment))
