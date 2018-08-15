@@ -36,7 +36,7 @@
 
 (use-package hydra
   :straight t
-  :after (yasnippet multiple-cursors)
+  :after (multiple-cursors)
   :config
   (defhydra hydra-lookup
     (global-map "C-c l"
