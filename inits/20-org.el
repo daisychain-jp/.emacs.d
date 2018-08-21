@@ -59,16 +59,6 @@
               (4 (eww-browse-url (car url-pos)))
               (t (open-url-switch-application (car url-pos) (cdr url-pos)))))
         ad-do-it)))
-  (defun org-link-at-point ()
-    "docstring"
-    (let ((link (org-in-regexp org-bracket-link-regexp 1)))
-      (if link
-        (let* ((full-str (buffer-substring (car link) (cdr link)))
-               (match-index (string-match org-bracket-link-regexp full-str)))
-          (if match-index
-              (cons (match-string 1 full-str) (match-string 2 full-str))
-            nil))
-        nil)))
   (append-to-list
    org-file-apps
    '((auto-mode . emacs)
@@ -371,3 +361,14 @@ The sparse tree is according to tags string MATCH."
 (defun org-end-of-subtree ()
   (interactive)
   (org-end-of-subtree))
+
+(defun org-link-at-point ()
+  "Return org link at point as a cons."
+  (let ((link (org-in-regexp org-bracket-link-regexp 1)))
+    (if link
+        (let* ((full-str (buffer-substring (car link) (cdr link)))
+               (match-index (string-match org-bracket-link-regexp full-str)))
+          (if match-index
+              (cons (match-string 1 full-str) (match-string 2 full-str))
+            nil))
+      nil)))
