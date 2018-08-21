@@ -1,4 +1,3 @@
-;; (el-get-bundle flycheck)
 (use-package flycheck
   :straight t
   :diminish (flycheck-mode . "fc")

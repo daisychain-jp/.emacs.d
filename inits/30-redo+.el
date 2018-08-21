@@ -1,5 +1,5 @@
-(el-get-bundle redo+)
 (use-package redo+
+  :straight t
   :config
   (global-set-key (kbd "C-M-/") 'redo)
   (setq undo-no-redo t)

@@ -1,5 +1,5 @@
-(el-get-bundle smart-newline)
 (use-package smart-newline
+  :straight t
   :diminish "sn"
   :config
   (bind-keys :map smart-newline-mode-hook

@@ -1,6 +1,5 @@
-(el-get-bundle rainbow-mode)
-
 (use-package rainbow-mode
+  :straight t
   :config
   (setq rainbow-html-colors t)
   (setq rainbow-x-colors t)

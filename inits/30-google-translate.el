@@ -1,5 +1,5 @@
-(el-get-bundle google-translate)
 (use-package google-translate
+  :straight t
   :init
   (require 'google-translate-smooth-ui))
 

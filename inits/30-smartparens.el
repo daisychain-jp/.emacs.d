@@ -1,5 +1,5 @@
-(el-get-bundle smartparens)
-(use-package smartparens-config
+(use-package smartparens
+  :straight t
   :diminish (smartparens-mode . "sp")
   :config
   (show-smartparens-global-mode 1)

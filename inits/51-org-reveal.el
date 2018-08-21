@@ -1,2 +1,2 @@
-(el-get-bundle yjwen/org-reveal)
-(use-package ox-reveal)
+(use-package ox-reveal
+  :straight t)

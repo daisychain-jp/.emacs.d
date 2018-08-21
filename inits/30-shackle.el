@@ -1,6 +1,5 @@
-(el-get-bundle shackle)
-
 (use-package shackle
+  :straight t
   :config
   (custom-set-variables '(shackle-default-rule '(:same t)))
   (custom-set-variables
