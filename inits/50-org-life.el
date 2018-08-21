@@ -2,6 +2,7 @@
   "settings for self management"
   (setq org-agenda-start-on-weekday 0)
   (setq org-deadline-warning-days 60)
+  (setq org-agenda-include-diary t)
   (setq org-agenda-custom-commands
         '(("r" "Match a TAGS/PROP/TODO query in archive file"
            tags ""

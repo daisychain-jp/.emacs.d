@@ -1,5 +1,5 @@
-(el-get-bundle pdf-tools)
 (use-package pdf-tools
+  :straight t
   :mode ("\\.pdf$" . pdf-view-mode)
   :init
   (pdf-tools-install)

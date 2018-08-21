@@ -1,5 +1,5 @@
-(el-get-bundle helm-dash)
 (use-package helm-dash
+  :straight t
   :config
   (setq helm-dash-docsets-path (concat env-var-dir "/lib/dash/docsets"))
   (setq helm-dash-browser-func 'eww)

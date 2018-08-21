@@ -1,8 +1,5 @@
-(el-get-bundle recentf-ext)
-
-(require 'recentf-ext)
-
 (use-package recentf-ext
+  :straight t
   :config
   (setq recentf-save-file (concat env-emacs-data-dir "/recentf"))
   (setq recentf-exclude '("\/data\/emacs\/junk\/"  ; open-junk-file
@@ -11,8 +8,7 @@
   (setq recentf-auto-cleanup 'never)
   (recentf-load-list)
   (recentf-mode t)
-  (run-with-idle-timer 30 t '(lambda () (with-suppressed-message (recentf-save-list))))
-  )
+  (run-with-idle-timer 30 t '(lambda () (with-suppressed-message (recentf-save-list)))))
 
 (defmacro with-suppressed-message (&rest body)
   "Suppress new messages temporarily in the echo area and the `*Messages*' buffer while BODY is evaluated."

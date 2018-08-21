@@ -1,6 +1,6 @@
 ;; include japanese holidays
-(el-get-bundle japanese-holidays)
 (use-package japanese-holidays
+  :straight t
   :config
   (setq calendar-holidays
         (append japanese-holidays holiday-local-holidays holiday-other-holidays))

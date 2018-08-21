@@ -1,5 +1,5 @@
-(el-get-bundle emacsmirror/xah-lookup)
 (use-package xah-lookup
+  :straight t
   :config
   (require 'eww)
   (setq xah-lookup-browser-function 'eww)

@@ -1,6 +1,7 @@
-(el-get-bundle which-key)
-
-(setq which-key-use-C-h-commands nil)
-(which-key-setup-side-window-bottom)
-(which-key-mode 1)
-(diminish 'which-key-mode)
+(use-package which-key
+  :straight t
+  :diminish which-key-mode
+  :custom
+  (which-key-use-C-h-commands nil)
+  :config
+  (which-key-mode 1))

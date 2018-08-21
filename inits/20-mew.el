@@ -1,6 +1,5 @@
-(el-get-bundle mew)
-
 (use-package mew
+  :straight t
   :commands (mew mew-send)
   :config
   ;; Optional setup (Read Mail menu):

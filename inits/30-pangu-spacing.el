@@ -1,6 +1,6 @@
-(el-get-bundle pangu-spacing)
 (use-package pangu-spacing
-  :diminish "Ps"
+  :straight t
+  :diminish pangu-spacing-mode
   :config
   (setq pangu-spacing-chinese-before-english-regexp
         (rx (group-n 1 (category japanese))

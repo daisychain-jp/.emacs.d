@@ -1,6 +1,5 @@
-(el-get-bundle helm)
-
 (use-package helm
+  :straight t
   :bind (("C-;"     . helm-mini)
          ("C-M-;"   . helm-for-files)
          ("M-x"     . helm-M-x)

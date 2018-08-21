@@ -57,7 +57,7 @@
     (helm-mode                . "")
     (rainbow-mode             . " rb")
     (reveal-mode              . " rv")
-    (volatile-highlights-mode . "")
+    ;; (volatile-highlights-mode . "")
     ;; Major modes
     (magit-status-mode     . "MG")
     (eww-mode              . "EW")
