@@ -10,5 +10,4 @@
             (setq sh-indent-for-case-label 0)
             (defvar sh-indent-for-case-alt)
             (setq sh-indent-for-case-alt '+)
-            (setq-local helm-dash-docsets helm-dash-docsets-sh-mode)
-            (flycheck-mode 1)))
+            (setq-local helm-dash-docsets helm-dash-docsets-sh-mode)))

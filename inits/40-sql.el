@@ -7,5 +7,4 @@
   (add-hook 'sql-mode-hook
             '(lambda ()
                (setq-local flycheck-checker 'sql-sqlint)
-               (flycheck-mode 1)
                (setq-local helm-dash-docsets '("MySQL")))))

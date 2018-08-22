@@ -12,7 +12,6 @@
   (add-hook 'ruby-mode-hook
             '(lambda ()
                (setq-local flycheck-checker 'ruby-rubocop)
-               (flycheck-mode 1)
                (setq-local helm-dash-docsets helm-dash-docsets-ruby-mode)))
   (add-to-list 'hs-special-modes-alist
                `(ruby-mode

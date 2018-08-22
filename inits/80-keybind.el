@@ -142,26 +142,6 @@
     ("-"     text-scale-adjust)
     ("0"     text-scale-adjust)
     ("q"     nil "quit"))
-  (defhydra hydra-flycheck (flycheck-mode-map "C-c !"
-                                              :color red)
-    "Flycheck"
-    ("C-c" flycheck-compile)
-    ("C-w" flycheck-copy-errors-as-kill)
-    ("?" flycheck-describe-checker)
-    ("C" flycheck-clear)
-    ("H" display-local-help)
-    ("V" flycheck-version)
-    ("c" flycheck-buffer)
-    ("e" flycheck-explain-error-at-point)
-    ("d" flycheck-display-error-at-point)
-    ("i" flycheck-manual)
-    ("l" flycheck-list-errors)
-    ("n" flycheck-next-error)
-    ("p" flycheck-previous-error)
-    ("s" flycheck-select-checker)
-    ("v" flycheck-verify-setup)
-    ("x" flycheck-disable-checker)
-    ("q" nil "quit"))
   (defhydra hydra-launcher (global-map "C-M-j"
                                        :color blue)
     "Launch"
