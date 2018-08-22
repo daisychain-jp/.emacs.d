@@ -5,6 +5,7 @@
                ("C-M-m" . hydra-lazy-control/body))
          (:map mu4e-compose-mode-map
                ("C-c o" . org-mu4e-compose-org-mode)))
+  :hook (after-init . (lambda () (mu4e t)))
   :custom
   (mu4e-mu-binary env-mu4e-mu-binary)
   (mail-user-agent 'mu4e-user-agent)
