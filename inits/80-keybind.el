@@ -27,11 +27,9 @@
            ("M-s g f" . helm-do-ag-this-file)
            ("M-s g b" . helm-do-ag-buffers)
            ("M-s g o" . helm-do-ag-org)
-           ("M-s g p" . helm-projectile-grep)
            ("M-s d f" . find-dired)
            ("M-s d g" . find-grep-dired)
            ("M-s d n" . find-name-dired)
-           ("M-s f p" . helm-projectile-find-file)
            ("C-o" . open-thing-at-point))
 
 (use-package hydra
