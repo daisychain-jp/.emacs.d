@@ -1,5 +1,6 @@
 (use-package sequential-command
   :straight t
+  :after (org)
   :config
   ;; for org-mode
   (define-sequential-command org-seq-home
@@ -12,6 +13,9 @@
     outline-next-heading
     end-of-buffer
     seq-return)
+  (bind-keys :map org-mode-map
+             ("C-a" . org-seq-home)
+             ("C-e" . org-seq-end))
   ;; for emacs-lisp-mode
   (define-sequential-command emacs-lisp-seq-home
     sp-beginning-of-sexp
