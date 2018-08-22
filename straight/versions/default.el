@@ -24,7 +24,7 @@
  ("gntp.el" . "767571135e2c0985944017dc59b0be79af222ef5")
  ("gnu-elpa-mirror" . "036d755cd8872eb412d17b372715ed9bf6a37069")
  ("google-translate" . "d8b84a8359fcc697114d1298840e9a45b111c974")
- ("helm" . "e3aadd86420c7d508de235e18d05fabd3660c4d8")
+ ("helm" . "59ed335db7a9b1be7cd6b177d72fa46311f0b80e")
  ("helm-c-yasnippet" . "65ca732b510bfc31636708aebcfe4d2d845b59b0")
  ("helm-dash" . "0ac2db529577fa63f2ed32310062873c585b91de")
  ("helm-descbinds" . "033be73f21778633813264ce1634a6e1ad873d8e")
