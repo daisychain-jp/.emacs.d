@@ -110,7 +110,7 @@
            ((org-agenda-sorting-strategy
              '(todo-state-up priority-down deadline-up))))
           ("tD" "Done tasks which does not belong any project"
-           tags "-CATEGORY=\"Project\"+TODO={DONE\\|CXL}")
+           tags "-CATEGORY=\"Project\"+TODO={DONE\\|CXL\\|PEND}")
           ("te" "Easy tasks" tags-todo "t_easy")
           ("tc" "Commit tasks" tags-todo "t_commit")
           ("p" "Projects" tags "+CATEGORY={Project}+LEVEL=2")
