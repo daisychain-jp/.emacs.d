@@ -9,10 +9,6 @@
             (lambda ()
               (yas-minor-mode 1))))
 
-(use-package yasnippet-snippets
-  :straight t
-  :after (yasnippet))
-
 (use-package helm-c-yasnippet
   :straight t
   :after (yasnippet hydra)
@@ -26,3 +22,7 @@
     ("v" helm-yas-visit-snippet-file)
     ("C-g" nil "quit")
     ("q" nil "quit")))
+
+(use-package yasnippet-snippets
+  :straight t
+  :after (yasnippet))
