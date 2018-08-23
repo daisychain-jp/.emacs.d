@@ -118,7 +118,6 @@
     ("i" adaptive-wrap-prefix-mode)
     ("p" variable-pitch-mode)
     ("w" whitespace-mode)
-    ("y" yas-minor-mode)
     ("l" linum-mode)
     ("L" line-number-mode)
     ("C" column-number-mode)

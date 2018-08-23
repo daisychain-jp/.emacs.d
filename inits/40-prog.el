@@ -11,8 +11,6 @@
               (abbrev-mode 1)
               (smartparens-mode 1)
               (smart-newline-mode 1)
-              (yas-minor-mode 1)
-              (yas-reload-all)
               (setq-local truncate-lines t))))
 
 (use-package comment-dwim-2

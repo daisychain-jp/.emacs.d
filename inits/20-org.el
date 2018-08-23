@@ -312,7 +312,6 @@ If 'ARG' is passed, shred afile instead delete."
   ;; org mode hook
   (add-hook 'org-mode-hook
             (lambda ()
-              (yas-minor-mode 1)
               (reveal-mode 1)))
 
   ;; save all org files every hour

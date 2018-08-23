@@ -6,7 +6,6 @@
   (add-hook 'shell-mode-hook
             (lambda ()
               (buffer-face-set 'selecting)
-              (yas-minor-mode 1)
               (setq-local helm-dash-docsets helm-dash-docsets-shell-mode))))
 
 ;; term (ansi-term)

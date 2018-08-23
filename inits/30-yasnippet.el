@@ -1,25 +1,19 @@
 (use-package yasnippet
   :straight t
   :diminish (yas-minor-mode . "ys")
+  :after (hydra)
+  :hook
+  ((prog-mode org-mode shell-mode) . yas-minor-mode)
+  (yas-minor-mode . yas-reload-all)
   :config
-  (setq yas-snippet-dirs
-        `(,env-snippets-dir))
+  (setq yas-snippet-dirs `(,env-snippets-dir))
   (setq yas-triggers-in-field t)
-  (add-hook 'snippet-mode-hook
-            (lambda ()
-              (yas-minor-mode 1))))
-
-(use-package helm-c-yasnippet
-  :straight t
-  :after (yasnippet hydra)
-  :config
-  (setq helm-yas-space-match-any-greedy t)
   (defhydra hydra-yasnippet (global-map "C-c y"
                                         :exit t)
     "Yasnippet"
     ("n" yas-new-snippet)
-    ("y" helm-yas-complete)
-    ("v" helm-yas-visit-snippet-file)
+    ("y" yas-insert-snippet)
+    ("v" yas-visit-snippet-file)
     ("C-g" nil "quit")
     ("q" nil "quit")))
 
