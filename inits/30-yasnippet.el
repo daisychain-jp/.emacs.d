@@ -4,7 +4,7 @@
   :after (hydra)
   :hook
   ((prog-mode org-mode shell-mode) . yas-minor-mode)
-  (yas-minor-mode . yas-reload-all)
+  (after-init . yas-reload-all)
   :config
   (setq yas-snippet-dirs `(,env-snippets-dir))
   (setq yas-triggers-in-field t)
