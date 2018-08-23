@@ -109,7 +109,7 @@
     ("t" org-table-transpose-table-at-point "Org mode table")
     ("q" nil "cancel" :color blue))
   (defhydra hydra-toggle
-    (global-map "C-c t"
+    (global-map "C-t"
                 :color pink
                 :pre (set-face-background 'mode-line "DarkOrange4")
                 :post (set-face-background 'mode-line "gray10"))
