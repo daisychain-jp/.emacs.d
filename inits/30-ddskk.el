@@ -92,7 +92,7 @@
 (setq skk-emacs-id-file (concat skk-data-dir "/emacs-id"))
 
 ;; local jisyo file
-(setq skk-jisyo (concat skk-priv-jisyo-dir "/skk-jisyo-ddskk.euc-jp"))
+(setq skk-jisyo (concat skk-priv-jisyo-dir "/skk-jisyo.euc-jp"))
 (setq skk-backup-jisyo (concat skk-priv-jisyo-dir "/skk-jisyo.bak"))
 (setq skk-large-jisyo (concat skk-get-jisyo-directory "/SKK-JISYO.L"))
 (setq skk-extra-jisyo-file-list
