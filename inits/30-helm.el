@@ -33,6 +33,11 @@
              ("C-h" . delete-backward-char)
              ("C-j" . helm-maybe-exit-minibuffer)
              ("C-t" . helm-toggle-truncate-line)
+             :map helm-find-files-map
+             ("C-h" . delete-backward-char)
+             ("TAB" . helm-execute-persistent-action)
+             :map helm-read-file-map
+             ("TAB" . helm-execute-persistent-action)
              :map isearch-mode-map
              ("C-o" . helm-occur-from-isearch)
              ("C-m" . helm-multi-occur-from-isearch))
