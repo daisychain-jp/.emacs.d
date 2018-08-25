@@ -371,3 +371,9 @@ The sparse tree is according to tags string MATCH."
               (cons (match-string 1 full-str) (match-string 2 full-str))
             nil))
       nil)))
+
+(defun org-scratch (arg)
+  (interactive "p")
+  (find-file
+   (make-temp-file "auto-org-capture" nil ".org"))
+  (skk-mode 1))

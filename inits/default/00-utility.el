@@ -102,14 +102,6 @@ With numeric prefix arg DEC, decrement the number by DEC amount."
 ;; for rubikichi mail magazine
 (defun emm:goto (idx) (progn(push-mark)(search-forward idx)(recenter 0)))
 
-(defun org-scratch (arg)
-  (interactive "p")
-  (find-file
-   (make-temp-file "auto-org-capture" nil ".org"))
-  (skk-mode 1))
-(bind-keys :map global-map
-           ("s-o" . org-scratch))
-
 (defun create-unicode-fontset (fontset-name ascii-font ascii-size unicode-font unicode-size &optional weight slant)
   "docstring"
   (let* ((fsn-prefix "fontset-")
