@@ -35,7 +35,7 @@
  ("let-alist" . "4a7693b678c59a148660c736cc0bb26a5032ee9a")
  ("log4e" . "34309972ad02abcebbcff6b1682731978aef030c")
  ("lookup-word-on-internet" . "e3132ff21c3d0160e5bd5b7222c50dc9840727d4")
- ("magit" . "59cf74837f26fe122107e70d46cbeae4a25b9a23")
+ ("magit" . "ce6bbc83b642133740a91a493c1232caf77b0ede")
  ("magit-popup" . "6e07f745a18af514c2885eeabe9b2b2a5216e53c")
  ("melpa" . "1217e0d4f42df68cc22de9b4f27a36c0377509e3")
  ("migemo" . "e4744efae1b2fdea2bbd2ceaff0f6ea0bb739f5a")
