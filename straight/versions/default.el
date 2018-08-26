@@ -1,5 +1,6 @@
 (("Mew" . "d4eac40c09ef349e09f0169bc2725d050dc8c7ad")
  ("adaptive-wrap" . "31dd100ff5f39c8c07ec81267b6a1c037f8f98aa")
+ ("aggressive-indent-mode" . "8e70039c7190639c43794cb75eae118c2faaa0d1")
  ("alert" . "667d9c7848c723eb392ab9bacae07966da3e3504")
  ("avy" . "7c40f5e3811716b05d87a06096b190f7cf7bdc45")
  ("avy-migemo" . "922a6dd82c0bfa316b0fbb56a9d4dd4ffa5707e7")
