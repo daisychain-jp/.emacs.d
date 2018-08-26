@@ -1,0 +1,7 @@
+# state saving file
+session.*
+
+# package files
+package/
+straight/
+!straight/versions/default.el
