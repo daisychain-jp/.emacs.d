@@ -45,15 +45,12 @@
     (goto-char (point-max))
     (eval-print-last-sexp)))
 
-;; install essential packages first
+;; install use-package
 (when (not (package-installed-p 'use-package))
   (package-refresh-contents)
   (package-install 'use-package))
 (eval-when-compile
   (require 'use-package))
-(use-package diminish :ensure t)
-(use-package bind-key :ensure t)
-(use-package use-package-ensure-system-package :ensure t)
 
 ;; install straight.el
 (setq straight-recipes-gnu-elpa-use-mirror t)
@@ -69,6 +66,12 @@
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
 (straight-use-package 'use-package)
+
+;; install dependency packages for use-package using straight.el
+(use-package diminish :straight t)
+(use-package delight :straight t)
+(use-package bind-key :straight t)
+(use-package use-package-ensure-system-package :straight t)
 
 (let ((coding-system-for-write 'utf-8))
   ;; load default .el files

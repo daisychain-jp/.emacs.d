@@ -59,7 +59,6 @@
     (reveal-mode              . " rv")
     ;; (volatile-highlights-mode . "")
     ;; Major modes
-    (magit-status-mode     . "MG")
     (eww-mode              . "EW")
     (elfeed-show-mode      . "EF")
     (elfeed-search-mode    . "EF")
