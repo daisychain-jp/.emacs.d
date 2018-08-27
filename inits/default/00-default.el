@@ -27,7 +27,8 @@
 (diminish 'auto-revert-mode)
 
 ;; reveal-mode
-(diminish 'revert-mode "rv")
+(reveal-mode 0)
+(diminish 'reveal-mode "rv")
 
 ;; etc
 (setq history-delete-duplicates t)
