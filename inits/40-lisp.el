@@ -2,3 +2,5 @@
           (lambda ()
             (setq tab-width 4)
             (setq-local helm-dash-docsets helm-dash-docsets-emacs-lisp-mode)))
+(delight 'emacs-lisp-mode       " EL")
+(delight 'lisp-interaction-mode " LI")

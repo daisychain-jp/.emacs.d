@@ -1,4 +1,5 @@
 (use-package shell
+  :delight " SM"
   :commands (shell)
   :config
   (bind-keys :map shell-mode-map
@@ -9,8 +10,9 @@
               (setq-local helm-dash-docsets helm-dash-docsets-shell-mode))))
 
 ;; term (ansi-term)
-(use-package ansi-term
-  :commands (ansi-term)
+(use-package term
+  :delight
+  (term-mode " TM")
   :config
   (bind-keys :map term-mode-hook
              ("C-j" . term-send-input))

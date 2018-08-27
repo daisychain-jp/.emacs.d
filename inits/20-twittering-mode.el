@@ -1,5 +1,6 @@
 (use-package twittering-mode
   :straight t
+  :delight " TW"
   :after (hydra)
   :custom
   (twittering-private-info-file

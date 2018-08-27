@@ -2,3 +2,4 @@
           '(lambda ()
              (setq-local flycheck-checker 'python-pylint)
              (setq-local helm-dash-docsets helm-dash-docsets-python-mode)))
+(delight 'python-mode " PY")

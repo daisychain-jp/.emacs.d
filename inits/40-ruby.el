@@ -1,5 +1,6 @@
 (use-package ruby-mode
   :straight t
+  :delight " RB"
   :mode (("\\.rb$"   . ruby-mode)
          ("Capfile$" . ruby-mode)
          ("Gemfile$" . ruby-mode))

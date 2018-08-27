@@ -1,5 +1,8 @@
 (use-package elfeed
   :straight t
+  :delight
+  (elfeed-show-mode   " EF")
+  (elfeed-search-mode " EF")
   :commands (elfeed)
   :custom
   (elfeed-db-directory (concat env-var-dir "/lib/elfeed/db"))

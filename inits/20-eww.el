@@ -1,4 +1,5 @@
 (use-package eww
+  :delight " EW"
   :config
   (bind-keys :map eww-mode-map
              ("C-j" . eww-follow-link)

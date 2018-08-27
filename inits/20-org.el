@@ -1,6 +1,10 @@
 (el-get-bundle org-mode)
 (el-get-bundle helm-org-rifle)
 (use-package org
+  :delight
+  (org-mode         " OG")
+  (org-agenda-mode  " OG")
+  (org-capture-mode " OG")
   :mode (("\\.org$" . org-mode))
   :interpreter (("org" . org-mode))
   :bind (("C-c a" . org-agenda)
@@ -280,7 +284,7 @@ If 'ARG' is passed, shred afile instead delete."
   (setq org-capture-bookmark nil)
 
   ;; clock table
-  ; work around for the bug in emacs 25
+  ;;; work around for the bug in emacs 25
   (defalias 'calendar-absolute-from-iso 'calendar-iso-to-absolute)
 
   ;; export

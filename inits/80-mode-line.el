@@ -39,7 +39,6 @@
                        (concat str "_%c") str)))
                 " "
                 global-mode-string
-                " "
                 mode-name
                 minor-mode-alist))
 
@@ -58,30 +57,7 @@
     (rainbow-mode             . " rb")
     (reveal-mode              . " rv")
     ;; (volatile-highlights-mode . "")
-    ;; Major modes
-    (eww-mode              . "EW")
-    (elfeed-show-mode      . "EF")
-    (elfeed-search-mode    . "EF")
-    (twittering-mode       . "TW")
-    (org-mode              . "OG")
-    (org-agenda-mode       . "OG-A")
-    (org-capture-mode      . "OG-C")
-    (dired-mode            . "DD")
-    (emacs-lisp-mode       . "EL")
-    (lisp-interaction-mode . "LI")
-    (markdown-mode         . "MD")
-    (mew-summary-mode      . "MW-S")
-    (mew-draft-mode        . "MW-D")
-    (mew-message-mode      . "MW-M")
-    (mew-virtual-mode      . "MW-V")
-    (nxml-mode             . "XM")
-    (python-mode           . "PY")
-    (ruby-mode             . "RB")
-    (sh-mode               . "SH")
-    (text-mode             . "TX")
-    (shell-mode            . "SM")
-    (term-mode             . "TM")
-    (log-view-mode         . "LV")))
+    ))
 (defun clean-mode-line ()
   (interactive)
   (loop for (mode . mode-str) in mode-line-cleaner-alist

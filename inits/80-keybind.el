@@ -144,10 +144,10 @@
   (defhydra hydra-launcher (global-map "C-M-j"
                                        :color blue)
     "Launch"
-    ("a" ansi-term)
+    ("t" term)
     ("s" shell)
     ("d" dired-jump)
-    ("t" twit)
+    ("@" twit)
     ("g" magit-status)
     ("w" eww)
     ("m" mu4e)
@@ -190,12 +190,12 @@
     ("r" (responsible-call hlc/backward-paragraph-func 'backward-paragraph))
     ("TAB" (responsible-call
             hlc/next-thing-func (lambda ()
-                                 (interactive)
-                                 (forward-button 1))))
+                                  (interactive)
+                                  (forward-button 1))))
     ("<backtab>" (responsible-call
                   hlc/previous-thing-func (lambda ()
-                                           (interactive)
-                                           (backward-button 1))))
+                                            (interactive)
+                                            (backward-button 1))))
     ("R" (responsible-call hlc/readable-func 'redraw-display))
     ("&" (responsible-call hlc/external-func 'redraw-display))
     ("C-o" open-thing-at-point "open")

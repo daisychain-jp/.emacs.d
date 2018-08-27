@@ -11,3 +11,4 @@
             (defvar sh-indent-for-case-alt)
             (setq sh-indent-for-case-alt '+)
             (setq-local helm-dash-docsets helm-dash-docsets-sh-mode)))
+(delight 'sh-mode " SH")

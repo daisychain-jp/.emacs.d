@@ -1,4 +1,9 @@
 (use-package mu4e
+  :delight
+  (mu4e-main-mode    " MU")
+  (mu4e-headers-mode " MU")
+  (mu4e-view-mode    " MU")
+  (mu4e-compose-mode " MU")
   :bind ((:map mu4e-headers-mode-map
                ("C-j" . mu4e-headers-view-message))
          (:map mu4e-view-mode-map

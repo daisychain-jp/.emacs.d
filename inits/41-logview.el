@@ -1,4 +1,6 @@
 (use-package logview
+  :delight
+  (log-view-mode " LV")
   :mode ("\\.log$" . log-view-mode)
   :init
   (add-hook 'log-view-mode-hook

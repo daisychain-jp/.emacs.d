@@ -1,5 +1,7 @@
 (use-package pdf-tools
   :straight t
+  :delight
+  (pdf-view-mode " PV")
   :mode ("\\.pdf$" . pdf-view-mode)
   :init
   (pdf-tools-install)

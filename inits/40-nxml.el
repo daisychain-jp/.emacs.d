@@ -1,4 +1,6 @@
 (use-package nxml-mode
+  :delight
+  (nxml-mode " XM")
   :mode
   (("\.xml$"   . nxml-mode)
    ("\.xsl$"   . nxml-mode)
