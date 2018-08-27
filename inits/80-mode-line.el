@@ -41,32 +41,3 @@
                 global-mode-string
                 mode-name
                 minor-mode-alist))
-
-;; abbreviate mode name
-(defvar mode-line-cleaner-alist
-  '( ;; For minor-mode, first char is 'space'
-    (buffer-face-mode         . "")
-    (ace-isearch-mode         . "")
-    (company-mode             . " Co")
-    (eldoc-mode               . "")
-    (elisp-slime-nav-mode     . " En")
-    (flymake-mode             . " Fm")
-    (helm-gtags-mode          . " Hg")
-    (helm-migemo-mode         . "")
-    (helm-mode                . "")
-    (rainbow-mode             . " rb")
-    (reveal-mode              . " rv")
-    ;; (volatile-highlights-mode . "")
-    ))
-(defun clean-mode-line ()
-  (interactive)
-  (loop for (mode . mode-str) in mode-line-cleaner-alist
-        do
-        (let ((old-mode-str (cdr (assq mode minor-mode-alist))))
-          (when old-mode-str
-            (setcar old-mode-str mode-str))
-          ;; major mode
-          (when (eq mode major-mode)
-            (setq mode-name mode-str)))))
-
-(add-hook 'after-change-major-mode-hook 'clean-mode-line)

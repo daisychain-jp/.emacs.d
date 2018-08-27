@@ -23,8 +23,11 @@
 ;; autorevert
 (global-auto-revert-mode t)
 (setq auto-revert-verbose nil)
-(diminish 'global-auto-revert-mode "Ar")
+(diminish 'global-auto-revert-mode)
 (diminish 'auto-revert-mode)
+
+;; reveal-mode
+(diminish 'revert-mode "rv")
 
 ;; etc
 (setq history-delete-duplicates t)
@@ -52,6 +55,8 @@
                          buffer-face-list)))
     (buffer-face-set next-face)
     (message "%s" next-face)))
+(buffer-face-mode 1)
+(diminish 'buffer-face-mode)
 
 ;; use onyx theme (original)
 (setq custom-theme-directory

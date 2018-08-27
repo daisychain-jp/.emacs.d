@@ -1,6 +1,7 @@
 (require 'generic-x)
 
 (use-package help-mode
+  :delight " HE"
   :bind (:map help-mode-map
               ("C-M-m" . hydra-lazy-control/body))
   :config

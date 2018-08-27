@@ -1,5 +1,7 @@
 (use-package rainbow-mode
   :straight t
+  :diminish
+  (rainbow-mode . "rb")
   :config
   (setq rainbow-html-colors t)
   (setq rainbow-x-colors t)
