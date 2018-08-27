@@ -17,3 +17,9 @@
   (add-hook 'term-mode-hook
             (lambda ()
               (buffer-face-set 'selecting))))
+
+(use-package eshell
+  :delight " ES"
+  :hook (eshell-mode . (lambda ()
+                         (bind-keys :map eshell-mode-map
+                                    ("C-j" . eshell-send-input)))))
