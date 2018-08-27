@@ -11,7 +11,7 @@
 #+BEGIN: clocktable :maxlevel 3 :scope agenda :block `(format-time-string "%Y")`-W$1 :wstart 0 :narrow 40! :tcolumns 3 :formula % :tags "CATEGORY={Project\\\\|Task}"
 #+END:
 - effects
-#+BEGIN: clocktable-by-tag :tags ("_health" "_study" "_productive" "_social" "_money" "_hobby" "_relax") :maxlevel 2 :block `(format-time-string "%Y")`-W$1
+#+BEGIN: clocktable-by-atag :maxlevel 2 :block `(format-time-string "%Y")`-W$1
 #+END:
 *** Tasks
 *** Memos
