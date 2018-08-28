@@ -1,5 +1,7 @@
 (require 'generic-x)
 
+(delight 'fundamental-mode " FU")
+
 (use-package help-mode
   :delight " HE"
   :bind (:map help-mode-map
