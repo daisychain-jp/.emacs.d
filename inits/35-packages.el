@@ -26,15 +26,18 @@
   :hook (after-init . selected-global-mode)
   :diminish selected-minor-mode
   :bind (:map selected-keymap
-              ("t" . google-translate-enja-or-jaen)
-              ("a" . xah-lookup-amazon)
-              ("e" . xah-lookup-eijiro)
-              ("g" . xah-lookup-google)
-              ("w" . xah-lookup-wikipedia)
-              ("j" . open-jtalk-say)
-              ("=" . count-words-region)
-              ("m" . org-tags-view-archive)
-              ("q" . selected-off)))
+              ("C-t" . google-translate-enja-or-jaen)
+              ("C-l g" . lookup-google)
+              ("C-l w" . lookup-wikipedia-ja)
+              ("C-l W" . lookup-wikipedia-en)
+              ("C-l a" . lookup-amazon)
+              ("C-l y" . lookup-youtube)
+              ("C-l d" . lookup-duckduckgo)
+              ("C-l e" . lookup-eijiro)
+              ("C-j" . open-jtalk-say)
+              ("C-=" . count-words-region)
+              ("C-m" . org-tags-view-archive)
+              ("C-g" . selected-off)))
 
 (use-package expand-region
   :straight t

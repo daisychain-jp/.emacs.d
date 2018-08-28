@@ -36,19 +36,6 @@
   :straight t
   :after (multiple-cursors)
   :config
-  (defhydra hydra-lookup
-    (global-map "C-c l"
-                :color blue)
-    "Lookup"
-    ("t" google-translate-enja-or-jaen "translate")
-    ("g" xah-lookup-google)
-    ("w" xah-lookup-wikipedia)
-    ("a" xah-lookup-amazon)
-    ("d" xah-lookup-duckduckgo)
-    ("e" xah-lookup-eijiro)
-    ("l" xah-lookup-weblio)
-    ("y" xah-lookup-youtube)
-    ("q" nil "quit"))
   (defhydra hydra-multiple-cursors
     (global-map "C-c n"
                 :color red)
