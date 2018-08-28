@@ -4,6 +4,7 @@
            ("C-j" . isearch-exit)
            ("M-w" . copy-isearch-region)
            ("M-d" . kill-isearch-region))
+(diminish 'isearch-mode "is")
 
 (defun copy-isearch-region ()
   (interactive)
