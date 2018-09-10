@@ -64,7 +64,7 @@ play that with media player."
           (mpv-opt (if (numberp start)
                        (format "--ytdl-raw-options=playlist-start=%d" start)
                      nil)))
-      (start-process-shell-command "mpv" nil (format "mpv --force-window --ytdl-format=\"bestvideo[height<=?360]+bestaudio/best\" %s \"%s\"" mpv-opt file))))
+      (start-process-shell-command "mpv" nil (format "mpv --force-window --ytdl-format=\"bestvideo[height<=?480]+bestaudio/best\" %s \"%s\"" mpv-opt file))))
    (t (start-process-shell-command "mpv" nil (format "mpv --force-window \"%s\"" mpv-opt file)))))
 
 (defun increment-number-at-point (&optional inc)
