@@ -24,4 +24,15 @@
   :delight " ES"
   :hook (eshell-mode . (lambda ()
                          (bind-keys :map eshell-mode-map
-                                    ("C-j" . eshell-send-input)))))
+                                    ("C-j" . eshell-send-input))))
+  :custom
+  (eshell-prompt-function
+   #'(lambda ()
+       (concat (eshell/basename (eshell/pwd))
+               "\n"
+               (if (= (user-uid) 0) "# " "$ "))))
+  (eshell-prompt-regexp "[#$] "))
+
+(bind-keys :map completion-list-mode-map
+           ("C-j" . choose-completion))
+(delight 'completion-list-mode " CL")
