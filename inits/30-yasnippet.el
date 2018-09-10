@@ -1,3 +1,4 @@
+(delight 'snippet-mode " SN")
 (use-package yasnippet
   :straight t
   :diminish (yas-minor-mode . "ys")
