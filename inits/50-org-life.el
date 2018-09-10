@@ -1,6 +1,6 @@
 (defun org-life ()
   "settings for self management"
-  (setq org-agenda-start-on-weekday 0)
+  (setq org-agenda-start-on-weekday 1)
   (setq org-deadline-warning-days 60)
   (setq org-agenda-include-diary t)
   (setq org-agenda-custom-commands
@@ -26,7 +26,7 @@
             (tags "TIMESTAMP<\"<today>\"")
             (tags "CLOCKSUM>0"))
            ((org-agenda-sorting-strategy '(time-up))))
-          ("l" "Log entries in agenda"
+          ("l" "Log entries in a week"
            agenda ""
            ((org-agenda-span 'week)
             (org-agenda-start-with-log-mode t)
