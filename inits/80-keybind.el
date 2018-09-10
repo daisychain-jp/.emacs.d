@@ -131,7 +131,7 @@
   (defhydra hydra-launcher (global-map "C-M-j"
                                        :color blue)
     "Launch"
-    ("t" term)
+    ("t" ansi-term)
     ("s" shell)
     ("d" dired-jump)
     ("@" twit)
