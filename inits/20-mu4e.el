@@ -39,6 +39,7 @@
      (:subject)))
   (mu4e-headers-advance-after-mark t)
   (mu4e-change-filenames-when-moving t)
+  (mu4e-view-show-images t)
   :config
   (add-hook 'mu4e-headers-mode-hook
             (lambda ()
@@ -69,6 +70,8 @@
   (add-hook 'mu4e-compose-mode-hook
             (lambda ()
               (buffer-face-set 'visible)))
+  (when (fboundp 'imagemagick-register-types)
+    (imagemagick-register-types))
   (setq mu4e-contexts
         `(,(make-mu4e-context
             :name "Daisychain"
@@ -121,12 +124,12 @@
   :after (mu4e)
   :custom
   (mu4e-alert-interesting-mail-query
-        (concat
-         "flag:unread AND NOT flag:trashed AND maildir:/daisychain/Inbox"
-         " OR"
-         " flag:unread AND NOT flag:trashed AND maildir:/daisychain/check"
-         " OR"
-         " flag:unread AND NOT flag:trashed AND maildir:/gmail/Inbox"))
+   (concat
+    "flag:unread AND NOT flag:trashed AND maildir:/daisychain/Inbox"
+    " OR"
+    " flag:unread AND NOT flag:trashed AND maildir:/daisychain/check"
+    " OR"
+    " flag:unread AND NOT flag:trashed AND maildir:/gmail/Inbox"))
   (mu4e-alert-modeline-formatter
    (lambda (count)
      (if (> count 0)
