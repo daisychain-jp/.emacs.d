@@ -10,7 +10,7 @@
  ("delight" . "eaff920b9d3ef79d381548476d33e519693e3502")
  ("diminish.el" . "565a983a39d2e2cffab5df13b34f3b6116723208")
  ("easy-kill" . "e2b667f651a3531164d24ea4cbcd8c34fba0e17f")
- ("elfeed" . "a6fc231e47f1071cd4d1363926868761f7f0bcd8")
+ ("elfeed" . "3d1c6ecbe585f9fe6ca5a97a3fc352d68f303f9e")
  ("elfeed-org" . "b9d09a554127244d4807a3d2d90e062df63b2fd5")
  ("emacs-async" . "d17c11e6082aa51f421bb037b828bdb15f405618")
  ("emacs-deferred" . "2239671d94b38d92e9b28d4e12fd79814cfb9c16")
