@@ -28,8 +28,8 @@
   :custom
   (eshell-prompt-function
    #'(lambda ()
-       (concat (eshell/basename (eshell/pwd))
-               "\n"
+       (format "[%s]\n%s"
+               (eshell/basename (eshell/pwd))
                (if (= (user-uid) 0) "# " "$ "))))
   (eshell-prompt-regexp "[#$] "))
 
