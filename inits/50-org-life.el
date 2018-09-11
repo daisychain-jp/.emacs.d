@@ -141,7 +141,7 @@
 
   (defvar auto-org-capture-file (make-temp-file "auto-org-capture" nil ".org"))
   (defvar org-capture-todo-file (concat env-doc-dir "/inbox/task_a.org"))
-  (defvar org-capture-memo-file (concat env-doc-dir "/inbox/memo_a.org"))
+  (defvar org-capture-memo-file (concat env-doc-dir "/archive/2018_archive.org"))
   (setq org-capture-templates
         `(("l" "item to currently clocked entry"
            item (clock) "- %i")
@@ -149,20 +149,20 @@
            entry (id "7c1d198f-3faa-467f-a70e-c578443b5a2e")
            "* %?\n  %U" :prepend t :jump-to-captured t)
           ("d" "diary"
-           entry (file+olp+datetree ,org-capture-memo-file "Inbox")
-           "* %<%Y-%m-%d %a>\n  %U\n%?" :prepend t :tree-type week)
+           entry (file+datetree ,org-capture-memo-file)
+           "* %<%Y-%m-%d %a> :m_diary:\n  %U\n%?" :prepend t :tree-type week)
+          ("r" "note from region"
+           entry (file+datetree ,org-capture-memo-file)
+           "* %i\n  %U\n" :immediate-finish t :prepend t :tree-type week)
           ;; for auto refiling
           ("0" "input"
            entry (file ,auto-org-capture-file)
            "* %?\n  %U")
-          ("r" "note from region"
-           entry (file+headline ,org-capture-memo-file "Inbox")
-           "** %i\n   %U\n" :immediate-finish t  :prepend t)
           ("i" "TODO for auto refiling"
            entry (file+headline ,org-capture-todo-file "Inbox")
            "%i" :immediate-finish t :prepend t)
           ("n" "memo for auto refiling"
-           entry (file+olp+datetree ,org-capture-memo-file "Inbox")
+           entry (file+datetree ,org-capture-memo-file)
            "%i" :immediate-finish t :prepend t :tree-type week)))
   ;; for auto refiling capture
   (defun auto-org-capture (arg)
@@ -196,8 +196,7 @@
   (setq org-refile-targets
         `((org-agenda-files :regexp . "Projects\\|Tasks")
           (org-agenda-files :level . 2)
-          (,(file-expand-wildcards (concat env-doc-dir "/**/*.org")) :tag . "refile")
-          (org-capture-memo-file :regexp . "Archive")))
+          (,(file-expand-wildcards (concat env-doc-dir "/**/*.org")) :tag . "refile")))
   (setq org-stuck-projects
         '("+CATEGORY=\"Project\"+LEVEL=2-SCHEDULED>\"<today>\"-DEADLINE>\"<today>\"/-TODO-DONE-CXL"
           ("URGE" "TDAY" "WEEK" "TODO") nil ""))
@@ -210,7 +209,6 @@ If region is active, use the word in region for matching instead."
     (let* ((archive-cands (file-expand-wildcards (format "%s/archive/*_archive.org" env-doc-dir)))
            (archive-files (last archive-cands (safe-length archive-cands)))
            (org-agenda-files (append org-agenda-files-default
-                                     `(,org-capture-memo-file)
                                      (sort archive-files 'string>)))
            (match-exp (if (region-active-p)
                           (buffer-substring (region-beginning) (region-end))
