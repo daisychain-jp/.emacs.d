@@ -37,6 +37,17 @@
                deadline-up
                todo-state-up
                priority-down))))
+          ("L" "Log entries in a day"
+           agenda ""
+           ((org-agenda-span 'day)
+            (org-agenda-start-with-log-mode t)
+            (org-agenda-include-inactive-timestamps t)
+            (org-agenda-include-diary t)
+            (org-agenda-sorting-strategy
+             '(time-up
+               deadline-up
+               todo-state-up
+               priority-down))))
           ("o" "Outlook in next one month"
            ((agenda ""))
            ((org-agenda-category-filter-preset '("-Shared"))
