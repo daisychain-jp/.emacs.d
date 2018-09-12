@@ -16,7 +16,7 @@
   (mail-user-agent 'mu4e-user-agent)
   (auth-sources `(,(expand-file-name "authinfo.gpg" env-emacs-data-dir)))
   (auth-source-gpg-encrypt-to '("t.inamori@daisychain.jp"))
-  (mu4e-get-mail-command "mbsync --quiet daisychain gmail")
+  (mu4e-get-mail-command "mbsync --quiet daisychain gmail yahoo")
   (mu4e-hide-index-messages t)
   (mu4e-maildir "~/var/mail")
   (mu4e-mu-home "~/var/lib/mu")
@@ -116,7 +116,22 @@
                     (smtpmail-smtp-service        . 465)
                     (mu4e-compose-signature . (concat
                                                "稲守 孝之 (INAMORI Takayuki)\n"
-                                               "takayuki.inamori@gmail.com\n")))))))
+                                               "takayuki.inamori@gmail.com\n"))))
+          ,(make-mu4e-context
+            :name "Yahoo"
+            :enter-func (lambda () (mu4e-message "Entering Yahoo context"))
+            :leave-func (lambda () (mu4e-message "Leaving Yahoo context"))
+            :match-func (lambda (msg)
+                          (when msg
+                            (string-match-p "^/yahoo" (mu4e-message-field msg :maildir))))
+            :vars '((user-mail-address            . "tinamo@yahoo.co.jp")
+                    (mu4e-drafts-folder           . "/yahoo/Draft")
+                    (mu4e-trash-folder            . "/yahoo/Bulk Mail")
+                    (smtpmail-local-domain        . "yahoo.co.jp")
+                    (smtpmail-smtp-user           . "tinamo@yahoo.co.jp")
+                    (smtpmail-smtp-server         . "smtp.mail.yahoo.co.jp")
+                    (smtpmail-stream-type         . ssl)
+                    (smtpmail-smtp-service        . 465))))))
 
 (use-package mu4e-alert
   :straight t
