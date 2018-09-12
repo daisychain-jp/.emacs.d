@@ -12,7 +12,7 @@
 ;; term (ansi-term)
 (use-package term
   :delight
-  (term-mode " TM")
+  (term-mode " TR")
   :config
   (bind-keys :map term-mode-hook
              ("C-j" . term-send-input))
