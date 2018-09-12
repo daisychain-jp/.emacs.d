@@ -77,12 +77,6 @@
 (setq skk-server-host "localhost")
 (setq skk-server-portnum nil)
 
-;; copy user jisyo data from master
-(add-hook 'skk-load-hook
-          (lambda ()
-            (copy-file (concat skk-priv-jisyo-dir "/skk-jisyo.euc-jp")
-                       (concat skk-priv-jisyo-dir "/skk-jisyo-ddskk.euc-jp") t)))
-
 ;; variable definition
 (setq skk-get-jisyo-directory
       (concat skk-data-dir "/get-jisyo"))
@@ -108,3 +102,6 @@
 ;; jisyo settings
 (setq skk-share-private-jisyo t)
 (setq skk-save-jisyo-instantly t)
+(add-hook 'skk-load-hook
+          (lambda ()
+            (run-at-time 300 300 #'skk-reread-private-jisyo t)))
