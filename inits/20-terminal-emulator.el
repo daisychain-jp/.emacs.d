@@ -31,7 +31,9 @@
        (format "[%s]\n%s"
                (eshell/basename (eshell/pwd))
                (if (= (user-uid) 0) "# " "$ "))))
-  (eshell-prompt-regexp "[#$] "))
+  (eshell-prompt-regexp "[#$] ")
+  :config
+  (setq eshell-path-env (getenv "PATH")))
 
 (bind-keys :map completion-list-mode-map
            ("C-j" . choose-completion))
