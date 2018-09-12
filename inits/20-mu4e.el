@@ -125,8 +125,9 @@
                           (when msg
                             (string-match-p "^/yahoo" (mu4e-message-field msg :maildir))))
             :vars '((user-mail-address            . "tinamo@yahoo.co.jp")
+                    (mu4e-sent-folder             . "/gmail/Sent")
                     (mu4e-drafts-folder           . "/yahoo/Draft")
-                    (mu4e-trash-folder            . "/yahoo/Bulk Mail")
+                    (mu4e-trash-folder            . "/yahoo/Trash")
                     (smtpmail-local-domain        . "yahoo.co.jp")
                     (smtpmail-smtp-user           . "tinamo@yahoo.co.jp")
                     (smtpmail-smtp-server         . "smtp.mail.yahoo.co.jp")
