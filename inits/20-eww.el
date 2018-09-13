@@ -23,7 +23,7 @@
   (setq eww-header-line-format nil))
 
 (defun eww-lazy-control ()
-  "Lazy move in EWW."
+  "Lazy control in EWW."
   (interactive)
   (setq-local hlc/beginning-func 'eww-goto-top)
   (setq-local hlc/forward-paragraph-func
