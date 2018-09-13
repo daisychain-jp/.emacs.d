@@ -131,8 +131,9 @@
   (defhydra hydra-launcher (global-map "C-M-j"
                                        :color blue)
     "Launch"
-    ("t" ansi-term)
-    ("s" shell)
+    ("s t" ansi-term)
+    ("s s" shell)
+    ("s e" eshell)
     ("d" dired-jump)
     ("@" twit)
     ("g" magit-status)
@@ -144,7 +145,6 @@
     ("o" org-scratch)
     ("p" persp-mode)
     ("q" quickrun)
-    ("!" eshell)
     ("C-g" nil "cancel"))
   (defvar hlc/beginning-func nil "")
   (defvar hlc/end-func nil "")

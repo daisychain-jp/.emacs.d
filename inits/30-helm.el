@@ -6,7 +6,7 @@
          ("C-M-;"   . helm-for-files)
          ("M-x"     . helm-M-x)
          ("C-x C-f" . helm-find-files)
-         ("C-c C-b" . helm-bookmarks)
+         ("C-c b"   . helm-bookmarks)
          ("M-y"     . helm-show-kill-ring)
          ("C-M-SPC" . helm-all-mark-rings)
          ("C-c i"   . helm-imenu)
