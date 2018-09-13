@@ -24,6 +24,7 @@
     ("a" lookup-amazon "amazon.co.jp")
     ("d" lookup-duckduckgo "duckduckgo")
     ("e" lookup-eijiro "eijiro")
+    ("l" lookup-weblio "weblio")
     ("y" lookup-youtube "youtube")
     ("q" nil "quit")))
 
@@ -43,6 +44,7 @@
 (defun lookup-wikipedia-en () "Lookup on wikipedia(en)." (interactive) (lookup-word-on-internet "http://en.wikipedia.org/wiki/word02051"))
 (defun lookup-wikipedia-ja () "Lookup on wikipedia(ja)." (interactive) (lookup-word-on-internet "http://ja.wikipedia.org/wiki/word02051"))
 (defun lookup-amazon ()       "Lookup on amazon." (interactive) (lookup-word-on-internet "http://www.amazon.co.jp/gp/search/?field-keywords=word02051"))
-(defun lookup-youtube ()      "Lookup on youtube." (interactive) (lookup-word-on-internet "https://www.youtube.com/results?search_query=word02051"))
 (defun lookup-duckduckgo ()   "Lookup on dockduckgo." (interactive) (lookup-word-on-internet "https://duckduckgo.com/html/?kl=jp-jp&k1=-1&kc=1&kf=-1&q=word02051"))
 (defun lookup-eijiro ()       "Lookup on eijiro." (interactive) (lookup-word-on-internet "http://eow.alc.co.jp/search?q=word02051&ref=sa"))
+(defun lookup-weblio ()       "Lookup on weblio." (interactive) (lookup-word-on-internet "http://www.weblio.jp/content/word02051"))
+(defun lookup-youtube ()      "Lookup on youtube." (interactive) (lookup-word-on-internet "https://www.youtube.com/results?search_query=word02051"))
