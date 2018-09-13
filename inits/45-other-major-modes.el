@@ -1,5 +1,6 @@
 (require 'generic-x)
 (delight 'default-generic-mode " GE")
+(delight 'alias-generic-mode " GE")
 
 (delight 'fundamental-mode " FU")
 
