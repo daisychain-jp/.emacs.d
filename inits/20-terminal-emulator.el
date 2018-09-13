@@ -35,6 +35,13 @@
   :config
   (setq eshell-path-env (getenv "PATH")))
 
+(use-package tramp
+  :defer t
+  :config
+  (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
+  (add-to-list 'tramp-remote-path "~/bin")
+  (add-to-list 'tramp-remote-path "~/usr/bin"))
+
 (bind-keys :map completion-list-mode-map
            ("C-j" . choose-completion))
 (delight 'completion-list-mode " CL")
