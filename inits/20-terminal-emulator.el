@@ -32,6 +32,7 @@
                (eshell/basename (eshell/pwd))
                (if (= (user-uid) 0) "# " "$ "))))
   (eshell-prompt-regexp "[#$] ")
+  (eshell-aliases-file (format "%s/eshell-alias" env-emacs-data-dir))
   :config
   (setq eshell-path-env (getenv "PATH")))
 
