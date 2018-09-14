@@ -131,9 +131,9 @@
   (defhydra hydra-launcher (global-map "C-M-j"
                                        :color blue)
     "Launch"
-    ("s t" ansi-term)
-    ("s s" shell)
-    ("s e" eshell)
+    ("t t" ansi-term)
+    ("t s" shell)
+    ("!" eshell)
     ("d" dired-jump)
     ("@" twit)
     ("g" magit-status)
