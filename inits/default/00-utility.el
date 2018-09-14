@@ -123,12 +123,16 @@ With numeric prefix arg DEC, decrement the number by DEC amount."
   "Adjust original font size to fit in display."
   `(truncate (* ,original (/ (x-display-pixel-width) ,utl-x-display-default-pixel-width))))
 
-(defun open-jtalk-say ()
+(defun utl-say ()
   "read out using open-jtalk"
   (interactive)
   (let* ((read-text-raw (buffer-substring (region-beginning) (region-end)))
-         (read-text (replace-regexp-in-string "[ \t\r\n\v\f]+" "" read-text-raw)))
-    (call-process-shell-command (format "jsay %s &" read-text))))
+         (read-text (replace-regexp-in-string "[ \t\r\n\v\f]+" "" read-text-raw))
+         (say-cmd (if (string-match
+                       (format "\\`[%s]+\\'" "[:ascii:]’“”–")
+                       read-text)
+                      "esay" "jsay")))
+    (call-process-shell-command (format "echo %s | %s &" read-text say-cmd))))
 
 (defmacro add-to-hook-delay (hook body)
   `(add-hook ,hook

@@ -34,7 +34,7 @@
               ("C-l y" . lookup-youtube)
               ("C-l d" . lookup-duckduckgo)
               ("C-l e" . lookup-eijiro)
-              ("C-j" . open-jtalk-say)
+              ("C-'" . utl-say)
               ("C-=" . count-words-region)
               ("C-m" . org-tags-view-archive)
               ("C-g" . selected-off)))
