@@ -5,3 +5,4 @@
             (eldoc-mode 0)))
 (delight 'emacs-lisp-mode       " EL")
 (delight 'lisp-interaction-mode " LI")
+(diminish 'eldoc-mode)

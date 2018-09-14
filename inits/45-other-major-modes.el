@@ -2,6 +2,8 @@
 (delight 'default-generic-mode " GE")
 (delight 'alias-generic-mode " GE")
 
+(delight 'conf-unix-mode " CF")
+
 (delight 'fundamental-mode " FU")
 
 (use-package help-mode
