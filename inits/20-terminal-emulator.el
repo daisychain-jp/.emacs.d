@@ -22,9 +22,11 @@
 
 (use-package eshell
   :delight " ES"
-  :hook (eshell-mode . (lambda ()
-                         (bind-keys :map eshell-mode-map
-                                    ("C-j" . eshell-send-input))))
+  :hook
+  (eshell-mode . (lambda ()
+                   (bind-keys :map eshell-mode-map
+                              ("C-j" . eshell-send-input))))
+  (eshell-kill . eshell-command-alert)
   :custom
   (eshell-prompt-function
    #'(lambda ()
@@ -35,6 +37,22 @@
   (eshell-aliases-file (format "%s/eshell-alias" env-emacs-data-dir))
   :config
   (setq eshell-path-env (getenv "PATH")))
+
+(defun eshell-command-alert (process status)
+  "Send `alert' with severity based on STATUS when PROCESS finished."
+  (let* ((cmd (process-command process))
+         (buffer (process-buffer process))
+         (msg (format "%s: %s" (mapconcat 'identity cmd " ")  status)))
+    (if (string-prefix-p "finished" status)
+        (alert msg :buffer buffer :severity  'normal)
+      (alert msg :buffer buffer :severity 'urgent))))
+
+(use-package alert
+  :straight t
+  :config
+  (alert-add-rule :status '(buried)
+                  :mode   'eshell-mode
+                  :style  'fringe))
 
 (use-package tramp
   :defer t
