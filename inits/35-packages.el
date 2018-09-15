@@ -34,6 +34,7 @@
               ("C-l y" . lookup-youtube)
               ("C-l d" . lookup-duckduckgo)
               ("C-l e" . lookup-eijiro)
+              ("C-l l" . lookup-weblio)
               ("C-'" . utl-say)
               ("C-=" . count-words-region)
               ("C-m" . org-tags-view-archive)
