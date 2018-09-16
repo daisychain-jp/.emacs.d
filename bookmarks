@@ -1,0 +1,50 @@
+;;;; Emacs Bookmark Format Version 1 ;;;; -*- coding: utf-8 -*- 
+;;; This format is meant to be slightly human-readable;
+;;; nevertheless, you probably don't want to edit it.
+;;; -*- End Of Bookmark File Format Version Stamp -*-
+(("work@mnt"
+ (filename . "~/mnt/svr01/work/")
+ (front-context-string . ".tramp_history\n ")
+ (rear-context-string . "36  3月 17  2017 ")
+ (position . 179))
+("work"
+ (filename . "~/work/")
+ (front-context-string)
+ (rear-context-string . "96  9月 13 10:01 ")
+ (position . 193))
+("woo"
+ (filename . "~/.emacs.d/inits/20-terminal-emulator.el")
+ (front-context-string . "\n(use-package tr")
+ (rear-context-string . "nv \"PATH\"))\n  )\n")
+ (position . 1022))
+("work@svr01"
+ (filename . "/scp:t.inamori@svr01:/home/t.inamori/work/")
+ (front-context-string . "20170501_mediaut")
+ (rear-context-string . "96 Dec 12  2017 ")
+ (position . 212))
+("dotfiles.git"
+ (filename . "~/git/dotfiles/")
+ (front-context-string . ".git\n  -rw-r--r-")
+ (rear-context-string . "96  8月 23 19:24 ")
+ (position . 198))
+("org-refile-last-stored"
+ (filename . "~/org/priv_a/life.org")
+ (front-context-string . "*** DONE try ale")
+ (rear-context-string . "使ってみて今後どうするか決める\n")
+ (position . 2352))
+("emacs.d.git"
+ (filename . "~/.emacs.d/")
+ (front-context-string . "  /home/tinamori")
+ (rear-context-string)
+ (position . 1))
+("t.inamori@svr01"
+ (filename . "/scp:t.inamori@svr01:/home/t.inamori/")
+ (front-context-string . ".anyenv\n  lrwxrw")
+ (rear-context-string . "96 Aug 30  2016 ")
+ (position . 211))
+("root@svr01"
+ (filename . "/ssh:root@svr01.daisychain.jp:/")
+ (front-context-string . "bin\n  drwxr-xr-x")
+ (rear-context-string . "96 Nov  2 16:00 ")
+ (position . 191))
+)
