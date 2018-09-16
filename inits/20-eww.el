@@ -18,8 +18,6 @@
   (bind-keys :map eww-mode-map
              ("C-M-m" . eww-lazy-control))
   (add-hook 'eww-mode-hook #'xah-rename-eww-hook)
-  (setq eww-bookmarks-directory (concat env-emacs-data-dir "/eww-bookmarks"))
-  (setq eww-download-directory (concat env-var-dir "/lib/eww/downloads"))
   (setq eww-header-line-format nil))
 
 (defun eww-lazy-control ()
