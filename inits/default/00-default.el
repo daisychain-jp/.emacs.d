@@ -9,6 +9,7 @@
 (setq-default save-place t)
 (setq save-place-file
       (concat user-emacs-directory "places"))
+(add-hook 'before-save-hook #'delete-trailing-whitespace)
 
 ;; string
 (setq text-quoting-style 'straight) ; avoid curved quote in docstring (emacs25)
