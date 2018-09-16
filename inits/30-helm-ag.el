@@ -4,7 +4,8 @@
               ("C-/" . helm-ag-pop-stack))
   :custom
   ;; use current symbol as query
-  (helm-ag-insert-at-point 'symbol))
+  (helm-ag-insert-at-point 'symbol)
+  (helm-ag-command-option "--hidden"))
 
 (defun helm-do-ag-current-dir ()
   "Search in current directory with ag."
