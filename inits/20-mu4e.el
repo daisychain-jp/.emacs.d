@@ -144,7 +144,9 @@
     " OR"
     " flag:unread AND NOT flag:trashed AND maildir:/daisychain/check"
     " OR"
-    " flag:unread AND NOT flag:trashed AND maildir:/gmail/Inbox"))
+    " flag:unread AND NOT flag:trashed AND maildir:/gmail/Inbox"
+    " OR"
+    " flag:unread AND NOT flag:trashed AND maildir:/yahoo/Inbox"))
   (mu4e-alert-modeline-formatter
    (lambda (count)
      (if (> count 0)
