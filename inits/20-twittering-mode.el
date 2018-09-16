@@ -3,8 +3,6 @@
   :delight " TW"
   :after (hydra)
   :custom
-  (twittering-private-info-file
-   (format "%s/twittering-mode.gpg" env-emacs-data-dir))
   (twittering-use-master-password t)
   (twittering-use-ssl t)
   (twittering-number-of-tweets-on-retrieval 50)

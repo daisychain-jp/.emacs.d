@@ -14,7 +14,6 @@
   :custom
   (mu4e-mu-binary env-mu4e-mu-binary)
   (mail-user-agent 'mu4e-user-agent)
-  (auth-sources `(,(expand-file-name "authinfo.gpg" env-emacs-data-dir)))
   (auth-source-gpg-encrypt-to '("t.inamori@daisychain.jp"))
   (mu4e-get-mail-command "mbsync --quiet daisychain gmail yahoo")
   (mu4e-hide-index-messages t)
