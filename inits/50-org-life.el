@@ -241,7 +241,7 @@ If region is active, use the word in region for matching instead."
             "DONE")))
 
   ;; clock-timer collaboration for fixed time tasks
-  (setq gtd-finish-sound (concat env-emacs-data-dir "/resource/levelup.mp3"))
+  (setq gtd-finish-sound (concat env-var-dir "/music/levelup.mp3"))
   (add-hook 'org-clock-in-hook
             (lambda ()
               (let ((tl (org-entry-get-multivalued-property (point) "TIMELIMIT"))

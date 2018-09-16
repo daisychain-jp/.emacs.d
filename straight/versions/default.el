@@ -55,7 +55,6 @@
  ("popup-el" . "80829dd46381754639fb764da11c67235fe63282")
  ("projectile" . "a4b447d980b10cbb8d175d64e4305b4504c03d83")
  ("rainbow-mode" . "8059f1cb756d2b211af962f07c5e6aff958094d7")
- ("recentf-ext" . "450de5f8544ed6414e88d4924d7daa5caa55b7fe")
  ("redo-plus" . "1fff40b67aeab1cedcc89c98a7d92a5b5db6f7ae")
  ("restart-emacs" . "9aa90d3df9e08bc420e1c9845ee3ff568e911bd9")
  ("s.el" . "03410e6a7a2b11e47e1fea3b7d9899c7df26435e")

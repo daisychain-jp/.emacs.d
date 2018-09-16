@@ -3,4 +3,4 @@
   :bind ("s-j" . open-junk-file)
   :config
   (setq open-junk-file-format
-        (concat env-emacs-data-dir "/junk/%Y/%m/j-%d-%H%M.")))
+        (concat env-var-dir "/lib/junk/%Y/%m/j-%d-%H%M.")))
