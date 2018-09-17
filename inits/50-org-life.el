@@ -151,26 +151,32 @@
             (org-agenda-todo-ignore-deadlines 'far)))))
 
   (defvar auto-org-capture-file (make-temp-file "auto-org-capture" nil ".org"))
-  (defvar org-capture-todo-file (concat env-doc-dir "/inbox/task_a.org"))
+  (defvar org-capture-todo-file (concat env-doc-dir "/priv_a/life.org"))
   (defvar org-capture-memo-file (concat env-doc-dir "/archive/2018_archive.org"))
   (setq org-capture-templates
-        `(("l" "item to currently clocked entry"
-           item (clock) "- %i")
-          ("p" "project"
-           entry (id "7c1d198f-3faa-467f-a70e-c578443b5a2e")
-           "* %?\n  %U" :prepend t :jump-to-captured t)
-          ("d" "diary"
+        `(("t" "Task"
+           entry (id "e6ee5322-dfb3-407b-846f-87a6ddd4705c")
+           "* TODO %?\n  ADDED: %U\n":prepend t)
+          ("p" "Project"
+           entry (id "adcd63ea-f81a-4909-b659-6e5794052fcc")
+           "* %?\n  ADDED: %U" :jump-to-captured t)
+          ("m" "Memo"
            entry (file+datetree ,org-capture-memo-file)
-           "* %<%Y-%m-%d %a> :m_diary:\n  %U\n%?" :prepend t :tree-type week)
+           "* %?\n  %U\n" :prepend t :tree-type week)
+          ("d" "Diary"
+           entry (file+datetree ,org-capture-memo-file)
+           "* Diary :m_diary:\n  %U\n%?" :prepend t :tree-type week)
+          ("l" "item to currently clocked entry"
+           item (clock) "- %i" :unnarrowed t)
+          ;; for auto refiling
           ("r" "note from region"
            entry (file+datetree ,org-capture-memo-file)
            "* %i\n  %U\n" :immediate-finish t :prepend t :tree-type week)
-          ;; for auto refiling
-          ("0" "input"
+          ("0" "note"
            entry (file ,auto-org-capture-file)
-           "* %?\n  %U")
+           "* %?\n  ADDED: %U")
           ("i" "TODO for auto refiling"
-           entry (file+headline ,org-capture-todo-file "Inbox")
+           entry (id "e6ee5322-dfb3-407b-846f-87a6ddd4705c")
            "%i" :immediate-finish t :prepend t)
           ("n" "memo for auto refiling"
            entry (file+datetree ,org-capture-memo-file)
@@ -198,12 +204,16 @@
           (delete-file auto-org-capture-file)))))
   (add-hook 'org-capture-mode-hook
             (lambda ()
-              (skk-mode 1)))
+              (skk-mode 1)
+              (delete-other-windows)))
+  (add-hook 'org-capture-prepare-finalize-hook
+            (lambda ()
+              (unless (string-suffix-p "\n" (buffer-string))
+                (goto-char (point-max))
+                (insert "\n"))))
   (add-hook 'org-capture-after-finalize-hook 'auto-org-capture-auto-refile)
-  (bind-keys ("C-c c" . auto-org-capture))
+  (bind-keys ("C-c C" . auto-org-capture))
 
-  (setq org-note-files
-        (file-expand-wildcards (concat env-doc-dir "/inbox/*.org")))
   (setq org-refile-targets
         `((org-agenda-files :regexp . "Projects\\|Tasks")
           (org-agenda-files :level . 2)
