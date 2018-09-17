@@ -95,3 +95,20 @@ With prefix ARG, this command searches japanese source."
     :coerce #'intern-soft
     :action #'command-execute)
   "Emacs commands history")
+
+(use-package run-assoc
+  :straight t
+  :after (helm)
+  :config
+  (setq associated-program-alist
+        '(("mpv" "\\.\\(?:m4a\\|mp3\\)$")))
+  (advice-add 'helm-execute-selection-action :around #'helm-find-files-maybe-run-assoc))
+
+(defun helm-find-files-maybe-run-assoc (orig-fun &rest args)
+  (let ((sel (helm-get-selection)))
+    ;; NB, we only want to do this action if we're looking at the *helm find files* buffer
+    (if (and (string-match-p "\\*helm find.*\\*" helm-buffer)
+             (string-match (mapconcat (lambda (x) (second x)) associated-program-alist "\\|")
+                           (helm-get-selection)))
+        (run-associated-program sel)
+      (apply orig-fun args))))
