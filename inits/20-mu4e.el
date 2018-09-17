@@ -39,6 +39,7 @@
   (mu4e-headers-advance-after-mark t)
   (mu4e-change-filenames-when-moving t)
   (mu4e-view-show-images t)
+  (mu4e-html2text-command "pandoc -f html -t plain")
   :config
   (add-hook 'mu4e-headers-mode-hook
             (lambda ()
