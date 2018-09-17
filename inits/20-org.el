@@ -291,6 +291,7 @@ If 'ARG' is passed, shred afile instead delete."
   ;; export
   (setq org-export-with-sub-superscripts nil)
   (setq org-comment-string "####")
+  (setq org-export-dispatch-use-expert-ui t)
 
   ;; org-babel
   (org-babel-do-load-languages
@@ -343,9 +344,10 @@ The sparse tree is according to tags string MATCH."
   (org-copy-subtree)
   (let* ((id (org-id-get))
          (uuid (downcase (if id id (org-id-uuid))))
-         (file (format "~/var/lib/readable/%s.html" uuid)))
-    (call-process-shell-command (format "echo %s | pandoc -f org+hard_line_breaks+east_asian_line_breaks -t html -o %s" (shell-quote-argument org-subtree-clip) file))
-    (eww-open-file file)))
+         (read-file (format "~/var/lib/readable/%s.html" uuid))
+         (export-file (org-html-export-to-html nil t)))
+    (rename-file export-file read-file t)
+    (eww-open-file read-file)))
 
 (defun org-entry-kill-property ()
   "Append property value to the kill ring by selecting key."
