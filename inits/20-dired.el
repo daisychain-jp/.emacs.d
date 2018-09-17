@@ -18,4 +18,5 @@
             (lambda ()
               (buffer-face-set 'selecting)
               (dired-hide-details-mode t)
-              (setq truncate-lines t))))
+              (setq truncate-lines t)
+              (whitespace-mode 1))))
