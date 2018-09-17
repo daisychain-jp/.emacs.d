@@ -8,7 +8,7 @@
   :mode (("\\.org$" . org-mode))
   :interpreter (("org" . org-mode))
   :bind (("C-c a" . org-agenda)
-         ("C-c C" . org-capture)
+         ("C-c c" . org-capture)
          ("C-c j" . org-clock-goto)
          ("C-c s" . org-store-link)
          ("M-s o" . helm-org-rifle-org-directory))
@@ -166,7 +166,8 @@ If 'ARG' is passed, shred afile instead delete."
               (whitespace-mode 1)
               (buffer-face-set 'outline)
               (setq-local line-spacing 0.1)
-              (smart-newline-mode 1)))
+              (smart-newline-mode 1)
+              (reveal-mode 1)))
   (add-hook 'org-agenda-mode-hook
             (lambda ()
               (buffer-face-set 'outline)
