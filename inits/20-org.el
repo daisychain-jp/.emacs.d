@@ -172,7 +172,8 @@ If 'ARG' is passed, shred afile instead delete."
   (add-hook 'org-agenda-mode-hook
             (lambda ()
               (buffer-face-set 'outline)
-              (setq-local line-spacing 0.1)))
+              (setq-local line-spacing 0.1)
+              (org-agenda-to-appt)))
   (setq org-hide-leading-stars t)
   (setq org-pretty-entities t)
   (setq org-use-sub-superscripts '{}) ; use _{}/^{} for sub/super script
