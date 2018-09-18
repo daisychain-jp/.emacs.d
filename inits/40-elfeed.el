@@ -19,13 +19,14 @@
      (interactive)
      (buffer-face-set 'visible)
      (setq-local line-spacing 0.1)))
+  (elfeed-sort-order 'ascending)
   :config
-  (defalias 'elfeed-search-tag-all-unchecked
-    (elfeed-expose #'elfeed-search-tag-all 'unchecked)
-    "Add the `unchecked' tag to all selected entries.")
-  (defalias 'elfeed-search-untag-all-unchecked
-    (elfeed-expose #'elfeed-search-untag-all 'unchecked)
-    "Remove the `unchecked' tag from all selected entries.")
+  (defalias 'elfeed-search-tag-all-check
+    (elfeed-expose #'elfeed-search-tag-all 'check)
+    "Add the `check' tag to all selected entries.")
+  (defalias 'elfeed-search-untag-all-check
+    (elfeed-expose #'elfeed-search-untag-all 'check)
+    "Remove the `check' tag from all selected entries.")
   (defalias 'elfeed-search-tag-all-checked
     (elfeed-expose #'elfeed-search-tag-all 'checked)
     "Add the `checked' tag to all selected entries.")
@@ -38,28 +39,21 @@
              ("e" . scroll-down-line)
              ("q" . quit-window)
              ("Q" . elfeed-kill-buffer)
-             ("c" . (lambda () (interactive)
-                      (elfeed-search-untag-all-unread)
-                      (unless (use-region-p) (forward-line -1))
-                      (elfeed-search-tag-all-unchecked)))
+             ("c" . elfeed-search-tag-all-check)
              ("C" . elfeed-search-untag-all-unchecked)
-             ("d" . (lambda () (interactive)
+             ("r" . (lambda () (interactive)
                       (elfeed-search-untag-all-unread)
                       (unless (use-region-p) (forward-line -1))
-                      (elfeed-search-untag-all-unchecked)
+                      (elfeed-search-untag-all-check)
                       (unless (use-region-p) (forward-line -1))
                       (elfeed-search-tag-all-checked)))
-             ("D" . elfeed-search-untag-all-checked))
-  (defface elfeed-search-unchecked-title-face
+             ("R" . elfeed-search-untag-all-checked)
+             ("d" . elfeed-search-untag-all-unread))
+  (defface elfeed-search-check-title-face
     '((t :weight bold))
-    "Face used in search mode for unchecked entry titles."
+    "Face used in search mode for check entry titles."
     :group 'elfeed)
-  (add-to-list 'elfeed-search-face-alist '(unchecked elfeed-search-unchecked-title-face))
-  (defface elfeed-search-checked-title-face
-    '((t :weight bold))
-    "Face used in search mode for checked entry titles."
-    :group 'elfeed)
-  (add-to-list 'elfeed-search-face-alist '(checked elfeed-search-checked-title-face)))
+  (add-to-list 'elfeed-search-face-alist '(check elfeed-search-check-title-face)))
 
 (use-package elfeed-org
   :straight t

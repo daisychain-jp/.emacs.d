@@ -123,7 +123,7 @@
    '(mode-line-buffer-id ((t (:foreground nil :background nil))))
    '(mode-line-inactive ((t (:foreground "#BCBCBC" :background "#333333"
                                          :box (:line-width 1 :color "#333333")))))
-   ; defined in local
+   ;; defined in local
    `(mode-line-modified ((,class (:foreground ,onyx-orange))))
    `(mode-line-read-only ((,class (:foreground nil :underline t))))
    `(mode-line-read-only-modified ((,class (:inherit 'mode-line-read-only :foreground ,onyx-orange))))
@@ -272,8 +272,7 @@
    ;;; elfeed
    `(elfeed-search-title-face  ((,class (:foreground ,onyx-darkgray))))
    `(elfeed-search-unread-title-face  ((,class (:foreground ,onyx-white))))
-   `(elfeed-search-unchecked-title-face  ((,class (:foreground "yellow"))))
-   `(elfeed-search-checked-title-face  ((,class (:foreground "DarkGreen"))))
+   `(elfeed-search-check-title-face  ((,class (:foreground "yellow"))))
    )
 
    ;;; custom theme variables
