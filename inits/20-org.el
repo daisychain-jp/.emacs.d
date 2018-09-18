@@ -152,6 +152,7 @@ If 'ARG' is passed, shred afile instead delete."
           ("m" org-match-sparse-tree-indirect-buffer)
           ("z" org-narrow-to-element-indirect-buffer)
           ("!" org-readable)
+          ("S" org-send-mail)
           ("K" org-entry-kill-property)
           ("&" org-id-view-refs)
           ("N" org-add-note)
@@ -348,6 +349,20 @@ The sparse tree is according to tags string MATCH."
          (export-file (org-html-export-to-html nil t)))
     (rename-file export-file read-file t)
     (eww-open-file read-file)))
+
+(defun org-send-mail ()
+  "Send a mail of org contents."
+  (interactive)
+  (let ((heading (org-get-heading t t t t))
+        (org-export-show-temporary-export-buffer nil))
+    (org-ascii-export-as-ascii nil t t)
+    (let* ((export-string
+            (with-current-buffer "*Org ASCII Export*"
+              (buffer-string)))
+           (mail-string (format "To: tinamo@yahoo.co.jp\nFrom: t.inamori@daisychain.jp\nSubject: %s\n\n%s\n" heading export-string)))
+      (call-process-shell-command
+       (format "echo \"%s\" | msmtp -C ~/.msmtprc -a default tinamo@yahoo.co.jp" mail-string))
+      (kill-buffer "*Org ASCII Export*"))))
 
 (defun org-entry-kill-property ()
   "Append property value to the kill ring by selecting key."
