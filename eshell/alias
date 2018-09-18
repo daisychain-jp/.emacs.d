@@ -10,3 +10,5 @@ alias rmf rm -rf $*
 alias mkdir mkdir -pv $*
 alias ff find-file $1
 alias d dired $1
+alias mpv mpv --force-window $1
+alias e exit

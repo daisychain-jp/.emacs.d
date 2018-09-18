@@ -5,6 +5,7 @@
   :bind (("C-;"     . helm-mini)
          ("C-M-;"   . helm-for-files)
          ("M-x"     . helm-M-x)
+         ("C-c /"   . helm-find)
          ("C-x C-f" . helm-find-files)
          ("C-c b"   . helm-bookmarks)
          ("M-y"     . helm-show-kill-ring)
@@ -19,6 +20,7 @@
   (helm-mode-fuzzy-match t)
   (helm-locate-project-list
    (file-expand-wildcards (concat env-proj-dir "/*")))
+  (helm-findutils-search-full-path t)
   :config
   (setq helm-truncate-lines nil)
   (setq helm-split-window-default-side 'same)
@@ -101,7 +103,7 @@ With prefix ARG, this command searches japanese source."
   :after (helm)
   :config
   (setq associated-program-alist
-        '(("mpv" "\\.\\(?:m4a\\|mp3\\)$")))
+        '(("mpv" "\\.\\(?:m4a\\|mp3\\|m3u\\)$")))
   (advice-add 'helm-execute-selection-action :around #'helm-find-files-maybe-run-assoc))
 
 (defun helm-find-files-maybe-run-assoc (orig-fun &rest args)
