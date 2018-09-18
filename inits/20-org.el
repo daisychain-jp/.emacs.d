@@ -173,7 +173,7 @@ If 'ARG' is passed, shred afile instead delete."
             (lambda ()
               (buffer-face-set 'outline)
               (setq-local line-spacing 0.1)
-              (org-agenda-to-appt)))
+              (org-agenda-to-appt t '((category "appt")))))
   (setq org-hide-leading-stars t)
   (setq org-pretty-entities t)
   (setq org-use-sub-superscripts '{}) ; use _{}/^{} for sub/super script
