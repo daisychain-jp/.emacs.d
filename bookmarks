@@ -2,16 +2,16 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("music@mnt"
- (filename . "~/mnt/svr01/music/")
+(("media"
+ (filename . "~/mnt/svr01/media/")
+ (front-context-string . "DVD\n  drwxr-xr-x")
+ (rear-context-string . "96  1月 20  2017 ")
+ (position . 180))
+("music"
+ (filename . "~/mnt/svr01/media/music/")
  (front-context-string . "AOKI Takamasa\n  ")
  (rear-context-string . "96 12月  1  2015 ")
  (position . 184))
-("music"
- (filename . "/scp:t.inamori@svr01:/home/t.inamori/share/music/")
- (front-context-string . "くるり\n  drwx------")
- (rear-context-string . "96 Dec  1  2015 ")
- (position . 226))
 ("work@mnt"
  (filename . "~/mnt/svr01/work/")
  (front-context-string . ".tramp_history\n ")
@@ -39,9 +39,9 @@
  (position . 198))
 ("org-refile-last-stored"
  (filename . "~/org/priv_a/life.org")
- (front-context-string . "*** TODO 自分へのメール")
- (rear-context-string . "d4705c\n   :END:\n")
- (position . 309))
+ (front-context-string . "*** TODO afile と")
+ (rear-context-string . "  0:13\n   :END:\n")
+ (position . 22858))
 ("emacs.d.git"
  (filename . "~/.emacs.d/")
  (front-context-string . "  /home/tinamori")
