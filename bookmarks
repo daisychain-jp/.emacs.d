@@ -39,9 +39,9 @@
  (position . 198))
 ("org-refile-last-stored"
  (filename . "~/org/priv_a/life.org")
- (front-context-string . "*** TODO afile と")
- (rear-context-string . "  0:13\n   :END:\n")
- (position . 22858))
+ (front-context-string . "*** TODO org エント")
+ (rear-context-string . "d4705c\n   :END:\n")
+ (position . 309))
 ("emacs.d.git"
  (filename . "~/.emacs.d/")
  (front-context-string . "  /home/tinamori")
