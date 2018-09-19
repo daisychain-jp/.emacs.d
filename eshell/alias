@@ -8,6 +8,7 @@ alias mv mv -iv $1 $2
 alias rm rm -iv $*
 alias rmf rm -rf $*
 alias mkdir mkdir -pv $*
+alias mkcd mkdir -pv $* && cd $*
 alias ff find-file $1
 alias d dired $1
 alias mpv mpv --force-window $1
