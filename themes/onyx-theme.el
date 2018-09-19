@@ -272,7 +272,8 @@
    ;;; elfeed
    `(elfeed-search-title-face  ((,class (:foreground ,onyx-darkgray))))
    `(elfeed-search-unread-title-face  ((,class (:foreground ,onyx-white))))
-   `(elfeed-search-check-title-face  ((,class (:foreground "yellow"))))
+   `(elfeed-search-unchecked-title-face  ((,class (:foreground "yellow"))))
+   `(elfeed-search-checked-title-face  ((,class (:foreground "dark green"))))
    )
 
    ;;; custom theme variables
