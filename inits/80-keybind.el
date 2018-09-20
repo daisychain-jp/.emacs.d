@@ -27,7 +27,6 @@
            ("M-s g ~" . helm-do-ag-home)
            ("M-s g f" . helm-do-ag-this-file)
            ("M-s g b" . helm-do-ag-buffers)
-           ("M-s g o" . helm-do-ag-org)
            ("M-s d f" . find-dired)
            ("M-s d g" . find-grep-dired)
            ("M-s d n" . find-name-dired)

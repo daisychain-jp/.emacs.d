@@ -1,5 +1,4 @@
 (el-get-bundle org-mode)
-(el-get-bundle helm-org-rifle)
 (use-package org
   :delight
   (org-mode         " OG")
@@ -10,8 +9,9 @@
   :bind (("C-c a" . org-agenda)
          ("C-c c" . org-capture)
          ("C-c j" . org-clock-goto)
-         ("C-c s" . org-store-link)
-         ("M-s o" . helm-org-rifle-org-directory))
+         ("C-c s" . org-store-link))
+  :custom
+  (org-directory env-doc-dir)
   :config
   (require 'org-agenda)
   (require 'org-capture)
@@ -21,7 +21,6 @@
   (require 'org-mew)
   (require 'org-mu4e)
   (require 'org-drill)
-  (require 'helm-org-rifle)
 
   ;; local key bindings
   (bind-keys :map org-mode-map
@@ -322,6 +321,11 @@ If 'ARG' is passed, shred afile instead delete."
   (run-at-time 10 300 'org-save-all-org-buffers)
 
   (with-eval-after-load "50-org-life.el" (org-life)))
+
+(use-package helm-org-rifle
+  :straight t
+  :bind (("M-s g o" . helm-org-rifle-org-directory))
+  :after (org helm))
 
 (defun org-sparse-tree-indirect-buffer (&optional arg type)
   "Create a sparse tree, prompt for the details.
