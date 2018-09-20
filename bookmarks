@@ -2,13 +2,13 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("media"
- (filename . "~/mnt/svr01/media/")
- (front-context-string . "DVD\n  drwxr-xr-x")
- (rear-context-string . "96  1月 20  2017 ")
- (position . 180))
+(("movie"
+ (filename . "~/mnt/svr01/afile/movie/")
+ (front-context-string . "  -rw-r--r-- 1 1")
+ (rear-context-string . " 9月 20 00:13 ..\n")
+ (position . 160))
 ("music"
- (filename . "~/mnt/svr01/media/music/")
+ (filename . "~/mnt/svr01/afile/music/")
  (front-context-string . "AOKI Takamasa\n  ")
  (rear-context-string . "96 12月  1  2015 ")
  (position . 184))
@@ -22,11 +22,6 @@
  (front-context-string)
  (rear-context-string . "96  9月 13 10:01 ")
  (position . 193))
-("woo"
- (filename . "~/.emacs.d/inits/20-terminal-emulator.el")
- (front-context-string . "\n(use-package tr")
- (rear-context-string . "nv \"PATH\"))\n  )\n")
- (position . 1022))
 ("work@svr01"
  (filename . "/scp:t.inamori@svr01:/home/t.inamori/work/")
  (front-context-string . "20170501_mediaut")
