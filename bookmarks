@@ -2,7 +2,12 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("movie"
+(("book"
+ (filename . "~/mnt/svr01/afile/book/")
+ (front-context-string . ".\n  drwxr-xr-x 1")
+ (rear-context-string . "96  9月 21 00:59 ")
+ (position . 100))
+("movie"
  (filename . "~/mnt/svr01/afile/movie/")
  (front-context-string . "  -rw-r--r-- 1 1")
  (rear-context-string . " 9月 20 00:13 ..\n")
@@ -34,9 +39,9 @@
  (position . 198))
 ("org-refile-last-stored"
  (filename . "~/org/priv_a/life.org")
- (front-context-string . "*** TODO org エント")
- (rear-context-string . "d4705c\n   :END:\n")
- (position . 309))
+ (front-context-string . "*** TDAY SDカードの装")
+ (rear-context-string . "     :a_kaizen:\n")
+ (position . 5626))
 ("emacs.d.git"
  (filename . "~/.emacs.d/")
  (front-context-string . "  /home/tinamori")
