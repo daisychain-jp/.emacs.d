@@ -1,8 +1,10 @@
 (use-package smartparens
   :straight t
-  :diminish (smartparens-mode . "sp")
+  :diminish
+  ((smartparens-global-mode . "Sp")
+   (smartparens-mode . "sp"))
+  :hook (prog-mode . smartparens-mode)
   :config
-  (show-smartparens-global-mode 1)
   (bind-keys
    :map smartparens-mode-map
    ("C-M-f"       . sp-forward-sexp)
