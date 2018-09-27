@@ -37,6 +37,7 @@
              ("C-h" . delete-backward-char)
              ("C-j" . helm-maybe-exit-minibuffer)
              ("C-t" . helm-toggle-truncate-line)
+             ("C-d" . helm-descbinds)
              :map helm-find-files-map
              ("C-h" . delete-backward-char)
              ("TAB" . helm-execute-persistent-action)
