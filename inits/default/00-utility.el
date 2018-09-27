@@ -90,7 +90,6 @@ With numeric prefix arg DEC, decrement the number by DEC amount."
   (interactive)
   (yank)
   (indent-region (region-beginning) (region-end)))
-(global-set-key (kbd "C-y") 'yank-and-indent)
 
 (defun refresh-buffer-and-display ()
   "Revert buffer and redraw display in one command."

@@ -8,7 +8,7 @@
          ("C-c /"   . helm-find)
          ("C-x C-f" . helm-find-files)
          ("C-c b"   . helm-bookmarks)
-         ("M-y"     . helm-show-kill-ring)
+         ("C-M-y"   . helm-show-kill-ring)
          ("C-M-SPC" . helm-all-mark-rings)
          ("C-c i"   . helm-imenu)
          ("C-M-/"   . helm-resume)
