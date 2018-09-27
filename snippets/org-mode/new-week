@@ -3,6 +3,7 @@
 # key: nw
 # --
 ** `(format-time-string "%Y")`-W${1:week-number}
+#+CALL: insert_week_agenda(y=`(format-time-string "%Y")`, m=${2:month}, d=${3:day})
 *** Mission [/]
     - $0
     - Review
