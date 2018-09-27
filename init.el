@@ -45,13 +45,6 @@
     (goto-char (point-max))
     (eval-print-last-sexp)))
 
-;; install use-package
-(when (not (package-installed-p 'use-package))
-  (package-refresh-contents)
-  (package-install 'use-package))
-(eval-when-compile
-  (require 'use-package))
-
 ;; install straight.el
 (setq straight-recipes-gnu-elpa-use-mirror t)
 (let ((bootstrap-file
@@ -65,6 +58,8 @@
       (goto-char (point-max))
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
+
+;; install use-package via straight.el
 (straight-use-package 'use-package)
 
 ;; install dependency packages for use-package using straight.el
