@@ -121,7 +121,8 @@
            ((org-agenda-sorting-strategy
              '(todo-state-up priority-down deadline-up))))
           ("tD" "Done tasks which does not belong any project"
-           tags "-CATEGORY=\"Project\"+TODO={DONE\\|CXL\\|PEND}")
+           ((tags "-CATEGORY=\"Project\"+TODO={DONE\\|CXL\\|PEND}")
+            (tags "s_done")))
           ("te" "Easy tasks" tags-todo "t_easy")
           ("tc" "Commit tasks" tags-todo "t_commit")
           ("p" "Projects" tags "+CATEGORY={Project}+LEVEL=2")
@@ -166,6 +167,12 @@
           ("d" "Diary"
            entry (file+datetree ,org-capture-memo-file)
            "* Diary :m_diary:\n  %U\n%?" :prepend t :tree-type week)
+          ("r" "Read"
+           entry (id "2e3556fd-5390-4b49-b48e-a7cd692f7552")
+           "* %? :a_read:\n  ADDED: %U\n":prepend t)
+          ("c" "Cook"
+           entry (id "f39bcdad-64de-4e96-97c0-d620ef8f55b8")
+           "* %? :a_cook:\n  ADDED: %U\n":prepend t)
           ("l" "item to currently clocked entry"
            item (clock) "- %i" :unnarrowed t)
           ;; for auto refiling
