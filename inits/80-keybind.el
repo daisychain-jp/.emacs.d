@@ -8,6 +8,7 @@
 
 (bind-keys :map global-map
            ("C-h" . backward-delete-char-untabify)
+           ("C-y" . yank-and-indent)
            ("M-SPC" . cycle-spacing)
            ("M-k"   . kill-whole-line)
            ("C-x k" . kill-this-buffer)
