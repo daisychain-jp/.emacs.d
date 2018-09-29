@@ -83,7 +83,7 @@
      ("\\(?:pdf\\|epub\\)\\'" .
       (lambda (file-path link-string)
         (deferred:$
-          (deferred:process "orgafile" "convert" file-path)
+          (deferred:process "orgafile" "htmlize" file-path)
           (deferred:nextc it
             (lambda (conv-file)
               (when (s-ends-with-p "\.html" conv-file)

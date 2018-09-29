@@ -43,7 +43,7 @@ play that with media player."
    ((or (s-ends-with? ".pdf" url)
         (s-ends-with? ".epub" url))
     (deferred:$
-      (deferred:process "orgafile" "convert" url)
+      (deferred:process "orgafile" "htmlize" url)
       (deferred:nextc it
         (lambda (conv-file)
           (when (s-ends-with-p "\.html" conv-file)

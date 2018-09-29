@@ -1,5 +1,6 @@
 (use-package web-mode
   :straight t
+  :delight " WB"
   :mode (("\\.phtml$"     . web-mode)
          ("\\.tpl\\.php$" . web-mode)
          ("\\.jsp$"       . web-mode)
