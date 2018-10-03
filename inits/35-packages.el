@@ -9,6 +9,12 @@
 (use-package hideshow
   :diminish "hs")
 
+(use-package proced
+  :no-require t
+  :custom
+  (proced-auto-update-flag t)
+  (proced-auto-update-interval 3))
+
 ;; transpose mark
 (use-package transpose-mark
   :straight t)
