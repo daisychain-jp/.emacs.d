@@ -5,6 +5,7 @@
 (setq auto-save-timeout 10)
 (setq delete-auto-save-files t)
 (auto-compression-mode t)
+(custom-set-variables '(enable-remote-dir-locals t))
 (require 'saveplace)
 (setq-default save-place t)
 (setq save-place-file
