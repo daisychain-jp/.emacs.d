@@ -13,14 +13,7 @@
   :config
   (add-hook 'help-mode-hook
             (lambda ()
-              (buffer-face-set 'recognizable)
-              (adaptive-wrap-prefix-mode 1)
-              (if (string= (buffer-name) "*Help*")
-                  (progn
-                    (setq-local truncate-lines nil)
-                    (setq-local hlc/enter-func #'push-button)
-                    (hydra-lazy-control/body))
-                (setq-local truncate-lines t)))))
+              (buffer-face-set 'recognizable))))
 
 (add-hook 'Info-mode-hook
           (lambda ()

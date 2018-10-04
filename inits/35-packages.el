@@ -15,6 +15,20 @@
   (proced-auto-update-flag t)
   (proced-auto-update-interval 3))
 
+(use-package switch-buffer-functions
+  :straight t
+  :config
+  (add-hook 'switch-buffer-functions
+            (lambda (prev cur)
+              (when (string= (buffer-name cur) "*Help*")
+                (setq-local truncate-lines nil)
+                (setq-local hlc/enter-func #'push-button)
+                (hydra-lazy-control/body)
+                (adaptive-wrap-prefix-mode 1))
+              (when (string= (buffer-name cur) "*Google Translate*")
+                (setq-local truncate-lines t)
+                (hydra-lazy-control/body)))))
+
 ;; transpose mark
 (use-package transpose-mark
   :straight t)

@@ -30,6 +30,4 @@
     (google-translate-translate
      (if asciip "en" "ja")
      (if asciip "ja" "en")
-     string)
-    (view-mode 1)
-    ))
+     string)))
