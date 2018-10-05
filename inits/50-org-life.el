@@ -261,14 +261,12 @@ If region is active, use the word in region for matching instead."
   (setq gtd-finish-sound (concat env-var-dir "/music/levelup.mp3"))
   (add-hook 'org-clock-in-hook
             (lambda ()
-              (let ((tl (org-entry-get-multivalued-property (point) "TIMELIMIT"))
-                    (tl-m (org-entry-get-multivalued-property (point) "TIMELIMIT_MIN")))
-                (if tl
-                    (org-timer-set-timer (car tl))
-                  (if tl-m
-                      (org-timer-set-timer (string-to-number (car tl-m)))
-                    (if (org-get-todo-state) ; pomodoro technique
-                        (org-timer-set-timer 25)))))))
+              (let ((tl (org-entry-get (point) "TIMELIMIT" 'selective))
+                    (tl-m (org-entry-get (point) "TIMELIMIT_MIN" 'selective)))
+                (cond
+                 (tl (org-timer-set-timer tl))
+                 (tl-m (org-timer-set-timer (string-to-number tl-m)))
+                 ((org-get-todo-state) (org-timer-set-timer 25))))))
   (add-hook 'org-timer-done-hook
             (lambda ()
               (when (org-clocking-p)
