@@ -152,6 +152,7 @@ If 'ARG' is passed, shred afile instead delete."
           ("z" org-narrow-to-element-indirect-buffer)
           ("!" org-readable)
           ("S" org-send-mail)
+          ("k" nil)
           ("K" org-entry-kill-property)
           ("&" org-id-view-refs)
           ("N" org-add-note)
