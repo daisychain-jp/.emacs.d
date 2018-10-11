@@ -13,6 +13,8 @@
   :config
   (add-hook 'help-mode-hook
             (lambda ()
+              (unless (string= (buffer-name) "*Help*")
+                (setq-local truncate-lines t))
               (buffer-face-set 'recognizable))))
 
 (add-hook 'Info-mode-hook
