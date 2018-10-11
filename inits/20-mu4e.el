@@ -136,7 +136,9 @@
 
 (use-package mu4e-alert
   :straight t
-  :hook (after-init . mu4e-alert-enable-mode-line-display)
+  :hook (after-init . (lambda ()
+                        (mu4e-alert-enable-notifications)
+                        (mu4e-alert-enable-mode-line-display)))
   :after (mu4e)
   :custom
   (mu4e-alert-interesting-mail-query
@@ -152,4 +154,6 @@
    (lambda (count)
      (if (> count 0)
          (format " M:%d" count)
-       ""))))
+       "")))
+  :config
+  (mu4e-alert-set-default-style 'fringe))
