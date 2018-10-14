@@ -40,6 +40,8 @@
 (use-package hydra
   :straight t
   :after (multiple-cursors)
+  :custom
+  (hydra-is-helpful nil)
   :config
   (defhydra hydra-multiple-cursors
     (global-map "C-c n"
