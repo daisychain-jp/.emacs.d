@@ -39,6 +39,7 @@
              ("e" . scroll-down-line)
              ("q" . quit-window)
              ("Q" . elfeed-kill-buffer)
+             ("x" . elfeed-search-update--force)
              ("c" . (lambda () (interactive)
                       (elfeed-search-untag-all-unread)
                       (unless (use-region-p) (forward-line -1))
