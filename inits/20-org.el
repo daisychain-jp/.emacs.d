@@ -309,7 +309,7 @@ If 'ARG' is passed, shred afile instead delete."
   (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
   (cond
    ((string= system-type "gnu/linux")
-    (custom-set-variables '(org-plantuml-jar-path "/usr/share/plantuml/plantuml.jar")))
+    (custom-set-variables '(org-plantuml-jar-path (format "%s/lib/plantuml/plantuml.jar" env-var-dir))))
    ((string= system-type "darwin")
     (custom-set-variables '(org-plantuml-jar-path "/usr/local/Cellar/plantuml/8041/plantuml.8041.jar"))))
 
