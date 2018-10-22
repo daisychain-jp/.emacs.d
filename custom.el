@@ -4,11 +4,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(enable-remote-dir-locals t)
- '(hydra-is-helpful nil)
  '(org-plantuml-jar-path "/usr/share/plantuml/plantuml.jar")
- '(package-selected-packages
-   (quote
-    (avy-migemo avy use-package-ensure-system-package diminish use-package)))
  '(safe-local-variable-values
    (quote
     ((sql-connection-alist
