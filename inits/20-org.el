@@ -4,6 +4,7 @@
   (org-mode         " OG")
   (org-agenda-mode  " OG")
   (org-capture-mode " OG")
+  :diminish ((org-src-mode . "os"))
   :mode (("\\.org$" . org-mode))
   :interpreter (("org" . org-mode))
   :bind (("C-c a" . org-agenda)
