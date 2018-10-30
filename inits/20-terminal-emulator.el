@@ -34,6 +34,7 @@
                (eshell/basename (eshell/pwd))
                (if (= (user-uid) 0) "# " "$ "))))
   (eshell-prompt-regexp "[#$] ")
+  (eshell-visual-subcommands '(("git" "log" "diff" "show")))
   :config
   (setq eshell-path-env (getenv "PATH")))
 
