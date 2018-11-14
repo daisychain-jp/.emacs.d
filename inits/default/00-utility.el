@@ -61,11 +61,15 @@ play that with media player."
     (let ((file (if (string-match "&list=\\([[:graph:]]+\\)" file)
                     (format "https://www.youtube.com/playlist?list=%s" (match-string 1 file))
                   file))
-          (mpv-opt (if (numberp start)
-                       (format "--ytdl-raw-options=playlist-start=%d" start)
-                     nil)))
-      (start-process-shell-command "mpv" nil (format "mpv --force-window --ytdl-format=\"bestvideo[height<=?480]+bestaudio/best\" %s \"%s\"" mpv-opt file))))
-   (t (start-process-shell-command "mpv" nil (format "mpv --force-window \"%s\"" mpv-opt file)))))
+          (ytdl-opts
+           (remove nil
+                   (list (when (numberp start)
+                           (format "--ytdl-raw-options=playlist-start=%d" start))
+                         (if (string= "192.168.100.126" (shell-command-to-string "hostname -I | cut -f1 -d' ' | tr -d '\n'"))
+                             "--ytdl-format=\"bestvideo[height<=?720]+bestaudio/best\""
+                           "--ytdl-format=\"worstvideo+worstaudio\"")))))
+      (start-process-shell-command "mpv" nil (format "mpv --force-window %s \"%s\"" (mapconcat 'identity ytdl-opts " ") file))))
+   (t (start-process-shell-command "mpv" nil (format "mpv --force-window \"%s\"" file)))))
 
 (defun increment-number-at-point (&optional inc)
   "Increment number at point by one.
