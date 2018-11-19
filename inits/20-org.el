@@ -400,3 +400,45 @@ The sparse tree is according to tags string MATCH."
   (find-file
    (make-temp-file "auto-org-capture" nil ".org"))
   (skk-mode 1))
+
+(defun org-clock-remove-old-timestamps (old-time)
+  "Remove old clock timestamps earlier than 'OLD-TIME' in the current subtree."
+  (save-excursion
+    (org-back-to-heading t)
+    (org-show-all)
+    (org-map-entries
+     (lambda ()
+       (let ((drawer (org-clock-drawer-name))
+             (case-fold-search t))
+         (when drawer
+           (let* ((re (format "^[ \t]*:%s:[ \t]*$" (regexp-quote drawer)))
+                  (tree-end (save-excursion
+                              (org-end-of-subtree)))
+                  (drawer-start (save-excursion
+                                  (re-search-forward re tree-end t)))
+                  (drawer-end (save-excursion
+                                (re-search-forward re tree-end t)
+                                (re-search-forward "^[ \t]*:END:[ \t]*$" tree-end t))))
+             (when (and drawer-start drawer-end)
+               (goto-char drawer-start)
+               (while (re-search-forward org-tsr-regexp-both drawer-end t)
+                 (when (time-less-p (apply 'encode-time (parse-time-string (match-string 3)))
+                                    old-time)
+                   (kill-whole-line)
+                   (setq drawer-end (save-excursion
+                                      (re-search-forward "^[ \t]*:END:[ \t]*$" tree-end t)))))
+               (org-remove-empty-drawer-at (point)))
+             (setq org-map-continue-from (org-entry-end-position))))))
+     nil 'tree)))
+
+(defun org-gc-subtree ()
+  "Do garbage collection for the current subtree."
+  (interactive)
+  (let* ((current (decode-time (current-time)))
+         (month-ago (encode-time (nth 0 current)
+                                 (nth 1 current)
+                                 (nth 2 current)
+                                 (nth 3 current)
+                                 (- (nth 4 current) 1)
+                                 (nth 5 current))))
+    (org-clock-remove-old-timestamps month-ago)))
