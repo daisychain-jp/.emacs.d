@@ -4,7 +4,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(enable-remote-dir-locals t)
- '(org-plantuml-jar-path "/usr/share/plantuml/plantuml.jar")
+ '(org-plantuml-jar-path (format "%s/lib/plantuml/plantuml.jar" env-var-dir))
  '(safe-local-variable-values
    (quote
     ((sql-connection-alist
@@ -15,7 +15,6 @@
        (sql-password "eevie7Ah")
        (sql-server "svr01.daisychain.jp")
        (sql-database "pmonitor"))))))
- '(send-mail-function (quote smtpmail-send-it))
  '(shackle-default-rule (quote (:same t)))
  '(shackle-rules
    (quote
