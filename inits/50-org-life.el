@@ -163,18 +163,27 @@
            "* %?\n  ADDED: %U" :jump-to-captured t)
           ("m" "Memo"
            entry (file+datetree ,org-capture-memo-file)
-           "* %?\n  %U\n" :prepend t :tree-type week)
+           "* %? %^g\n  ADDED: %U\n" :tree-type week)
           ("d" "Diary"
            entry (file+datetree ,org-capture-memo-file)
-           "* Diary :m_diary:\n  %U\n%?" :prepend t :tree-type week)
-          ("r" "Read"
-           entry (id "2e3556fd-5390-4b49-b48e-a7cd692f7552")
-           "* %? :a_read:\n  ADDED: %U\n":prepend t)
-          ("c" "Cook"
-           entry (id "f39bcdad-64de-4e96-97c0-d620ef8f55b8")
-           "* %? :a_cook:\n  ADDED: %U\n":prepend t)
-          ("l" "item to currently clocked entry"
-           item (clock) "- %i" :unnarrowed t)
+           "* Diary :m_diary:\n  %U\n%?"
+           :tree-type week :time-prompt t)
+          ("s" "Someday memo")
+          ("sr" "Reading"
+           entry (file+datetree ,org-capture-memo-file)
+           "* %? :a_read:s_someday:\n  ADDED: %U\n  %a"
+           :tree-type week)
+          ("sR" "Reading with kindle book"
+           entry (file+datetree ,org-capture-memo-file)
+           "* %? :a_read:s_someday:app_pmonitor:%^{PM_URL1_FORMAT}p%^{PM_URL1}p%^{PM_ALERT}p\n  ADDED: %U\n  %a"
+           :tree-type week)
+          ("sc" "Cooking"
+           entry (file+datetree ,org-capture-memo-file)
+           "* %? :a_cook:s_someday:\n  ADDED: %U\n  %a"
+           :tree-type week)
+          ("D" "Drill entry to the clocked"
+           entry (clock)
+           "* %i%? :drill:" :immediate-finish t)
           ;; for auto refiling
           ("r" "note from region"
            entry (file+datetree ,org-capture-memo-file)
