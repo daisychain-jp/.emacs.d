@@ -184,6 +184,9 @@
           ("D" "Drill entry to the clocked"
            entry (clock)
            "* %i%? :drill:" :immediate-finish t)
+          ("M" "Memo to the clocked"
+           item (clock)
+           "- %i%?")
           ;; for auto refiling
           ("r" "note from region"
            entry (file+datetree ,org-capture-memo-file)
