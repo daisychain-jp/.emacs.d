@@ -166,7 +166,7 @@
            "* %? %^g\n  ADDED: %U\n" :tree-type week)
           ("d" "Diary"
            entry (file+datetree ,org-capture-memo-file)
-           "* Diary :m_diary:\n  %U\n%?"
+           "* %t :m_diary:\n  %U\n%?"
            :tree-type week :time-prompt t)
           ("s" "Someday memo")
           ("sr" "Reading"
