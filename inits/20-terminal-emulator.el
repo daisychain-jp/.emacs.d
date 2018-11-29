@@ -47,13 +47,6 @@
         (alert msg :buffer buffer :severity  'normal)
       (alert msg :buffer buffer :severity 'urgent))))
 
-(use-package alert
-  :straight t
-  :config
-  (alert-add-rule :status '(buried)
-                  :mode   'eshell-mode
-                  :style  'fringe))
-
 (use-package tramp
   :defer t
   :config

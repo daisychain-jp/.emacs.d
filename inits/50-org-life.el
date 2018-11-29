@@ -270,7 +270,6 @@ If region is active, use the word in region for matching instead."
             "DONE")))
 
   ;; clock-timer collaboration for fixed time tasks
-  (setq gtd-finish-sound (concat env-var-dir "/music/levelup.mp3"))
   (add-hook 'org-clock-in-hook
             (lambda ()
               (let ((tl (org-entry-get (point) "TIMELIMIT" 'selective))
@@ -282,7 +281,9 @@ If region is active, use the word in region for matching instead."
   (add-hook 'org-timer-done-hook
             (lambda ()
               (when (org-clocking-p)
-                (system-alarm))))
+                (if (string= org-clock-heading "瞑想")
+                    (alert "Time for the task is over" :style 'alarm)
+                  (alert "Time for the task is over" :buffer (org-clocking-buffer))))))
   (add-hook 'org-clock-out-hook
             (lambda ()
               (when (and (boundp 'org-timer-countdown-timer)
