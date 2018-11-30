@@ -126,10 +126,12 @@
           ("te" "Easy tasks" tags-todo "t_easy")
           ("tc" "Commit tasks" tags-todo "t_commit")
           ("p" "Projects" tags "+CATEGORY={Project}+LEVEL=2")
-          ("h" "Habits" tags-todo "TODO=\"HBT\"+SCHEDULED<\"<+1d>\""
+          ("h" "HBT entries" tags-todo "TODO=\"HBT\"+SCHEDULED<\"<+1d>\""
            ((org-agenda-sorting-strategy
              '(scheduled-up))))
-          ("c" "Clockable entries" tags "+CATEGORY=\"Clockable\"")
+          ("H" "All Habits"
+           tags "CATEGORY=\"Habit\"")
+          ("c" "Clockable entries" tags "+CATEGORY={Action\\|Habit\\|Task\\|Project}")
           ("g" "Trigger" tags "+trigger")
           ("@" . "place-related tasks")
           ("@@" "All place-related tasks" tags "PLACE")
