@@ -93,10 +93,10 @@
       (lambda (file-path link-string)
         (deferred:$
           (deferred:process "orgafile" "play" file-path))))
-     (directory .
-                (lambda (file-path link-string)
-                  (deferred:$
-                    (deferred:process "orgafile" "play" file-path))))))
+     (directory . (lambda (file-path link-string)
+                    (if (= 0 (call-process-shell-command (format "filetype-cli check --type playable %s" file-path)))
+                        (start-process-shell-command "mpv" nil (format "mpv --force-window \"%s\"" file-path))
+                      (dired file-path))))))
   (org-add-link-type
    "sudo"
    (lambda (cmd)
