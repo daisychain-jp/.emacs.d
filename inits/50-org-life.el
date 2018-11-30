@@ -6,16 +6,27 @@
   (setq org-agenda-custom-commands
         '(("r" "Match a TAGS/PROP/TODO query in archive file"
            tags ""
-           ((org-agenda-files `,(append
-                                 (file-expand-wildcards (format "%s/archive/*_archive.org" env-doc-dir))
-                                 (file-expand-wildcards (concat env-doc-dir "/*_a"))
-                                 (file-expand-wildcards (concat env-doc-dir "/**/*_a.org"))))))
+           ((org-agenda-files `,(append org-agenda-files-default
+                                        (sort (file-expand-wildcards (format "%s/archive/*_archive.org" env-doc-dir)) 'string>)))
+            (org-agenda-sorting-strategy '(time-down))))
           ("R" "Match a TAGS/PROP/TODO query only for TODO entries in archive file"
            tags-todo ""
-           ((org-agenda-files `,(append
-                                 (file-expand-wildcards (format "%s/archive/*_archive.org" env-doc-dir))
-                                 (file-expand-wildcards (concat env-doc-dir "/*_a"))
-                                 (file-expand-wildcards (concat env-doc-dir "/**/*_a.org"))))))
+           ((org-agenda-files `,(append org-agenda-files-default
+                                        (sort (file-expand-wildcards (format "%s/archive/*_archive.org" env-doc-dir)) 'string>)))
+            (org-agenda-sorting-strategy '(time-down))))
+          ("y" . "Someday entries")
+          ("yr" "read" tags "s_someday+a_read"
+           ((org-agenda-files `,(append org-agenda-files-default
+                                        (sort (file-expand-wildcards (format "%s/archive/*_archive.org" env-doc-dir)) 'string>)))
+            (org-agenda-sorting-strategy '(time-down))))
+          ("yc" "cook" tags "s_someday+a_cook"
+           ((org-agenda-files `,(append org-agenda-files-default
+                                        (sort (file-expand-wildcards (format "%s/archive/*_archive.org" env-doc-dir)) 'string>)))
+            (org-agenda-sorting-strategy '(time-down))))
+          ("yb" "buy" tags "s_someday+a_buy"
+           ((org-agenda-files `,(append org-agenda-files-default
+                                        (sort (file-expand-wildcards (format "%s/archive/*_archive.org" env-doc-dir)) 'string>)))
+            (org-agenda-sorting-strategy '(time-down))))
           ("b" "tag match for current Buffer"
            tags ""
            ((org-agenda-files `(,buffer-file-name))))
