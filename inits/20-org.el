@@ -208,7 +208,6 @@ If 'ARG' is passed, shred afile instead delete."
           ("PEND" . ((org-todo    (:foreground "sea green"))))
           ("DONE" . ((org-done    (:foreground "gray30"))))
           ("CXL"  . ((org-done    (:foreground "dark gray"))))))
-  ;; remove priority when the todo state moves to DONE|CXL|PND
   (add-hook  'org-after-todo-state-change-hook
              (lambda ()
                (interactive)
@@ -216,11 +215,17 @@ If 'ARG' is passed, shred afile instead delete."
                  (org-back-to-heading t)
                  (let* ((element (org-element-at-point))
                         (todo-state (org-get-todo-state))
-                        (priority (org-element-property :priority element)))
+                        (priority (org-element-property :priority element))
+                        (category (org-entry-get (point) "CATEGORY")))
+                   ;; remove priority when the todo state moves to DONE|CXL|PND
                    (when (and
                           (s-matches? "DONE\\|CXL\\|PND" todo-state)
                           (bound-and-true-p priority))
-                     (org-priority ? ))))))
+                     (org-priority ? ))
+                   ;; strip DONE state if CATEGORY of the entry is "Habit"
+                   (when (and (string= category "Habit")
+                              (string= todo-state "DONE"))
+                     (org-todo ""))))))
 
   ;; clock
   (setq org-clock-persist t)
