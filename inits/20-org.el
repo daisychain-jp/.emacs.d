@@ -286,6 +286,11 @@ If 'ARG' is passed, shred afile instead delete."
 
   ;; org-capture
   (setq org-capture-bookmark nil)
+  (setq org-bookmark-names-plist nil)
+
+  ;; drill
+  (setq org-drill-scope 'tree)
+  (setq org-drill-cram-hours 0.5)
 
   ;; clock table
   ;;; work around for the bug in emacs 25
