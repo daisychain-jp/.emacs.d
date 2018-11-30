@@ -30,7 +30,7 @@
            agenda ""
            ((org-agenda-span 'week)
             (org-agenda-start-with-log-mode t)
-            (org-agenda-include-inactive-timestamps t)
+            (org-agenda-include-inactive-timestamps nil)
             (org-agenda-include-diary t)
             (org-agenda-sorting-strategy
              '(time-up

@@ -278,7 +278,7 @@ If 'ARG' is passed, shred afile instead delete."
     "Default org-agenda-files.")
   (setq org-agenda-files org-agenda-files-default)
   (setq org-agenda-prefix-format
-        '((agenda   . " %?-12t%s")
+        '((agenda   . "%?-12t% s")
           (timeline . "  %s")
           (todo     . " ")
           (tags     . " ")
