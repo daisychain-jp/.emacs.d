@@ -138,9 +138,9 @@
   (defhydra hydra-launcher (global-map "C-M-j"
                                        :color blue)
     "Launch"
-    ("t t" ansi-term)
-    ("t s" shell)
-    ("!" eshell)
+    ("t" ansi-term)
+    ("s" shell)
+    ("e" eshell)
     ("d" dired-jump)
     ("@" twit)
     ("g" magit-status)
@@ -148,7 +148,7 @@
     ("m" mu4e)
     ("M" mu4e-alert-view-unread-mails)
     ("j" open-junk-file)
-    ("e" elfeed)
+    ("f" elfeed)
     ("o" org-scratch)
     ("p" persp-mode)
     ("q" quickrun)
