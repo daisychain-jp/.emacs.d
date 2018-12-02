@@ -285,28 +285,29 @@ If region is active, use the word in region for matching instead."
             "DONE")))
 
   ;; clock-timer collaboration for fixed time tasks
+  (defvar org-clock-current-task-alert nil "ALERT property's value of currently clocked entry")
   (add-hook 'org-clock-in-hook
             (lambda ()
               (let ((tl (org-entry-get (point) "TIMELIMIT" 'selective))
-                    (tl-m (org-entry-get (point) "TIMELIMIT_MIN" 'selective)))
-                (cond
-                 (tl (org-timer-set-timer tl))
-                 (tl-m (org-timer-set-timer (string-to-number tl-m)))
-                 ((org-get-todo-state) (org-timer-set-timer 25))))))
+                    (tl-m (org-entry-get (point) "TIMELIMIT_MIN" 'selective))
+                    (alert (org-entry-get (point) "ALERT" 'selective)))
+                (when (cond
+                       (tl (org-timer-set-timer tl))
+                       (tl-m (org-timer-set-timer (string-to-number tl-m)))
+                       ((org-get-todo-state) (org-timer-set-timer 25)))
+                  (setq org-clock-current-task-alert alert)))))
+  (defun org-clock-cleanup ()
+    "Post process after org-clock is done."
+    (when (and (boundp 'org-timer-countdown-timer)
+               org-timer-countdown-timer)
+      (org-timer-stop)
+      (setq org-clock-current-task-alert nil)))
+  (add-hook 'org-clock-out-hook #'org-clock-cleanup)
+  (add-hook 'org-clock-cancel-hook #'org-clock-cleanup)
   (add-hook 'org-timer-done-hook
             (lambda ()
               (when (org-clocking-p)
-                (if (string= org-clock-heading "瞑想")
+                (if (string= org-clock-current-task-alert "alarm")
                     (alert "Time for the task is over" :style 'alarm)
                   (alert "Time for the task is over" :buffer (org-clocking-buffer))))))
-  (add-hook 'org-clock-out-hook
-            (lambda ()
-              (when (and (boundp 'org-timer-countdown-timer)
-                         org-timer-countdown-timer)
-                (org-timer-stop))))
-  (add-hook 'org-clock-cancel-hook
-            (lambda ()
-              (when (and (boundp 'org-timer-countdown-timer)
-                         org-timer-countdown-timer)
-                (org-timer-stop))))
   )
