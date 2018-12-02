@@ -216,7 +216,8 @@ If 'ARG' is passed, shred afile instead delete."
                  (let* ((element (org-element-at-point))
                         (todo-state (org-get-todo-state))
                         (priority (org-element-property :priority element))
-                        (category (org-entry-get (point) "CATEGORY")))
+                        (category (org-entry-get (point) "CATEGORY"))
+                        (style (org-entry-get (point) "STYLE")))
                    ;; remove priority when the todo state moves to DONE|CXL|PND
                    (when (and
                           (s-matches? "DONE\\|CXL\\|PND" todo-state)
@@ -224,7 +225,8 @@ If 'ARG' is passed, shred afile instead delete."
                      (org-priority ? ))
                    ;; strip DONE state if CATEGORY of the entry is "Habit"
                    (when (and (string= category "Habit")
-                              (string= todo-state "DONE"))
+                              (string= todo-state "DONE")
+                              (not (string= style "habit")))
                      (org-todo ""))))))
 
   ;; clock
