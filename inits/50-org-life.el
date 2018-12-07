@@ -141,9 +141,9 @@
            ((org-agenda-sorting-strategy
              '(scheduled-up))))
           ("H" "All Habits"
-           tags "CATEGORY=\"Habit\"+LEVEL=>2")
+           tags "CATEGORY={Habit}+LEVEL=>2")
           ("A" "All Actions"
-           tags "s_ongoing+CATEGORY=\"Action\"+LEVEL=2")
+           tags "CATEGORY={Action}+LEVEL=>2+s_ongoing")
           ("c" "Clockable entries" tags "+CATEGORY={Action\\|Habit\\|Task\\|Project}")
           ("g" "Trigger" tags "+trigger")
           ("@" . "place-related tasks")
