@@ -455,3 +455,27 @@ The sparse tree is according to tags string MATCH."
                                  (- (nth 4 current) 1)
                                  (nth 5 current))))
     (org-clock-remove-old-timestamps month-ago)))
+
+(defun org-archive-to-datetree-iso-week ()
+  "Refile a subtree to a datetree corresponding to it's timestamp.
+
+This function creates entries ordered by week instead of months.
+The current time is used if the entry has no timestamp. If FILE
+is nil, refile in the current file."
+  (interactive)
+  (let* ((file "~/org/archive/2018_archive.org")
+         (datetree-date (or (org-entry-get nil "TIMESTAMP" t)
+                            (org-read-date t nil nil)))
+         (date (org-date-to-gregorian datetree-date)))
+    (save-excursion
+      (with-current-buffer (current-buffer)
+        (org-cut-subtree)
+        (if file (find-file file))
+        (org-datetree-find-iso-week-create date)
+        (org-narrow-to-subtree)
+        (show-subtree)
+        (org-end-of-subtree t)
+        (newline)
+        (goto-char (point-max))
+        (org-paste-subtree 4)
+        (widen)))))
