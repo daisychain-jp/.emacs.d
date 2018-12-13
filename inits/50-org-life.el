@@ -181,7 +181,7 @@
            :tree-type week)
           ("oR" "Reading with kindle book"
            entry (file+datetree ,org-capture-memo-file)
-           "* %? :ac_read:st_somd:app_pmonitor:%^{PM_URL1_FORMAT}p%^{PM_URL1}p%^{PM_ALERT}p\n  ADDED: %U\n  %a"
+           "* %? :ac_read:st_somd:ap_whisper:%^{PM_URL1_FORMAT}p%^{PM_URL1}p%^{PM_ALERT}p\n  ADDED: %U\n  %a"
            :tree-type week)
           ("oc" "Cooking"
            entry (file+datetree ,org-capture-memo-file)
