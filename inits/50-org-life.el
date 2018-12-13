@@ -14,16 +14,20 @@
            ((org-agenda-files `,(append org-agenda-files-default
                                         (sort (file-expand-wildcards (format "%s/archive/*_archive.org" env-doc-dir)) 'string>)))
             (org-agenda-sorting-strategy '(time-down))))
-          ("y" . "Someday entries")
-          ("yr" "read" tags "s_someday+a_read"
+          ("o" . "Someday entries")
+          ("oo" "all" tags "st_somd"
            ((org-agenda-files `,(append org-agenda-files-default
                                         (sort (file-expand-wildcards (format "%s/archive/*_archive.org" env-doc-dir)) 'string>)))
             (org-agenda-sorting-strategy '(time-down))))
-          ("yc" "cook" tags "s_someday+a_cook"
+          ("or" "read" tags "st_somd+ac_read"
            ((org-agenda-files `,(append org-agenda-files-default
                                         (sort (file-expand-wildcards (format "%s/archive/*_archive.org" env-doc-dir)) 'string>)))
             (org-agenda-sorting-strategy '(time-down))))
-          ("yb" "buy" tags "s_someday+a_buy"
+          ("oc" "cook" tags "st_somd+ac_cook"
+           ((org-agenda-files `,(append org-agenda-files-default
+                                        (sort (file-expand-wildcards (format "%s/archive/*_archive.org" env-doc-dir)) 'string>)))
+            (org-agenda-sorting-strategy '(time-down))))
+          ("ob" "buy" tags "st_somd+ac_buy"
            ((org-agenda-files `,(append org-agenda-files-default
                                         (sort (file-expand-wildcards (format "%s/archive/*_archive.org" env-doc-dir)) 'string>)))
             (org-agenda-sorting-strategy '(time-down))))
@@ -54,23 +58,6 @@
             (org-agenda-start-with-log-mode t)
             (org-agenda-include-inactive-timestamps nil)
             (org-agenda-include-diary t)
-            (org-agenda-sorting-strategy
-             '(time-up
-               deadline-up
-               todo-state-up
-               priority-down))))
-          ("o" "Outlook in next one month"
-           ((agenda ""))
-           ((org-agenda-category-filter-preset '("-Shared"))
-            (org-agenda-span 'month)
-            (org-agenda-start-with-log-mode nil)
-            (org-agenda-include-deadlines t)
-            (org-agenda-use-time-grid nil)
-            (org-agenda-show-all-dates t)
-            (org-agenda-skip-deadline-if-done t)
-            (org-agenda-skip-scheduled-if-done t)
-            (org-agenda-include-diary t)
-            (org-agenda-show-future-repeats 'next)
             (org-agenda-sorting-strategy
              '(time-up
                deadline-up
@@ -133,7 +120,7 @@
              '(todo-state-up priority-down deadline-up))))
           ("tD" "Done tasks which does not belong any project"
            ((tags "-CATEGORY=\"Project\"+TODO={DONE\\|CXL\\|PEND}")
-            (tags "s_done")))
+            (tags "st_done")))
           ("te" "Easy tasks" tags-todo "t_easy")
           ("tc" "Commit tasks" tags-todo "t_commit")
           ("p" "Projects" tags "+CATEGORY={Project}+LEVEL=2")
@@ -143,7 +130,7 @@
           ("H" "All Habits"
            tags "CATEGORY={Habit}+LEVEL=>2")
           ("A" "All Actions"
-           tags "CATEGORY={Action}+LEVEL=>2+s_ongoing")
+           tags "CATEGORY={Action}+LEVEL=>2+s_ongo")
           ("c" "Clockable entries" tags "+CATEGORY={Action\\|Habit\\|Task\\|Project}")
           ("g" "Trigger" tags "+trigger")
           ("@" . "place-related tasks")
@@ -181,20 +168,28 @@
            "* %? %^g\n  ADDED: %U\n" :tree-type week)
           ("d" "Diary"
            entry (file+datetree ,org-capture-memo-file)
-           "* %t :m_diary:\n  %U\n%?"
+           "* %t :mm_diary:\n  %U\n%?"
            :tree-type week :time-prompt t)
-          ("s" "Someday memo")
-          ("sr" "Reading"
+          ("o" "Someday memo")
+          ("oo" "All"
            entry (file+datetree ,org-capture-memo-file)
-           "* %? :a_read:s_someday:\n  ADDED: %U\n  %a"
+           "* %? :st_somd:\n  ADDED: %U\n  %a"
            :tree-type week)
-          ("sR" "Reading with kindle book"
+          ("or" "Reading"
            entry (file+datetree ,org-capture-memo-file)
-           "* %? :a_read:s_someday:app_pmonitor:%^{PM_URL1_FORMAT}p%^{PM_URL1}p%^{PM_ALERT}p\n  ADDED: %U\n  %a"
+           "* %? :ac_read:st_somd:\n  ADDED: %U\n  %a"
            :tree-type week)
-          ("sc" "Cooking"
+          ("oR" "Reading with kindle book"
            entry (file+datetree ,org-capture-memo-file)
-           "* %? :a_cook:s_someday:\n  ADDED: %U\n  %a"
+           "* %? :ac_read:st_somd:app_pmonitor:%^{PM_URL1_FORMAT}p%^{PM_URL1}p%^{PM_ALERT}p\n  ADDED: %U\n  %a"
+           :tree-type week)
+          ("oc" "Cooking"
+           entry (file+datetree ,org-capture-memo-file)
+           "* %? :ac_cook:st_somd:\n  ADDED: %U\n  %a"
+           :tree-type week)
+          ("ob" "Buying"
+           entry (file+datetree ,org-capture-memo-file)
+           "* %? :ac_buy:st_somd:\n  ADDED: %U\n  %a"
            :tree-type week)
           ("D" "Drill entry to the clocked"
            entry (clock)

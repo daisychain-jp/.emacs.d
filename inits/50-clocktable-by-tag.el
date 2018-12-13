@@ -46,7 +46,7 @@
          (org-global-tags-completion-table)))
     (mapcar (lambda (match)
               (let ((match-str (car match)))
-                (when (string= (substring match-str 0 2) "a_")
+                (when (string= (substring match-str 0 3) "AC_")
                   (setq params (plist-put params :match match-str))
                   (clocktable-by-atag/insert-tag params))))
             matches)))
