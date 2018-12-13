@@ -130,7 +130,7 @@
           ("H" "All Habits"
            tags "CATEGORY={Habit}+LEVEL=>2")
           ("A" "All Actions"
-           tags "CATEGORY={Action}+LEVEL=>2+s_ongo")
+           tags "CATEGORY={Action}+LEVEL=>2+st_ongo")
           ("c" "Clockable entries" tags "+CATEGORY={Action\\|Habit\\|Task\\|Project}")
           ("g" "Trigger" tags "+trigger")
           ("@" . "place-related tasks")
@@ -181,7 +181,7 @@
            :tree-type week)
           ("oR" "Reading with kindle book"
            entry (file+datetree ,org-capture-memo-file)
-           "* %? :ac_read:st_somd:ap_whisper:%^{WP_URL1_FORMAT}p%^{WP_URL1}p%^{WP_ALERT}p\n  ADDED: %U\n  %a"
+           "* %? :ac_read:st_somd:ap_whisper:%^{WP_URL1_FORMAT}p%^{WP_URL1}p%^{WP_ALERT}p\n  ADDED: %U\n  - [ ] insert ID property\n  %a"
            :tree-type week)
           ("oc" "Cooking"
            entry (file+datetree ,org-capture-memo-file)
