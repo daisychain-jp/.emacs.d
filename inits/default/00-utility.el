@@ -3,6 +3,11 @@
   (interactive)
   (message "%s" (get-char-property (point) 'face)))
 
+(defun kill-line-number ()
+  "Add line number to kill ring."
+  (interactive)
+  (kill-new (number-to-string (line-number-at-pos))))
+
 (defun apply-in-indirect-buffer (function &rest arguments)
   "Call FUNCTION in a indirect buffer with our remaining args, using ARGUMENTS."
   (interactive "P")
