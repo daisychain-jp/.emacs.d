@@ -129,15 +129,14 @@
              '(scheduled-up))))
           ("H" "All Habits"
            tags "CATEGORY={Habit}+LEVEL=>2")
-          ("A" "All Actions"
-           tags "CATEGORY={Action}+LEVEL=>2+st_ongo")
           ("c" "Clockable entries" tags "+CATEGORY={Action\\|Habit\\|Task\\|Project}")
           ("g" "Trigger" tags "+trigger")
           ("@" . "place-related tasks")
           ("@@" "All place-related tasks" tags "PLACE")
           ("d" "Daily task list"
-           ((tags-todo "TODO=\"HBT\"+SCHEDULED<\"<+1d>\"")
+           ((tags "SCHEDULED<=\"<today>\"|DEADLINE<=\"<today>\"")
             (todo "URGE|TDAY")
+            (tags "CATEGORY={Action}+LEVEL=>2+st_ongo")
             (agenda ""))
            ((org-agenda-sorting-strategy
              '(time-up
