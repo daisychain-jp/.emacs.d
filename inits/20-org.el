@@ -162,6 +162,12 @@ If 'ARG' is passed, shred afile instead delete."
           ("s" call-interactively 'org-schedule)
           ("d" call-interactively 'org-deadline)))
 
+  ;; basic
+  (setq org-hide-leading-stars t)
+  (setq org-comment-string "####")
+  (setq org-pretty-entities t)
+  (setq org-use-sub-superscripts '{}) ; use _{}/^{} for sub/super script
+
   ;; display
   (add-hook 'org-mode-hook
             (lambda ()
@@ -176,9 +182,6 @@ If 'ARG' is passed, shred afile instead delete."
               (setq-local line-spacing 0.1)
               (delete-other-windows)
               (org-agenda-to-appt t '((category "appt")))))
-  (setq org-hide-leading-stars t)
-  (setq org-pretty-entities t)
-  (setq org-use-sub-superscripts '{}) ; use _{}/^{} for sub/super script
 
   ;; tag/property
   (setq org-use-tag-inheritance "^ac_.+")
@@ -305,8 +308,8 @@ If 'ARG' is passed, shred afile instead delete."
 
   ;; export
   (setq org-export-with-sub-superscripts nil)
-  (setq org-comment-string "####")
   (setq org-export-dispatch-use-expert-ui nil)
+  (setq org-export-with-creator nil)
 
   ;; org-babel
   (org-babel-do-load-languages
