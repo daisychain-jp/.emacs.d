@@ -6,7 +6,10 @@
                   :style  'fringe)
   (alert-add-rule :status '(buried)
                   :mode   'org-mode
-                  :style  'fringe))
+                  :style  'fringe)
+  (alert-add-rule :status '(buried)
+                  :mode   'org-mode
+                  :style  'libnotify))
 
 (defvar alarm-sound (concat env-var-dir "/music/levelup.mp3"))
 (alert-define-style 'alarm
