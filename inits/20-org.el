@@ -64,40 +64,45 @@
               (4 (eww-browse-url (car url-pos)))
               (t (open-url-switch-application (car url-pos) (cdr url-pos)))))
         ad-do-it)))
-  (append-to-list
-   org-file-apps
-   '((auto-mode . emacs)
-     ("\\.mm\\'" . default)
-     ("\\.x?html?\\'" .
-      (lambda (file-path link-string)
-        (eww-open-file file-path)
-        (cond
-         ((string-match ".+::\\([[:digit:]]+\\)$" link-string)
-          (goto-line (string-to-number (match-string 1 link-string))))
-         ((string-match ".+::\\([[:graph:][:blank:]]+\\)$" link-string)
-          (goto-char (search-forward (match-string 1 link-string) nil t))))))
-     ("org.gpg" . emacs)
-     ("tar.gpg" .
-      (lambda (file-path link-string)
-        (lexical-let (file)
-          (deferred:$
-            (deferred:process "orgafile" "play" file-path)))))
-     ("\\(?:pdf\\|epub\\)\\'" .
-      (lambda (file-path link-string)
-        (deferred:$
-          (deferred:process "orgafile" "htmlize" file-path)
-          (deferred:nextc it
-            (lambda (conv-file)
-              (when (s-ends-with-p "\.html" conv-file)
-                (eww-open-file conv-file)))))))
-     ("\\(?:mp3\\|m4a\\|mp4\\|mkv\\|jpg\\|jpeg\\|png\\)\\'" .
-      (lambda (file-path link-string)
-        (deferred:$
-          (deferred:process "orgafile" "play" file-path))))
-     (directory . (lambda (file-path link-string)
-                    (if (= 0 (call-process-shell-command (format "filetype-cli check --type playable %s" file-path)))
-                        (start-process-shell-command "mpv" nil (format "mpv --force-window \"%s\"" file-path))
-                      (dired file-path))))))
+  (setq org-file-apps
+        '((auto-mode . emacs)
+          ("\\.mm\\'" . default)
+          ("\\.x?html?\\'" .
+           (lambda (file-path link-string)
+             (eww-open-file file-path)
+             (cond
+              ((string-match ".+::\\([[:digit:]]+\\)$" link-string)
+               (goto-line (string-to-number (match-string 1 link-string))))
+              ((string-match ".+::\\([[:graph:][:blank:]]+\\)$" link-string)
+               (goto-char (search-forward (match-string 1 link-string) nil t))))))
+          ("org.gpg" . emacs)
+          ("tar.gpg" .
+           (lambda (file-path link-string)
+             (lexical-let (file)
+               (deferred:$
+                 (deferred:process "orgafile" "play" file-path)))))
+          ("\\(?:pdf\\|epub\\)\\'" .
+           (lambda (file-path link-string)
+             (lexical-let ((link link-string))
+               (deferred:$
+                 (deferred:process "orgafile" "htmlize" file-path)
+                 (deferred:nextc it
+                   (lambda (conv-file)
+                     (when (string-suffix-p "\.html" conv-file)
+                       (eww-open-file conv-file)
+                       (cond
+                        ((string-match ".+::\\([[:digit:]]+\\)$" link)
+                         (goto-line (string-to-number (match-string 1 link))))
+                        ((string-match ".+::\\([[:graph:][:blank:]]+\\)$" link)
+                         (goto-char (search-forward (match-string 1 link) nil t)))))))))))
+          ("\\(?:mp3\\|m4a\\|mp4\\|mkv\\|jpg\\|jpeg\\|png\\)\\'" .
+           (lambda (file-path link-string)
+             (deferred:$
+               (deferred:process "orgafile" "play" file-path))))
+          (directory . (lambda (file-path link-string)
+                         (if (= 0 (call-process-shell-command (format "filetype-cli check --type playable %s" file-path)))
+                             (start-process-shell-command "mpv" nil (format "mpv --force-window \"%s\"" file-path))
+                           (dired file-path))))))
   (org-add-link-type
    "sudo"
    (lambda (cmd)

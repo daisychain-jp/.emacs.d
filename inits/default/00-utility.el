@@ -145,6 +145,3 @@ With numeric prefix arg DEC, decrement the number by DEC amount."
 (defmacro add-to-hook-delay (hook body)
   `(add-hook ,hook
              (lambda () ,body)))
-
-(defmacro append-to-list (to lst)
-  `(setq ,to (append ,lst ,to)))
