@@ -17,7 +17,6 @@
   (require 'org-agenda)
   (require 'org-capture)
   (require 'org-habit)
-  (require 'org-id)
   (require 'org-eww)
   (require 'org-eshell)
   (require 'org-mew)
