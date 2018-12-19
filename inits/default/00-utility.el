@@ -78,7 +78,7 @@ play that with media player."
    ((eql (call-process-shell-command (format "filetype-cli check --type playable \"%s\"" url)) 0)
     (utl-play-media url pos))
    (t
-    (eww url)
+    (browse-web url)
     (lexical-let ((position pos))
       (add-hook 'eww-after-render-hook
                 (lambda ()
