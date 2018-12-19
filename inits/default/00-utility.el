@@ -28,7 +28,7 @@ The optional prefix argument ARG is passed to lower function."
         (filename (thing-at-point 'filename)))
     (cond
      (button (push-button))
-     (email (mew-send email))
+     (email (mu4e~compose-mail email))
      (links (cl-case (car arg)
               (16 (browse-url-default-browser (car links)))
               (4 (eww-browse-url (car links)))
