@@ -33,11 +33,37 @@ The optional prefix argument ARG is passed to lower function."
               (16 (browse-url-default-browser (car links)))
               (4 (eww-browse-url (car links)))
               (t (open-url-switch-application (car links)))))
-     (url (cl-case (car arg)
-            (16 (browse-url-default-browser url))
-            (4 (eww-browse-url url))
-            (t (open-url-switch-application url))))
-     (filename (find-file-at-point filename)))))
+     (url (let ((url-pos (split-positioned-uri url)))
+            (cl-case (car arg)
+              (16 (browse-url-default-browser (car url-pos)))
+              (4 (eww-browse-url (car url-pos)))
+              (t (open-url-switch-application (car url-pos) (cadr url-pos))))))
+     (filename (let ((filename-pos (split-positioned-uri (expand-file-name filename))))
+                 (cl-case (car arg)
+                   (16 (browse-url-default-browser (car filename-pos)))
+                   (4 (find-file-at-point (car filename-pos)))
+                   (t (open-url-switch-application (car filename-pos) (cadr filename-pos)))))))))
+
+(defun split-positioned-uri (positioned-uri)
+  "Split POSITIONED-URI into uri and position specifier."
+  (cond
+   ((string-match "\\(.+\\)::\\([[:digit:]]+\\)$" positioned-uri)
+    (list (match-string 1 positioned-uri) (string-to-number (match-string 2 positioned-uri))))
+   ((string-match "\\(.+\\)::\\([[:graph:][:blank:]]+\\)$" positioned-uri)
+    (list (match-string 1 positioned-uri) (match-string 2 positioned-uri)))
+   (t (list positioned-uri))))
+
+(defun goto-pos (pos)
+  "Go to POS.
+
+if POS is numeric, go to line using 'forward-line.
+If POS is string, search it forward and set point to occurence."
+  (interactive)
+  (cond
+   ((numberp pos)
+    (forward-line (- pos (line-number-at-pos))))
+   ((stringp pos)
+    (goto-char (search-forward pos nil t)))))
 
 (defun open-url-switch-application (url &optional pos)
   "Open URL in an appropriate manner and jump to POS.
@@ -47,15 +73,26 @@ play that with media player."
   (cond
    ((or (s-ends-with? ".pdf" url)
         (s-ends-with? ".epub" url))
-    (deferred:$
-      (deferred:process "orgafile" "htmlize" url)
-      (deferred:nextc it
-        (lambda (conv-file)
-          (when (s-ends-with-p "\.html" conv-file)
-            (eww-open-file conv-file))))))
+    (open-uri-htmlize url)
+    (when pos (goto-pos pos)))
    ((eql (call-process-shell-command (format "filetype-cli check --type playable \"%s\"" url)) 0)
     (utl-play-media url pos))
-   (t (eww-browse-url url))))
+   (t
+    (eww url)
+    (lexical-let ((position pos))
+      (add-hook 'eww-after-render-hook
+                (lambda ()
+                  (when position (goto-pos position)) ;
+                  (setq-local eww-after-render-hook nil))
+                t t)))))
+
+(defun open-uri-htmlize (uri)
+  "Open html converted from URI in EWW."
+  (let ((html (shell-command-to-string
+               (mapconcat #'shell-quote-argument
+                          (list "orgafile" "htmlize" uri)
+                          " "))))
+    (eww-open-file html)))
 
 (defun utl-play-media (file &optional start)
   "Play a media file `FILE' at START point."

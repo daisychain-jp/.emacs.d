@@ -46,22 +46,14 @@
   ;; link
   (setq org-confirm-elisp-link-function nil) ; do not confirm when execute elisp
   (defadvice org-open-at-point (around switch-browser activate)
-    (let ((link-str (car (org-link-at-point))))
-      (if (and
-           (stringp link-str)
-           (string-match-p "^https?://.+" link-str))
-          (let ((url-pos
-                 (cond
-                  ((string-match "^\\(https?://.+\\)::\\([[:digit:]]+\\)$" link-str)
-                   (cons (match-string 1 link-str) (string-to-number (match-string 2 link-str))))
-                  ((string-match "^\\(https?://.+\\)::\\([[:graph:][:blank:]]+\\)$" link-str)
-                   (cons (match-string 1 link-str) (match-string 2 link-str)))
-                  (t
-                   (cons link-str nil)))))
-            (cl-case (car (ad-get-arg 0))
+    (let ((link-str (org-link-unescape (car (org-link-at-point)))))
+      (if (and (stringp link-str)
+               (string-match-p "^https?://.+" link-str))
+          (let ((url-pos (split-positioned-uri link-str)))
+            (cl-case (car arg)
               (16 (browse-url-default-browser (car url-pos)))
               (4 (eww-browse-url (car url-pos)))
-              (t (open-url-switch-application (car url-pos) (cdr url-pos)))))
+              (t (open-url-switch-application (car url-pos) (cadr url-pos)))))
         ad-do-it)))
   (setq org-file-apps
         '((auto-mode . emacs)
@@ -69,11 +61,7 @@
           ("\\.x?html?\\'" .
            (lambda (file-path link-string)
              (eww-open-file file-path)
-             (cond
-              ((string-match ".+::\\([[:digit:]]+\\)$" link-string)
-               (goto-line (string-to-number (match-string 1 link-string))))
-              ((string-match ".+::\\([[:graph:][:blank:]]+\\)$" link-string)
-               (goto-char (search-forward (match-string 1 link-string) nil t))))))
+             (goto-pos (cadr (split-positioned-uri link-string)))))
           ("org.gpg" . emacs)
           ("tar.gpg" .
            (lambda (file-path link-string)
@@ -82,18 +70,8 @@
                  (deferred:process "orgafile" "play" file-path)))))
           ("\\(?:pdf\\|epub\\)\\'" .
            (lambda (file-path link-string)
-             (lexical-let ((link link-string))
-               (deferred:$
-                 (deferred:process "orgafile" "htmlize" file-path)
-                 (deferred:nextc it
-                   (lambda (conv-file)
-                     (when (string-suffix-p "\.html" conv-file)
-                       (eww-open-file conv-file)
-                       (cond
-                        ((string-match ".+::\\([[:digit:]]+\\)$" link)
-                         (goto-line (string-to-number (match-string 1 link))))
-                        ((string-match ".+::\\([[:graph:][:blank:]]+\\)$" link)
-                         (goto-char (search-forward (match-string 1 link) nil t)))))))))))
+             (open-uri-htmlize file-path)
+             (goto-pos (cadr (split-positioned-uri link-string)))))
           ("\\(?:mp3\\|m4a\\|mp4\\|mkv\\|jpg\\|jpeg\\|png\\)\\'" .
            (lambda (file-path link-string)
              (deferred:$
