@@ -34,13 +34,6 @@
           ("b" "tag match for current Buffer"
            tags ""
            ((org-agenda-files `(,buffer-file-name))))
-          ("$" "Archiving candidates"
-           ((tags "TODO={DONE\\|CXL}")
-            (tags "SCHEDULED<\"<today>\"")
-            (tags "DEADLINE<\"<today>\"")
-            (tags "TIMESTAMP<\"<today>\"")
-            (tags "CLOCKSUM>0"))
-           ((org-agenda-sorting-strategy '(time-up))))
           ("l" "Log entries in a week"
            agenda ""
            ((org-agenda-span 'week)
@@ -118,9 +111,9 @@
            todo "DONE|CXL"
            ((org-agenda-sorting-strategy
              '(todo-state-up priority-down deadline-up))))
-          ("tD" "Done tasks which does not belong any project"
+          ("$" "Archiving candidates"
            ((tags "-CATEGORY=\"Project\"+TODO={DONE\\|CXL\\|PEND}")
-            (tags "st_done")))
+            (tags "st_somd|st_done")))
           ("te" "Easy tasks" tags-todo "t_easy")
           ("tc" "Commit tasks" tags-todo "t_commit")
           ("p" "Projects" tags "+CATEGORY={Project}+LEVEL=2")
