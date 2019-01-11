@@ -7,7 +7,7 @@
         '(("r" "Match a TAGS/PROP/TODO query in archive file"
            tags ""
            ((org-agenda-files `,(append org-agenda-files-default
-                                        (sort (file-expand-wildcards (format "%s/archive/*_archive.org" env-doc-dir)) 'string>)))
+                                        (sort (file-expand-wildcards (format "%s/archive/*_archive.org" env-doc-dir)) 'string<)))
             (org-agenda-sorting-strategy '(time-down))))
           ("R" "Match a TAGS/PROP/TODO query only for TODO entries in archive file"
            tags-todo ""
@@ -17,19 +17,19 @@
           ("o" . "Someday entries")
           ("oo" "all" tags "st_somd"
            ((org-agenda-files `,(append org-agenda-files-default
-                                        (sort (file-expand-wildcards (format "%s/archive/*_archive.org" env-doc-dir)) 'string>)))
+                                        (sort (file-expand-wildcards (format "%s/archive/*_archive.org" env-doc-dir)) 'string<)))
             (org-agenda-sorting-strategy '(time-down))))
           ("or" "read" tags "st_somd+ac_read"
            ((org-agenda-files `,(append org-agenda-files-default
-                                        (sort (file-expand-wildcards (format "%s/archive/*_archive.org" env-doc-dir)) 'string>)))
+                                        (sort (file-expand-wildcards (format "%s/archive/*_archive.org" env-doc-dir)) 'string<)))
             (org-agenda-sorting-strategy '(time-down))))
           ("oc" "cook" tags "st_somd+ac_cook"
            ((org-agenda-files `,(append org-agenda-files-default
-                                        (sort (file-expand-wildcards (format "%s/archive/*_archive.org" env-doc-dir)) 'string>)))
+                                        (sort (file-expand-wildcards (format "%s/archive/*_archive.org" env-doc-dir)) 'string<)))
             (org-agenda-sorting-strategy '(time-down))))
           ("ob" "buy" tags "st_somd+ac_buy"
            ((org-agenda-files `,(append org-agenda-files-default
-                                        (sort (file-expand-wildcards (format "%s/archive/*_archive.org" env-doc-dir)) 'string>)))
+                                        (sort (file-expand-wildcards (format "%s/archive/*_archive.org" env-doc-dir)) 'string<)))
             (org-agenda-sorting-strategy '(time-down))))
           ("b" "tag match for current Buffer"
            tags ""
@@ -147,11 +147,11 @@
 
   (defvar auto-org-capture-file (make-temp-file "auto-org-capture" nil ".org"))
   (defvar org-capture-todo-file (concat env-doc-dir "/priv_a/life.org"))
-  (defvar org-capture-memo-file (concat env-doc-dir "/archive/2018_archive.org"))
+  (defvar org-capture-memo-file (concat env-doc-dir "/archive/2019_archive.org"))
   (setq org-capture-templates
         `(("t" "Task"
            entry (id "e6ee5322-dfb3-407b-846f-87a6ddd4705c")
-           "* TODO %?\n  ADDED: %U\n":prepend t)
+           "* TODO %?\n  ADDED: %U\n")
           ("p" "Project"
            entry (id "adcd63ea-f81a-4909-b659-6e5794052fcc")
            "* %?\n  ADDED: %U" :jump-to-captured t)
@@ -192,7 +192,7 @@
           ;; for auto refiling
           ("r" "note from region"
            entry (file+datetree ,org-capture-memo-file)
-           "* %i\n  %U\n" :immediate-finish t :prepend t :tree-type week)
+           "* %i\n  %U\n" :immediate-finish t :tree-type week)
           ("0" "note"
            entry (file ,auto-org-capture-file)
            "* %?\n  ADDED: %U")

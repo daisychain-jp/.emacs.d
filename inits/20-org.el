@@ -473,7 +473,7 @@ This function creates entries ordered by week instead of months.
 The current time is used if the entry has no timestamp. If FILE
 is nil, refile in the current file."
   (interactive)
-  (let* ((file "~/org/archive/2018_archive.org")
+  (let* ((file "~/org/archive/2019_archive.org")
          (datetree-date (or (org-entry-get nil "TIMESTAMP" t)
                             (org-read-date t nil nil)))
          (date (org-date-to-gregorian datetree-date)))
