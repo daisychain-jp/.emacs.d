@@ -3,34 +3,34 @@
   (setq org-agenda-start-on-weekday 0)
   (setq org-deadline-warning-days 60)
   (setq org-agenda-include-diary t)
+  (defvar org-agenda-files-archive
+    (append org-agenda-files-default
+            (sort (file-expand-wildcards (format "%s/archive/*_archive.org" env-doc-dir)) 'string<))
+    "agenda files plus archive files")
   (setq org-agenda-custom-commands
         '(("r" "Match a TAGS/PROP/TODO query in archive file"
            tags ""
-           ((org-agenda-files `,(append org-agenda-files-default
-                                        (sort (file-expand-wildcards (format "%s/archive/*_archive.org" env-doc-dir)) 'string<)))
+           ((org-agenda-files org-agenda-files-archive)
             (org-agenda-sorting-strategy '(time-down))))
           ("R" "Match a TAGS/PROP/TODO query only for TODO entries in archive file"
            tags-todo ""
-           ((org-agenda-files `,(append org-agenda-files-default
-                                        (sort (file-expand-wildcards (format "%s/archive/*_archive.org" env-doc-dir)) 'string>)))
+           ((org-agenda-files org-agenda-files-archive)
             (org-agenda-sorting-strategy '(time-down))))
           ("o" . "Someday entries")
           ("oo" "all" tags "st_somd"
-           ((org-agenda-files `,(append org-agenda-files-default
-                                        (sort (file-expand-wildcards (format "%s/archive/*_archive.org" env-doc-dir)) 'string<)))
+           ((org-agenda-files org-agenda-files-archive)
             (org-agenda-sorting-strategy '(time-down))))
           ("or" "read" tags "st_somd+ac_read"
-           ((org-agenda-files `,(append org-agenda-files-default
-                                        (sort (file-expand-wildcards (format "%s/archive/*_archive.org" env-doc-dir)) 'string<)))
+           ((org-agenda-files org-agenda-files-archive)
             (org-agenda-sorting-strategy '(time-down))))
           ("oc" "cook" tags "st_somd+ac_cook"
-           ((org-agenda-files `,(append org-agenda-files-default
-                                        (sort (file-expand-wildcards (format "%s/archive/*_archive.org" env-doc-dir)) 'string<)))
+           ((org-agenda-files org-agenda-files-archive)
             (org-agenda-sorting-strategy '(time-down))))
           ("ob" "buy" tags "st_somd+ac_buy"
-           ((org-agenda-files `,(append org-agenda-files-default
-                                        (sort (file-expand-wildcards (format "%s/archive/*_archive.org" env-doc-dir)) 'string<)))
+           ((org-agenda-files org-agenda-files-archive)
             (org-agenda-sorting-strategy '(time-down))))
+          ("ow" "watch" tags "st_somd+ac_watch"
+           ((org-agenda-files org-agenda-files-archive)))
           ("b" "tag match for current Buffer"
            tags ""
            ((org-agenda-files `(,buffer-file-name))))
@@ -251,7 +251,7 @@ If region is active, use the word in region for matching instead."
     (let* ((archive-cands (file-expand-wildcards (format "%s/archive/*_archive.org" env-doc-dir)))
            (archive-files (last archive-cands (safe-length archive-cands)))
            (org-agenda-files (append org-agenda-files-default
-                                     (sort archive-files 'string>)))
+                                     (sort archive-files 'string<)))
            (match-exp (if (region-active-p)
                           (buffer-substring (region-beginning) (region-end))
                         match)))
