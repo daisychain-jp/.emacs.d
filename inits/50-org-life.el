@@ -4,8 +4,8 @@
   (setq org-deadline-warning-days 60)
   (setq org-agenda-include-diary t)
   (defvar org-agenda-files-archive
-    (append org-agenda-files-default
-            (sort (file-expand-wildcards (format "%s/archive/*_archive.org" env-doc-dir)) 'string<))
+    (append (sort (file-expand-wildcards (format "%s/archive/*_archive.org" env-doc-dir)) 'string<)
+            org-agenda-files-default)
     "agenda files plus archive files")
   (setq org-agenda-custom-commands
         '(("r" "Match a TAGS/PROP/TODO query in archive file"
