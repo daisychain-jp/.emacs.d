@@ -60,16 +60,17 @@
 (setq skk-henkan-strict-okuri-precedence t)
 (setq skk-check-okurigana-on-touroku t)
 (setq skk-show-candidates-always-pop-to-buffer t)
-(setq skk-henkan-show-candidates-rows 2)
+(setq skk-henkan-number-to-display-candidates 10)
 (setq skk-show-annotation t)
+(setq skk-show-annotation nil)
 ;; C-q for hankaku-kana input mode
 (setq skk-use-jisx0201-input-method t)
 
 ;; dynamic conversion
-(setq skk-dcomp-activate t)
+(setq skk-dcomp-activate 'eolp)
 (setq skk-dcomp-multiple-activate nil)
 
-; jisyo setting
+;; jisyo setting
 
 (setq skk-data-dir (concat env-var-dir "/lib/skk"))
 (setq skk-priv-jisyo-dir (format "%s/private-jisyo" skk-data-dir))
