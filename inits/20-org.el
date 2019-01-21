@@ -490,3 +490,70 @@ is nil, refile in the current file."
         (goto-char (point-max))
         (org-paste-subtree 4)
         (widen)))))
+
+(add-to-list 'load-path (format "%s/site-lisp/ts.el/" user-emacs-directory))
+
+;;;###autoload
+(defun org-refile-to-datetree-using-ts-in-entry (which-ts file &optional subtree-p)
+  "Refile current entry to datetree in FILE using timestamp found in entry.
+WHICH should be `earliest' or `latest'. If SUBTREE-P is non-nil,
+search whole subtree."
+  (interactive (list (intern (completing-read "Which timestamp? " '(earliest latest)))
+                     (read-file-name "File: " (concat org-directory "/") nil 'mustmatch nil
+                                     (lambda (filename)
+                                       (string-suffix-p ".org" filename)))
+                     current-prefix-arg))
+  (require 'ts)
+  (let* ((sorter (pcase which-ts
+                   ('earliest #'ts<)
+                   ('latest #'ts>)))
+         (tss (org-timestamps-in-entry subtree-p))
+         (ts (car (sort tss sorter)))
+         (date (list (ts-month ts) (ts-day ts) (ts-year ts))))
+    (org-refile-to-datetree file :date date)))
+
+;;;###autoload
+(defun org-timestamps-in-entry (&optional subtree-p)
+  "Return timestamp objects for all Org timestamps in entry.
+ If SUBTREE-P is non-nil (interactively, with prefix), search
+ whole subtree."
+  (interactive (list current-prefix-arg))
+  (save-excursion
+    (let* ((beg (org-entry-beginning-position))
+           (end (if subtree-p
+                    (org-end-of-subtree)
+                  (org-entry-end-position))))
+      (goto-char beg)
+      (cl-loop while (re-search-forward org-tsr-regexp-both end t)
+               for ts = (save-excursion
+                          (goto-char (match-beginning 0))
+                          (org-element-timestamp-parser))
+               collect (ts-parse-org ts)))))
+
+;;;###autoload
+(cl-defun org-refile-to-datetree (file &key (date (calendar-current-date)) entry)
+  "Refile ENTRY or current node to entry for DATE in datetree in FILE."
+  (interactive (list (read-file-name "File: " (concat org-directory "/") nil 'mustmatch nil
+                                     (lambda (filename)
+                                       (string-suffix-p ".org" filename)))))
+  ;; If org-datetree isn't loaded, it will cut the tree but not file
+  ;; it anywhere, losing data. I don't know why
+  ;; org-datetree-file-entry-under is in a separate package, not
+  ;; loaded with the rest of org-mode.
+  (require 'org-datetree)
+  (unless entry
+    (org-cut-subtree))
+  ;; Using a condition-case to be extra careful. In case the refile
+  ;; fails in any way, put cut subtree back.
+  (condition-case err
+      (with-current-buffer (or (org-find-base-buffer-visiting file)
+                               (find-file-noselect file))
+        (org-datetree-find-iso-week-create date)
+        (let ((level (org-get-valid-level (funcall outline-level) 1)))
+          (org-end-of-subtree t t)
+          (org-back-over-empty-lines)
+          (org-paste-subtree level (or entry (car kill-ring))))
+        (save-buffer))
+    (error (unless entry
+             (org-paste-subtree))
+           (message "Unable to refile! %s" err))))
