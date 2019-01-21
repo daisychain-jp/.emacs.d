@@ -481,6 +481,7 @@ is nil, refile in the current file."
       (with-current-buffer (current-buffer)
         (org-cut-subtree)
         (if file (find-file file))
+        (org-show-all)
         (org-datetree-find-iso-week-create date)
         (org-narrow-to-subtree)
         (show-subtree)
