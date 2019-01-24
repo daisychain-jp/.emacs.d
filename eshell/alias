@@ -3,7 +3,6 @@ alias ll l -lh $*
 alias la l -a $*
 alias lal l -alh $*
 alias lld l -ld $*
-alias cp cp -iv $1 $2
 alias mv mv -iv $1 $2
 alias rm rm -iv $*
 alias rmf rm -rf $*
