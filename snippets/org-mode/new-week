@@ -14,4 +14,3 @@
 - tags
 #+BEGIN: clocktable-by-atag :maxlevel 2 :block `(format-time-string "%Y")`-W$1 :wstart 0
 #+END:
-*** Tasks
