@@ -185,7 +185,7 @@
            :tree-type week)
           ("D" "Drill entry to the clocked"
            entry (clock)
-           "* %i%? :drill:" :immediate-finish t)
+           "* %i%? :drill:\n  []")
           ("M" "Memo to the clocked"
            item (clock)
            "- %i%?")
