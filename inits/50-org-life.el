@@ -29,8 +29,12 @@
           ("ob" "buy" tags "st_somd+ac_buy"
            ((org-agenda-files org-agenda-files-archive)
             (org-agenda-sorting-strategy '(time-down))))
-          ("ow" "watch" tags "st_somd+ac_watch"
-           ((org-agenda-files org-agenda-files-archive)))
+          ("ow" "browse" tags "st_somd+ac_browse"
+           ((org-agenda-files org-agenda-files-archive)
+            (org-agenda-sorting-strategy '(time-down))))
+          ("ok" "kaizen" tags "st_somd+ac_kaizen"
+           ((org-agenda-files org-agenda-files-archive)
+            (org-agenda-sorting-strategy '(time-down))))
           ("b" "tag match for current Buffer"
            tags ""
            ((org-agenda-files `(,buffer-file-name))))
@@ -163,25 +167,33 @@
            "* %t :mm_diary:\n  %U\n%?"
            :tree-type week :time-prompt t)
           ("o" "Someday memo")
-          ("oo" "All"
+          ("oo" "all"
            entry (file+datetree ,org-capture-memo-file)
            "* %? :st_somd:\n  ADDED: %U\n  %a"
            :tree-type week)
-          ("or" "Reading"
+          ("or" "read"
            entry (file+datetree ,org-capture-memo-file)
            "* %? :ac_read:st_somd:\n  ADDED: %U\n  %a"
            :tree-type week)
-          ("oR" "Reading with kindle book"
+          ("oR" "read (register to whisper as kindle)"
            entry (file+datetree ,org-capture-memo-file)
            "* %? :ac_read:st_somd:ap_whisper:%^{WP_URL1_FORMAT}p%^{WP_URL1}p%^{WP_ALERT}p\n  ADDED: %U\n  - [ ] insert ID property\n  %a"
            :tree-type week)
-          ("oc" "Cooking"
+          ("oc" "cook"
            entry (file+datetree ,org-capture-memo-file)
            "* %? :ac_cook:st_somd:\n  ADDED: %U\n  %a"
            :tree-type week)
-          ("ob" "Buying"
+          ("ob" "buy"
            entry (file+datetree ,org-capture-memo-file)
            "* %? :ac_buy:st_somd:\n  ADDED: %U\n  %a"
+           :tree-type week)
+          ("ow" "browse"
+           entry (file+datetree ,org-capture-memo-file)
+           "* %? :ac_browse:st_somd:\n  ADDED: %U\n  %a"
+           :tree-type week)
+          ("ok" "kaizen"
+           entry (file+datetree ,org-capture-memo-file)
+           "* %? :ac_kaizen:st_somd:\n  ADDED: %U\n  %a"
            :tree-type week)
           ("D" "Drill entry to the clocked"
            entry (clock)
