@@ -557,3 +557,7 @@ search whole subtree."
     (error (unless entry
              (org-paste-subtree))
            (message "Unable to refile! %s" err))))
+
+(use-package org-web-tools
+  :straight t
+  :bind (("C-c C-;" . org-web-tools-insert-link-for-url)))
