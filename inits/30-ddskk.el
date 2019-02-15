@@ -61,7 +61,6 @@
 (setq skk-check-okurigana-on-touroku t)
 (setq skk-show-candidates-always-pop-to-buffer t)
 (setq skk-henkan-number-to-display-candidates 10)
-(setq skk-show-annotation t)
 (setq skk-show-annotation nil)
 ;; C-q for hankaku-kana input mode
 (setq skk-use-jisx0201-input-method t)
