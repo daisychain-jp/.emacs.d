@@ -263,6 +263,10 @@ If 'ARG' is passed, shred afile instead delete."
           (deldeadline .  "Removed deadline, was %S on %t")
           (refile . "Refiled from %s to %S on %t")
           (clock-out . "")))
+  (add-hook 'org-log-buffer-setup-hook
+            (lambda ()
+              (setq skk-dcomp-activate 'eolp)
+              (setq skk-dcomp-multiple-activate nil)))
 
   ;; org-agenda
   (defvar org-agenda-files-default (append
