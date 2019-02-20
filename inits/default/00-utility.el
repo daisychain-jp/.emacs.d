@@ -63,7 +63,9 @@ If POS is string, search it forward and set point to occurence."
    ((numberp pos)
     (forward-line (- pos (line-number-at-pos))))
    ((stringp pos)
-    (goto-char (search-forward pos nil t)))))
+    (goto-char
+     (re-search-forward
+      (string-join (split-string pos "" t "[ \t\r\n]*") "[ \t\r\n]*") nil nil)))))
 
 (defun open-url-switch-application (url &optional pos)
   "Open URL in an appropriate manner and jump to POS.
