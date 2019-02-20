@@ -1,6 +1,6 @@
 (defun org-life ()
   "settings for self management"
-  (setq org-agenda-start-on-weekday 0)
+  (setq org-agenda-start-on-weekday 1)
   (setq org-deadline-warning-days 60)
   (setq org-agenda-include-diary t)
   (defvar org-agenda-files-archive
