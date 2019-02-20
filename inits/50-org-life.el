@@ -309,4 +309,9 @@ If region is active, use the word in region for matching instead."
                 (if (string= org-clock-current-task-alert "alarm")
                     (alert "Time for the task is over" :style 'alarm)
                   (alert "Time for the task is over" :buffer (org-clocking-buffer))))))
+
+  (defun org-archive-to-archive-file ()
+    "Refile current subtree to archive file using latest timestamp."
+    (interactive)
+    (org-refile-to-datetree-using-ts-in-entry 'latest org-capture-memo-file t))
   )
