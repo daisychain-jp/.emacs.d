@@ -46,7 +46,7 @@
   :hook (after-init . selected-global-mode)
   :diminish selected-minor-mode
   :bind (:map selected-keymap
-              ("C-t" . google-translate-enja-or-jaen)
+              ("C-l t" . google-translate-enja-or-jaen)
               ("C-l g" . lookup-google)
               ("C-l w" . lookup-wikipedia-ja)
               ("C-l W" . lookup-wikipedia-en)

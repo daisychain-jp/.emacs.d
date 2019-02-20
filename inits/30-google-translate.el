@@ -1,6 +1,5 @@
 (use-package google-translate
   :straight t
-  :bind ("C-c t" . google-translate-enja-or-jaen)
   :init
   (require 'google-translate-smooth-ui))
 
