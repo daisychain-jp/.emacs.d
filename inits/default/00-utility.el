@@ -33,25 +33,28 @@ The optional prefix argument ARG is passed to lower function."
               (16 (browse-url-default-browser (car links)))
               (4 (eww-browse-url (car links)))
               (t (open-url-switch-application (car links)))))
-     (url (let ((url-pos (split-positioned-uri url)))
+     (url (let ((url-pos (split-location-uri url)))
             (cl-case (car arg)
               (16 (browse-url-default-browser (car url-pos)))
               (4 (eww-browse-url (car url-pos)))
               (t (open-url-switch-application (car url-pos) (cadr url-pos))))))
-     (filename (let ((filename-pos (split-positioned-uri (expand-file-name filename))))
+     (filename (let ((filename-pos (split-location-uri (expand-file-name filename))))
                  (cl-case (car arg)
                    (16 (browse-url-default-browser (car filename-pos)))
                    (4 (find-file-at-point (car filename-pos)))
                    (t (open-url-switch-application (car filename-pos) (cadr filename-pos)))))))))
 
-(defun split-positioned-uri (positioned-uri)
-  "Split POSITIONED-URI into uri and position specifier."
+(defun split-location-uri (location-uri)
+  "Split LOCATION-URI into normal uri and location specifier.
+
+Location specifier is either line number or string.
+If splitting is successful, this function returns a list containing uri and location specifier."
   (cond
-   ((string-match "\\(.+\\)::\\([[:digit:]]+\\)$" positioned-uri)
-    (list (match-string 1 positioned-uri) (string-to-number (match-string 2 positioned-uri))))
-   ((string-match "\\(.+\\)::\\([[:graph:][:blank:]]+\\)$" positioned-uri)
-    (list (match-string 1 positioned-uri) (match-string 2 positioned-uri)))
-   (t (list positioned-uri))))
+   ((string-match "\\(.+\\)::\\([[:digit:]]+\\)$" location-uri)
+    (list (match-string 1 location-uri) (string-to-number (match-string 2 location-uri))))
+   ((string-match "\\(.+\\)::\\([[:graph:][:blank:]]+\\)$" location-uri)
+    (list (match-string 1 location-uri) (match-string 2 location-uri)))
+   (t (list location-uri))))
 
 (defun goto-pos (pos)
   "Go to POS.

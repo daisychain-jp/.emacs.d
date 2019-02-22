@@ -49,7 +49,7 @@
     (let ((link-str (org-link-unescape (car (org-link-at-point)))))
       (if (and (stringp link-str)
                (string-match-p "^https?://.+" link-str))
-          (let ((url-pos (split-positioned-uri link-str)))
+          (let ((url-pos (split-location-uri link-str)))
             (cl-case (car arg)
               (16 (browse-url-default-browser (car url-pos)))
               (4 (eww-browse-url (car url-pos)))
@@ -61,7 +61,7 @@
           ("\\.x?html?\\'" .
            (lambda (file-path link-string)
              (eww-open-file file-path)
-             (goto-pos (cadr (split-positioned-uri link-string)))))
+             (goto-pos (cadr (split-location-uri link-string)))))
           ("org.gpg" . emacs)
           ("tar.gpg" .
            (lambda (file-path link-string)
@@ -71,7 +71,7 @@
           ("\\(?:pdf\\|epub\\)\\'" .
            (lambda (file-path link-string)
              (open-uri-htmlize file-path)
-             (goto-pos (cadr (split-positioned-uri link-string)))))
+             (goto-pos (cadr (split-location-uri link-string)))))
           ("\\(?:mp3\\|m4a\\|mp4\\|mkv\\|jpg\\|jpeg\\|png\\)\\'" .
            (lambda (file-path link-string)
              (deferred:$
@@ -372,16 +372,41 @@ The sparse tree is according to tags string MATCH."
   (interactive)
   (apply-in-indirect-buffer 'org-narrow-to-element))
 
+(defcustom org-readable-directory "~/var/lib/readable"
+  "Directory where all html file for org-readable is located.")
+
 (defun org-readable ()
-  "Show org subtree in eww by creating html file."
+  "View the main readable of current org subtree in EWW."
   (interactive)
   (org-copy-subtree)
-  (let* ((id (org-id-get))
-         (uuid (downcase (if id id (org-id-uuid))))
-         (read-file (format "~/var/lib/readable/%s.html" uuid))
-         (export-file (org-html-export-to-html nil t)))
-    (rename-file export-file read-file t)
-    (eww-open-file read-file)))
+  (save-excursion
+    (with-temp-buffer
+      (org-paste-subtree)
+      (save-excursion
+        (let* ((beg (org-entry-beginning-position))
+               (end (org-end-of-subtree)))
+          (goto-char beg)
+          (cl-loop while (re-search-forward org-bracket-link-regexp end t)
+                   do (save-excursion
+                        (goto-char (match-beginning 0))
+                        (let* ((link (org-element-link-parser))
+                               (list-begin (plist-get (cadr link) :begin))
+                               (list-end (plist-get (cadr link) :end))
+                               (raw-link (plist-get (cadr link) :raw-link)))
+                          ;; delete link with location-uri since export parser could not handled
+                          (when (cdr (split-location-uri raw-link))
+                            (delete-region list-begin list-end)))))))
+      (let ((org-export-with-author nil)
+            (org-export-show-temporary-export-buffer nil))
+        (org-html-export-as-html nil t)))
+    (let* ((id (org-id-get))
+           (uuid (downcase (if id id (org-id-uuid))))
+           (org-export-buffer-name "*Org HTML Export*")
+           (org-readable-file (format "%s/%s.html" org-readable-directory uuid)))
+      (with-current-buffer org-export-buffer-name
+        (write-file org-readable-file)
+        (eww-open-file org-readable-file)
+        (kill-buffer (format "%s.html" uuid))))))
 
 (defun org-send-mail ()
   "Send a mail of org contents."
