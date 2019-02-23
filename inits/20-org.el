@@ -168,7 +168,7 @@ If 'ARG' is passed, shred afile instead delete."
 
   ;; tag/property
   (setq org-use-tag-inheritance "^ac_.+")
-  (setq org-tags-column -46)
+  (setq org-tags-column -48)
   (setq org-global-properties
         '(("Effort_ALL". "0 0:10 0:30 1:00 2:00 4:00 6:00 8:00")))
   (setq org-use-property-inheritance "TIMELIMIT.*")
