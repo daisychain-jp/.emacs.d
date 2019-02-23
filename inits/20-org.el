@@ -293,6 +293,9 @@ If 'ARG' is passed, shred afile instead delete."
   ;;; work around for the bug in emacs 25
   (defalias 'calendar-absolute-from-iso 'calendar-iso-to-absolute)
 
+  ;; image
+  (setq org-image-actual-width 100)
+
   ;; export
   (setq org-export-with-sub-superscripts nil)
   (setq org-export-dispatch-use-expert-ui nil)
