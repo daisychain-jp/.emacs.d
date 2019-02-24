@@ -395,9 +395,11 @@ The sparse tree is according to tags string MATCH."
                         (let* ((link (org-element-link-parser))
                                (list-begin (plist-get (cadr link) :begin))
                                (list-end (plist-get (cadr link) :end))
-                               (raw-link (plist-get (cadr link) :raw-link)))
+                               (raw-link (plist-get (cadr link) :raw-link))
+                               (type (plist-get (cadr link) :type)))
                           ;; delete link with location-uri since export parser could not handled
-                          (when (cdr (split-location-uri raw-link))
+                          (when (or (string= type "fuzzy")
+                                    (cdr (split-location-uri raw-link)))
                             (delete-region list-begin list-end)))))))
       (let ((org-export-with-author nil)
             (org-export-show-temporary-export-buffer nil))
