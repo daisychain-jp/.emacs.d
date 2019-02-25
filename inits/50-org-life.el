@@ -158,7 +158,7 @@
            "* TODO %?\n  ADDED: %U\n")
           ("p" "Project"
            entry (id "adcd63ea-f81a-4909-b659-6e5794052fcc")
-           "* %?\n  ADDED: %U" :jump-to-captured t)
+           "* %?\n  ADDED: %U\n  - [ ] insert REF_ID property if necessary" :jump-to-captured t)
           ("m" "Memo"
            entry (file+datetree ,org-capture-memo-file)
            "* %? %^g\n  ADDED: %U\n" :tree-type week)
