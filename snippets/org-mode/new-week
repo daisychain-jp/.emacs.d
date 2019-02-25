@@ -8,7 +8,7 @@
      - $0
      - Review
    - Statistics
-#+BEGIN: clocktable :maxlevel 3 :scope agenda :block `(format-time-string "%Y")`-W$1 :wstart 0 :narrow 40! :tcolumns 3 :formula %
+#+BEGIN: clocktable :maxlevel 3 :scope agenda :block `(format-time-string "%Y")`-W$1 :wstart 1 :narrow 40! :tcolumns 3 :formula %
 #+END:
-#+BEGIN: clocktable-by-atag :maxlevel 2 :block `(format-time-string "%Y")`-W$1 :wstart 0
+#+BEGIN: clocktable-by-atag :maxlevel 2 :block `(format-time-string "%Y")`-W$1 :wstart 1
 #+END:
