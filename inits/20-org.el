@@ -19,7 +19,6 @@
   (require 'org-habit)
   (require 'org-eww)
   (require 'org-eshell)
-  (require 'org-mew)
   (require 'org-mu4e)
   (require 'org-drill)
 
