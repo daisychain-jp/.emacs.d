@@ -69,25 +69,14 @@
 (use-package use-package-ensure-system-package :straight t)
 
 (let ((coding-system-for-write 'utf-8))
-  ;; load default .el files
-  (mapc (lambda (file)
-          (load-file file))
-        (let ((default-dir (concat user-emacs-directory "/inits/default/")))
-          (file-expand-wildcards
-           (concat default-dir "*.el"))))
-  ;; load .el files depends on 'system-type
-  (mapc (lambda (file)
-          (load-file file))
-        (let ((system-type-dir (concat user-emacs-directory "/inits/system-type/"))
-              (system-type-short
-               (cond
-                ((string= system-type "gnu/linux") "linux")
-                ((string= system-type "darwin") "darwin"))))
-          (file-expand-wildcards
-           (concat system-type-dir system-type-short "*.el"))))
-  ;; load rest of all .el files
-  (mapc (lambda (file)
-          (load-file file))
-        (let ((init-dir (concat user-emacs-directory "/inits/")))
-          (sort
-           (file-expand-wildcards (concat init-dir "*.el")) 'string<))))
+  (mapc (lambda (dir-name)
+          (mapc (lambda (el-file) (load-file el-file))
+                (sort (file-expand-wildcards
+                       (format "%s/inits/%s/*.el"
+                               user-emacs-directory dir-name))
+                      'string<)))
+        `("default" "feature"
+          ,(cond
+            ((string= system-type "gnu/linux") "linux")
+            ((string= system-type "darwin") "darwin"))
+          "common")))
