@@ -1,5 +1,7 @@
-(el-get-bundle org-mode)
+;; (el-get-bundle org-mode)
+(straight-use-package 'org)
 (use-package org
+  :straight t
   :delight
   (org-mode         " OG")
   (org-agenda-mode  " OG")
@@ -11,6 +13,9 @@
          ("C-c c" . org-capture)
          ("C-c j" . org-clock-goto)
          ("C-c s" . org-store-link))
+  :init
+  (add-to-list 'load-path (format "%s/straight/repos/org/contrib/lisp"
+                                  user-emacs-directory))
   :custom
   (org-directory env-doc-dir)
   :config
