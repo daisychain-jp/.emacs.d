@@ -6,31 +6,32 @@
           org-agenda-files-default)
   "agenda files plus archive files")
 (setq org-agenda-custom-commands
-      '(("r" "Match a TAGS/PROP/TODO query in archive file"
+      '(("r" . "Search for all archive files")
+        ("rs" "Entries containing search words entry or headline."
+         search ""
+         ((org-agenda-files org-agenda-files-archive)
+          (org-agenda-sorting-strategy '(time-down))))
+        ("rg" "Match a TAGS/PROP/TODO query in archive file"
          tags ""
          ((org-agenda-files org-agenda-files-archive)
           (org-agenda-sorting-strategy '(time-down))))
-        ("R" "Match a TAGS/PROP/TODO query only for TODO entries in archive file"
-         tags-todo ""
+        ("y" . "Someday entries")
+        ("yy" "all" tags "TODO=\"SMD\""
          ((org-agenda-files org-agenda-files-archive)
           (org-agenda-sorting-strategy '(time-down))))
-        ("o" . "Someday entries")
-        ("oo" "all" tags "st_somd"
+        ("yr" "read" tags "TODO=\"SMD\"+ac_read"
          ((org-agenda-files org-agenda-files-archive)
           (org-agenda-sorting-strategy '(time-down))))
-        ("or" "read" tags "st_somd+ac_read"
+        ("yc" "cook" tags "TODO=\"SMD\"+ac_cook"
          ((org-agenda-files org-agenda-files-archive)
           (org-agenda-sorting-strategy '(time-down))))
-        ("oc" "cook" tags "st_somd+ac_cook"
+        ("yb" "buy" tags "TODO=\"SMD\"+ac_buy"
          ((org-agenda-files org-agenda-files-archive)
           (org-agenda-sorting-strategy '(time-down))))
-        ("ob" "buy" tags "st_somd+ac_buy"
+        ("yw" "browse" tags "TODO=\"SMD\"+ac_browse"
          ((org-agenda-files org-agenda-files-archive)
           (org-agenda-sorting-strategy '(time-down))))
-        ("ow" "browse" tags "st_somd+ac_browse"
-         ((org-agenda-files org-agenda-files-archive)
-          (org-agenda-sorting-strategy '(time-down))))
-        ("ok" "kaizen" tags "st_somd+ac_kaizen"
+        ("yk" "kaizen" tags "TODO=\"SMD\"+ac_kaizen"
          ((org-agenda-files org-agenda-files-archive)
           (org-agenda-sorting-strategy '(time-down))))
         ("b" "tag match for current Buffer"
@@ -114,20 +115,13 @@
          ((org-agenda-sorting-strategy
            '(todo-state-up priority-down deadline-up))))
         ("$" "Archiving candidates"
-         ((tags "-CATEGORY=\"Project\"+TODO={DONE\\|CXL\\|PEND}")
-          (tags "st_somd|st_done")))
-        ("te" "Easy tasks" tags-todo "t_easy")
-        ("tc" "Commit tasks" tags-todo "t_commit")
+         ((tags "-CATEGORY=\"Project\"+TODO={DONE\\|CXL\\|PEND}")))
         ("p" "Projects" tags "+CATEGORY={Project}+LEVEL=2")
         ("h" "HBT entries" tags-todo "TODO=\"HBT\"+SCHEDULED<\"<+1d>\""
          ((org-agenda-sorting-strategy
            '(scheduled-up))))
         ("H" "All Habits"
          tags "CATEGORY={Habit}+LEVEL=>2")
-        ("c" "Clockable entries" tags "+CATEGORY={Action\\|Habit\\|Task\\|Project}")
-        ("g" "Trigger" tags "+trigger")
-        ("@" . "place-related tasks")
-        ("@@" "All place-related tasks" tags "PLACE")
         ("d" "Daily task list"
          ((tags "SCHEDULED<=\"<today>\"|DEADLINE<=\"<today>\"")
           (todo "URGE|TDAY")
@@ -164,34 +158,34 @@
          entry (file+datetree ,org-capture-memo-file)
          "* %t :mm_diary:\n  %U\n%?"
          :tree-type week :time-prompt t)
-        ("o" "Someday memo")
-        ("oo" "all"
+        ("y" "Someday memo")
+        ("yy" "any"
          entry (file+datetree ,org-capture-memo-file)
-         "* %? :st_somd:\n  ADDED: %U\n  %a"
+         "* SMD %?\n  ADDED: %U\n  %a"
          :tree-type week)
-        ("or" "read"
+        ("yr" "read"
          entry (file+datetree ,org-capture-memo-file)
-         "* %? :ac_read:st_somd:\n  ADDED: %U\n  %a"
+         "* SMD %? :ac_read:\n  ADDED: %U\n  %a"
          :tree-type week)
-        ("oR" "read (register to whisper as kindle)"
+        ("yR" "read (register to whisper as kindle)"
          entry (file+datetree ,org-capture-memo-file)
-         "* %? :ac_read:st_somd:ap_whisper:%^{WP_URL1_FORMAT}p%^{WP_URL1}p%^{WP_ALERT}p\n  ADDED: %U\n  - [ ] insert ID property\n  %a"
+         "* SMD %? :ac_read:ap_whisper:%^{WP_URL1_FORMAT}p%^{WP_URL1}p%^{WP_ALERT}p\n  ADDED: %U\n  - [ ] insert ID property\n  %a"
          :tree-type week)
-        ("oc" "cook"
+        ("yc" "cook"
          entry (file+datetree ,org-capture-memo-file)
-         "* %? :ac_cook:st_somd:\n  ADDED: %U\n  %a"
+         "* SMD %? :ac_cook:\n  ADDED: %U\n  %a"
          :tree-type week)
-        ("ob" "buy"
+        ("yb" "buy"
          entry (file+datetree ,org-capture-memo-file)
-         "* %? :ac_buy:st_somd:\n  ADDED: %U\n  %a"
+         "* SMD %? :ac_buy:\n  ADDED: %U\n  %a"
          :tree-type week)
-        ("ow" "browse"
+        ("yw" "browse"
          entry (file+datetree ,org-capture-memo-file)
-         "* %? :ac_browse:st_somd:\n  ADDED: %U\n  %a"
+         "* SMD %? :ac_browse:\n  ADDED: %U\n  %a"
          :tree-type week)
-        ("ok" "kaizen"
+        ("yk" "kaizen"
          entry (file+datetree ,org-capture-memo-file)
-         "* %? :ac_kaizen:st_somd:\n  ADDED: %U\n  %a"
+         "* SMD %? :ac_kaizen:\n  ADDED: %U\n  %a"
          :tree-type week)
         ("D" "Drill entry to the clocked"
          entry (clock)
