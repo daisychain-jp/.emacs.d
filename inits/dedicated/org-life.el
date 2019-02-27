@@ -89,27 +89,30 @@
         ("Ew" "this Week's task" tags "+Effort<\"0:01\"/URGE|TDAY|WEEK")
         ("Ea" "All Task" tags "+Effort<\"0:01\"/URGE|TDAY|WEEK|TODO")
         ("t" . "TODO entries")
-        ("tm" "Master task list"
-         alltodo ""
+        ("ta" "Master task list"
+         tags "/URGE|TDAY|WEEK|TODO|ONGO"
          ((org-agenda-sorting-strategy
-           '(habit-down todo-state-up priority-down deadline-up))))
+           '(todo-state-up priority-down deadline-up))))
         ("tt" "Today's task list"
-         tags "-CONDITION/URGE|TDAY"
+         tags "/URGE|TDAY"
          ((org-agenda-sorting-strategy
            '(todo-state-up priority-down deadline-up))))
         ("tw" "this Week's task list"
          tags "-CONDITION/URGE|TDAY|WEEK"
          ((org-agenda-sorting-strategy
            '(todo-state-up priority-down deadline-up))))
-        ("ta" "task list of All"
-         tags "/URGE|TDAY|WEEK|TODO|ONGO"
+        ("to" "on-going task"
+         tags "/ONGO"
          ((org-agenda-sorting-strategy
            '(todo-state-up priority-down deadline-up))))
+        ("ty" "someday list"
+         todo "SMD"
+         ((org-agenda-archives-mode t)
+          (org-agenda-sorting-strategy '(time-down))))
         ("tp" "Pending list"
          todo "PEND"
          ((org-agenda-archives-mode t)
-          (org-agenda-sorting-strategy
-           '(todo-state-up priority-down))))
+          (org-agenda-sorting-strategy '(time-down))))
         ("td" "Done list"
          todo "DONE|CXL"
          ((org-agenda-sorting-strategy
