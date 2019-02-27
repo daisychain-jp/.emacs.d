@@ -79,4 +79,4 @@
           ,(cond
             ((string= system-type "gnu/linux") "linux")
             ((string= system-type "darwin") "darwin"))
-          "common")))
+          "common" "dedicated")))

@@ -352,9 +352,7 @@ If 'ARG' is passed, shred afile instead delete."
   (setq org-src-window-setup 'current-window)
 
   ;; save all org files every hour
-  (run-at-time 10 300 'org-save-all-org-buffers)
-
-  (with-eval-after-load "50-org-life.el" (org-life)))
+  (run-at-time 10 300 'org-save-all-org-buffers))
 
 (use-package helm-org-rifle
   :straight t
