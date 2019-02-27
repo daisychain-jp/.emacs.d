@@ -128,7 +128,6 @@
         ("d" "Daily task list"
          ((tags "SCHEDULED<=\"<today>\"|DEADLINE<=\"<today>\"")
           (todo "URGE|TDAY")
-          (tags "CATEGORY={Action}+LEVEL=>2+st_ongo")
           (agenda ""))
          ((org-agenda-sorting-strategy
            '(time-up
