@@ -211,7 +211,7 @@
    `(org-date                  ((,class (:foreground ,onyx-blue-7 :underline t))))
    `(org-warning               ((,class (:bold t :weight bold :box (:line-width 2 :style none)))))
    `(org-todo                  ((,class (:bold t :weight bold))))
-   `(org-done                  ((,class (:underline t))))
+   `(org-done                  ((,class (:weight light))))
    `(org-level-1               ((,class (:foreground ,onyx-blue-7 :height 1.0))))
    `(org-level-2               ((,class (:foreground ,onyx-blue-6))))
    `(org-level-3               ((,class (:foreground ,onyx-white))))
