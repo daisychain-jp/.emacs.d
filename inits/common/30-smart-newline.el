@@ -1,6 +1,6 @@
 (use-package smart-newline
   :straight t
-  :diminish "sn"
+  :diminish smart-newline-mode
   :config
   (bind-keys :map smart-newline-mode-hook
              ("C-j" . smart-newline))
