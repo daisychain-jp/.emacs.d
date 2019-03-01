@@ -2,18 +2,38 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("bin.git"
+(("magi"
+ (filename . "~/org/archive/2019_archive.org")
+ (front-context-string . "     - [[orgit-r")
+ (rear-context-string . "1-17 Thu 10:35]\n")
+ (position . 72937))
+("birdy"
+ (filename . "/scp:birdy@192.168.179.3:/home/birdy/")
+ (front-context-string . "ビデオ\n  drwxr-xr-x")
+ (rear-context-string . "96 Jan 31 14:12 ")
+ (position . 199))
+("afile"
+ (filename . "~/afile/")
+ (front-context-string . ".\n  drwxr-xr-x 1")
+ (rear-context-string . "96 12月 22 13:28 ")
+ (position . 78))
+("home.git"
+ (filename . "~/git/home/")
+ (front-context-string . ".git\n  -rw-rw-r-")
+ (rear-context-string . "96 11月 30 21:06 ")
+ (position . 197))
+("bin"
  (filename . "~/bin/")
  (front-context-string . "[[elfeed:@6-mont")
  (rear-context-string . "   :END:\n    1. ")
  (position . 132422))
 ("book"
- (filename . "~/mnt/svr01/afile/book/")
+ (filename . "~/afile/book/")
  (front-context-string . ".\n  drwxr-xr-x 1")
  (rear-context-string . "96  9月 21 00:59 ")
  (position . 100))
 ("movie"
- (filename . "~/mnt/svr01/afile/movie/")
+ (filename . "~/afile/movie/")
  (front-context-string . "  -rw-r--r-- 1 1")
  (rear-context-string . " 9月 20 00:13 ..\n")
  (position . 160))
@@ -37,11 +57,6 @@
  (front-context-string . "20170501_mediaut")
  (rear-context-string . "96 Dec 12  2017 ")
  (position . 212))
-("dotfiles.git"
- (filename . "~/git/dotfiles/")
- (front-context-string . ".git\n  -rw-r--r-")
- (rear-context-string . "96  8月 23 19:24 ")
- (position . 198))
 ("org-refile-last-stored"
  (filename . "~/org/priv_a/life.org")
  (front-context-string . "*** TDAY ラップトップ上")
@@ -58,7 +73,7 @@
  (rear-context-string . "96 Aug 30  2016 ")
  (position . 211))
 ("root@svr01"
- (filename . "/ssh:root@svr01.daisychain.jp:/")
+ (filename . "/scp:root@svr01.daisychain.jp:/")
  (front-context-string . "bin\n  drwxr-xr-x")
  (rear-context-string . "96 Nov  2 16:00 ")
  (position . 191))
