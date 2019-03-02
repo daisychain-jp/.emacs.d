@@ -456,7 +456,8 @@ The sparse tree is according to tags string MATCH."
             nil))
       nil)))
 
-(defun org-scratch (arg)
+(defun org-scratch ()
+  "Create and visit temporal org file."
   (interactive "p")
   (find-file
    (make-temp-file "auto-org-capture" nil ".org"))
