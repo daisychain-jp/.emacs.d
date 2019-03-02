@@ -233,6 +233,9 @@ If 'ARG' is passed, shred afile instead delete."
             (lambda () (save-buffer)))
   (add-hook 'org-clock-cancel-hook
             (lambda () (save-buffer)))
+  (defconst org-clock-ts-line-re
+    (concat "^[ \t]*" org-clock-string "[ \t]*" org-tsr-regexp-both)
+    "Matches a line with clock time stamp.")
 
   ;; time
   (setq org-duration-format
@@ -492,6 +495,40 @@ The sparse tree is according to tags string MATCH."
                (org-remove-empty-drawer-at (point)))
              (setq org-map-continue-from (org-entry-end-position))))))
      nil 'tree)))
+
+(defun org-get-latest-clock-log-time (pom)
+  "Get the latest clock log time stamp in org entry at POM as a time object.
+
+If entry at POM has no clock log time stamp, this function returns 0."
+  (org-with-point-at pom
+    (save-excursion
+      (setq end-of-subtree (org-end-of-subtree))
+      (setq latest-time 0)
+      (org-back-to-heading t)
+      (org-show-all)
+      (while (re-search-forward org-drawer-regexp end-of-subtree t)
+        (when (string= (match-string 1) (org-clock-drawer-name))
+          (while (progn
+                   (forward-line 1)
+                   (when (org-match-line org-clock-ts-line-re)
+                     (setq match-ts
+                           (if (match-string 3)
+                               (match-string 3) (match-string 1)))
+                     (when (time-less-p latest-time
+                                        (apply 'encode-time (parse-time-string match-ts)))
+                       (setq latest-time (apply 'encode-time (parse-time-string match-ts)))))
+                   (not (org-match-line org-clock-drawer-end-re))))))))
+  latest-time)
+
+(defun org-agenda-cmp-latest-clock-log (a b)
+  "Compare two org entry A and B in terms of clock log.
+
+This function can be used as `org-agenda-cmp-user-defined' in `org-agenda-sorting-strategy'."
+  (let* ((marker-a (get-text-property 1 'org-marker a))
+         (time-a (org-get-latest-clock-log-time marker-a))
+         (marker-b (get-text-property 1 'org-marker b))
+         (time-b (org-get-latest-clock-log-time marker-b)))
+    (if (time-less-p time-a time-b) -1 +1)))
 
 (defun org-gc-subtree ()
   "Do garbage collection for the current subtree."
