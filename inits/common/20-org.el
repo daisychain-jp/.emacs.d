@@ -222,6 +222,7 @@ If 'ARG' is passed, shred afile instead delete."
                      (org-todo ""))))))
 
   ;; clock
+  (setq org-clock-into-drawer "CLOCKLOG")
   (setq org-clock-persist t)
   (setq org-clock-persist-query-resume nil)
   (org-clock-persistence-insinuate)
@@ -256,7 +257,6 @@ If 'ARG' is passed, shred afile instead delete."
   ;; logging
   (setq org-log-done 'time)
   (setq org-log-into-drawer t)
-  (setq org-clock-into-drawer "CLOCKLOG")
   (setq org-log-states-order-reversed nil)
   (setq org-reverse-note-order t)
   (setq org-log-note-headings
