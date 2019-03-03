@@ -468,6 +468,8 @@ The sparse tree is according to tags string MATCH."
 
 (defun org-clock-remove-old-timestamps (old-time)
   "Remove old clock timestamps earlier than 'OLD-TIME' in the current subtree."
+  ;; TODO: This function could be refactored with
+  ;;       org-clock-ts-line-re and marker feature
   (save-excursion
     (org-back-to-heading t)
     (org-show-all)
@@ -532,8 +534,6 @@ This function can be used as `org-agenda-cmp-user-defined' in `org-agenda-sortin
 
 (defun org-gc-subtree ()
   "Do garbage collection for the current subtree."
-  ;; TODO: This function could be refactored with
-  ;;       org-clock-ts-line-re and marker feature
   (interactive)
   (let* ((current (decode-time (current-time)))
          (month-ago (encode-time (nth 0 current)
