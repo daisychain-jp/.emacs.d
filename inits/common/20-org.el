@@ -532,6 +532,8 @@ This function can be used as `org-agenda-cmp-user-defined' in `org-agenda-sortin
 
 (defun org-gc-subtree ()
   "Do garbage collection for the current subtree."
+  ;; TODO: This function could be refactored with
+  ;;       org-clock-ts-line-re and marker feature
   (interactive)
   (let* ((current (decode-time (current-time)))
          (month-ago (encode-time (nth 0 current)
