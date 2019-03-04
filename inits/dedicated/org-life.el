@@ -307,6 +307,12 @@ If region is active, use the word in region for matching instead."
                 (alert "Time for the task is over" :buffer (org-clocking-buffer))))))
 
 (defun org-archive-to-archive-file ()
-  "Refile current subtree to archive file using latest timestamp."
+  "Archive current subtree to archive file using latest timestamp."
   (interactive)
-  (org-refile-to-datetree-using-ts-in-entry 'latest org-capture-memo-file t))
+  (org-refile-to-datetree-using-ts-in-entry 'latest org-capture-memo-file nil))
+(defun org-agenda-archive-to-archive-file ()
+  "Archive the entry or subtree belonging to the current agenda entry."
+  (interactive)
+  (org-agenda-archive-with 'org-archive-to-archive-file))
+(bind-keys :map org-agenda-mode-map
+           ("$" . org-agenda-archive-to-archive-file))
