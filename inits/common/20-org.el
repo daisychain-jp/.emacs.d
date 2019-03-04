@@ -188,7 +188,7 @@ If 'ARG' is passed, shred afile instead delete."
 
   ;; todo
   (setq org-todo-keywords
-        '((sequence "HBT(h)" "SMD(y/!)" "URGE(u/!)" "TDAY(T/!)" "WEEK(w/!)" "TODO(t/!)" "ONGO(o/!)" "|" "DONE(d/@)" "CXL(x@/@)" "PEND(p@/@)")))
+        '((sequence "HBT(h)" "URGE(u/!)" "TDAY(T/!)" "WEEK(w/!)" "TODO(t/!)" "ONGO(o/!)" "SMD(y/!)" "|" "DONE(d/@)" "CXL(x@/@)" "PEND(p@/@)")))
   (setq org-todo-keyword-faces
         '(("HBT"  . ((org-todo    (:foreground "OliveDrab1"))))
           ("SMD"  . ((org-todo    (:foreground "SpringGreen"))))

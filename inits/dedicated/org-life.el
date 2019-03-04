@@ -90,7 +90,7 @@
         ("Ea" "All Task" tags "+Effort<\"0:01\"/URGE|TDAY|WEEK|TODO")
         ("t" . "TODO entries")
         ("ta" "Master task list"
-         tags "/URGE|TDAY|WEEK|TODO|ONGO"
+         tags "/URGE|TDAY|WEEK|TODO|ONGO|SMD"
          ((org-agenda-sorting-strategy
            '(todo-state-up priority-down deadline-up))))
         ("tt" "Today's task list"
