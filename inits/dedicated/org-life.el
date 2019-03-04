@@ -63,25 +63,25 @@
         ("et" "of Today's task"
          tags "+Effort=>\"0\"/URGE|TDAY"
          ((org-agenda-overriding-header "Today's Task")
-          (org-agenda-overriding-columns-format "%26ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM(Time){:}")
+          (org-local-columns-format "%26ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM(Time){:}")
           (org-agenda-view-columns-initially t)
           (org-agenda-sorting-strategy '(todo-state-up priority-down deadline-up))))
         ("ew" "of this Week's task"
          tags "+Effort=>\"0\"/URGE|TDAY|WEEK"
          ((org-agenda-overriding-header "This Week's Task")
-          (org-agenda-overriding-columns-format "%26ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM(Time){:}")
+          (org-local-columns-format "%26ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM(Time){:}")
           (org-agenda-view-columns-initially t)
           (org-agenda-sorting-strategy '(todo-state-up priority-down deadline-up))))
         ("ea" "of All Task"
          tags "+Effort=>\"0\"/URGE|TDAY|WEEK|TODO"
          ((org-agenda-overriding-header "This Week's Task")
-          (org-agenda-overriding-columns-format "%26ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM(Time){:}")
+          (org-local-columns-format "%26ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM(Time){:}")
           (org-agenda-view-columns-initially t)
           (org-agenda-sorting-strategy '(todo-state-up priority-down deadline-up))))
         ("ed" "of Done task"
          tags "+Effort=>\"0\"/DONE|CXL"
          ((org-agenda-overriding-header "Done task")
-          (org-agenda-overriding-columns-format "%26ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM(Time){:}")
+          (org-local-columns-format "%26ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM(Time){:}")
           (org-agenda-view-columns-initially t)
           (org-agenda-sorting-strategy '(todo-state-up priority-down deadline-up))))
         ("E" . "tasks without Effort")
