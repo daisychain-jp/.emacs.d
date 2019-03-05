@@ -8,7 +8,7 @@
               (if (member (buffer-name) '("*Help*" "*Google Translate*"))
                   (progn
                     (setq-local truncate-lines nil)
-                    (adaptive-wrap-prefix-mode 1))
+                    (adaptive-wrap-prefix-mode 1)
+                    (hydra-lazy-control/body))
                 (setq-local truncate-lines t))
-              (hydra-lazy-control/body)
               (buffer-face-set 'recognizable))))
