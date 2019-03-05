@@ -24,10 +24,7 @@
                 (setq-local truncate-lines nil)
                 (setq-local hlc/enter-func #'push-button)
                 (hydra-lazy-control/body)
-                (adaptive-wrap-prefix-mode 1))
-              (when (string= (buffer-name cur) "*Google Translate*")
-                (setq-local truncate-lines t)
-                (hydra-lazy-control/body)))))
+                (adaptive-wrap-prefix-mode 1)))))
 
 ;; transpose mark
 (use-package transpose-mark
@@ -46,7 +43,7 @@
   :hook (after-init . selected-global-mode)
   :diminish selected-minor-mode
   :bind (:map selected-keymap
-              ("C-l t" . google-translate-enja-or-jaen)
+              ("C-l t" . google-translate-enen-or-jaen)
               ("C-l g" . lookup-google)
               ("C-l w" . lookup-wikipedia-ja)
               ("C-l W" . lookup-wikipedia-en)

@@ -5,7 +5,7 @@
 
 (defvar google-translate-english-chars "[:ascii:]’“”–"
   "これらの文字が含まれているときは英語とみなす")
-(defun google-translate-enja-or-jaen (&optional string)
+(defun google-translate-enen-or-jaen (&optional string)
   "regionか、現在のセンテンスを言語自動判別でGoogle翻訳する。"
   (interactive)
   (setq string
@@ -28,5 +28,5 @@
     (run-at-time 0.1 nil 'deactivate-mark)
     (google-translate-translate
      (if asciip "en" "ja")
-     (if asciip "ja" "en")
+     "en"
      string)))

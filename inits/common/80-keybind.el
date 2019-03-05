@@ -178,6 +178,7 @@
     ("f" scroll-up-line "next")
     ("e" scroll-down-line)
     ("s" org-store-link)
+    ("l" recenter-top-bottom)
     ("t" (responsible-call hlc/beginning-func 'beginning-of-buffer))
     ("y" (responsible-call hlc/end-func 'end-of-buffer))
     ("g" (responsible-call hlc/forward-paragraph-func 'forward-paragraph))

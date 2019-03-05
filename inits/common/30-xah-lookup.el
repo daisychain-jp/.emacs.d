@@ -18,7 +18,7 @@
     (global-map "C-c l"
                 :color blue)
     "Lookup"
-    ("t" google-translate-enja-or-jaen)
+    ("t" google-translate-enen-or-jaen)
     ("g" lookup-google)
     ("w" lookup-wikipedia-ja)
     ("W" lookup-wikipedia-en)
