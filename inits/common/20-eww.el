@@ -19,7 +19,9 @@
             (lambda ()
               (let ((url (eww-current-url)))
                 (when (string-match-p (regexp-quote "https://eow.alc.co.jp") url)
-                  (forward-line 45)))))
+                  (forward-line 45))
+                (when (string-match-p (regexp-quote "https://www.weblio.jp/content/") url)
+                  (forward-line 44)))))
   (bind-keys :map eww-mode-map
              ("C-M-m" . eww-lazy-control))
   (add-hook 'eww-mode-hook #'xah-rename-eww-hook)
