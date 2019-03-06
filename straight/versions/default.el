@@ -49,7 +49,7 @@
  ("mu4e-alert" . "96a293b28646f4620e257f24748becc4a06843cd")
  ("multiple-cursors.el" . "6a7c3c0853e3fe9e4b8e5985dbed8fd4075f33ff")
  ("open-junk-file" . "558bec7372b0fed4c4cb6074ab906535fae615bd")
- ("org" . "87a00b3595b4be5dcf9f56f782096892e69f0923")
+ ("org" . "9d7b1ef8a95dde16f5904eb28806415df5d2b472")
  ("org-reveal" . "1cdd088ec5fab631c564dca7f9f74fd3e9b7d4d4")
  ("org-web-tools" . "65c118a3614e75a4fda47248f44f120a20c15738")
  ("orgit" . "1ad6bd8e3eab6c4308ae613ab1d66eb7bf1adc24")
