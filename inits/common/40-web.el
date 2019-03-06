@@ -8,7 +8,7 @@
          ("\\.erb$"       . web-mode)
          ("\\.html?$"     . web-mode))
   :hook (web-mode . (lambda ()
-                      (setq-local helm-dash-docsets helm-dash-docsets-web-mode)))
+                      (setq-local helm-dash-docsets '("HTML"))))
   :custom
   (web-mode-attr-indent-offset        2)
   (web-mode-attr-value-indent-offset  2)
@@ -21,13 +21,18 @@
 
 (use-package css-mode
   :hook (css-mode . (lambda ()
-                      (setq-local helm-dash-docsets helm-dash-docsets-css-mode)))
+                      (setq-local helm-dash-docsets '("CSS"))))
   :custom
   (css-indent-offset 2))
 
 (use-package js
   :delight " JS"
   :hook (js-mode . (lambda ()
-                     (setq-local helm-dash-docsets helm-dash-docsets-js-mode)))
+                     (setq-local helm-dash-docsets '("JavaScript"))))
   :custom
   (js-indent-level 2))
+
+(use-package js2-mode
+  :straight t
+  :delight " J2"
+  :mode (("\\.js$" . js2-mode)))

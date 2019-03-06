@@ -13,8 +13,5 @@
 (defvar helm-dash-docsets-emacs-lisp-mode '("Emacs Lisp" "Common Lisp") "Docsets for 'emacs-lisp-mode.")
 (defvar helm-dash-docsets-ruby-mode '("Ruby") "Docsets for 'ruby-mode.")
 (defvar helm-dash-docsets-python-mode '("Python 3" "Pandas" "NumPy" "Matplotlib" "Scrapy" "PEPs") "Docsets for 'python-mode.")
-(defvar helm-dash-docsets-web-mode '("HTML") "Docsets for 'web-mode.")
-(defvar helm-dash-docsets-css-mode '("CSS") "Docsets for 'css-mode.")
-(defvar helm-dash-docsets-js-mode '("JavaScript") "Docsets for 'js-mode.")
 (defvar helm-dash-docsets-latex-mode '("LaTeX") "Docsets for 'latex-mode.")
 (defvar helm-dash-docsets-plantuml-mode '("PlantUML") "Docsets for 'plantuml-mode.")
