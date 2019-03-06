@@ -104,7 +104,7 @@
         ("to" "on-going task"
          tags "/ONGO"
          ((org-agenda-sorting-strategy
-           '(todo-state-up priority-down deadline-up))))
+           '(category-up priority-down deadline-up))))
         ("ty" "someday list"
          todo "SMD"
          ((org-agenda-archives-mode t)
