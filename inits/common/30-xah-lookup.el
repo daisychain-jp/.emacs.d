@@ -39,7 +39,9 @@
                           (buffer-substring (region-beginning) (region-end)))
                          ((stringp (word-at-point)) (word-at-point))
                          (t ""))))
-    (xah-lookup-word-on-internet word-to-lookup url)))
+    (advice-add 'eww :around #'open-in-new-buffer)
+    (xah-lookup-word-on-internet word-to-lookup url)
+    (advice-remove 'eww #'open-in-new-buffer)))
 
 (defun lookup-google ()       "Lookup on google." (interactive) (lookup-word-on-internet "http://www.google.com/search?q=word02051"))
 (defun lookup-wikipedia-en () "Lookup on wikipedia(en)." (interactive) (lookup-word-on-internet "http://en.wikipedia.org/wiki/word02051"))

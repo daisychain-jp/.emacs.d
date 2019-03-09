@@ -25,7 +25,9 @@
                 (when (string-match-p (regexp-quote "https://www.weblio.jp/content/") url)
                   (forward-line 44))
                 (when (string-match-p (regexp-quote "https://stackoverflow.com") url)
-                  (forward-line 61)))))
+                  (forward-line 61)
+                  (beginning-of-line)
+                  (recenter-top-bottom 0)))))
   (bind-keys :map eww-mode-map
              ("C-M-m" . eww-lazy-control))
   (add-hook 'eww-mode-hook #'xah-rename-eww-hook)
@@ -63,6 +65,29 @@
 (defun xah-rename-eww-hook ()
   "Rename eww browser's buffer so sites open in new page."
   (rename-buffer "eww" t))
+
+(defvar eww-launch-in-new-buffer nil
+  "If non-nil, create a new buffer and open in it when `eww-launch` is called.")
+(defun eww-launch ()
+  "Open url or request query to searching engine by calling `eww`.
+
+If `eww-launch-in-new-buffer` is non-nil,
+this function force to create a new buffer and display rendering results in it."
+  (interactive)
+  (if eww-launch-in-new-buffer
+      (progn
+        (advice-add 'eww :around #'open-in-new-buffer)
+        (call-interactively 'eww)
+        (advice-remove 'eww #'open-in-new-buffer))
+    (call-interactively 'eww)))
+(defun open-in-new-buffer (orig-fun &rest args)
+  "If this function is added as an advice to ORIG-FUN,
+a new buffer will be created and
+the original function will be called in it.
+
+ARGS will be passed to the original function."
+  (with-temp-buffer
+    (apply orig-fun args)))
 
 ;; insert line break so one line terminates right edge of the window
 ;; this setting is optimal for my font size (shr-width)
