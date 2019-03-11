@@ -309,7 +309,7 @@ If region is active, use the word in region for matching instead."
 (defun org-archive-to-archive-file ()
   "Archive current subtree to archive file using latest timestamp."
   (interactive)
-  (org-refile-to-datetree-using-ts-in-entry 'latest org-capture-memo-file nil))
+  (org-refile-to-datetree-using-ts-in-entry 'latest org-capture-memo-file t))
 (defun org-agenda-archive-to-archive-file ()
   "Archive the entry or subtree belonging to the current agenda entry."
   (interactive)
