@@ -313,6 +313,7 @@ If region is active, use the word in region for matching instead."
 (defun org-agenda-archive-to-archive-file ()
   "Archive the entry or subtree belonging to the current agenda entry."
   (interactive)
-  (org-agenda-archive-with 'org-archive-to-archive-file))
+  (org-agenda-archive-with 'org-archive-to-archive-file)
+  (setq this-command 'org-agenda-archive-to-archive-file))
 (bind-keys :map org-agenda-mode-map
            ("$" . org-agenda-archive-to-archive-file))
