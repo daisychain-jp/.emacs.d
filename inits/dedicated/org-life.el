@@ -304,7 +304,7 @@ If region is active, use the word in region for matching instead."
             (when (org-clocking-p)
               (if (string= org-clock-current-task-alert "alarm")
                   (alert "Timer DONE!" :style 'alarm)
-                (alert "Timer DONE!" :style 'fringe :mode 'org-mode :buffer (org-clocking-buffer) :severity 'normal)))))
+                (alert "Timer DONE!" :style 'fringe :mode 'org-mode :buffer (org-clocking-buffer) :severity 'trivial)))))
 
 (defun org-archive-to-archive-file ()
   "Archive current subtree to archive file using latest timestamp."
