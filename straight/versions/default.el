@@ -39,6 +39,7 @@
  ("hydra" . "c30e04d3f623995c94bbf4aed7fb09435503fbc5")
  ("inf-ruby" . "49d59a7897f594e3be74ecbddae83719f9a6c0f0")
  ("japanese-holidays" . "0bccfac342d6ebda1c1a35c3babca0c800ff0c9b")
+ ("js2-mode" . "ed955e7f1608cfd2d2713129d65f5fd734842ae4")
  ("let-alist" . "4a7693b678c59a148660c736cc0bb26a5032ee9a")
  ("log4e" . "c69424e407be0d9d0e54b427d8b18b1ac5a607e2")
  ("lookup-word-on-internet" . "e3132ff21c3d0160e5bd5b7222c50dc9840727d4")
