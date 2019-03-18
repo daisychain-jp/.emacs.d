@@ -57,7 +57,7 @@
  ("pdf-tools" . "66dd313dbb1d078fa847805b0d7cf9797bec9e4c")
  ("persp-mode.el" . "cc1d16aeb17f45d7141fcdc45f8bbffa03b3127f")
  ("pkg-info.el" . "76ba7415480687d05a4353b27fea2ae02b8d9d61")
- ("plantuml-mode" . "b358a53bb0ab195f0193169d0d6869a3ef2c543e")
+ ("plantuml-mode" . "2b84a2df523904c180a3556c851f59beb0e070d7")
  ("popup-el" . "80829dd46381754639fb764da11c67235fe63282")
  ("projectile" . "a6ecae5e8b57874d418f70cc620b97e8157a710b")
  ("rainbow-mode" . "8059f1cb756d2b211af962f07c5e6aff958094d7")
