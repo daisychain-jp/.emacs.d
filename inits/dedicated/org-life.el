@@ -129,7 +129,7 @@
           (org-agenda-sorting-strategy '(user-defined-down))))
         ("d" "Daily task list"
          ((tags "SCHEDULED<=\"<today>\"|DEADLINE<=\"<today>\"")
-          (todo "URGE|TDAY")
+          (todo "URGE|TDAY|ONGO")
           (agenda ""))
          ((org-agenda-sorting-strategy
            '(time-up
