@@ -39,30 +39,9 @@
 
 (use-package hydra
   :straight t
-  :after (multiple-cursors)
   :custom
   (hydra-is-helpful nil)
   :config
-  (defhydra hydra-multiple-cursors
-    (global-map "C-c n"
-                :color red)
-    "multiple-cursors-hydra"
-    ("n"    mc/mark-next-like-this)
-    ("N"    mc/skip-to-next-like-this)
-    ("M-n"  mc/unmark-next-like-this)
-    ("p"    mc/mark-previous-like-this)
-    ("P"    mc/skip-to-previous-like-this)
-    ("M-p"  mc/unmark-previous-like-this)
-    ("e"    mc/edit-lines)
-    ("|"    mc/vertical-align)
-    ("i"    mc/insert-numbers)
-    ("I"    my-mc/insert-numbers)
-    ("s"    mc/sort-regions)
-    ("S"    mc/reverse-regions)
-    ("m"    mc/mark-more-like-this-extended)
-    ("a"    mc/mark-all-like-this :exit t)
-    ("r"    mc/mark-all-in-region-regexp :exit t)
-    ("q"    nil))
   (unbind-key "C-x C-t")
   (defhydra hydra-transpose (global-map "C-x C-t"
                                         :color red)
