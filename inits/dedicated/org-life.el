@@ -132,10 +132,10 @@
           (todo "URGE|TDAY|ONGO")
           (agenda ""))
          ((org-agenda-sorting-strategy
-           '(time-up
-             todo-state-up
+           '(todo-state-up
              priority-down
-             deadline-up))
+             deadline-up
+             category-up))
           (org-agenda-span 14)
           (org-agenda-show-all-dates t)
           (org-agenda-use-time-grid nil)
