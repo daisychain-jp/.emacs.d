@@ -577,6 +577,7 @@ search whole subtree."
                     (org-end-of-subtree)
                   (org-entry-end-position))))
       (goto-char beg)
+      (org-show-entry)
       (cl-loop while (re-search-forward org-tsr-regexp-both end t)
                for ts = (save-excursion
                           (goto-char (match-beginning 0))
@@ -602,10 +603,12 @@ search whole subtree."
       (with-current-buffer (or (org-find-base-buffer-visiting file)
                                (find-file-noselect file))
         (org-datetree-find-iso-week-create date)
-        (let ((level (org-get-valid-level (funcall outline-level) 1)))
+        (let ((level (org-get-valid-level (funcall outline-level) 1))
+              (heading (org-get-heading)))
           (org-end-of-subtree t t)
           (org-back-over-empty-lines)
-          (org-paste-subtree level (or entry (car kill-ring))))
+          (org-paste-subtree level (or entry (car kill-ring)))
+          (message "Refiled to %s" heading))
         (save-buffer))
     (error (unless entry
              (org-paste-subtree))
