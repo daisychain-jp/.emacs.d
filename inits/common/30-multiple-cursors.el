@@ -6,7 +6,7 @@
   (mc/insert-numbers-default 1)
   :config
   (defhydra hydra-multiple-cursors
-    (global-map "C-c n"
+    (global-map "C-c m"
                 :color red)
     "multiple-cursors-hydra"
     ("n"    mc/mark-next-like-this)
