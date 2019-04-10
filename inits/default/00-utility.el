@@ -152,21 +152,20 @@ With numeric prefix arg DEC, decrement the number by DEC amount."
 ;; for rubikichi mail magazine
 (defun emm:goto (idx) (progn(push-mark)(search-forward idx)(recenter 0)))
 
-(defun create-unicode-fontset (fontset-name ascii-font ascii-size unicode-font unicode-size &optional weight slant)
-  "docstring"
-  (let* ((fsn-prefix "fontset-")
-         (weight (if weight
-                     weight "normal"))
+(defun create-fontset-for-unicode (fontset-name font-family font-size &optional weight slant)
+  "Create fontset based on FONT-FAMILY, FONT-SIZE, WEIGHT AND ALANT.
+
+The name of created fontset, specified FONTSET-NAME with prefix 'fontset-' will be returned."
+  (let* ((fontset-prefix "fontset-")
+         (weight (if weight weight "normal"))
          (weight-symbol (make-symbol weight))
-         (slant (if slant
-                    slant "normal"))
+         (slant (if slant slant "normal"))
          (slant-symbol (make-symbol slant))
-         (font (format "%s-%d:weight=%s:slant=%s" ascii-font ascii-size weight slant))
-         (fontspec (font-spec :family ascii-font))
-         (unicode-fontspec (font-spec :family unicode-font :size unicode-size :weight weight-symbol :slant slant-symbol))
-         (fsn (create-fontset-from-ascii-font font nil fontset-name)))
-    (set-fontset-font fsn 'unicode unicode-fontspec)
-    (concat fsn-prefix fontset-name)))
+         (font-str (format "%s-%d:weight=%s:slant=%s" font-family font-size weight slant))
+         (unicode-fontspec (font-spec :family font-family :size font-size :weight weight-symbol :slant slant-symbol))
+         (fontset-name-str (create-fontset-from-ascii-font font-str nil fontset-name)))
+    (set-fontset-font fontset-name-str 'unicode unicode-fontspec)
+    (concat fontset-prefix fontset-name)))
 
 (defvar utl-x-display-default-pixel-width 1920.0 "Default display width in pixel.")
 (defmacro utl-x-display-adjust-font-size (original)
