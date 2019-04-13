@@ -25,7 +25,9 @@
   :hook
   (eshell-mode . (lambda ()
                    (bind-keys :map eshell-mode-map
-                              ("C-j" . eshell-send-input))))
+                              ("C-j"    . eshell-send-input)
+                              ("<up>"   . previous-line)
+                              ("<down>" . next-line))))
   (eshell-kill . eshell-command-alert)
   :custom
   (eshell-prompt-function
