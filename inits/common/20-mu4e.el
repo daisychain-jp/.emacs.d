@@ -4,12 +4,6 @@
   (mu4e-headers-mode " MU")
   (mu4e-view-mode    " MU")
   (mu4e-compose-mode " MU")
-  :bind ((:map mu4e-headers-mode-map
-               ("C-j" . mu4e-headers-view-message))
-         (:map mu4e-view-mode-map
-               ("C-M-m" . hydra-lazy-control/body))
-         (:map mu4e-compose-mode-map
-               ("C-c o" . org-mu4e-compose-org-mode)))
   :hook (after-init . (lambda () (mu4e t)))
   :custom
   (mu4e-mu-binary env-mu4e-mu-binary)
@@ -41,6 +35,12 @@
   (mu4e-view-show-images t)
   (mu4e-html2text-command #'mu4e-shr2text)
   :config
+  (bind-keys :map mu4e-headers-mode-map
+             ("C-j" . mu4e-headers-view-message)
+             :map mu4e-view-mode-map
+             ("C-M-m" . hydra-lazy-control/body)
+             :map mu4e-compose-mode-map
+             ("C-c o" . org-mu4e-compose-org-mode))
   (add-hook 'mu4e-headers-mode-hook
             (lambda ()
               (buffer-face-set 'selecting)))
