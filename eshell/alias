@@ -10,5 +10,6 @@ alias mkdir mkdir -pv $*
 alias mkcd mkdir -pv $* && cd $*
 alias ff find-file $1
 alias d dired $1
+alias g (magit)
 alias mpv mpv --force-window $1
 alias e exit
