@@ -78,7 +78,7 @@
  ("tablist" . "c834a84efb6efa32497efe1e73160fade741b836")
  ("transpose-mark" . "667327602004794de97214cf336ac61650ef75b7")
  ("treepy.el" . "b40e6b09eb9be45da67b8c9e4990a5a0d7a2a09d")
- ("twittering-mode" . "ad7de82cf4b72fc166970d85849e2a9a9ae5a979")
+ ("twittering-mode" . "114891e8fdb4f06b1326a6cf795e49c205cf9e29")
  ("undo-tree" . "d54ef13e3c69655e39f977b8bf75399a6d2b5e42")
  ("use-package" . "2b89ca4b9102baaf3f84f3fc8177c8a17288e291")
  ("visual-regexp-steroids.el" . "a6420b25ec0fbba43bf57875827092e1196d8a9e")
