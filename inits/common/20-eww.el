@@ -19,7 +19,7 @@
             (lambda ()
               (let ((url (eww-current-url)))
                 (when (string-match-p (regexp-quote "https://eow.alc.co.jp") url)
-                  (search-forward "検索文字列")
+                  (search-forward "の使い方と意味")
                   (beginning-of-line 3)
                   (recenter-top-bottom 0))
                 (when (string-match-p (regexp-quote "https://www.weblio.jp/content/") url)
