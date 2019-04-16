@@ -18,10 +18,13 @@
   (add-hook 'eww-after-render-hook
             (lambda ()
               (let ((url (eww-current-url)))
-                (when (string-match-p (regexp-quote "https://eow.alc.co.jp") url)
-                  (search-forward "の使い方と意味")
-                  (beginning-of-line 3)
-                  (recenter-top-bottom 0))
+                (when (string-match (concat (regexp-quote
+                                             "https://eow.alc.co.jp/search?q=") "\\([^&]+\\)") url)
+                  (let* ((search-word-escape (match-string 1 url))
+                         (search-word (org-link-unescape search-word-escape)))
+                    (search-forward (format "* %s" search-word))
+                    (beginning-of-line 1)
+                    (recenter-top-bottom 0)))
                 (when (string-match-p (regexp-quote "https://www.weblio.jp/content/") url)
                   (forward-line 44))
                 (when (string-match-p (regexp-quote "https://stackoverflow.com") url)
