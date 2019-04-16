@@ -273,12 +273,6 @@ If region is active, use the word in region for matching instead."
     (when id
       (org-tags-view-archive nil (format "REF_ID=\"%s\"" id)))))
 
-;; switch state HBT to DONE when clock is out
-(setq org-clock-out-switch-to-state
-      (lambda (state)
-        (when (string= state "HBT")
-          "DONE")))
-
 ;; clock-timer collaboration for fixed time tasks
 (defvar org-clock-current-task-alert nil "ALERT property's value of currently clocked entry")
 (add-hook 'org-clock-in-hook
