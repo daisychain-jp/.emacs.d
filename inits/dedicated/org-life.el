@@ -11,7 +11,7 @@
          search ""
          ((org-agenda-files org-agenda-files-archive)
           (org-agenda-sorting-strategy '(time-down))))
-        ("rg" "Match a TAGS/PROP/TODO query in archive file"
+        ("rm" "Match a TAGS/PROP/TODO query in archive file"
          tags ""
          ((org-agenda-files org-agenda-files-archive)
           (org-agenda-sorting-strategy '(time-down))))
@@ -160,7 +160,7 @@
          "* %? %^g\n  ADDED: %U\n" :tree-type week)
         ("d" "Diary"
          entry (file+datetree ,org-capture-memo-file)
-         "* %t :mm_diary:\n  %U\n%?"
+         "* %? :mm_diary:\n  %U\n"
          :tree-type week :time-prompt t)
         ("y" "Someday memo")
         ("yy" "any"
