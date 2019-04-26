@@ -86,12 +86,12 @@
                     (mu4e-drafts-folder           . "/daisychain/Draft")
                     (mu4e-trash-folder            . "/daisychain/deleted")
                     (mu4e-refile-folder           . "/daisychain/archive")
-                    (smtpmail-default-smtp-server . "daisychain173.sakura.ne.jp")
+                    (smtpmail-default-smtp-server . "smtp.daisychain.jp")
                     (smtpmail-local-domain        . nil)
-                    (smtpmail-smtp-user           . "t.inamori@daisychain.jp")
-                    (smtpmail-smtp-server         . "daisychain173.sakura.ne.jp")
-                    (smtpmail-stream-type         . nil)
-                    (smtpmail-smtp-service        . 587)
+                    (smtpmail-smtp-user           . "t.inamori")
+                    (smtpmail-smtp-server         . "smtp.daisychain.jp")
+                    (smtpmail-stream-type         . ssl)
+                    (smtpmail-smtp-service        . 465)
                     (mu4e-compose-signature . (concat
                                                "稲守 孝之 (INAMORI Takayuki)\n"
                                                "t.inamori@daisychain.jp\n"))))
@@ -142,14 +142,15 @@
   :after (mu4e)
   :custom
   (mu4e-alert-interesting-mail-query
-   (concat
-    "flag:unread AND NOT flag:trashed AND maildir:/daisychain/Inbox"
-    " OR"
-    " flag:unread AND NOT flag:trashed AND maildir:/daisychain/check"
-    " OR"
-    " flag:unread AND NOT flag:trashed AND maildir:/gmail/Inbox"
-    " OR"
-    " flag:unread AND NOT flag:trashed AND maildir:/yahoo/Inbox"))
+   (mapconcat #'identity
+              '("flag:unread AND NOT flag:trashed AND maildir:/daisychain/Inbox"
+                "OR"
+                "flag:unread AND NOT flag:trashed AND maildir:/daisychain/check"
+                "OR"
+                "flag:unread AND NOT flag:trashed AND maildir:/gmail/Inbox"
+                "OR"
+                "flag:unread AND NOT flag:trashed AND maildir:/yahoo/Inbox")
+              " "))
   (mu4e-alert-modeline-formatter
    (lambda (count)
      (if (> count 0)
