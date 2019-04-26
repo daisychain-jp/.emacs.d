@@ -2,7 +2,22 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("magi"
+(("t.inamori@nas01"
+ (filename . "/ssh:t.inamori@192.168.100.110:/home/t.inamori/")
+ (front-context-string . ".\n  drwxr-xr-x 1")
+ (rear-context-string . "44 Apr 10 23:32 ")
+ (position . 109))
+("root@svr03"
+ (filename . "/scp:root@svr03.daisychain.jp:/")
+ (front-context-string . ".\n  drwxr-xr-x  ")
+ (rear-context-string . "96 Mar  8 16:54 ")
+ (position . 103))
+("tinamori@svr03"
+ (filename . "/scp:tinamori@svr03.daisychain.jp:/home/tinamori/")
+ (front-context-string . ".\n  drwxr-xr-x 3")
+ (rear-context-string . "96 Mar 10 15:21 ")
+ (position . 115))
+("magi"
  (filename . "~/org/archive/2019_archive.org")
  (front-context-string . "     - [[orgit-r")
  (rear-context-string . "1-17 Thu 10:35]\n")
@@ -17,8 +32,8 @@
  (front-context-string . ".\n  drwxr-xr-x 1")
  (rear-context-string . "96 12月 22 13:28 ")
  (position . 78))
-("home.git"
- (filename . "~/git/home/")
+("dotfiles.git"
+ (filename . "~/git/dotfiles/")
  (front-context-string . ".git\n  -rw-rw-r-")
  (rear-context-string . "96 11月 30 21:06 ")
  (position . 197))
