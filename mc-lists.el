@@ -3,10 +3,13 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+        org-delete-char
         org-self-insert-command
+        yas-expand
         ))
 
 (setq mc/cmds-to-run-once
       '(
         hydra-multiple-cursors/mc/mark-more-like-this-extended
+        hydra-multiple-cursors/mc/mark-next-like-this
         ))
