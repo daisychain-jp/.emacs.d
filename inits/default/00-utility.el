@@ -112,7 +112,7 @@ play that with media player."
            (remove nil
                    (list (when (numberp start)
                            (format "--ytdl-raw-options=playlist-start=%d" start))
-                         (if (string-prefix-p "192.168.100." (shell-command-to-string "hostname -I | cut -f1 -d' ' | tr -d '\n'"))
+                         (if (not (string-prefix-p "192.168.179." (shell-command-to-string "hostname -I | cut -f1 -d' ' | tr -d '\n'")))
                              "--ytdl-format=\"bestvideo[height<=?720]+bestaudio/best\""
                            "--ytdl-format=\"worstvideo+worstaudio\"")))))
       (start-process-shell-command "mpv" nil (format "mpv --force-window %s \"%s\"" (mapconcat 'identity ytdl-opts " ") file))))
