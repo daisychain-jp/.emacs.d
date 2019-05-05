@@ -12,10 +12,11 @@
 (defun mail-simple-send (subject body)
   "Default function to send a mail with SUBJECT and BODY to myself."
   (save-excursion
-    (message-mail "tinamo@yahoo.co.jp" subject)
-    (message-goto-body)
-    (insert body)
-    (message-send-and-exit)))
+    (let ((message-kill-buffer-on-exit t))
+      (message-mail "tinamo@yahoo.co.jp" subject)
+      (message-goto-body)
+      (insert body)
+      (message-send-and-exit))))
 
 (defun mail-buffer ()
   "Send the current buffer contents as a email.
