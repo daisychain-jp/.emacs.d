@@ -1,4 +1,5 @@
 (use-package mu4e
+  :after (smtpmail)
   :delight
   (mu4e-main-mode    " MU")
   (mu4e-headers-mode " MU")
@@ -86,7 +87,6 @@
                     (mu4e-drafts-folder           . "/daisychain/Draft")
                     (mu4e-trash-folder            . "/daisychain/deleted")
                     (mu4e-refile-folder           . "/daisychain/archive")
-                    (smtpmail-default-smtp-server . "smtp.daisychain.jp")
                     (smtpmail-local-domain        . nil)
                     (smtpmail-smtp-user           . "t.inamori")
                     (smtpmail-smtp-server         . "smtp.daisychain.jp")
