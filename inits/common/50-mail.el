@@ -9,17 +9,21 @@
   (smtpmail-stream-type         'ssl)
   (smtpmail-mail-address        "t.inamori@daisychain.jp"))
 
+(defun mail-simple-send (subject body)
+  "Default function to send a mail with SUBJECT and BODY to myself."
+  (save-excursion
+    (message-mail "tinamo@yahoo.co.jp" subject)
+    (message-goto-body)
+    (insert body)
+    (message-send-and-exit)))
+
 (defun mail-buffer ()
   "Send the current buffer contents as a email.
 
 If region is active, send the string in the region instead."
   (interactive)
-  (let ((buf-to-send (current-buffer)))
-    (message-mail "tinamo@yahoo.co.jp" (buffer-name buf-to-send))
-    (message-goto-body)
-    (insert (save-excursion
-              (with-current-buffer buf-to-send
-                (if (use-region-p)
-                    (buffer-substring (region-beginning) (region-end))
-                  (buffer-string)))))
-    (message-send-and-exit)))
+  (let ((mail-subj (buffer-name))
+        (mail-body (if (use-region-p)
+                       (buffer-substring (region-beginning) (region-end))
+                     (buffer-string))))
+    (mail-simple-send mail-subj mail-body)))
