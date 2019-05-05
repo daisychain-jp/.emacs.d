@@ -114,7 +114,7 @@
     ("-"     text-scale-adjust)
     ("0"     text-scale-adjust)
     ("q"     nil "quit"))
-  (defhydra hydra-launcher (global-map "C-z"
+  (defhydra hydra-launcher (global-map "C-M-j"
                                        :color blue)
     "Launch"
     ("t" ansi-term)
