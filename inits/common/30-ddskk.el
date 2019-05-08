@@ -15,7 +15,7 @@
 
 (setq default-input-method "japanese-skk")
 
-(setq skk-kakutei-key (kbd "C-i"))
+(setq skk-kakutei-key (kbd "C-m"))
 (setq skk-byte-compile-init-file t)
 
 ;; tutorial
