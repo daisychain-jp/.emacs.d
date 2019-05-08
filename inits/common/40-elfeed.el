@@ -67,8 +67,9 @@
 (use-package elfeed-org
   :straight t
   :after (elfeed)
+  :custom
+  (rmh-elfeed-org-files (list (format "%s/library/feed.org" env-doc-dir)))
+  (rmh-elfeed-org-ignore-tag "ignore")
+  (rmh-elfeed-org-auto-ignore-invalid-feeds t)
   :config
-  (elfeed-org)
-  (setq rmh-elfeed-org-files (list (format "%s/library/feed.org" env-doc-dir)))
-  (setq rmh-elfeed-org-ignore-tag "ARCHIVE")
-  (setq rmh-elfeed-org-auto-ignore-invalid-feeds t))
+  (elfeed-org))
