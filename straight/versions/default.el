@@ -51,6 +51,8 @@
  ("multiple-cursors.el" . "6a7c3c0853e3fe9e4b8e5985dbed8fd4075f33ff")
  ("open-junk-file" . "558bec7372b0fed4c4cb6074ab906535fae615bd")
  ("org" . "9d7b1ef8a95dde16f5904eb28806415df5d2b472")
+ ("org-clock-convenience" . "7d14699a15ad6c5b9a63246a11188c77f8800e94")
+ ("org-clock-split" . "b2f1497b62e7f4a767be02e249e4ac95d4f8f21c")
  ("org-reveal" . "1cdd088ec5fab631c564dca7f9f74fd3e9b7d4d4")
  ("org-web-tools" . "65c118a3614e75a4fda47248f44f120a20c15738")
  ("orgit" . "1ad6bd8e3eab6c4308ae613ab1d66eb7bf1adc24")
