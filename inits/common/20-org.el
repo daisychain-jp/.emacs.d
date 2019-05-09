@@ -614,3 +614,9 @@ search whole subtree."
 (use-package org-web-tools
   :straight t
   :bind (("C-c C-;" . org-web-tools-insert-link-for-url)))
+
+(use-package org-clock-convenience
+  :straight t)
+
+(use-package org-clock-split
+  :straight t)
