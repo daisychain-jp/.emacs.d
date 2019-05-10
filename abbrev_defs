@@ -81,18 +81,6 @@
 
 (define-abbrev-table 'flycheck-error-list-mode-abbrev-table '())
 
-(define-abbrev-table 'fundamental-mode-abbrev-table
-  '(
-    ("haji" "はじめまして。
-稲守と申します。" nil 2)
-    ("ijo" "以上、
-よろしくお願いします。" nil 8)
-    ("ina" "稲守です。
-お世話になります。" nil 2)
-    ("to" "以上、
-とりいそぎ、ご連絡まで。" nil 1)
-   ))
-
 (define-abbrev-table 'global-abbrev-table '())
 
 (define-abbrev-table 'helm-ag-mode-abbrev-table '())
@@ -200,4 +188,3 @@
 (define-abbrev-table 'vc-git-region-history-mode-abbrev-table '())
 
 (define-abbrev-table 'xref--xref-buffer-mode-abbrev-table '())
-
