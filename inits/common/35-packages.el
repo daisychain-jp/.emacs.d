@@ -34,9 +34,9 @@
   :straight t)
 
 (use-package epa-file
-  :config
-  (setq epg-gpg-program "/usr/bin/gpg")
-  (setq epa-pinentry-mode 'loopback))
+  :custom
+  (epg-gpg-program "/usr/bin/gpg")
+  (epa-pinentry-mode 'loopback))
 
 (use-package selected
   :straight t

@@ -1,9 +1,5 @@
 ;;; onyx-theme.el --- An extreme high contrast color theme
 
-;; Copyright (C) 2016 Takayuki INAMORI <t.inamori@daisychain.jp>
-
-;; Author: Takayuki INAMORI <t.inamori@daisychain.jp>
-;; URL: https://github.com/daisychain-jp/onyx-theme
 ;; Version: 1.0.0
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -22,10 +18,6 @@
 ;;; Commentary:
 
 ;; This theme is extremely high contrast mainly for the low vision
-;;
-;; For details and screenshots visit the project page on Github:
-;;
-;;     https://github.com/daisychain-jp/onyx-theme
 ;;
 ;; To use this theme put the following in your startup file:
 ;;

@@ -70,11 +70,20 @@
 
 (let ((coding-system-for-write 'utf-8))
   (mapc (lambda (dir-name)
-          (mapc (lambda (el-file) (load-file el-file))
-                (sort (file-expand-wildcards
-                       (format "%s/inits/%s/*.el"
-                               user-emacs-directory dir-name))
-                      'string<)))
+          (mapc (lambda (config-file)
+                  (cond
+                   ((string-suffix-p ".el.gpg" config-file)
+                    (let ((el-file (replace-regexp-in-string ".el.gpg" ".el" config-file)))
+                      (call-process-shell-command
+                       (mapconcat #'shell-quote-argument
+                                  `("/usr/bin/gpg" "--output" ,el-file "--decrypt" ,config-file) " "))
+                      (load-file el-file)
+                      (delete-file el-file)))
+                   ((string-suffix-p ".el" config-file)
+                    (load-file config-file))))
+                (directory-files
+                 (format "%s/inits/%s" user-emacs-directory dir-name)
+                 t ".+\\.el\\(\\.gpg\\)?" nil)))
         `("default" "feature"
           ,(cond
             ((string= system-type "gnu/linux") "linux")
