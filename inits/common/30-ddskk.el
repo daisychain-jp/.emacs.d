@@ -66,7 +66,7 @@
 (setq skk-use-jisx0201-input-method t)
 
 ;; dynamic conversion
-(setq skk-dcomp-activate 'eolp)
+(setq skk-dcomp-activate nil)
 (setq skk-dcomp-multiple-activate nil)
 
 ;; jisyo setting
