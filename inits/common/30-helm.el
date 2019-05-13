@@ -104,7 +104,7 @@ With prefix ARG, this command searches japanese source."
   :after (helm)
   :config
   (setq associated-program-alist
-        '(("mpv" "\\.\\(?:m4a\\|mp3\\|m3u\\|mp4\\|mkv\\|avi\\|flv\\|jpg\\|png\\)$")
+        '(("mpv" "\\.\\(?:m4a\\|mp3\\|m3u\\|mp4\\|mkv\\|webm\\|avi\\|flv\\|jpg\\|png\\)$")
           ("vlc" "\\.\\(?:iso\\)$")))
   (advice-add 'helm-execute-selection-action :around #'helm-find-files-maybe-run-assoc))
 
