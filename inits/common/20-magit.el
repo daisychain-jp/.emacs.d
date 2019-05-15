@@ -14,4 +14,6 @@
 
 (use-package orgit
   :straight t
-  :after (magit org))
+  :after (magit org)
+  :custom
+  (orgit-remote "github"))
