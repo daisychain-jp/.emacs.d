@@ -31,14 +31,15 @@
 
 (defun lookup-word-on-internet (url &optional word)
   "Lookup WORD on URL."
-  (let ((word-to-lookup (cond
-                         (current-prefix-arg
-                          (read-string "Words to lookup: "))
-                         ((stringp word) word)
-                         ((use-region-p)
-                          (buffer-substring (region-beginning) (region-end)))
-                         ((stringp (word-at-point)) (word-at-point))
-                         (t ""))))
+  (let* ((raw-word (cond
+                    (current-prefix-arg
+                     (read-string "Words to lookup: "))
+                    ((stringp word) word)
+                    ((use-region-p)
+                     (buffer-substring (region-beginning) (region-end)))
+                    ((stringp (word-at-point)) (word-at-point))
+                    (t "")))
+         (word-to-lookup (replace-regexp-in-string "\n" " " raw-word)))
     (advice-add 'eww :around #'open-in-new-buffer)
     (xah-lookup-word-on-internet word-to-lookup url)
     (advice-remove 'eww #'open-in-new-buffer)))
