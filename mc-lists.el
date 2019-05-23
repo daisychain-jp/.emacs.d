@@ -3,7 +3,8 @@
 
 (setq mc/cmds-to-run-for-all
       '(
-        org-seq-end
+        org-self-insert-command
+        yas-expand
         ))
 
 (setq mc/cmds-to-run-once
