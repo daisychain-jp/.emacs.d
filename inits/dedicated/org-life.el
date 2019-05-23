@@ -124,9 +124,6 @@
          ((org-agenda-sorting-strategy
            '(scheduled-up))))
         ("H" "All Habits" tags "CATEGORY={Habit}+LEVEL=>2")
-        ("c" "Currently clocked sorting list" tags "CATEGORY={Habit}+LEVEL=>2"
-         ((org-agenda-cmp-user-defined #'org-agenda-cmp-latest-clock-log)
-          (org-agenda-sorting-strategy '(user-defined-down))))
         ("d" "Daily task list"
          ((tags "SCHEDULED<=\"<today>\"|DEADLINE<=\"<today>\"")
           (todo "URGE|TDAY|ONGO")
