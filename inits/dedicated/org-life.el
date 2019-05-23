@@ -118,8 +118,8 @@
          ((org-agenda-sorting-strategy
            '(todo-state-up priority-down deadline-up))))
         ("$" "Archiving candidates"
-         ((tags "-CATEGORY=\"Project\"+TODO={DONE\\|CXL\\|PEND}")))
-        ("p" "Projects" tags "+CATEGORY={Project}+LEVEL=2")
+         ((tags "LEVEL=2+TODO={DONE\\|CXL\\|PEND}")))
+        ("p" "Projects" tags "+project")
         ("h" "HBT entries" tags-todo "TODO=\"HBT\"+SCHEDULED<\"<+1d>\""
          ((org-agenda-sorting-strategy
            '(scheduled-up))))
@@ -147,11 +147,12 @@
 (defvar org-capture-memo-file (concat env-doc-dir "/archive/2019_archive.org"))
 (setq org-capture-templates
       `(("t" "Task"
-         entry (id "e6ee5322-dfb3-407b-846f-87a6ddd4705c")
+         entry (id "adcd63ea-f81a-4909-b659-6e5794052fcc")
          "* TODO %?\n  ADDED: %U\n")
         ("p" "Project"
          entry (id "adcd63ea-f81a-4909-b659-6e5794052fcc")
-         "* %?\n  ADDED: %U\n  - [ ] insert REF_ID property if necessary" :jump-to-captured t)
+         "* %? :project:\n  ADDED: %U\n  - [ ] insert REF_ID property if necessary"
+         :prepend t :jump-to-captured t)
         ("m" "Memo"
          entry (file+datetree ,org-capture-memo-file)
          "* %? %^g\n  ADDED: %U\n" :tree-type week)
@@ -241,11 +242,10 @@
 (bind-keys ("C-c C" . auto-org-capture))
 
 (setq org-refile-targets
-      `((org-agenda-files :regexp . "Projects\\|Tasks")
-        (org-agenda-files :level . 2)
+      `((org-agenda-files :tag . "project")
         (,(file-expand-wildcards (concat env-doc-dir "/**/*.org")) :tag . "refile")))
 (setq org-stuck-projects
-      '("+CATEGORY=\"Project\"+LEVEL=2-SCHEDULED>\"<today>\"-DEADLINE>\"<today>\"/-TODO-DONE-CXL"
+      '("project-SCHEDULED>\"<today>\"-DEADLINE>\"<today>\"/-TODO-DONE-CXL"
         ("URGE" "TDAY" "WEEK" "TODO" "ONGO") nil ""))
 
 (defun org-tags-view-archive (&optional todo-only match)
