@@ -124,7 +124,7 @@ If 'ARG' is passed, shred afile instead delete."
           (if (file-exists-p ex-lstr)
               (when (string= (downcase (read-string (format "%s? y/n: " do-str))) "y")
                 (call-process-shell-command (format "orgafile delete %s %s" cmd-opt ex-lstr))
-                (minibuffer-message (format "%s DONE!" do-str)))
+                (minibuffer-message (format "%s DN!" do-str)))
             (minibuffer-message "NOT EXIST"))))))
 
   ;; speed command
@@ -187,18 +187,18 @@ If 'ARG' is passed, shred afile instead delete."
 
   ;; todo
   (setq org-todo-keywords
-        '((sequence "HBT(h)" "URGE(u/!)" "TDAY(T/!)" "WEEK(w/!)" "TODO(t/!)" "ONGO(o/!)" "SMD(y/!)" "|" "DONE(d/@)" "CXL(x@/@)" "PEND(p@/@)")))
+        '((sequence "HB(h)" "UG(u/!)" "PR(p/!)" "DI(i/!)" "TD(n/!)" "OG(o/!)" "SD(s/!)" "|" "DN(d/@)" "CX(x@/@)" "PD(P@/@)")))
   (setq org-todo-keyword-faces
-        '(("HBT"  . ((org-todo    (:foreground "OliveDrab1"))))
-          ("SMD"  . ((org-todo    (:foreground "SpringGreen"))))
-          ("URGE" . ((org-warning (:foreground "red1"))))
-          ("TDAY" . ((org-todo    (:foreground "DodgerBlue1"))))
-          ("WEEK" . ((org-todo    (:foreground "DeepPink1"))))
-          ("TODO" . ((org-todo    (:foreground "green1"))))
-          ("ONGO" . ((org-todo    (:foreground "chocolate"))))
-          ("PEND" . ((org-todo    (:foreground "sea green"))))
-          ("DONE" . ((org-done    (:foreground "gray30"))))
-          ("CXL"  . ((org-done    (:foreground "dark gray"))))))
+        '(("HB" . ((org-todo    (:foreground "OliveDrab1"))))
+          ("UG" . ((org-warning (:foreground "red1"))))
+          ("PR" . ((org-todo    (:foreground "DodgerBlue1"))))
+          ("DI" . ((org-todo    (:foreground "DeepPink1"))))
+          ("TD" . ((org-todo    (:foreground "green1"))))
+          ("OG" . ((org-todo    (:foreground "chocolate"))))
+          ("SD" . ((org-todo    (:foreground "SpringGreen"))))
+          ("DN" . ((org-done    (:foreground "gray30"))))
+          ("CX" . ((org-done    (:foreground "dark gray"))))
+          ("PD" . ((org-todo    (:foreground "sea green"))))))
   (add-hook  'org-after-todo-state-change-hook
              (lambda ()
                (interactive)
@@ -209,14 +209,14 @@ If 'ARG' is passed, shred afile instead delete."
                         (priority (org-element-property :priority element))
                         (category (org-entry-get (point) "CATEGORY"))
                         (style (org-entry-get (point) "STYLE")))
-                   ;; remove priority when the todo state moves to DONE|CXL|PND
+                   ;; remove priority when the todo state moves to DN|CX|PD
                    (when (and
-                          (s-matches? "DONE\\|CXL\\|PND" todo-state)
+                          (s-matches? "DN\\|CX\\|PD" todo-state)
                           (bound-and-true-p priority))
                      (org-priority ? ))
-                   ;; strip DONE state if CATEGORY of the entry is "Habit"
+                   ;; strip DN state if CATEGORY of the entry is "Habit"
                    (when (and (string= category "Habit")
-                              (string= todo-state "DONE")
+                              (string= todo-state "DN")
                               (not (string= style "habit")))
                      (org-todo ""))))))
 

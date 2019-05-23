@@ -15,20 +15,20 @@
          tags ""
          ((org-agenda-files org-agenda-files-archive)
           (org-agenda-sorting-strategy '(time-down))))
-        ("y" . "Someday entries")
-        ("yy" "all" tags "TODO=\"SMD\""
+        ("s" . "Someday entries")
+        ("ss" "all" tags "TODO=\"SD\""
          ((org-agenda-files org-agenda-files-archive)
           (org-agenda-sorting-strategy '(time-down))))
-        ("yr" "read" tags "TODO=\"SMD\"+ac_read"
+        ("sr" "read" tags "TODO=\"SD\"+ac_read"
          ((org-agenda-files org-agenda-files-archive)
           (org-agenda-sorting-strategy '(time-down))))
-        ("yc" "cook" tags "TODO=\"SMD\"+ac_cook"
+        ("sc" "cook" tags "TODO=\"SD\"+ac_cook"
          ((org-agenda-files org-agenda-files-archive)
           (org-agenda-sorting-strategy '(time-down))))
-        ("yp" "purchase" tags "TODO=\"SMD\"+ac_purchase"
+        ("sp" "purchase" tags "TODO=\"SD\"+ac_purchase"
          ((org-agenda-files org-agenda-files-archive)
           (org-agenda-sorting-strategy '(time-down))))
-        ("yb" "build" tags "TODO=\"SMD\"+ac_build"
+        ("sb" "build" tags "TODO=\"SD\"+ac_build"
          ((org-agenda-files org-agenda-files-archive)
           (org-agenda-sorting-strategy '(time-down))))
         ("b" "tag match for current Buffer"
@@ -57,73 +57,73 @@
              todo-state-up
              priority-down))))
         ("e" . "Effort table")
-        ("et" "of Today's task"
-         tags "+Effort=>\"0\"/URGE|TDAY"
+        ("ep" "of present task"
+         tags "+Effort=>\"0\"/UG|PR"
          ((org-agenda-overriding-header "Today's Task")
           (org-local-columns-format "%26ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM(Time){:}")
           (org-agenda-view-columns-initially t)
           (org-agenda-sorting-strategy '(todo-state-up priority-down deadline-up))))
-        ("ew" "of this Week's task"
-         tags "+Effort=>\"0\"/URGE|TDAY|WEEK"
+        ("ei" "of doing task"
+         tags "+Effort=>\"0\"/UG|PR|DI"
          ((org-agenda-overriding-header "This Week's Task")
           (org-local-columns-format "%26ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM(Time){:}")
           (org-agenda-view-columns-initially t)
           (org-agenda-sorting-strategy '(todo-state-up priority-down deadline-up))))
-        ("ea" "of All Task"
-         tags "+Effort=>\"0\"/URGE|TDAY|WEEK|TODO"
+        ("ea" "of all task"
+         tags "+Effort=>\"0\"/UG|PR|DI|TD"
          ((org-agenda-overriding-header "This Week's Task")
           (org-local-columns-format "%26ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM(Time){:}")
           (org-agenda-view-columns-initially t)
           (org-agenda-sorting-strategy '(todo-state-up priority-down deadline-up))))
-        ("ed" "of Done task"
-         tags "+Effort=>\"0\"/DONE|CXL"
+        ("ed" "of done task"
+         tags "+Effort=>\"0\"/DN|CX"
          ((org-agenda-overriding-header "Done task")
           (org-local-columns-format "%26ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM(Time){:}")
           (org-agenda-view-columns-initially t)
           (org-agenda-sorting-strategy '(todo-state-up priority-down deadline-up))))
         ("E" . "tasks without Effort")
-        ("Et" "Today's task" tags "+Effort<\"0:01\"/URGE|TDAY")
-        ("Ew" "this Week's task" tags "+Effort<\"0:01\"/URGE|TDAY|WEEK")
-        ("Ea" "All Task" tags "+Effort<\"0:01\"/URGE|TDAY|WEEK|TODO")
-        ("t" . "TODO entries")
+        ("Ep" "present task" tags "+Effort<\"0:01\"/UG|PR")
+        ("Ei" "doing task" tags "+Effort<\"0:01\"/UG|PR|DI")
+        ("Ea" "all task" tags "+Effort<\"0:01\"/UG|PR|DI|TD")
+        ("t" . "TD entries")
         ("ta" "Master task list"
-         tags "/URGE|TDAY|WEEK|TODO|ONGO|SMD"
+         tags "/UG|PR|DI|TD|OG|SD"
          ((org-agenda-sorting-strategy
            '(todo-state-up priority-down deadline-up))))
-        ("tt" "Today's task list"
-         tags "/URGE|TDAY"
+        ("tp" "Present task"
+         tags "/UG|PR"
          ((org-agenda-sorting-strategy
            '(todo-state-up priority-down deadline-up))))
-        ("tw" "this Week's task list"
-         tags "-CONDITION/URGE|TDAY|WEEK"
+        ("ti" "doIng task"
+         tags "-CONDITION/UG|PR|DI"
          ((org-agenda-sorting-strategy
            '(todo-state-up priority-down deadline-up))))
         ("to" "on-going task"
-         tags "/ONGO"
+         tags "/OG"
          ((org-agenda-sorting-strategy
            '(category-up priority-down deadline-up))))
-        ("ty" "someday list"
-         todo "SMD"
+        ("ts" "Someday list"
+         todo "SD"
          ((org-agenda-archives-mode t)
           (org-agenda-sorting-strategy '(time-down))))
-        ("tp" "Pending list"
-         todo "PEND"
+        ("tP" "Pending list"
+         todo "PD"
          ((org-agenda-archives-mode t)
           (org-agenda-sorting-strategy '(time-down))))
         ("td" "Done list"
-         todo "DONE|CXL"
+         todo "DN|CX"
          ((org-agenda-sorting-strategy
            '(todo-state-up priority-down deadline-up))))
         ("$" "Archiving candidates"
-         ((tags "LEVEL=2+TODO={DONE\\|CXL\\|PEND}")))
+         ((tags "LEVEL=2+TODO={DN\\|CX\\|PD}")))
         ("p" "Projects" tags "+project")
-        ("h" "HBT entries" tags-todo "TODO=\"HBT\"+SCHEDULED<\"<+1d>\""
+        ("h" "HB entries" tags-todo "TODO=\"HB\"+SCHEDULED<\"<+1d>\""
          ((org-agenda-sorting-strategy
            '(scheduled-up))))
         ("H" "All Habits" tags "CATEGORY={Habit}+LEVEL=>2")
         ("d" "Daily task list"
          ((tags "SCHEDULED<=\"<today>\"|DEADLINE<=\"<today>\"")
-          (todo "URGE|TDAY|ONGO")
+          (todo "UG|PR|OG")
           (agenda ""))
          ((org-agenda-sorting-strategy
            '(todo-state-up
@@ -145,7 +145,7 @@
 (setq org-capture-templates
       `(("t" "Task"
          entry (id "adcd63ea-f81a-4909-b659-6e5794052fcc")
-         "* TODO %?\n  ADDED: %U\n")
+         "* TD %?\n  ADDED: %U\n")
         ("p" "Project"
          entry (id "adcd63ea-f81a-4909-b659-6e5794052fcc")
          "* %? :project:\n  ADDED: %U\n  - [ ] insert REF_ID property if necessary"
@@ -157,30 +157,30 @@
          entry (file+datetree ,org-capture-memo-file)
          "* %? :mm_diary:\n  %U\n"
          :tree-type week :time-prompt t)
-        ("y" "Someday memo")
-        ("yy" "any"
+        ("s" "Someday memo")
+        ("ss" "any"
          entry (file+datetree ,org-capture-memo-file)
-         "* SMD %?\n  ADDED: %U\n  %a"
+         "* SD %?\n  ADDED: %U\n  %a"
          :tree-type week)
-        ("yr" "read"
+        ("sr" "read"
          entry (file+datetree ,org-capture-memo-file)
-         "* SMD %? :ac_read:\n  ADDED: %U\n  %a"
+         "* SD %? :ac_read:\n  ADDED: %U\n  %a"
          :tree-type week)
-        ("yR" "read (register to whisper as kindle)"
+        ("sR" "read (register to whisper as kindle)"
          entry (file+datetree ,org-capture-memo-file)
-         "* SMD %? :ac_read:ap_whisper:%^{WP_URL1_FORMAT}p%^{WP_URL1}p%^{WP_ALERT}p\n  ADDED: %U\n  - [ ] insert ID property\n  %a"
+         "* SD %? :ac_read:ap_whisper:%^{WP_URL1_FORMAT}p%^{WP_URL1}p%^{WP_ALERT}p\n  ADDED: %U\n  - [ ] insert ID property\n  %a"
          :tree-type week)
-        ("yc" "cook"
+        ("sc" "cook"
          entry (file+datetree ,org-capture-memo-file)
-         "* SMD %? :ac_cook:\n  ADDED: %U\n  %a"
+         "* SD %? :ac_cook:\n  ADDED: %U\n  %a"
          :tree-type week)
-        ("yp" "purchase"
+        ("sp" "purchase"
          entry (file+datetree ,org-capture-memo-file)
-         "* SMD %? :ac_purchase:\n  ADDED: %U\n  %a"
+         "* SD %? :ac_purchase:\n  ADDED: %U\n  %a"
          :tree-type week)
-        ("yb" "build"
+        ("sb" "build"
          entry (file+datetree ,org-capture-memo-file)
-         "* SMD %? :ac_build:\n  ADDED: %U\n  %a"
+         "* SD %? :ac_build:\n  ADDED: %U\n  %a"
          :tree-type week)
         ("D" "Drill entry to the clocked"
          entry (clock)
@@ -216,7 +216,7 @@
       (unwind-protect
           (org-capture-string
            (buffer-string)
-           (if (string-match (concat org-ts-regexp "\\|\\* \\(URGE\\|TDAY\\|WEEK\\|TODO\\)")
+           (if (string-match (concat org-ts-regexp "\\|\\* \\(UG\\|PR\\|DI\\|TD\\)")
                              (buffer-string))
                "i" "n"))
         (set-buffer-modified-p nil)
@@ -238,8 +238,8 @@
       `((org-agenda-files :tag . "project")
         (,(file-expand-wildcards (concat env-doc-dir "/**/*.org")) :tag . "refile")))
 (setq org-stuck-projects
-      '("project-SCHEDULED>\"<today>\"-DEADLINE>\"<today>\"/-TODO-DONE-CXL"
-        ("URGE" "TDAY" "WEEK" "TODO" "ONGO") nil ""))
+      '("project-SCHEDULED>\"<today>\"-DEADLINE>\"<today>\"/-TD-DN-CX"
+        ("UG" "PR" "DI" "TD" "OG") nil ""))
 
 (defun org-tags-view-archive (&optional todo-only match)
   "Execute org-tags-view with archive file (xxx-archive.org) as org-agenda-files.
@@ -287,8 +287,8 @@ If region is active, use the word in region for matching instead."
           (lambda ()
             (when (org-clocking-p)
               (if (string= org-clock-current-task-alert "alarm")
-                  (alert "Timer DONE!" :style 'alarm)
-                (alert "Timer DONE!" :style 'fringe :mode 'org-mode :buffer (org-clocking-buffer) :severity 'trivial)))))
+                  (alert "Timer DN!" :style 'alarm)
+                (alert "Timer DN!" :style 'fringe :mode 'org-mode :buffer (org-clocking-buffer) :severity 'trivial)))))
 
 (defun org-archive-to-archive-file ()
   "Archive current subtree to archive file using latest timestamp."
