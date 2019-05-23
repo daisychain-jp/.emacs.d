@@ -25,13 +25,10 @@
         ("yc" "cook" tags "TODO=\"SMD\"+ac_cook"
          ((org-agenda-files org-agenda-files-archive)
           (org-agenda-sorting-strategy '(time-down))))
-        ("yb" "buy" tags "TODO=\"SMD\"+ac_buy"
+        ("yp" "purchase" tags "TODO=\"SMD\"+ac_purchase"
          ((org-agenda-files org-agenda-files-archive)
           (org-agenda-sorting-strategy '(time-down))))
-        ("yw" "browse" tags "TODO=\"SMD\"+ac_browse"
-         ((org-agenda-files org-agenda-files-archive)
-          (org-agenda-sorting-strategy '(time-down))))
-        ("yk" "kaizen" tags "TODO=\"SMD\"+ac_kaizen"
+        ("yb" "build" tags "TODO=\"SMD\"+ac_build"
          ((org-agenda-files org-agenda-files-archive)
           (org-agenda-sorting-strategy '(time-down))))
         ("b" "tag match for current Buffer"
@@ -177,17 +174,13 @@
          entry (file+datetree ,org-capture-memo-file)
          "* SMD %? :ac_cook:\n  ADDED: %U\n  %a"
          :tree-type week)
-        ("yb" "buy"
+        ("yp" "purchase"
          entry (file+datetree ,org-capture-memo-file)
-         "* SMD %? :ac_buy:\n  ADDED: %U\n  %a"
+         "* SMD %? :ac_purchase:\n  ADDED: %U\n  %a"
          :tree-type week)
-        ("yw" "browse"
+        ("yb" "build"
          entry (file+datetree ,org-capture-memo-file)
-         "* SMD %? :ac_browse:\n  ADDED: %U\n  %a"
-         :tree-type week)
-        ("yk" "kaizen"
-         entry (file+datetree ,org-capture-memo-file)
-         "* SMD %? :ac_kaizen:\n  ADDED: %U\n  %a"
+         "* SMD %? :ac_build:\n  ADDED: %U\n  %a"
          :tree-type week)
         ("D" "Drill entry to the clocked"
          entry (clock)
