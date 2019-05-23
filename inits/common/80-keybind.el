@@ -199,6 +199,7 @@
     ("C-e" seq-end)
     ("C-SPC" set-mark-command :exit t)
     ("C-," er/expand-region :exit t)
+    ("C-c l" hydra-lookup/body :exit t)
     ("C-s" isearch-forward "isearch" :exit t)
     ("M-a" avy-goto-char-timer "avy" :exit t)))
 

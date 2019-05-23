@@ -40,6 +40,7 @@
                     ((stringp (word-at-point)) (word-at-point))
                     (t "")))
          (word-to-lookup (replace-regexp-in-string "\n" " " raw-word)))
+    (kill-new word-to-lookup)
     (advice-add 'eww :around #'open-in-new-buffer)
     (xah-lookup-word-on-internet word-to-lookup url)
     (advice-remove 'eww #'open-in-new-buffer)))
