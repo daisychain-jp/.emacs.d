@@ -39,7 +39,11 @@
                      (buffer-substring (region-beginning) (region-end)))
                     ((stringp (word-at-point)) (word-at-point))
                     (t "")))
-         (word-to-lookup (replace-regexp-in-string "\n" " " raw-word)))
+         (word-to-lookup (replace-regexp-in-string
+                          "\n"
+                          (if (string-match-p "[^[:ascii:]]" raw-word)
+                              "" " ")
+                          raw-word)))
     (kill-new word-to-lookup)
     (advice-add 'eww :around #'open-in-new-buffer)
     (xah-lookup-word-on-internet word-to-lookup url)
