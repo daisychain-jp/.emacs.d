@@ -5,4 +5,4 @@
   (plantuml-mode . (lambda ()
                      (setq-local helm-dash-docsets helm-dash-docsets-plantuml-mode)))
   :custom
-  (plantuml-jar-path (format "%s/lib/plantuml/plantuml.jar" env-var-dir)))
+  (plantuml-jar-path "/usr/share/plantuml/plantuml.jar"))

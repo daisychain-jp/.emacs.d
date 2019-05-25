@@ -8,7 +8,7 @@
                   :mode   'org-mode
                   :style  'libnotify))
 
-(defvar alarm-sound (concat env-var-dir "/music/levelup.mp3"))
+(defvar alarm-sound (expand-file-name "~/afile/music/dedicated/levelup.mp3"))
 (alert-define-style 'alarm
                     :title "alarm"
                     :notifier
@@ -27,4 +27,7 @@
                             (system-volume (string-trim (shell-command-to-string "volget"))))
                         (if (string= system-volume "0")
                             (alert message :severity severity :title title :icon icon :category category :buffer buffer :mode mode :data data :style 'fringe :persistent persistent :id id)
-                          (start-process-shell-command "system-alarm" nil (format "mpg321 %s" alarm-sound))))))
+                          (start-process-shell-command "system-alarm" nil
+                                                       (mapconcat #'shell-quote-argument
+                                                                  (list "mpg321" alarm-sound)
+                                                                  " "))))))

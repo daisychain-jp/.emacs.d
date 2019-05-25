@@ -1,6 +1,6 @@
 (use-package recentf
   :custom
-  (recentf-save-file (concat env-emacs-data-dir "/recentf"))
+  (recentf-save-file "~/.recentf")
   (recentf-exclude '("\/var\/lib\/junk\/"
                      "\/mnt\/svr01\/"))
   (recentf-max-saved-items 2000)

@@ -109,13 +109,5 @@
 (setq-default indent-tabs-mode nil)
 (setq text-scale-mode-step 1.0625)
 
-;; sound
-; override play-sound to play various type of sound file
-(defun play-sound (sound)
-  (apply 'call-process
-         `(,(car play-sound-external-command) nil nil nil
-           ,@(cdr play-sound-external-command)
-           ,(file-truename (plist-get (cdr sound) :file)))))
-
 ;; alarm
 (setq visible-bell nil)

@@ -381,7 +381,7 @@ The sparse tree is according to tags string MATCH."
   (interactive)
   (apply-in-indirect-buffer 'org-narrow-to-element))
 
-(defcustom org-readable-directory "~/var/lib/readable"
+(defcustom org-readable-directory "~/var/tmp/readable"
   "Directory where all html file for org-readable is located.")
 
 (defun org-readable ()
