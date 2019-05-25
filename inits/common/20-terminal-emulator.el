@@ -24,6 +24,7 @@
   :delight " ES"
   :hook
   (eshell-mode . (lambda ()
+                   (buffer-face-set 'selecting)
                    (bind-keys :map eshell-mode-map
                               ("C-j"    . eshell-send-input)
                               ("<up>"   . previous-line)
