@@ -90,7 +90,7 @@
          tags "/UG|PR|DI|TD|OG|SD"
          ((org-agenda-sorting-strategy
            '(todo-state-up priority-down deadline-up))))
-        ("tp" "Present task"
+        ("tt" "Present task"
          tags "/UG|PR"
          ((org-agenda-sorting-strategy
            '(todo-state-up priority-down deadline-up))))
