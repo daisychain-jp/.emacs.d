@@ -153,9 +153,10 @@
           (funcall resp-func)
         (funcall responsible-func))))
   (defhydra hydra-lazy-control
-    (:foreign-keys warn
-                   :pre (set-face-background 'mode-line "midnight blue")
-                   :post (set-face-background 'mode-line "gray10"))
+    (global-map "C-M-m"
+                :foreign-keys warn
+                :pre (set-face-background 'mode-line "midnight blue")
+                :post (set-face-background 'mode-line "gray10"))
     "Move"
     ("f" scroll-up-line "next")
     ("e" scroll-down-line)
