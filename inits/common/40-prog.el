@@ -10,6 +10,7 @@
               (abbrev-mode 1)
               (smartparens-mode 1)
               (smart-newline-mode 1)
+              (flyspell-prog-mode)
               (setq-local truncate-lines t))))
 
 (use-package comment-dwim-2
