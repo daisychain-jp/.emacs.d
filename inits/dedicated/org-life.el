@@ -16,7 +16,7 @@
          ((org-agenda-files org-agenda-files-archive)
           (org-agenda-sorting-strategy '(time-down))))
         ("s" . "Someday entries")
-        ("ss" "all" tags "TODO=\"SD\""
+        ("sa" "all" tags "TODO=\"SD\""
          ((org-agenda-files org-agenda-files-archive)
           (org-agenda-sorting-strategy '(time-down))))
         ("sr" "read" tags "TODO=\"SD\"+ac_read"
@@ -57,20 +57,20 @@
              todo-state-up
              priority-down))))
         ("e" . "Effort table")
-        ("ep" "of present task"
-         tags "+Effort=>\"0\"/UG|PR"
+        ("ei" "of doing task"
+         tags "+Effort=>\"0\"/UG|DI"
          ((org-agenda-overriding-header "Today's Task")
           (org-local-columns-format "%26ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM(Time){:}")
           (org-agenda-view-columns-initially t)
           (org-agenda-sorting-strategy '(todo-state-up priority-down deadline-up))))
-        ("ei" "of doing task"
-         tags "+Effort=>\"0\"/UG|PR|DI"
+        ("ew" "of will-do task"
+         tags "+Effort=>\"0\"/UG|DI|WL"
          ((org-agenda-overriding-header "This Week's Task")
           (org-local-columns-format "%26ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM(Time){:}")
           (org-agenda-view-columns-initially t)
           (org-agenda-sorting-strategy '(todo-state-up priority-down deadline-up))))
         ("ea" "of all task"
-         tags "+Effort=>\"0\"/UG|PR|DI|TD"
+         tags "+Effort=>\"0\"/UG|DI|WL|TD"
          ((org-agenda-overriding-header "This Week's Task")
           (org-local-columns-format "%26ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM(Time){:}")
           (org-agenda-view-columns-initially t)
@@ -82,20 +82,24 @@
           (org-agenda-view-columns-initially t)
           (org-agenda-sorting-strategy '(todo-state-up priority-down deadline-up))))
         ("E" . "tasks without Effort")
-        ("Ep" "present task" tags "+Effort<\"0:01\"/UG|PR")
-        ("Ei" "doing task" tags "+Effort<\"0:01\"/UG|PR|DI")
-        ("Ea" "all task" tags "+Effort<\"0:01\"/UG|PR|DI|TD")
+        ("Ei" "doing task" tags "+Effort<\"0:01\"/UG|DI")
+        ("Ew" "will-do task" tags "+Effort<\"0:01\"/UG|DI|WL")
+        ("Ea" "all task" tags "+Effort<\"0:01\"/UG|DI|WL|TD")
         ("t" . "TD entries")
         ("ta" "Master task list"
-         tags "/UG|PR|DI|TD|OG|SD"
-         ((org-agenda-sorting-strategy
-           '(todo-state-up priority-down deadline-up))))
-        ("tt" "Present task"
-         tags "/UG|PR"
+         tags "/UG|DI|WL|TD|OG|SD"
          ((org-agenda-sorting-strategy
            '(todo-state-up priority-down deadline-up))))
         ("ti" "doIng task"
-         tags "-CONDITION/UG|PR|DI"
+         tags "/UG|DI"
+         ((org-agenda-sorting-strategy
+           '(todo-state-up priority-down deadline-up))))
+        ("tw" "Will-do task"
+         tags "-CONDITION/UG|DI|WL"
+         ((org-agenda-sorting-strategy
+           '(todo-state-up priority-down deadline-up))))
+        ("tt" "Todo task"
+         tags "-CONDITION/UG|DI|WL|TD"
          ((org-agenda-sorting-strategy
            '(todo-state-up priority-down deadline-up))))
         ("to" "on-going task"
@@ -123,7 +127,7 @@
         ("H" "All Habits" tags "CATEGORY={Habit}+LEVEL=>2")
         ("d" "Daily task list"
          ((tags "SCHEDULED<=\"<today>\"|DEADLINE<=\"<today>\"")
-          (todo "UG|PR|OG")
+          (todo "UG|DI|OG")
           (agenda ""))
          ((org-agenda-sorting-strategy
            '(todo-state-up
@@ -216,7 +220,7 @@
       (unwind-protect
           (org-capture-string
            (buffer-string)
-           (if (string-match (concat org-ts-regexp "\\|\\* \\(UG\\|PR\\|DI\\|TD\\)")
+           (if (string-match (concat org-ts-regexp "\\|\\* \\(UG\\|DI\\|WL\\|TD\\)")
                              (buffer-string))
                "i" "n"))
         (set-buffer-modified-p nil)
@@ -239,7 +243,7 @@
         (,(file-expand-wildcards (concat env-doc-dir "/**/*.org")) :tag . "refile")))
 (setq org-stuck-projects
       '("project-SCHEDULED>\"<today>\"-DEADLINE>\"<today>\"/-TD-DN-CX"
-        ("UG" "PR" "DI" "TD" "OG") nil ""))
+        ("UG" "DI" "WL" "TD" "OG") nil ""))
 
 (defun org-tags-view-archive (&optional todo-only match)
   "Execute org-tags-view with archive file (xxx-archive.org) as org-agenda-files.
