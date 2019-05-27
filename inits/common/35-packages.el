@@ -2,7 +2,7 @@
 (use-package exec-path-from-shell
   :straight t
   :config
-  (when (memq window-system '(mac ns x))
+  (when (memq window-system '(mac))
     (exec-path-from-shell-initialize)))
 
 ;; hideshow
