@@ -246,7 +246,8 @@
         ("UG" "DI" "WL" "TD" "OG") nil ""))
 
 (defun org-tags-view-archive (&optional todo-only match)
-  "Execute org-tags-view with archive file (xxx-archive.org) as org-agenda-files.
+  "Invoke `org-tags-view' using predetermined agenda files plus archive files.
+The prefix args TODO-ONLY and MATCH are passed to 'org-tags-view.
 
 If region is active, use the word in region for matching instead."
   (interactive)
@@ -259,13 +260,12 @@ If region is active, use the word in region for matching instead."
                       match)))
     (org-tags-view todo-only match-exp)))
 
-(defun org-id-view-refs ()
-  "Show all entries which refers this entry by having REF_ID property."
+(defun org-ref-id-lookup-source ()
+  "Show all entries which refers this entry."
   (interactive)
-  (let* ((id-prop (org-entry-properties nil "ID"))
-         (id (if (listp id-prop) (cdar id-prop) nil)))
+  (let ((id (org-id-get)))
     (when id
-      (org-tags-view-archive nil (format "REF_ID=\"%s\"" id)))))
+      (org-tags-view-archive nil (format "+REF_ID=\"%s\"" id)))))
 
 ;; clock-timer collaboration for fixed time tasks
 (defvar org-clock-current-task-alert nil "ALERT property's value of currently clocked entry")
