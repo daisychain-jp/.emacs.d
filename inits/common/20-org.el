@@ -288,6 +288,10 @@ If 'ARG' is passed, shred afile instead delete."
           (todo     . " ")
           (tags     . " ")
           (search   . " ")))
+  ;; these settings contribute to rapid building of agenda view
+  (setq org-agenda-inhibit-startup t)
+  (setq org-agenda-dim-blocked-tasks nil)
+  (setq org-agenda-use-tag-inheritance nil)
 
   ;; org-capture
   (setq org-capture-bookmark nil)
