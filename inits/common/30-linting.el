@@ -31,3 +31,27 @@
     ("v" flycheck-verify-setup)
     ("x" flycheck-disable-checker)
     ("q" nil "quit")))
+
+(use-package ispell
+  :custom
+  (ispell-program-name "/usr/bin/aspell"))
+
+(use-package flyspell
+  :diminish "fs"
+  :after (hydra)
+  :custom
+  (flyspell-issue-message-flag nil)
+  :config
+  (bind-keys :map flyspell-mode-map
+             ("C-,"   . nil)
+             ("C-."   . nil)
+             ("C-;"   . nil)
+             ("C-c $" . nil)
+             ("C-M-i" . nil))
+  (defhydra hydra-flyspell (flyspell-mode-map "C-c $"
+                                              :color red)
+    "Flyspell"
+    ("c" flyspell-buffer)
+    ("n" flyspell-goto-next-error)
+    ("." flyspell-auto-correct-word)
+    ("q" nil "quit")))
