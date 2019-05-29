@@ -260,12 +260,63 @@ If region is active, use the word in region for matching instead."
                       match)))
     (org-tags-view todo-only match-exp)))
 
-(defun org-ref-id-lookup-source ()
+(defconst org-ref-id-property "REF_ID"
+  "The property that is being used to use ref-id feature.")
+(defcustom org-ref-id-parent-tag
+  "project"
+  "Tag name which parents should have.")
+
+(defun org-ref-id-lookup-refs ()
   "Show all entries which refers this entry."
   (interactive)
   (let ((id (org-id-get)))
     (when id
-      (org-tags-view-archive nil (format "+REF_ID=\"%s\"" id)))))
+      (org-tags-view-archive nil (format "+%s=\"%s\"" org-ref-id-property id)))))
+(defun org-ref-id-tieup-tree ()
+  "Tie up parent node and child node with ref-id mechanism.
+Parents of tied-up families can find their children even after they're teared apart."
+  (interactive)
+  (save-excursion
+    (org-back-to-heading)
+    (if (if (stringp org-ref-id-parent-tag)
+            (member org-ref-id-parent-tag (org-get-tags))
+          t)
+        (let ((ref-id (org-id-get-create)))
+          (when (org-goto-first-child)
+            (when (org-ref-id-set-property ref-id)
+              (message "Tied up with %s." ref-id))))
+      (message "This entry does not compliant with 'org-ref-id-parent-tag"))))
+(defun org-agenda-ref-id-tieup-tree ()
+  "Tie up subtree by setting property."
+  (interactive)
+  (org-agenda-check-no-diary)
+  (let* ((hdmarker (or (org-get-at-bol 'org-hd-marker)
+                       (org-agenda-error)))
+         (buffer (marker-buffer hdmarker))
+         (pos (marker-position hdmarker))
+         (inhibit-read-only t)
+         newhead)
+    (org-with-remote-undo buffer
+      (with-current-buffer buffer
+        (widen)
+        (goto-char pos)
+        (org-show-context 'agenda)
+        (call-interactively 'org-ref-id-tieup-tree)
+        (end-of-line 1)
+        (setq newhead (org-get-heading))))))
+(defun org-ref-id-set-property (ref-id)
+  "Set property named by `org-ref-id-property' to REF-ID.
+
+This function called recursively for the number of siblings.
+Return t if all siblings are set property correctly."
+  (and
+   (progn
+     (org-set-property org-ref-id-property ref-id)
+     (if (string= (org-entry-get nil org-ref-id-property) ref-id)
+         t nil))
+   (if (org-goto-sibling)
+       (org-ref-id-set-property ref-id)
+     t)))
 
 ;; clock-timer collaboration for fixed time tasks
 (defvar org-clock-current-task-alert nil "ALERT property's value of currently clocked entry")
@@ -304,4 +355,5 @@ If region is active, use the word in region for matching instead."
   (org-agenda-archive-with 'org-archive-to-archive-file)
   (setq this-command 'org-agenda-archive-to-archive-file))
 (bind-keys :map org-agenda-mode-map
-           ("$" . org-agenda-archive-to-archive-file))
+           ("$" . org-agenda-archive-to-archive-file) ;
+           ("&" . org-agenda-ref-id-tieup-tree))
