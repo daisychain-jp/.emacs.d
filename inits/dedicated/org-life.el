@@ -64,13 +64,13 @@
           (org-agenda-view-columns-initially t)
           (org-agenda-sorting-strategy '(todo-state-up priority-down deadline-up))))
         ("ew" "of will-do task"
-         tags "+Effort=>\"0\"/UG|DI|WL"
+         tags "+Effort=>\"0\"/UG|DI|WD"
          ((org-agenda-overriding-header "This Week's Task")
           (org-local-columns-format "%26ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM(Time){:}")
           (org-agenda-view-columns-initially t)
           (org-agenda-sorting-strategy '(todo-state-up priority-down deadline-up))))
         ("ea" "of all task"
-         tags "+Effort=>\"0\"/UG|DI|WL|TD"
+         tags "+Effort=>\"0\"/UG|DI|WD|TD"
          ((org-agenda-overriding-header "This Week's Task")
           (org-local-columns-format "%26ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM(Time){:}")
           (org-agenda-view-columns-initially t)
@@ -83,11 +83,11 @@
           (org-agenda-sorting-strategy '(todo-state-up priority-down deadline-up))))
         ("E" . "tasks without Effort")
         ("Ei" "doing task" tags "+Effort<\"0:01\"/UG|DI")
-        ("Ew" "will-do task" tags "+Effort<\"0:01\"/UG|DI|WL")
-        ("Ea" "all task" tags "+Effort<\"0:01\"/UG|DI|WL|TD")
+        ("Ew" "will-do task" tags "+Effort<\"0:01\"/UG|DI|WD")
+        ("Ea" "all task" tags "+Effort<\"0:01\"/UG|DI|WD|TD")
         ("t" . "TD entries")
         ("ta" "Master task list"
-         tags "/UG|DI|WL|TD|OG|SD"
+         tags "/UG|DI|WD|TD|OG|SD"
          ((org-agenda-sorting-strategy
            '(todo-state-up priority-down deadline-up))))
         ("ti" "doIng task"
@@ -95,11 +95,11 @@
          ((org-agenda-sorting-strategy
            '(todo-state-up priority-down deadline-up))))
         ("tw" "Will-do task"
-         tags "-CONDITION/UG|DI|WL"
+         tags "-CONDITION/UG|DI|WD"
          ((org-agenda-sorting-strategy
            '(todo-state-up priority-down deadline-up))))
         ("tt" "Todo task"
-         tags "-CONDITION/UG|DI|WL|TD"
+         tags "-CONDITION/UG|DI|WD|TD"
          ((org-agenda-sorting-strategy
            '(todo-state-up priority-down deadline-up))))
         ("to" "on-going task"
@@ -220,7 +220,7 @@
       (unwind-protect
           (org-capture-string
            (buffer-string)
-           (if (string-match (concat org-ts-regexp "\\|\\* \\(UG\\|DI\\|WL\\|TD\\)")
+           (if (string-match (concat org-ts-regexp "\\|\\* \\(UG\\|DI\\|WD\\|TD\\)")
                              (buffer-string))
                "i" "n"))
         (set-buffer-modified-p nil)
@@ -243,7 +243,7 @@
         (,(file-expand-wildcards (concat env-doc-dir "/**/*.org")) :tag . "refile")))
 (setq org-stuck-projects
       '("project-SCHEDULED>\"<today>\"-DEADLINE>\"<today>\"/-TD-DN-CX"
-        ("UG" "DI" "WL" "TD" "OG") nil ""))
+        ("UG" "DI" "WD" "TD" "OG") nil ""))
 
 (defun org-tags-view-archive (&optional todo-only match)
   "Invoke `org-tags-view' using predetermined agenda files plus archive files.
