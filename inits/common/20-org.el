@@ -546,6 +546,11 @@ This function can be used as `org-agenda-cmp-user-defined' in `org-agenda-sortin
                                  (nth 5 current))))
     (org-clock-remove-old-timestamps month-ago)))
 
+(add-hook 'org-cycle-hook #'org-cycle-hide-drawers t)
+(add-hook 'org-cycle-hook #'org-cycle-hide-archived-subtrees t)
+(add-hook 'org-cycle-hook #'org-cycle-show-empty-lines t)
+(add-hook 'org-cycle-hook #'org-optimize-window-after-visibility-change t)
+
 (add-to-list 'load-path (format "%s/site-lisp/ts.el/" user-emacs-directory))
 
 ;;;###autoload
