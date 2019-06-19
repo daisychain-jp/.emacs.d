@@ -124,7 +124,7 @@
         ("h" "HB entries" tags-todo "TODO=\"HB\"+SCHEDULED<\"<+1d>\""
          ((org-agenda-sorting-strategy
            '(scheduled-up))))
-        ("H" "All Habits" tags "CATEGORY={Habit}+LEVEL=>2")
+        ("H" "All Habits" tags "CATEGORY=\"Habit\"+LEVEL=>2+{ac_.+}")
         ("d" "Daily task list"
          ((tags "SCHEDULED<=\"<today>\"|DEADLINE<=\"<today>\"")
           (todo "UG|DI|OG")
