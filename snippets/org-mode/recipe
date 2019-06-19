@@ -5,6 +5,7 @@
 # key: rp
 # --
 * ${1:menu}
+  ADDED: `(format-time-string "[%Y-%m-%d %a]")`
   - 材料
     | 材料 | 分量 |
     |------+------|
