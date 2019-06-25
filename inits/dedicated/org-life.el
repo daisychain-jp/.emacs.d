@@ -145,7 +145,16 @@
 
 (defvar auto-org-capture-file (make-temp-file "auto-org-capture" nil ".org"))
 (defvar org-capture-todo-file (concat env-doc-dir "/priv_a/life.org"))
-(defvar org-capture-memo-file (concat env-doc-dir "/archive/2019_archive.org"))
+(defun org-archive-file (&optional year)
+  "Return a path of archive file.
+If optional argument 'YEAR passed, a file which contains the year's tree is used instead of this year's one.."
+  (let* ((archive-year (if year year (ts-year (ts-now))))
+         (archive-file (format "%s/archive/%s_archive.org" env-doc-dir archive-year)))
+    (if (or (file-exists-p archive-file)
+            (file-symlink-p archive-file))
+        archive-file
+      nil)))
+(defvar org-archive-file (org-archive-file))
 (setq org-capture-templates
       `(("t" "Task"
          entry (id "adcd63ea-f81a-4909-b659-6e5794052fcc")
@@ -155,35 +164,35 @@
          "* %? :project:\n  ADDED: %U\n  - [ ] insert REF_ID property if necessary"
          :prepend t :jump-to-captured t)
         ("m" "Memo"
-         entry (file+datetree ,org-capture-memo-file)
+         entry (file+datetree ,org-archive-file)
          "* %? %^g\n  ADDED: %U\n" :tree-type week)
         ("d" "Diary"
-         entry (file+datetree ,org-capture-memo-file)
+         entry (file+datetree ,org-archive-file)
          "* %? :mm_diary:\n  %U\n"
          :tree-type week :time-prompt t)
         ("s" "Someday memo")
         ("ss" "any"
-         entry (file+datetree ,org-capture-memo-file)
+         entry (file+datetree ,org-archive-file)
          "* SD %?\n  ADDED: %U\n  %a"
          :tree-type week)
         ("sr" "read"
-         entry (file+datetree ,org-capture-memo-file)
+         entry (file+datetree ,org-archive-file)
          "* SD %? :ac_read:\n  ADDED: %U\n  %a"
          :tree-type week)
         ("sR" "read (register to whisper as kindle)"
-         entry (file+datetree ,org-capture-memo-file)
+         entry (file+datetree ,org-archive-file)
          "* SD %? :ac_read:ap_whisper:%^{WP_URL1_FORMAT}p%^{WP_URL1}p%^{WP_ALERT}p\n  ADDED: %U\n  - [ ] insert ID property\n  %a"
          :tree-type week)
         ("sc" "cook"
-         entry (file+datetree ,org-capture-memo-file)
+         entry (file+datetree ,org-archive-file)
          "* SD %? :ac_cook:\n  ADDED: %U\n  %a"
          :tree-type week)
         ("sp" "purchase"
-         entry (file+datetree ,org-capture-memo-file)
+         entry (file+datetree ,org-archive-file)
          "* SD %? :ac_purchase:\n  ADDED: %U\n  %a"
          :tree-type week)
         ("sb" "build"
-         entry (file+datetree ,org-capture-memo-file)
+         entry (file+datetree ,org-archive-file)
          "* SD %? :ac_build:\n  ADDED: %U\n  %a"
          :tree-type week)
         ("D" "Drill entry to the clocked"
@@ -194,7 +203,7 @@
          "- %i%?")
         ;; for auto refiling
         ("r" "note from region"
-         entry (file+datetree ,org-capture-memo-file)
+         entry (file+datetree ,org-archive-file)
          "* %i\n  %U\n" :immediate-finish t :tree-type week)
         ("0" "note"
          entry (file ,auto-org-capture-file)
@@ -203,13 +212,13 @@
          entry (id "e6ee5322-dfb3-407b-846f-87a6ddd4705c")
          "%i" :immediate-finish t :prepend t)
         ("n" "memo for auto refiling"
-         entry (file+datetree ,org-capture-memo-file)
+         entry (file+datetree ,org-archive-file)
          "%i" :immediate-finish t :prepend t :tree-type week)))
 ;; for auto refiling capture
 (defun auto-org-capture (arg)
   (interactive "p")
   (cl-case arg
-    (16 (find-file org-capture-memo-file)
+    (16 (find-file org-archive-file)
         (goto-char (point-min)))
     (4  (find-file org-capture-todo-file)
         (goto-char (point-min)))
@@ -348,7 +357,9 @@ Return t if all siblings are set property correctly."
 (defun org-archive-to-archive-file ()
   "Archive current subtree to archive file using latest timestamp."
   (interactive)
-  (org-refile-to-datetree-using-ts-in-entry 'latest org-capture-memo-file t))
+  (let* ((ts (car (sort (org-timestamps-in-entry t) #'ts>)))
+         (year (ts-year ts)))
+    (org-refile-to-datetree-using-ts-in-entry 'latest (org-archive-file year) t)))
 (defun org-agenda-archive-to-archive-file ()
   "Archive the entry or subtree belonging to the current agenda entry."
   (interactive)

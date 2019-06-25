@@ -551,8 +551,6 @@ This function can be used as `org-agenda-cmp-user-defined' in `org-agenda-sortin
 (add-hook 'org-cycle-hook #'org-cycle-show-empty-lines t)
 (add-hook 'org-cycle-hook #'org-optimize-window-after-visibility-change t)
 
-(add-to-list 'load-path (format "%s/site-lisp/ts.el/" user-emacs-directory))
-
 ;;;###autoload
 (defun org-refile-to-datetree-using-ts-in-entry (which-ts file &optional subtree-p)
   "Refile current entry to datetree in FILE using timestamp found in entry.
@@ -563,7 +561,6 @@ search whole subtree."
                                      (lambda (filename)
                                        (string-suffix-p ".org" filename)))
                      current-prefix-arg))
-  (require 'ts)
   (let* ((sorter (pcase which-ts
                    ('earliest #'ts<)
                    ('latest #'ts>)))

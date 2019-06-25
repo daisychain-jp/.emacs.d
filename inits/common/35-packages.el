@@ -63,3 +63,5 @@
          ("C-M-," . er/contract-region))
   :config
   (push 'er/mark-outside-pairs er/try-expand-list))
+
+(require 'ts)
