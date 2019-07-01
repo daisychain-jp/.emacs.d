@@ -29,7 +29,7 @@
  ("git.el" . "a3396a7027a7d986598c6a2d6d5599bac918f3da")
  ("gntp.el" . "767571135e2c0985944017dc59b0be79af222ef5")
  ("gnu-elpa-mirror" . "d67425d8049239f520f024785e60852743a942ce")
- ("google-translate" . "bf119aac424994d2aa91fce9630adc01ed0ea617")
+ ("google-translate" . "dc118de511c433750d4c98b9dd67350118c04fd6")
  ("graphql.el" . "e2b309689f4faf9225f290080f836e988c5a576d")
  ("helm" . "f4e0168b281e127b8ace87e5fc28cac4116d893d")
  ("helm-dash" . "0ac2db529577fa63f2ed32310062873c585b91de")
