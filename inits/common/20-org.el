@@ -215,7 +215,7 @@ If 'ARG' is passed, shred afile instead delete."
                           (s-matches? "DN\\|CX\\|PD" todo-state)
                           (bound-and-true-p priority))
                      (org-priority ? ))
-                   ;; strip DN state if CATEGORY of the entry is "Habit"
+                   ;; remove DN state if CATEGORY of the entry is "Habit"
                    (when (and (string= category "Habit")
                               (string= todo-state "DN")
                               (not (string= style "habit")))
