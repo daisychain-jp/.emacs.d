@@ -38,11 +38,28 @@ The optional prefix argument ARG is passed to lower function."
               (16 (browse-url-default-browser (car url-pos)))
               (4 (eww-browse-url (car url-pos)))
               (t (open-url-switch-application (car url-pos) (cadr url-pos))))))
-     (filename (let ((filename-pos (split-location-uri (expand-file-name filename))))
-                 (cl-case (car arg)
-                   (16 (browse-url-default-browser (car filename-pos)))
-                   (4 (find-file-at-point (car filename-pos)))
-                   (t (open-url-switch-application (car filename-pos) (cadr filename-pos)))))))))
+     (filename (open-file filename arg)))))
+
+(defun open-file (file &optional arg)
+  "Open file `FILE' with appropriate application.
+
+If the optional argument `ARG' is non-nil, try to open in Emacs.
+If double prefix argument, try to open with external application that desktop environment defines."
+  (let ((ex-file (expand-file-name file)))
+    (cl-case (prefix-numeric-value arg)
+      (16 (let ((process-connection-type nil))
+            (start-process "" nil "xdg-open" ex-file)))
+      (4 (find-file ex-file))
+      (t (cond
+          ((= (call-process-shell-command (format "filetype-cli check --type playable \"%s\"" ex-file)) 0)
+           (utl-play-media ex-file))
+          ((= (call-process-shell-command (format "filetype-cli check --type tarpgp \"%s\"" ex-file)) 0)
+           (start-process-shell-command "mpv" nil (format "nohup orgafile play \"%s\"" ex-file)))
+          ((or (= (call-process-shell-command (format "filetype-cli check --type pdf \"%s\"" ex-file)) 0)
+               (= (call-process-shell-command (format "filetype-cli check --type epub \"%s\"" ex-file)) 0))
+           (open-uri-htmlize ex-file))
+          ((file-directory-p ex-file) (dired ex-file))
+          (t (find-file ex-file)))))))
 
 (defun split-location-uri (location-uri)
   "Split LOCATION-URI into normal uri and location specifier.
@@ -115,8 +132,8 @@ play that with media player."
                          (if (not (string-prefix-p "192.168.179." (shell-command-to-string "hostname -I | cut -f1 -d' ' | tr -d '\n'")))
                              "--ytdl-format=\"bestvideo[height<=?720]+bestaudio/best\""
                            "--ytdl-format=\"worstvideo+worstaudio\"")))))
-      (start-process-shell-command "mpv" nil (format "mpv --force-window %s \"%s\"" (mapconcat 'identity ytdl-opts " ") file))))
-   (t (start-process-shell-command "mpv" nil (format "mpv --force-window \"%s\"" file)))))
+      (start-process-shell-command "mpv" nil (format "nohup mpv --force-window %s \"%s\"" (mapconcat 'identity ytdl-opts " ") file))))
+   (t (start-process-shell-command "mpv" nil (format "nohup mpv --force-window \"%s\"" file)))))
 
 (defun increment-number-at-point (&optional inc)
   "Increment number at point by one.
