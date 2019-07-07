@@ -64,4 +64,7 @@
   :config
   (push 'er/mark-outside-pairs er/try-expand-list))
 
-(require 'ts)
+(use-package ts
+  :straight (ts :type git
+                :host github
+                :repo "alphapapa/ts.el"))
