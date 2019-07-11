@@ -27,12 +27,17 @@
 
 (use-package js
   :delight " JS"
-  :hook (js-mode . (lambda ()
-                     (setq-local helm-dash-docsets '("JavaScript" "HTTP" "NodeJS"))))
   :custom
   (js-indent-level 2))
 
 (use-package js2-mode
   :straight t
   :delight " J2"
-  :mode (("\\.js$" . js2-mode)))
+  :mode (("\\.js\\(on\\)?\\'" . js2-mode)
+         ("\\.eslintrc\\'"    . js2-mode))
+  :hook (js2-mode . (lambda ()
+                      (setq-local flycheck-checker 'javascript-eslint)
+                      (setq-local flycheck-disabled-checkers '(javascript-jshint javascript-jscs))
+                      (setq-local helm-dash-docsets '("JavaScript" "HTTP" "NodeJS"))))
+  :custom
+  (flycheck-javascript-eslint-executable "eslint"))

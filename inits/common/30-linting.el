@@ -2,7 +2,7 @@
   :straight t
   :diminish (flycheck-mode . "fc")
   :after (hydra)
-  :hook ((c-mode sh-mode emacs-lisp-mode ruby-mode python-mode sql-mode) . flycheck-mode)
+  :hook ((c-mode sh-mode emacs-lisp-mode ruby-mode python-mode js2-mode sql-mode) . flycheck-mode)
   :custom
   (flycheck-check-syntax-automatically
    '(save new-line idle-change))
