@@ -359,12 +359,13 @@ Return t if all siblings are set property correctly."
   (interactive)
   (let* ((ts (car (sort (org-timestamps-in-entry t) #'ts>)))
          (year (ts-year ts)))
-    (org-refile-to-datetree-using-ts-in-entry 'latest (org-archive-file year) t)))
+    (org-refile-to-datetree-using-ts-in-entry 'latest (org-archive-file year) t)
+    (org-save-all-org-buffers)
+    (setq this-command 'org-archive-to-archive-file)))
 (defun org-agenda-archive-to-archive-file ()
   "Archive the entry or subtree belonging to the current agenda entry."
   (interactive)
-  (org-agenda-archive-with 'org-archive-to-archive-file)
-  (setq this-command 'org-agenda-archive-to-archive-file))
+  (org-agenda-archive-with 'org-archive-to-archive-file))
 (bind-keys :map org-agenda-mode-map
            ("$" . org-agenda-archive-to-archive-file) ;
            ("&" . org-agenda-ref-id-tieup-tree))
