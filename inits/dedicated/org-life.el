@@ -271,9 +271,9 @@ If region is active, use the word in region for matching instead."
 
 (defconst org-ref-id-property "REF_ID"
   "The property that is being used to use ref-id feature.")
-(defcustom org-ref-id-parent-tag
-  "project"
-  "Tag name which parents should have.")
+(defcustom org-ref-id-parent-tag-list
+  '("project" "refile")
+  "List of tag names which all parents in org-ref-id feature must have.")
 
 (defun org-ref-id-lookup-refs ()
   "Show all entries which refers this entry."
@@ -281,20 +281,27 @@ If region is active, use the word in region for matching instead."
   (let ((id (org-id-get)))
     (when id
       (org-tags-view-archive nil (format "+%s=\"%s\"" org-ref-id-property id)))))
-(defun org-ref-id-tieup-tree ()
-  "Tie up parent node and child node with ref-id mechanism.
-Parents of tied-up families can find their children even after they're teared apart."
+(defun org-ref-id-relate-parent-child ()
+  "Make parent-child relationship.
+Children's `org-ref-id-property' will be parent's ID.
+
+This function must be called in parent entry
+which has any one of `org-ref-id-parent-tag-list'."
   (interactive)
   (save-excursion
     (org-back-to-heading)
-    (if (if (stringp org-ref-id-parent-tag)
-            (member org-ref-id-parent-tag (org-get-tags))
-          t)
+    (if (some (lambda (parent-tag)
+                (member parent-tag (org-get-tags)))
+              org-ref-id-parent-tag-list)
         (let ((ref-id (org-id-get-create)))
           (when (org-goto-first-child)
-            (when (org-ref-id-set-property ref-id)
-              (message "Tied up with %s." ref-id))))
-      (message "This entry does not compliant with 'org-ref-id-parent-tag"))))
+            (cl-labels ((set-ref-id-to-siblings
+                         ()
+                         (org-set-property org-ref-id-property ref-id)
+                         (when (org-goto-sibling)
+                           (set-ref-id-to-siblings))))
+              (set-ref-id-to-siblings))))
+      (message "This entry does not compliant with 'org-ref-id-parent-tag-list"))))
 (defun org-agenda-ref-id-tieup-tree ()
   "Tie up subtree by setting property."
   (interactive)
@@ -310,22 +317,9 @@ Parents of tied-up families can find their children even after they're teared ap
         (widen)
         (goto-char pos)
         (org-show-context 'agenda)
-        (call-interactively 'org-ref-id-tieup-tree)
+        (call-interactively 'org-ref-id-relate-parent-child)
         (end-of-line 1)
         (setq newhead (org-get-heading))))))
-(defun org-ref-id-set-property (ref-id)
-  "Set property named by `org-ref-id-property' to REF-ID.
-
-This function called recursively for the number of siblings.
-Return t if all siblings are set property correctly."
-  (and
-   (progn
-     (org-set-property org-ref-id-property ref-id)
-     (if (string= (org-entry-get nil org-ref-id-property) ref-id)
-         t nil))
-   (if (org-goto-sibling)
-       (org-ref-id-set-property ref-id)
-     t)))
 
 ;; clock-timer collaboration for fixed time tasks
 (defvar org-clock-current-task-alert nil "ALERT property's value of currently clocked entry")
