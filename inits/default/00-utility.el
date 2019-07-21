@@ -51,10 +51,11 @@ If double prefix argument, try to open with external application that desktop en
             (start-process "" nil "xdg-open" ex-file)))
       (4 (find-file ex-file))
       (t (cond
-          ((= (call-process-shell-command (format "filetype-cli check --type playable \"%s\"" ex-file)) 0)
+          ((or (= (call-process-shell-command (format "filetype-cli check --type playable \"%s\"" ex-file)) 0)
+               (string-suffix-p ".m3u" ex-file))
            (utl-play-media ex-file))
           ((= (call-process-shell-command (format "filetype-cli check --type tarpgp \"%s\"" ex-file)) 0)
-           (start-process-shell-command "mpv" nil (format "nohup orgafile play \"%s\"" ex-file)))
+           (start-process-shell-command "mpv" nil (format "nohup orgafile play \"%s\" >/dev/null 2>&1" ex-file)))
           ((or (= (call-process-shell-command (format "filetype-cli check --type pdf \"%s\"" ex-file)) 0)
                (= (call-process-shell-command (format "filetype-cli check --type epub \"%s\"" ex-file)) 0))
            (open-uri-htmlize ex-file))
@@ -132,8 +133,8 @@ play that with media player."
                          (if (not (string-prefix-p "192.168.179." (shell-command-to-string "hostname -I | cut -f1 -d' ' | tr -d '\n'")))
                              "--ytdl-format=\"bestvideo[height<=?720]+bestaudio/best\""
                            "--ytdl-format=\"worstvideo+worstaudio\"")))))
-      (start-process-shell-command "mpv" nil (format "nohup mpv --force-window %s \"%s\"" (mapconcat 'identity ytdl-opts " ") file))))
-   (t (start-process-shell-command "mpv" nil (format "nohup mpv --force-window \"%s\"" file)))))
+      (start-process-shell-command "mpv" nil (format "nohup mpv --force-window %s \"%s\" >/dev/null 2>&1" (mapconcat 'identity ytdl-opts " ") file))))
+   (t (start-process-shell-command "mpv" nil (format "nohup mpv --force-window \"%s\" >/dev/null 2>&1" file)))))
 
 (defun increment-number-at-point (&optional inc)
   "Increment number at point by one.
