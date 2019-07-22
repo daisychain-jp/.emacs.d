@@ -8,7 +8,7 @@
                   :mode   'org-mode
                   :style  'libnotify))
 
-(defvar alarm-sound (expand-file-name "~/afile/music/dedicated/levelup.mp3"))
+(defvar alarm-sound (expand-file-name "~/afile/music/special/levelup.mp3"))
 (alert-define-style 'alarm
                     :title "alarm"
                     :notifier
