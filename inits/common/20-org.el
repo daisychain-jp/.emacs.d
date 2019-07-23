@@ -620,7 +620,12 @@ search whole subtree."
   :bind (("C-c C-;" . org-web-tools-insert-link-for-url)))
 
 (use-package org-clock-convenience
-  :straight t)
+  :straight t
+  :after (org)
+  :bind (:map org-agenda-mode-map
+              ("@"   . org-clock-convenience-fill-gap)
+              ("C-@" . org-clock-convenience-fill-gap-both)))
 
 (use-package org-clock-split
-  :straight t)
+  :straight t
+  :after (org))

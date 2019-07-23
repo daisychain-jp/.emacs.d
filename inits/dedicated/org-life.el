@@ -45,9 +45,10 @@
              deadline-up
              todo-state-up
              priority-down))))
-        ("L" "Log entries in a day"
+        ("L" "Log entry timeline on today with default org-agenda-prefix-format"
          agenda ""
-         ((org-agenda-span 'day)
+         ((org-agenda-prefix-format (eval (car (get 'org-agenda-prefix-format 'standard-value))))
+          (org-agenda-span 'day)
           (org-agenda-start-with-log-mode t)
           (org-agenda-include-inactive-timestamps nil)
           (org-agenda-include-diary t)
