@@ -1,0 +1,6 @@
+# key: book
+# name: book-entry
+# --
+* ${1:title}
+  ADDED: `(format-time-string "[%Y-%m-%d %a]")`
+  - [[afile:book/][EPUB]]$0
