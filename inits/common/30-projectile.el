@@ -1,15 +1,25 @@
 (use-package projectile
   :straight t
   :after (hydra)
+  :init
+  (projectile-load-known-projects)
+  :custom
+  (projectile-completion-system 'ivy)
   :config
-  (setq projectile-completion-system 'ivy)
   (defhydra hydra-projectile (global-map "C-c p"
                                          :exit t)
     "Projectile"
-    ("s a" counsel-projectile-ag)
-    ("s s" counsel-projectile-git-grep)
-    ("d" projectile-dired)
+    ("sa" counsel-projectile-ag)
+    ("ss" counsel-projectile-git-grep)
+    ("p" projectile-switch-project)
+    ("o" projectile-switch-open-project)
+    ("a" projectile-add-known-project)
+    ("d" projectile-find-dir)
+    ("D" projectile-dired)
     ("f" projectile-find-file)
+    ("b" projectile-switch-to-buffer)
+    ("r" projectile-recentf)
+    ("k" projectile-kill-buffers)
     ("C-g" nil "quit")
     ("q" nil "quit")))
 
