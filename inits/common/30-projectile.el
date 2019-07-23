@@ -6,8 +6,8 @@
   (defhydra hydra-projectile (global-map "C-c p"
                                          :exit t)
     "Projectile"
-    ("s s" counsel-projectile-ag)
-    ("s g" counsel-projectile-git-grep)
+    ("s a" counsel-projectile-ag)
+    ("s s" counsel-projectile-git-grep)
     ("d" projectile-dired)
     ("f" projectile-find-file)
     ("C-g" nil "quit")
