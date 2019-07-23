@@ -23,7 +23,4 @@
   :straight t
   :after (avy migemo ivy swiper counsel)
   :config
-  (avy-migemo-mode 1)
-  (require 'avy-migemo-e.g.ivy)
-  (require 'avy-migemo-e.g.swiper)
-  (require 'avy-migemo-e.g.counsel))
+  (avy-migemo-mode 1))

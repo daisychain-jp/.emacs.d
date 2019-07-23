@@ -1,7 +1,9 @@
 (use-package ivy
   :straight t
   :diminish (ivy-mode)
-  :bind (("C-x b" . ivy-switch-buffer)
+  :after (avy-migemo)
+  :bind (("C-x b"   . ivy-switch-buffer)
+         ("C-c C-r" . ivy-resume)
          :map ivy-minibuffer-map
          ("M-=" . ivy-minibuffer-grow)
          ("M--" . ivy-minibuffer-shrink))
@@ -10,14 +12,18 @@
   (ivy-use-virtual-buffers t)
   (ivy-count-format "%d/%d ")
   :config
-  (ivy-mode 1))
+  (ivy-mode 1)
+  (require 'avy-migemo-e.g.ivy))
 
 (use-package swiper
   :ensure t
   :after (ivy avy-migemo)
-  :bind (("C-s" . swiper-isearch)
-         ("C-r" . swiper-isearch-backward)
-         ("C-c C-r" . ivy-resume)))
+  :bind (("C-s" . (lambda ()
+                    (interactive)
+                    (let ((ivy-height 5))
+                      (swiper-isearch)))))
+  :config
+  (require 'avy-migemo-e.g.swiper))
 
 (use-package counsel
   :straight t
@@ -26,4 +32,7 @@
   (("M-y" . counsel-yank-pop)
    ("M-x" . counsel-M-x)
    ("C-x C-f" . counsel-find-file)
-   ("C-c b" . counsel-bookmark)))
+   ("C-c b" . counsel-bookmark)
+   ("C-c r" . counsel-recentf))
+  :config
+  (require 'avy-migemo-e.g.counsel))
