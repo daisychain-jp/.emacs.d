@@ -16,3 +16,14 @@
   (load-library "migemo")
   (migemo-init)
   (helm-migemo-mode t))
+
+;; TODO: Pull package if pull request #8 is merged
+;;       Tha PR is temporally merged locally.
+(use-package avy-migemo
+  :straight t
+  :after (avy migemo ivy swiper counsel)
+  :config
+  (avy-migemo-mode 1)
+  (require 'avy-migemo-e.g.ivy)
+  (require 'avy-migemo-e.g.swiper)
+  (require 'avy-migemo-e.g.counsel))
