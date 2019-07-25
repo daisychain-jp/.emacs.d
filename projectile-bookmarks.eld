@@ -1,1 +1,1 @@
-("/scp:root@sv03:/root/git/kana/" "~/.emacs.d/")
+("~/bin/" "~/.emacs.d/")
