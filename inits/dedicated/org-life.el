@@ -45,10 +45,22 @@
              deadline-up
              todo-state-up
              priority-down))))
-        ("L" "Log entry timeline on today with default org-agenda-prefix-format"
+        ("d" "daily log view"
          agenda ""
          ((org-agenda-prefix-format (eval (car (get 'org-agenda-prefix-format 'standard-value))))
           (org-agenda-span 'day)
+          (org-agenda-start-with-log-mode t)
+          (org-agenda-include-inactive-timestamps nil)
+          (org-agenda-include-diary t)
+          (org-agenda-sorting-strategy
+           '(time-up
+             deadline-up
+             todo-state-up
+             priority-down))))
+        ("L" "Log entry timeline on today with default org-agenda-prefix-format"
+         agenda ""
+         ((org-agenda-prefix-format (eval (car (get 'org-agenda-prefix-format 'standard-value))))
+          (org-agenda-span 'week)
           (org-agenda-start-with-log-mode t)
           (org-agenda-include-inactive-timestamps nil)
           (org-agenda-include-diary t)
@@ -126,7 +138,7 @@
          ((org-agenda-sorting-strategy
            '(scheduled-up))))
         ("H" "All Habits" tags "CATEGORY=\"Habit\"+LEVEL=>2+{ac_.+}")
-        ("d" "Daily task list"
+        ("g" "aggregated task list"
          ((tags "SCHEDULED<=\"<today>\"|DEADLINE<=\"<today>\"")
           (todo "UG|DI|OG")
           (agenda ""))
