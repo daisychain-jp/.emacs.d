@@ -13,6 +13,8 @@
   (ivy-count-format "%d/%d ")
   :config
   (ivy-mode 1)
+  (setf ivy-re-builders-alist
+        '((t . ivy--regex-plus)))
   (require 'avy-migemo-e.g.ivy))
 
 (use-package swiper
@@ -29,7 +31,7 @@
 
 (use-package counsel
   :straight t
-  :after (ivy)
+  :after (swiper)
   :bind
   (("M-y" . counsel-yank-pop)
    ("M-x" . counsel-M-x)
