@@ -21,7 +21,9 @@
   :bind (("C-s" . (lambda ()
                     (interactive)
                     (let ((ivy-height 5))
-                      (swiper-isearch)))))
+                      (if (not (use-region-p))
+                          (swiper-isearch)
+                        (swiper-isearch-thing-at-point))))))
   :config
   (require 'avy-migemo-e.g.swiper))
 
