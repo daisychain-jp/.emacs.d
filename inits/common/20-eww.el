@@ -39,7 +39,7 @@
 (defun eww-lazy-control ()
   "Lazy control in EWW."
   (interactive)
-  (setq-local hlc/beginning-func 'eww-goto-top)
+  (setq-local hlc/beginning-func 'eww-goto-heading)
   (setq-local hlc/forward-paragraph-func
               (lambda ()
                 (interactive)
@@ -134,12 +134,30 @@ ARGS will be passed to the original function."
 (defun shr-put-image-alt (spec alt &optional flags)
   (insert alt))
 
+(defun eww-goto-heading ()
+  "Set point to the heading line."
+  (interactive)
+  (let* ((url (eww-copy-page-url))
+         (heading (shell-command-to-string
+                   (mapconcat #'identity
+                              (if (string-suffix-p ".html" url)
+                                  (list "detect_heading" url)
+                                (list "curl" "-s" url "|" "detect_heading"))
+                              " ")))
+         (max-strlen (* 2 (/ (x-display-pixel-width) (font-get (face-attribute 'readable :font) :size))))
+         (heading-trim (string-trim-right (truncate-string-to-width heading max-strlen)))
+         (match-point (search-forward heading-trim nil t 1)))
+    (when (integerp match-point)
+      (goto-char match-point)
+      (beginning-of-line)
+      (recenter-top-bottom 0))))
+
 (defun eww-goto-top ()
   "Set point to the line which contain either title or h1 text of the html file."
   (interactive)
   (let* ((html-string (prog2 (eww-view-source)
-                             (string-as-multibyte (string-as-unibyte (buffer-string)))
-                             (kill-buffer)))
+                          (string-as-multibyte (string-as-unibyte (buffer-string)))
+                        (kill-buffer)))
          (dom (dom-sanitize (with-temp-buffer
                               (erase-buffer)
                               (insert html-string)
