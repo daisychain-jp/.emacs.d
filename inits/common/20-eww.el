@@ -144,13 +144,21 @@ ARGS will be passed to the original function."
                                   (list "detect_heading" url)
                                 (list "curl" "-s" url "|" "detect_heading"))
                               " ")))
-         (max-strlen (* 2 (/ (x-display-pixel-width) (font-get (face-attribute 'readable :font) :size))))
-         (heading-trim (string-trim-right (truncate-string-to-width heading max-strlen)))
-         (match-point (search-forward heading-trim nil t 1)))
-    (when (integerp match-point)
-      (goto-char match-point)
-      (beginning-of-line)
-      (recenter-top-bottom 0))))
+         (min-strlen 10)
+         (max-strlen (* 2 (/ (x-display-pixel-width) (font-get (face-attribute 'readable :font) :size)))))
+    ;; search substring of heading by decrementing searching string
+    (cl-labels ((search-heading (trunc-len)
+                                (if (>= trunc-len min-strlen)
+                                    (if-let* ((trunc-heading (string-trim-right (truncate-string-to-width heading trunc-len)))
+                                              (match-pos (search-forward trunc-heading nil t 1)))
+                                        (progn
+                                          (message "heading: %s" trunc-heading)
+                                          match-pos)
+                                      (search-heading (1- trunc-len)))
+                                  nil)))
+      (when-let ((match-pos (search-heading max-strlen)))
+        (beginning-of-line)
+        (recenter-top-bottom 0)))))
 
 (defun eww-goto-top ()
   "Set point to the line which contain either title or h1 text of the html file."
