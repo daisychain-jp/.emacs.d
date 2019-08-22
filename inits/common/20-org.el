@@ -31,6 +31,7 @@
   (bind-keys :map org-mode-map
              ("M-j"     . org-meta-return)
              ("C-o"     . org-open-at-point)
+             ("M-o"     . org-orgnize-open-at-point)
              ("C-c /"   . org-sparse-tree-indirect-buffer)
              ("C-c \\"  . org-match-sparse-tree-indirect-buffer)
              ("C-c z"   . org-narrow-to-element-indirect-buffer)
@@ -51,14 +52,28 @@
   (setq org-confirm-elisp-link-function nil) ; do not confirm when execute elisp
   (defadvice org-open-at-point (around switch-browser activate)
     (let ((link-str (org-link-unescape (car (org-link-at-point)))))
-      (if (and (stringp link-str)
-               (string-match-p "^https?://.+" link-str))
-          (let ((url-pos (split-location-uri link-str)))
-            (cl-case (car arg)
-              (16 (browse-url-default-browser (car url-pos)))
-              (4 (eww-browse-url (car url-pos)))
-              (t (open-url-switch-application (car url-pos) (cadr url-pos)))))
-        ad-do-it)))
+      (cond
+       ((and (stringp link-str)
+             (string-match-p "^https?://.+" link-str))
+        (let ((url-pos (split-location-uri link-str)))
+          (cl-case (car arg)
+            (16 (browse-url-default-browser (car url-pos)))
+            (4 (eww-browse-url (car url-pos)))
+            (t (open-url-switch-application (car url-pos) (cadr url-pos))))))
+       (t ad-do-it))))
+  (defun org-orgnize-open-at-point ()
+    "Open org-mode link as org file."
+    (interactive)
+    (let* ((context (org-element-lineage
+                     (org-element-context) '(link) t))
+           (type (org-element-type context))
+           (link-protocol (org-element-property :type context))
+           (path (org-element-property :path context)))
+      (cond
+       ((and (string= type "link")
+             (string= link-protocol "file")
+             (string-suffix-p ".epub" path))
+        (open-uri-orgnize path)))))
   (setq org-file-apps
         '((auto-mode . emacs)
           ("\\.mm\\'" . default)

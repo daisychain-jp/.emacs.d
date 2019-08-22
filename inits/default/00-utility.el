@@ -117,6 +117,14 @@ play it in media player."
                           " "))))
     (eww-open-file html)))
 
+(defun open-uri-orgnize (uri)
+  "Open contents on URI as a org file."
+  (let ((org (shell-command-to-string
+              (mapconcat #'identity
+                         (list "orgafile" "orgnize" uri)
+                         " "))))
+    (find-file org)))
+
 (defun utl-play-media (file &optional start)
   "Play a media file `FILE' at START point."
   (cond
