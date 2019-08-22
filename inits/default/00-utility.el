@@ -91,8 +91,8 @@ If POS is string, search it forward and set point to occurence."
 (defun open-url-switch-application (url &optional pos)
   "Open URL in an appropriate manner and jump to POS.
 
-If URL points to a multi media contents like youtube video, mp3 audio file,
-play that with media player."
+If URL points to a multi media contents such as youtube video and mp3 audio file,
+play it in media player."
   (cond
    ((or (s-ends-with? ".pdf" url)
         (s-ends-with? ".epub" url))
