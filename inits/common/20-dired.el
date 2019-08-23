@@ -18,8 +18,8 @@
   (add-hook 'dired-mode-hook
             (lambda ()
               (buffer-face-set 'selecting)
-              (dired-hide-details-mode t)
-              (setq truncate-lines t)
+              (dired-hide-details-mode 1)
+              (setq-local truncate-lines t)
               (whitespace-mode 1))))
 
 (defun dired-open (&optional arg)
