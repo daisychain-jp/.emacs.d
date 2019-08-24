@@ -26,11 +26,7 @@
                     (beginning-of-line 1)
                     (recenter-top-bottom 0)))
                 (when (string-match-p (regexp-quote "https://www.weblio.jp/content/") url)
-                  (forward-line 44))
-                (when (string-match-p (regexp-quote "https://stackoverflow.com") url)
-                  (forward-line 61)
-                  (beginning-of-line)
-                  (recenter-top-bottom 0)))))
+                  (forward-line 44)))))
   (bind-keys :map eww-mode-map
              ("C-M-m" . eww-lazy-control))
   (add-hook 'eww-mode-hook #'xah-rename-eww-hook)
