@@ -1,12 +1,14 @@
-;; distinguish TAB and C-i
+;; create a way to distinguish TAB and C-i
 (setq local-function-key-map (delq '(kp-tab . [9]) local-function-key-map))
 
 ;; prevent from executing save-buffers-kill-emacs by mistake
 (unbind-key "C-x C-c")
+(unbind-key "C-j")
 (unbind-key "C-h")
 (unbind-key "C-o")
 
 (bind-keys :map global-map
+           ("C-j" . newline)
            ("C-h" . backward-delete-char-untabify)
            ("C-y" . yank-and-indent)
            ("M-SPC" . cycle-spacing)

@@ -174,8 +174,7 @@ If 'ARG' is passed, shred afile instead delete."
             (lambda ()
               (whitespace-mode 1)
               (buffer-face-set 'outline)
-              (setq-local line-spacing 0.1)
-              (smart-newline-mode 1)))
+              (setq-local line-spacing 0.1)))
   (add-hook 'org-agenda-mode-hook
             (lambda ()
               (buffer-face-set 'outline)
