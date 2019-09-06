@@ -33,10 +33,13 @@
   :straight t
   :after (swiper)
   :bind
-  (("M-y" . counsel-yank-pop)
+  (("C-;" . counsel-switch-buffer)
+   ("M-y" . counsel-yank-pop)
    ("M-x" . counsel-M-x)
    ("C-x C-f" . counsel-find-file)
    ("C-c b" . counsel-bookmark)
-   ("C-c r" . counsel-recentf))
+   ("C-c r" . counsel-recentf)
+   :map minibuffer-local-map
+   ("M-y" . yank-pop))
   :config
   (require 'avy-migemo-e.g.counsel))

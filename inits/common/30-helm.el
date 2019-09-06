@@ -2,8 +2,7 @@
 (use-package helm
   :diminish ((helm-mode . "")
              (helm-migemo-mode . ""))
-  :bind (("C-;"     . helm-mini)
-         ("C-M-;"   . helm-for-files)
+  :bind (("C-M-;"   . helm-for-files)
          ("M-x"     . helm-M-x)
          ("C-c /"   . helm-find)
          ("C-x C-f" . helm-find-files)
