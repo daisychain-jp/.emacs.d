@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
-# name: recipe
+# name: recipe-entry
 # key: recipe
 # key: rcp
 # key: rp
@@ -10,6 +10,7 @@
     | 材料 | 分量 |
     |------+------|
     | $0   |      |
+  - 道具
   - 手順
   - メモ
   - 参考

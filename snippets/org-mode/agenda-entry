@@ -1,7 +1,7 @@
 # -*- mode: snippet -*-
-# name: todo-entry
-# key: todo
+# name: agenda-entry
+# key: ag
 # --
-* TD ${1:headline}
+$2* ${1:Heading}
   ADDED: `(format-time-string "[%Y-%m-%d %a %H:%M]")`
   $0
