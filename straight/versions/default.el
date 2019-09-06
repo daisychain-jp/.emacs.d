@@ -80,6 +80,7 @@
  ("straight.el" . "c80e48e90b945a7392c9ca471f160dbe4cbf7167")
  ("swiper" . "d73376f434f801e6f9b1ca05b53eb20368edc512")
  ("switch-buffer-functions-el" . "651696ef9dec7affbe51c81d9318288376c35899")
+ ("synosaurus" . "bc26f5c22b4d08dd09d0852435814977433c9521")
  ("system-packages" . "d18b2c0e38ddc1ccfcd7d787112fb3465df51769")
  ("tablist" . "c834a84efb6efa32497efe1e73160fade741b836")
  ("transpose-mark" . "667327602004794de97214cf336ac61650ef75b7")

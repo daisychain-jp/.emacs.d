@@ -27,6 +27,8 @@
     ("e" lookup-eijiro "eijiro")
     ("l" lookup-weblio "weblio")
     ("y" lookup-youtube "youtube")
+    ("s" synosaurus-lookup "synosaurus-lookup")
+    ("S" synosaurus-choose-and-replace "synosaurus-replace")
     ("q" nil "quit")))
 
 (defun lookup-word-on-internet (url &optional word)

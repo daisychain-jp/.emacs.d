@@ -49,6 +49,8 @@
               ("C-l W" . lookup-wikipedia-en)
               ("C-l a" . lookup-amazon)
               ("C-l y" . lookup-youtube)
+              ("C-l s" . synosaurus-lookup)
+              ("C-l S" . synosaurus-choose-and-replace)
               ("C-l d" . lookup-duckduckgo)
               ("C-l e" . lookup-eijiro)
               ("C-l l" . lookup-weblio)
@@ -68,3 +70,8 @@
   :straight (ts :type git
                 :host github
                 :repo "alphapapa/ts.el"))
+
+(use-package synosaurus
+  :straight t
+  :custom
+  (synosaurus-choose-method 'ivy))
