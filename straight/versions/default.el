@@ -12,7 +12,7 @@
  ("diminish.el" . "565a983a39d2e2cffab5df13b34f3b6116723208")
  ("dumb-jump" . "6988b21a08b53fbfeaa6e0b0f182524257dec1e4")
  ("easy-kill" . "e2b667f651a3531164d24ea4cbcd8c34fba0e17f")
- ("elfeed" . "afafa1f7d9e29de55ce5b1709074738a7e185f2a")
+ ("elfeed" . "b3fc253c726229eef145fb2a5b6716cb7732f3a8")
  ("elfeed-org" . "b9d09a554127244d4807a3d2d90e062df63b2fd5")
  ("emacs-async" . "d17c11e6082aa51f421bb037b828bdb15f405618")
  ("emacs-deferred" . "2239671d94b38d92e9b28d4e12fd79814cfb9c16")

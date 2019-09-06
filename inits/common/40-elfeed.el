@@ -53,7 +53,9 @@
                       (unless (use-region-p) (forward-line -1))
                       (elfeed-search-tag-all-checked)))
              ("R" . elfeed-search-untag-all-checked)
-             ("d" . elfeed-search-untag-all-unread))
+             ("d" . elfeed-search-untag-all-unread)
+             :map elfeed-show-mode-map
+             ("C-i" . shr-next-link))
   (defface elfeed-search-unchecked-title-face
     '((t :weight bold))
     "Face used in search mode for unchecked entry titles."
