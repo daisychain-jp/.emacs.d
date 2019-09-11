@@ -29,7 +29,6 @@
  ("flycheck" . "1555b185ab2b5f1ec99536a641fff545fd8aa6bf")
  ("ggtags" . "669676461c74ffd30b81dce60cf4f081270f2858")
  ("ghub" . "c0b472c24f6ba1fe9316da571411a09c45febd13")
- ("git.el" . "a3396a7027a7d986598c6a2d6d5599bac918f3da")
  ("gntp.el" . "767571135e2c0985944017dc59b0be79af222ef5")
  ("gnu-elpa-mirror" . "d67425d8049239f520f024785e60852743a942ce")
  ("google-translate" . "dc118de511c433750d4c98b9dd67350118c04fd6")
@@ -54,7 +53,7 @@
  ("mu4e-alert" . "96a293b28646f4620e257f24748becc4a06843cd")
  ("multiple-cursors.el" . "6a7c3c0853e3fe9e4b8e5985dbed8fd4075f33ff")
  ("open-junk-file" . "558bec7372b0fed4c4cb6074ab906535fae615bd")
- ("org" . "9d7b1ef8a95dde16f5904eb28806415df5d2b472")
+ ("org" . "6f32e7af88805441c1261e16f729172639d8b3fa")
  ("org-clock-convenience" . "7d14699a15ad6c5b9a63246a11188c77f8800e94")
  ("org-clock-split" . "b2f1497b62e7f4a767be02e249e4ac95d4f8f21c")
  ("org-reveal" . "1cdd088ec5fab631c564dca7f9f74fd3e9b7d4d4")
@@ -77,7 +76,7 @@
  ("sequential-command" . "a48cbcbe273b33edd3ae56e68f44b4100fa3a48a")
  ("shackle" . "242bacc940c18b6f9c156e1912155d45537fd827")
  ("smartparens" . "14a4d62b18da022bb7a4db4584dd82cda6d2f779")
- ("straight.el" . "c80e48e90b945a7392c9ca471f160dbe4cbf7167")
+ ("straight.el" . "3305fe95b6161afc9747f83e8eac7cf4329b69b9")
  ("swiper" . "d73376f434f801e6f9b1ca05b53eb20368edc512")
  ("switch-buffer-functions-el" . "651696ef9dec7affbe51c81d9318288376c35899")
  ("synosaurus" . "bc26f5c22b4d08dd09d0852435814977433c9521")
@@ -97,4 +96,4 @@
  ("yaml-mode" . "40067a10ac1360f0b9533f0bbbb2eea128e2574d")
  ("yasnippet" . "7a178a2ca016ae205df4b6dc191fd42debc99c8d")
  ("yasnippet-snippets" . "1d1ea6f20cc94712e5826a4e644290bbc5b5b3a9"))
-:jupiter
+:pluto

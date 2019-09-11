@@ -18,7 +18,7 @@
   (require 'avy-migemo-e.g.ivy))
 
 (use-package swiper
-  :ensure t
+  :straight t
   :after (ivy avy-migemo)
   :bind (("C-s" . (lambda ()
                     (interactive)

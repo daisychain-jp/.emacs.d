@@ -1,6 +1,10 @@
-;; (el-get-bundle org-mode)
-(straight-use-package 'org)
+(let ((straight-current-profile 'pinned))
+  (straight-use-package 'org)
+  (add-to-list 'straight-x-pinned-packages
+               '("org" . "6f32e7af88805441c1261e16f729172639d8b3fa")))
 (use-package org
+  ;; you need to make in org directory in advance
+  ;; $ make clean all
   :straight t
   :delight
   (org-mode         " OG")
@@ -14,6 +18,8 @@
          ("C-c j" . org-clock-goto)
          ("C-c s" . org-store-link))
   :init
+  (add-to-list 'load-path (format "%s/straight/repos/org/lisp"
+                                  user-emacs-directory))
   (add-to-list 'load-path (format "%s/straight/repos/org/contrib/lisp"
                                   user-emacs-directory))
   :custom
@@ -25,7 +31,6 @@
   (require 'org-eww)
   (require 'org-eshell)
   (require 'org-mu4e)
-  (require 'org-drill)
 
   ;; local key bindings
   (bind-keys :map org-mode-map
@@ -51,11 +56,11 @@
   ;; link
   (setq org-confirm-elisp-link-function nil) ; do not confirm when execute elisp
   (defadvice org-open-at-point (around switch-browser activate)
-    (let ((link-str (org-link-unescape (car (org-link-at-point)))))
+    (let ((link-str (car (org-link-at-point))))
       (cond
        ((and (stringp link-str)
              (string-match-p "^https?://.+" link-str))
-        (let ((url-pos (split-location-uri link-str)))
+        (let ((url-pos (split-location-uri (org-link-unescape link-str))))
           (cl-case (car arg)
             (16 (browse-url-default-browser (car url-pos)))
             (4 (eww-browse-url (car url-pos)))
@@ -310,10 +315,6 @@ If 'ARG' is passed, shred afile instead delete."
   (setq org-capture-bookmark nil)
   (setq org-bookmark-names-plist nil)
 
-  ;; drill
-  (setq org-drill-scope 'tree)
-  (setq org-drill-cram-hours 0.5)
-
   ;; clock table
   ;;; work around for the bug in emacs 25
   (defalias 'calendar-absolute-from-iso 'calendar-iso-to-absolute)
@@ -374,6 +375,15 @@ If 'ARG' is passed, shred afile instead delete."
 
   ;; save all org files every hour
   (run-at-time 10 300 'org-save-all-org-buffers))
+
+(use-package persist
+  :ensure t)
+(el-get-bundle org-drill)
+(use-package org-drill
+  :after (org persist)
+  :custom
+  (org-drill-scope 'tree)
+  (org-drill-cram-hours 0.5))
 
 (use-package helm-org-rifle
   :straight t

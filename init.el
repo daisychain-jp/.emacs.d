@@ -90,7 +90,7 @@
                 (directory-files
                  (format "%s/inits/%s" user-emacs-directory dir-name)
                  t ".+\\.el\\(\\.gpg\\)?" nil)))
-        `("default" "feature"
+        `("default"
           ,(cond
             ((string= system-type "gnu/linux") "linux")
             ((string= system-type "darwin") "darwin"))
