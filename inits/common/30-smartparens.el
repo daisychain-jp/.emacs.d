@@ -3,6 +3,7 @@
   :diminish
   ((smartparens-global-mode . "Sp")
    (smartparens-mode . "sp"))
+  :after (hydra)
   :hook (prog-mode . smartparens-mode)
   :config
   (defhydra hydra-smartparens (global-map "C-("
