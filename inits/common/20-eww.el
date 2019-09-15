@@ -133,13 +133,24 @@ ARGS will be passed to the original function."
 (defun eww-goto-heading ()
   "Set point to the heading line."
   (interactive)
-  (let* ((url (eww-copy-page-url))
-         (heading (shell-command-to-string
-                   (mapconcat #'identity
-                              (if (string-suffix-p ".html" url)
-                                  (list "detect_heading" url)
-                                (list "curl" "-s" url "|" "detect_heading"))
-                              " ")))
+  (let* ((url (plist-get eww-data :url))
+         (source (plist-get eww-data :source))
+         (heading
+          (if (stringp source)
+              (with-temp-buffer
+                (let ((source-file (make-temp-file "source-"))
+                      (coding-system-for-write 'utf-8-unix))
+                  (insert source)
+                  (write-region (point-min) (point-max) source-file nil)
+                  (erase-buffer)
+                  (call-process "detect_heading" source-file t)
+                  (delete-file source-file)
+                  (print (buffer-substring-no-properties (point-min) (point-max)))))
+            (shell-command-to-string
+             (mapconcat #'identity
+                        (if (string-suffix-p ".html" url)
+                            (list "detect_heading" url)
+                          (list "curl" "-s" url "|" "detect_heading"))))))
          (min-strlen 10)
          (max-strlen (* 2 (/ (x-display-pixel-width) (font-get (face-attribute 'readable :font) :size)))))
     ;; search substring of heading by decrementing searching string
