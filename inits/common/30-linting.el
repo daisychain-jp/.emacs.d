@@ -32,16 +32,21 @@
     ("x" flycheck-disable-checker)
     ("q" nil "quit")))
 
-(use-package ispell
-  :custom
-  (ispell-program-name "/usr/bin/aspell"))
-
 (use-package flyspell
   :diminish "fs"
+  :if (executable-find "aspell")
   :after (hydra)
   :custom
+  (ispell-program-name "aspell")
   (flyspell-issue-message-flag nil)
   :config
+  ;; avoid checking for Japanese characters
+  (add-to-list 'ispell-skip-region-alist '("[^\000-\377]+"))
+  (setq-default ispell-extra-args '("--sug-mode=ultra"
+                                    "--lang=en_US"))
+  (when (string-match-p "--camel-case"
+                        (shell-command-to-string (concat ispell-program-name " --help")))
+    (push "--camel-case" ispell-extra-args))
   (bind-keys :map flyspell-mode-map
              ("C-,"   . nil)
              ("C-."   . nil)
