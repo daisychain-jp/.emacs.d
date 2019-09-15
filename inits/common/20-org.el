@@ -95,7 +95,7 @@
              (open-file file-path)
              (goto-pos (cadr (split-location-uri link-string)))
              (recenter-top-bottom 0)))
-          ("\\(?:mp3\\|m4a\\|mp4\\|mkv\\|jpg\\|jpeg\\|png\\)\\'" .
+          ("\\(?:mp3\\|m4a\\|mp4\\|mkv\\|webm\\|jpg\\|jpeg\\|png\\)\\'" .
            (lambda (file-path link-string)
              (open-file file-path)))
           (directory . (lambda (file-path link-string)
