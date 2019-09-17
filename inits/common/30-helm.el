@@ -115,3 +115,8 @@ With prefix ARG, this command searches japanese source."
                            (helm-get-selection)))
         (run-associated-program sel)
       (apply orig-fun args))))
+
+(use-package helm-descbinds
+  :straight t
+  :config
+  (helm-descbinds-mode 1))
