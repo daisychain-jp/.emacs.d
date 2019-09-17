@@ -10,7 +10,7 @@
  ("dash.el" . "6514359b8606a6a9a94068ccd601fcd6379d6584")
  ("delight" . "eaff920b9d3ef79d381548476d33e519693e3502")
  ("diminish.el" . "565a983a39d2e2cffab5df13b34f3b6116723208")
- ("dumb-jump" . "6988b21a08b53fbfeaa6e0b0f182524257dec1e4")
+ ("dumb-jump" . "0319569f1332641057c3e23d1e3bffb2404435a8")
  ("easy-kill" . "e2b667f651a3531164d24ea4cbcd8c34fba0e17f")
  ("elfeed" . "b3fc253c726229eef145fb2a5b6716cb7732f3a8")
  ("elfeed-org" . "b9d09a554127244d4807a3d2d90e062df63b2fd5")
