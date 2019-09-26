@@ -1,4 +1,4 @@
-; search
+;; search
 
 (bind-keys :map isearch-mode-map
            ("C-j" . isearch-exit)
@@ -31,7 +31,10 @@
           (isearch-repeat-forward)))
     ad-do-it))
 
-; replace
+(use-package wgrep
+  :straight t)
+
+;; replace
 
 (use-package visual-regexp
   :straight t

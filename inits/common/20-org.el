@@ -39,7 +39,6 @@
              ("M-o"     . org-orgnize-open-at-point)
              ("C-c /"   . org-sparse-tree-indirect-buffer)
              ("C-c \\"  . org-match-sparse-tree-indirect-buffer)
-             ("C-c z"   . org-narrow-to-element-indirect-buffer)
              ("C-,"     . nil)
              ("C-x C-a s" . org-afile-store)
              ("C-x C-a d" . org-afile-delete)

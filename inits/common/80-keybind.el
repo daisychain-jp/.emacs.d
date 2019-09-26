@@ -27,16 +27,6 @@
                            (next-line 1)
                            (transpose-lines 1)
                            (previous-line 1)))
-           ("M-s g g" . helm-do-ag)
-           ("M-s g a" . helm-ag)
-           ("M-s g ." . helm-do-ag-current-dir)
-           ("M-s g p" . helm-ag-project-root)
-           ("M-s g ~" . helm-do-ag-home)
-           ("M-s g f" . helm-do-ag-this-file)
-           ("M-s g b" . helm-do-ag-buffers)
-           ("M-s d f" . find-dired)
-           ("M-s d g" . find-grep-dired)
-           ("M-s d n" . find-name-dired)
            ("C-o" . open-thing-at-point))
 
 (use-package hydra

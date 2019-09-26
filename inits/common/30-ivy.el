@@ -40,20 +40,32 @@
    ("C-c b" . counsel-bookmark)
    ("C-c i" . counsel-semantic-or-imenu)
    ("C-c r" . counsel-recentf)
+   ("C-c z" . counsel-fzf)
    ("C-M-SPC" . counsel-mark-ring)
    :map ivy-minibuffer-map
+   ("C-l" . counsel-up-directory)
+   ("TAB" . counsel-down-directory)
    ("M-y" . ivy-next-line))
   :config
   (require 'avy-migemo-e.g.counsel)
   (bind-keys :map hydra-base-map
              ("C-d" . counsel-hydra-heads))
-  (defhydra hydra-describe (global-map "C-c h"
-                                       :color teal)
-    "Describe"
+  (defhydra hydra-search (global-map "M-s"
+                                     :color teal)
+    "Search"
+    ("g" counsel-ag)
+    ("r" counsel-rg)
+    ("s" swiper-all)
+    ("q" nil "quit"))
+  (defhydra hydra-hint (global-map "C-c h"
+                                   :color teal)
+    "Hint"
     ("h" counsel-apropos)
     ("f" counsel-describe-function)
     ("v" counsel-describe-variable)
     ("c" counsel-describe-face)
     ("d" counsel-descbinds)
     ("i" counsel-info-lookup-symbol)
+    ("l" counsel-find-library)
+    ("s" counsel-info-lookup-symbol)
     ("q" nil "quit")))

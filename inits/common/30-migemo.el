@@ -14,8 +14,7 @@
    ((string= system-type "darwin")
     (setq migemo-dictionary "/usr/local/Cellar/cmigemo/20110227/share/migemo/utf-8/migemo-dict")))
   (load-library "migemo")
-  (migemo-init)
-  (helm-migemo-mode t))
+  (migemo-init))
 
 ;; TODO: Pull package if pull request #8 is merged
 ;;       Tha PR is temporally merged locally.
