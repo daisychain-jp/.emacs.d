@@ -151,7 +151,7 @@ ARGS will be passed to the original function."
                         (if (string-suffix-p ".html" url)
                             (list "detect_heading" url)
                           (list "curl" "-s" url "|" "detect_heading"))))))
-         (min-strlen 10)
+         (min-strlen 4)
          (max-strlen (* 2 (/ (x-display-pixel-width) (font-get (face-attribute 'readable :font) :size)))))
     ;; search substring of heading by decrementing searching string
     (cl-labels ((search-heading (trunc-len)
