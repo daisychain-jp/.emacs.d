@@ -158,7 +158,7 @@ If 'ARG' is passed, shred afile instead delete."
           ("!" org-readable)
           ("M" org-mail-entry)
           ("k" nil)
-          ("K" org-entry-kill-property)
+          ("c" org-entry-kill-property)
           ("%" org-ref-id-lookup-refs)
           ("&" org-ref-id-relate-parent-child)
           ("N" org-add-note)
