@@ -44,7 +44,8 @@
              ("C-x C-a d" . org-afile-delete)
              ("C-c o" . org-mu4e-compose-org-mode)
              :map org-agenda-mode-map
-             ("C-j" . org-agenda-switch-to))
+             ("C-j" . org-agenda-switch-to)
+             ("M" . org-agenda-month-view))
 
   ;; list
   (setq org-list-demote-modify-bullet
