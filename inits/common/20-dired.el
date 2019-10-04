@@ -4,11 +4,9 @@
               ("(" . dired-hide-details-mode)
               (")" . dired-hide-details-mode)
               ("o" . dired-omit-mode)
-              ("TAB" . dired-subtree-cycle)
               ("r" . wdired-change-to-wdired-mode)
               ("C-j" . dired-find-alternate-file)
-              ("C-o" . dired-open)
-              ("a" . dired-find-file))
+              ("C-o" . dired-open))
   :custom
   (dired-recursive-copies 'always)
   (dired-recursive-deletes 'top)
@@ -21,6 +19,19 @@
               (dired-hide-details-mode 1)
               (setq-local truncate-lines t)
               (whitespace-mode 1))))
+
+(use-package dired-subtree
+  :straight t
+  :bind (:map dired-mode-map
+              ("TAB" . dired-subtree-cycle)))
+
+(use-package dired-narrow
+  :straight t
+  :bind
+  (:map dired-mode-map
+        ("z" . dired-narrow))
+  (:map dired-narrow-map
+        ("C-j" . exit-minibuffer)))
 
 (defun dired-open (&optional arg)
   "Open file in Dired.
