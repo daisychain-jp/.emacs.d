@@ -20,12 +20,18 @@
 (use-package swiper
   :straight t
   :after (ivy avy-migemo)
-  :bind (("C-s" . (lambda ()
-                    (interactive)
-                    (let ((ivy-height 5))
-                      (if (not (use-region-p))
-                          (swiper-isearch)
-                        (swiper-isearch-thing-at-point))))))
+  :bind (("C-s" . (lambda (&optional arg)
+                    (interactive "P")
+                    (let ((ivy-height 7)
+                          (swiper-func (cl-case (prefix-numeric-value arg)
+                                         (4 '(swiper-all))
+                                         (t '(swiper-isearch))))
+                          (swiper-thing-at-point-func (cl-case (prefix-numeric-value arg)
+                                                        (4 '(swiper-all-thing-at-point))
+                                                        (t '(swiper-isearch-thing-at-point)))))
+                      (if (use-region-p)
+                          (apply swiper-thing-at-point-func)
+                        (apply swiper-func))))))
   :config
   (require 'avy-migemo-e.g.swiper))
 
@@ -55,7 +61,7 @@
     "Search"
     ("g" counsel-ag)
     ("r" counsel-rg)
-    ("s" swiper-all)
+    ("s" counsel-grep-or-swiper)
     ("q" nil "quit"))
   (defhydra hydra-hint (global-map "C-c h"
                                    :color teal)

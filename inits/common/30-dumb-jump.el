@@ -6,7 +6,7 @@
   :custom
   (dumb-jump-selector 'ivy)
   :config
-  (defhydra hydra-projectile (global-map "C-M-g"
+  (defhydra hydra-projectile (global-map "C-c g"
                                          :exit t)
     "Dumb-Jump"
     ("g" dumb-jump-go)
