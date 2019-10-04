@@ -387,7 +387,10 @@ If 'ARG' is passed, shred afile instead delete."
 
 (use-package helm-org-rifle
   :straight t
-  :bind (("M-s g o" . helm-org-rifle-org-directory))
+  :bind (:map org-mode-map
+              ("M-s o o" . helm-org-rifle-org-directory)
+              ("M-s o a" . helm-org-rifle-agenda-files)
+              ("M-s o ." . helm-org-rifle-directories))
   :after (org helm))
 
 (defun org-sparse-tree-indirect-buffer (&optional arg type)
