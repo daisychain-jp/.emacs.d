@@ -37,7 +37,7 @@
  ("helm" . "f4e0168b281e127b8ace87e5fc28cac4116d893d")
  ("helm-dash" . "0ac2db529577fa63f2ed32310062873c585b91de")
  ("helm-descbinds" . "033be73f21778633813264ce1634a6e1ad873d8e")
- ("helm-org-rifle" . "e272fc43b964ef06a2673afd7c341dba87ae9ac4")
+ ("helm-org-rifle" . "dbda48031bad6fec1e130ee6e0d1a3bfea8ad8b8")
  ("ht.el" . "5a665d00dc8fda77bad2a43277d8809c23e46ab8")
  ("hungry-delete" . "0434458d3f6b2b585f332271feaa054bf4ec96d7")
  ("hydra" . "a91dd72529aadd2d3cc14e132a3e0545eb2975a6")
