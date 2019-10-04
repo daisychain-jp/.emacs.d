@@ -10,6 +10,7 @@
   :custom
   (dired-recursive-copies 'always)
   (dired-recursive-deletes 'top)
+  (dired-dwim-target t)
   :config
   (put 'dired-find-alternate-file 'disabled nil)
   (setq dired-isearch-filenames t)
@@ -32,6 +33,14 @@
         ("z" . dired-narrow))
   (:map dired-narrow-map
         ("C-j" . exit-minibuffer)))
+
+(use-package dired-ranger
+  :straight t
+  :bind
+  (:map dired-mode-map
+        ("c" . dired-ranger-copy)
+        ("P" . dired-ranger-paste)
+        ("V" . dired-ranger-move)))
 
 (defun dired-open (&optional arg)
   "Open file in Dired.
