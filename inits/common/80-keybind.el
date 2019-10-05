@@ -87,7 +87,6 @@
     ("L" line-number-mode)
     ("C" column-number-mode)
     ("v" view-mode)
-    ("h" hs-toggle-hiding)
     ("r" rainbow-mode)
     ("\\" toggle-input-method)
     ("f" buffer-face-cycle)

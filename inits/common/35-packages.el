@@ -7,7 +7,8 @@
 
 ;; hideshow
 (use-package hideshow
-  :diminish "hs")
+  :diminish "hs"
+  :bind (("C-c TAB" . hs-toggle-hiding)))
 
 (use-package proced
   :no-require t
