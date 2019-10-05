@@ -3,6 +3,6 @@
   :delight " UM"
   :hook
   (plantuml-mode . (lambda ()
-                     (setq-local helm-dash-docsets helm-dash-docsets-plantuml-mode)))
+                     (setq-local counsel-dash-docsets '("PlantUML"))))
   :custom
   (plantuml-jar-path "/usr/share/plantuml/plantuml.jar"))

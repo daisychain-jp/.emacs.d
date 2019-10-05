@@ -7,7 +7,7 @@
   (add-hook 'shell-mode-hook
             (lambda ()
               (buffer-face-set 'selecting)
-              (setq-local helm-dash-docsets helm-dash-docsets-shell-mode))))
+              (setq-local counsel-dash-docsets '("Linux" "Pandoc")))))
 
 ;; term (ansi-term)
 (use-package term
@@ -18,13 +18,15 @@
              ("C-j" . term-send-input))
   (add-hook 'term-mode-hook
             (lambda ()
-              (buffer-face-set 'selecting))))
+              (buffer-face-set 'selecting)
+              (setq-local counsel-dash-docsets '("Linux" "Pandoc")))))
 
 (use-package eshell
   :delight " ES"
   :hook
   (eshell-mode . (lambda ()
                    (buffer-face-set 'selecting)
+                   (setq-local counsel-dash-docsets '("Linux" "Pandoc"))
                    (bind-keys :map eshell-mode-map
                               ("C-j"    . eshell-send-input)
                               ("<up>"   . previous-line)

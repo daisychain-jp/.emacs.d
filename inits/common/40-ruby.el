@@ -14,7 +14,7 @@
   (add-hook 'ruby-mode-hook
             '(lambda ()
                (setq-local flycheck-checker 'ruby-rubocop)
-               (setq-local helm-dash-docsets helm-dash-docsets-ruby-mode)))
+               (setq-local counsel-dash-docsets '("Ruby"))))
   (add-to-list 'hs-special-modes-alist
                `(ruby-mode
                  ,(rx (or "def" "class" "module" "do" "if" "{" "[")) ; Block start

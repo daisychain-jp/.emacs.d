@@ -9,4 +9,4 @@
   (add-hook 'after-change-major-mode-hook
             (lambda ()
               (when (eq major-mode 'apache-conf-generic-mode)
-                (setq-local helm-dash-docsets '("Apache_HTTP_Server"))))))
+                (setq-local counsel-dash-docsets '("Apache_HTTP_Server"))))))

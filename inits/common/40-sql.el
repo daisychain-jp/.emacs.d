@@ -9,4 +9,4 @@
   (add-hook 'sql-mode-hook
             '(lambda ()
                (setq-local flycheck-checker 'sql-sqlint)
-               (setq-local helm-dash-docsets '("MySQL")))))
+               (setq-local counsel-dash-docsets '("MySQL")))))

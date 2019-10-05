@@ -7,5 +7,5 @@
   :ensure nil
   :hook (emacs-lisp-mode . (lambda ()
                              (setq-local tab-width 4)
-                             (setq-local helm-dash-docsets helm-dash-docsets-emacs-lisp-mode)
+                             (setq-local counsel-dash-docsets '("Emacs Lisp" "Common Lisp"))
                              (eldoc-mode 1))))

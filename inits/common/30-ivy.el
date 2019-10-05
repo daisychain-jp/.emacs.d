@@ -93,3 +93,13 @@
     ("w" counsel-git-change-worktree)
     ("z" counsel-git-stash)
     ("q" nil "quit")))
+
+(use-package counsel-dash
+  :straight t
+  :after (counsel)
+  :bind (:map global-map
+              ("C-c D" . counsel-dash))
+  :config
+  (setf counsel-dash-docsets-path (expand-file-name (format "%s/lib/dash/docsets" env-var-dir)))
+  (setf counsel-dash-browser-func 'eww)
+  (setf counsel-dash-min-length 1))

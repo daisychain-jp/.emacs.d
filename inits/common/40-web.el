@@ -8,7 +8,7 @@
          ("\\.erb$"       . web-mode)
          ("\\.html?$"     . web-mode))
   :hook (web-mode . (lambda ()
-                      (setq-local helm-dash-docsets '("HTML" "HTTP"))))
+                      (setq-local counsel-dash-docsets '("HTML" "HTTP"))))
   :custom
   (web-mode-attr-indent-offset        2)
   (web-mode-attr-value-indent-offset  2)
@@ -21,7 +21,7 @@
 
 (use-package css-mode
   :hook (css-mode . (lambda ()
-                      (setq-local helm-dash-docsets '("CSS"))))
+                      (setq-local counsel-dash-docsets '("CSS"))))
   :custom
   (css-indent-offset 2))
 
@@ -38,6 +38,6 @@
   :hook (js2-mode . (lambda ()
                       (setq-local flycheck-checker 'javascript-eslint)
                       (setq-local flycheck-disabled-checkers '(javascript-jshint javascript-jscs))
-                      (setq-local helm-dash-docsets '("JavaScript" "HTTP" "NodeJS"))))
+                      (setq-local counsel-dash-docsets '("JavaScript" "HTTP" "NodeJS"))))
   :custom
   (flycheck-javascript-eslint-executable "eslint"))

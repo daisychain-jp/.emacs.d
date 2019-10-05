@@ -35,8 +35,6 @@
  ("google-translate" . "dc118de511c433750d4c98b9dd67350118c04fd6")
  ("graphql.el" . "e2b309689f4faf9225f290080f836e988c5a576d")
  ("helm" . "f4e0168b281e127b8ace87e5fc28cac4116d893d")
- ("helm-dash" . "0ac2db529577fa63f2ed32310062873c585b91de")
- ("helm-descbinds" . "033be73f21778633813264ce1634a6e1ad873d8e")
  ("helm-org-rifle" . "dbda48031bad6fec1e130ee6e0d1a3bfea8ad8b8")
  ("ht.el" . "5a665d00dc8fda77bad2a43277d8809c23e46ab8")
  ("hungry-delete" . "0434458d3f6b2b585f332271feaa054bf4ec96d7")

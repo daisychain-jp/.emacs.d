@@ -59,23 +59,19 @@
   (setq c-hungry-delete-key t)
   (setq c-auto-align-backslashes nil)
   (setq c-echo-syntactic-information-p t)
-  (setq-local helm-dash-docsets helm-dash-docsets-c-mode)
-  )
+  (setq-local counsel-dash-docsets '("C")))
 
 (defun my-c-mode-hook ()
   (c-set-style "my-c-style")
-  (setq tab-width 4)
-  )
+  (setq tab-width 4))
 
 (defun my-c++-mode-hook ()
   (c-set-style "my-c-style")
-  (setq tab-width 4)
-  )
+  (setq tab-width 4))
 
 (defun my-objc-mode-hook ()
   (c-set-style "my-objc-style")
-  (setq tab-width 2)
-  )
+  (setq tab-width 2))
 
 (add-hook 'c-mode-hook 'my-c-mode-common-hook)
 (add-hook 'c-mode-hook 'my-c-mode-hook)
