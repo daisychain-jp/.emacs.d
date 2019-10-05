@@ -47,7 +47,7 @@
    ("C-c i" . counsel-semantic-or-imenu)
    ("C-c r" . counsel-recentf)
    ("C-c z" . counsel-fzf)
-   ("C-c \\" . counsel-locate)
+   ("M-\\" . counsel-locate)
    ("C-M-SPC" . counsel-mark-ring)
    :map ivy-minibuffer-map
    ("C-l" . counsel-up-directory)
