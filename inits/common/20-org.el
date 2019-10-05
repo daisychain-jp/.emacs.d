@@ -374,7 +374,7 @@ If 'ARG' is passed, shred afile instead delete."
   (setq org-src-window-setup 'current-window)
 
   ;; save all org files every hour
-  (run-at-time 10 300 'org-save-all-org-buffers))
+  (run-at-time 10 30000 'org-save-all-org-buffers))
 
 (use-package persist
   :straight t)
