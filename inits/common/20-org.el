@@ -45,6 +45,7 @@
              ("C-c o" . org-mu4e-compose-org-mode)
              :map org-agenda-mode-map
              ("C-j" . org-agenda-switch-to)
+             ("T" . counsel-org-tag-agenda)
              ("M" . org-agenda-month-view))
 
   ;; list
@@ -163,7 +164,7 @@ If 'ARG' is passed, shred afile instead delete."
           ("%" org-ref-id-lookup-refs)
           ("&" org-ref-id-relate-parent-child)
           ("N" org-add-note)
-          ("T" org-set-tags-command)
+          ("T" counsel-org-tag)
           ("P" call-interactively 'org-set-property)
           ("s" call-interactively 'org-schedule)
           ("d" call-interactively 'org-deadline)))
@@ -387,10 +388,6 @@ If 'ARG' is passed, shred afile instead delete."
 
 (use-package helm-org-rifle
   :straight t
-  :bind (:map org-mode-map
-              ("M-s o o" . helm-org-rifle-org-directory)
-              ("M-s o a" . helm-org-rifle-agenda-files)
-              ("M-s o ." . helm-org-rifle-directories))
   :after (org helm))
 
 (defun org-sparse-tree-indirect-buffer (&optional arg type)

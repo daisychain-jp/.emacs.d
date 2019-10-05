@@ -258,7 +258,7 @@ If optional argument 'YEAR passed, a file which contains the year's tree is used
               (goto-char (point-max))
               (insert "\n"))))
 (add-hook 'org-capture-after-finalize-hook 'auto-org-capture-auto-refile)
-(bind-keys ("C-c C" . auto-org-capture))
+(bind-keys ("C-c C" . counsel-org-capture))
 
 (setq org-refile-targets
       `((org-agenda-files :tag . "project")

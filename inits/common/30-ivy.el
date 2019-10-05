@@ -37,7 +37,7 @@
 
 (use-package counsel
   :straight t
-  :after (swiper hydra)
+  :after (swiper hydra helm-org-rifle)
   :bind
   (("C-;" . counsel-switch-buffer)
    ("M-y" . counsel-yank-pop)
@@ -56,6 +56,14 @@
   (require 'avy-migemo-e.g.counsel)
   (bind-keys :map hydra-base-map
              ("C-d" . counsel-hydra-heads))
+  (defhydra hydra-search (org-mode-map "C-c o"
+                                       :color teal)
+    "Org Search"
+    ("a" counsel-org-agenda-headlines)
+    ("g" counsel-org-goto)
+    ("r" helm-org-rifle-org-directory)
+    ("R" helm-org-rifle-directories)
+    ("q" nil "quit"))
   (defhydra hydra-search (global-map "M-s"
                                      :color teal)
     "Search"
