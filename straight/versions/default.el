@@ -62,6 +62,7 @@
  ("orgit" . "1e578f8cf97b07835f02858f05a094ae9a5e99bb")
  ("pangu-spacing" . "a4463dbb74abdeddb6c1c132a1f8fcf67ed87498")
  ("pdf-tools" . "66dd313dbb1d078fa847805b0d7cf9797bec9e4c")
+ ("persist" . "bbd57894134e06ec71251c1318055c0f8fd6e05b")
  ("persp-mode.el" . "cc1d16aeb17f45d7141fcdc45f8bbffa03b3127f")
  ("pkg-info.el" . "76ba7415480687d05a4353b27fea2ae02b8d9d61")
  ("plantuml-mode" . "2b84a2df523904c180a3556c851f59beb0e070d7")
