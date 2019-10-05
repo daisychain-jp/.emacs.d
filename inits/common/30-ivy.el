@@ -47,6 +47,7 @@
    ("C-c i" . counsel-semantic-or-imenu)
    ("C-c r" . counsel-recentf)
    ("C-c z" . counsel-fzf)
+   ("C-c \\" . counsel-locate)
    ("C-M-SPC" . counsel-mark-ring)
    :map ivy-minibuffer-map
    ("C-l" . counsel-up-directory)
@@ -56,8 +57,8 @@
   (require 'avy-migemo-e.g.counsel)
   (bind-keys :map hydra-base-map
              ("C-d" . counsel-hydra-heads))
-  (defhydra hydra-search (org-mode-map "C-c o"
-                                       :color teal)
+  (defhydra hydra-org (org-mode-map "C-c o"
+                                    :color teal)
     "Org Search"
     ("a" counsel-org-agenda-headlines)
     ("g" counsel-org-goto)
@@ -82,4 +83,13 @@
     ("i" counsel-info-lookup-symbol)
     ("l" counsel-find-library)
     ("s" counsel-info-lookup-symbol)
+    ("q" nil "quit"))
+  (defhydra hydra-git (global-map "C-c g"
+                                  :color teal)
+    "Git"
+    ("s" counsel-git-grep)
+    ("c" counsel-git-checkout)
+    ("l" counsel-git-log)
+    ("w" counsel-git-change-worktree)
+    ("z" counsel-git-stash)
     ("q" nil "quit")))
