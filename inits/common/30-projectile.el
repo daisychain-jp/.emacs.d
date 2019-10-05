@@ -1,6 +1,6 @@
 (use-package projectile
   :straight t
-  :after (hydra)
+  :after (hydra counsel)
   :init
   (projectile-load-known-projects)
   :custom
@@ -11,13 +11,12 @@
     "Projectile"
     ("sa" counsel-projectile-ag)
     ("ss" counsel-projectile-git-grep)
-    ("p" projectile-switch-project)
-    ("o" projectile-switch-open-project)
-    ("a" projectile-add-known-project)
+    ("p" counsel-projectile-switch-project)
+    ("+" projectile-add-known-project)
     ("d" projectile-find-dir)
     ("D" projectile-dired)
-    ("f" projectile-find-file)
-    ("b" projectile-switch-to-buffer)
+    ("f" counsel-projectile-find-file-dwim)
+    ("b" counsel-projectile-switch-to-buffer)
     ("r" projectile-recentf)
     ("k" projectile-kill-buffers)
     ("C-g" nil "quit")
