@@ -168,6 +168,23 @@ If optional argument 'YEAR passed, a file which contains the year's tree is used
         archive-file
       nil)))
 (defvar org-archive-file (org-archive-file))
+(defun org-goto-clocking-or-today ()
+  "Go to currently clocking entry.
+
+If no entry is clocked, go to today's entry in archive file."
+  (if (org-clocking-p)
+      (org-clock-goto)
+    (let* ((now (decode-time (current-time)))
+           (day (nth 3 now))
+           (month (nth 4 now))
+           (year (nth 5 now))
+           (org-refile-targets
+            `((,org-archive-file :regexp . ,(format "%04d-%02d-%02d" year month day)))))
+      (with-current-buffer (find-file-noselect org-archive-file)
+        (org-datetree-find-iso-week-create `(,month ,day ,year)))
+      (save-restriction
+        (org-clock-goto)
+        (org-refile t nil nil)))))
 (setq org-capture-templates
       `(("t" "Task"
          entry (id "adcd63ea-f81a-4909-b659-6e5794052fcc")
@@ -208,9 +225,12 @@ If optional argument 'YEAR passed, a file which contains the year's tree is used
          entry (file+datetree ,org-archive-file)
          "* SD %? :ac_build:\n  ADDED: %U\n  %a"
          :tree-type week)
-        ("D" "Drill entry to the clocked"
-         entry (clock)
+        ("D" "Drill entry in currently clocking or today's entry."
+         entry (function org-goto-clocking-or-today)
          "* %c :drill:\n  [%?]")
+        ("E" "English drill entry in currently clocking or today's entry."
+         entry (function org-goto-clocking-or-today)
+         "* %c :drill:fd_eng:\n[%?]")
         ("M" "Memo to the clocked"
          item (clock)
          "- %i%?")
