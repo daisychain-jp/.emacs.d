@@ -40,7 +40,7 @@
   :after (swiper hydra helm-org-rifle)
   :bind
   (("C-;" . counsel-switch-buffer)
-   ("M-y" . counsel-yank-pop)
+   ("C-M-y" . counsel-yank-pop)
    ("M-x" . counsel-M-x)
    ("C-x C-f" . counsel-find-file)
    ("C-c b" . counsel-bookmark)
