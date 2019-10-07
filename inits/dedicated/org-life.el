@@ -18,19 +18,19 @@
         ("s" . "Someday entries")
         ("sa" "all" tags "TODO=\"SD\""
          ((org-agenda-files org-agenda-files-archive)
-          (org-agenda-sorting-strategy '(time-down))))
+          (org-agenda-sorting-strategy '(priority-up time-down))))
         ("sr" "read" tags "TODO=\"SD\"+ac_read"
          ((org-agenda-files org-agenda-files-archive)
-          (org-agenda-sorting-strategy '(time-down))))
+          (org-agenda-sorting-strategy '(priority-up time-down))))
         ("sc" "cook" tags "TODO=\"SD\"+ac_cook"
          ((org-agenda-files org-agenda-files-archive)
-          (org-agenda-sorting-strategy '(time-down))))
+          (org-agenda-sorting-strategy '(priority-up time-down))))
         ("sp" "purchase" tags "TODO=\"SD\"+ac_purchase"
          ((org-agenda-files org-agenda-files-archive)
-          (org-agenda-sorting-strategy '(time-down))))
+          (org-agenda-sorting-strategy '(priority-up time-down))))
         ("sb" "build" tags "TODO=\"SD\"+ac_build"
          ((org-agenda-files org-agenda-files-archive)
-          (org-agenda-sorting-strategy '(time-down))))
+          (org-agenda-sorting-strategy '(priority-up time-down))))
         ("b" "tag match for current Buffer"
          tags ""
          ((org-agenda-files `(,buffer-file-name))))
