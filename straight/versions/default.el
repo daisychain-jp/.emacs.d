@@ -61,7 +61,6 @@
  ("melpa" . "f0e0354a4da2e675406068d158c7e532cd5ed083")
  ("migemo" . "e4744efae1b2fdea2bbd2ceaff0f6ea0bb739f5a")
  ("mu4e-alert" . "96a293b28646f4620e257f24748becc4a06843cd")
- ("multiple-cursors.el" . "6a7c3c0853e3fe9e4b8e5985dbed8fd4075f33ff")
  ("open-junk-file" . "558bec7372b0fed4c4cb6074ab906535fae615bd")
  ("org" . "6f32e7af88805441c1261e16f729172639d8b3fa")
  ("org-clock-convenience" . "7d14699a15ad6c5b9a63246a11188c77f8800e94")
