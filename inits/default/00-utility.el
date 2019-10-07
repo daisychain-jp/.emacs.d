@@ -38,7 +38,11 @@ The optional prefix argument ARG is passed to lower function."
               (16 (browse-url-default-browser (car url-pos)))
               (4 (eww-browse-url (car url-pos)))
               (t (open-url-switch-application (car url-pos) (cadr url-pos))))))
-     (filename (open-file filename arg)))))
+     (filename
+      (let ((url-pos (split-location-uri filename)))
+        (open-file (car url-pos) arg)
+        (goto-pos (cadr url-pos))
+        (recenter-top-bottom 0))))))
 
 (defun open-file (file &optional arg)
   "Open file `FILE' with appropriate application.
