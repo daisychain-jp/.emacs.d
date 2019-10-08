@@ -3,4 +3,4 @@
 # --
 * ${1:title}
   ADDED: `(format-time-string "[%Y-%m-%d %a]")`
-  - [[afile:book/][EPUB]]$0
+  - [[afile:ebook/][EPUB]]$0
