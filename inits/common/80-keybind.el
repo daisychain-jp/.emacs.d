@@ -1,8 +1,6 @@
 ;; create a way to distinguish TAB and C-i
 (setq local-function-key-map (delq '(kp-tab . [9]) local-function-key-map))
 
-;; prevent from executing save-buffers-kill-emacs by mistake
-(unbind-key "C-x C-c")
 (unbind-key "C-j")
 (unbind-key "C-h")
 (unbind-key "C-o")
