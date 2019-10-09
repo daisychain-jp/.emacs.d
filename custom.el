@@ -17,10 +17,8 @@
      (ivy--regex-plus :around ivy--regex-plus-migemo-around)
      ivy--highlight-default-migemo ivy-occur-revert-buffer-migemo ivy-occur-press-migemo avy-migemo-goto-char avy-migemo-goto-char-2 avy-migemo-goto-char-in-line avy-migemo-goto-char-timer avy-migemo-goto-subword-1 avy-migemo-goto-word-1 avy-migemo-isearch avy-migemo-org-goto-heading-timer avy-migemo--overlay-at avy-migemo--overlay-at-full)))
  '(enable-remote-dir-locals t)
- '(org-agenda-files
-   (quote
-    ("/home/tinamori/org/priv_a/life.org" "/home/tinamori/org/biz_a/biz.org" "/home/tinamori/org/priv_a/bird.org" "/home/tinamori/org/priv_a/codeyrocky.org" "/home/tinamori/org/priv_a/gardening.org" "/home/tinamori/org/priv_a/home.org" "/home/tinamori/org/priv_a/jikka.org" "/home/tinamori/org/priv_a/kana.org" "/home/tinamori/org/priv_a/whisper.org")))
  '(org-plantuml-jar-path (format "%s/lib/plantuml/plantuml.jar" env-var-dir))
+ '(safe-local-variable-values (quote ((checkdoc-minor-mode . t))))
  '(shackle-default-rule (quote (:same t)))
  '(smtpmail-default-smtp-server "smtp.daisychain.jp"))
 (custom-set-faces

@@ -2,7 +2,7 @@
   :straight t
   :diminish (ivy-mode)
   :after (avy-migemo)
-  :bind (("C-x b" . ivy-switch-buffer)
+  :bind (("C-;" . ivy-switch-buffer)
          ("C-M-r" . ivy-resume)
          :map ivy-minibuffer-map
          ("M-=" . ivy-minibuffer-grow)
@@ -39,7 +39,7 @@
   :straight t
   :after (swiper hydra helm-org-rifle)
   :bind
-  (("C-;" . counsel-switch-buffer)
+  (("C-x b" . counsel-switch-buffer)
    ("C-M-y" . counsel-yank-pop)
    ("M-x" . counsel-M-x)
    ("C-x C-f" . counsel-find-file)
@@ -57,8 +57,8 @@
   (require 'avy-migemo-e.g.counsel)
   (bind-keys :map hydra-base-map
              ("C-d" . counsel-hydra-heads))
-  (defhydra hydra-org (org-mode-map "C-c o"
-                                    :color teal)
+  (defhydra hydra-org (global-map "C-c o"
+                                  :color teal)
     "Org Search"
     ("a" counsel-org-agenda-headlines)
     ("g" counsel-org-goto)
@@ -68,14 +68,16 @@
   (defhydra hydra-search (global-map "M-s"
                                      :color teal)
     "Search"
-    ("g" counsel-ag)
-    ("r" counsel-rg)
-    ("s" counsel-grep-or-swiper)
+    ("ss" counsel-ag)
+    ("sr" counsel-rg)
+    ("sg" counsel-grep-or-swiper)
+    ("si" counsel-git-grep)
+    ("Or" helm-org-rifle-org-directory)
     ("q" nil "quit"))
   (defhydra hydra-hint (global-map "C-c h"
                                    :color teal)
     "Hint"
-    ("h" counsel-apropos)
+    ("a" counsel-apropos)
     ("f" counsel-describe-function)
     ("v" counsel-describe-variable)
     ("c" counsel-describe-face)

@@ -105,7 +105,7 @@
     ("-"     text-scale-adjust)
     ("0"     text-scale-adjust)
     ("q"     nil "quit"))
-  (defhydra hydra-launcher (global-map "C-M-j"
+  (defhydra hydra-launcher (global-map "C-c j"
                                        :color blue)
     "Launch"
     ("t" ansi-term)
@@ -113,8 +113,8 @@
     ("e" (eshell t))
     ("d" dired-jump)
     ("@" twit)
-    ("g" magit-status)
-    ("w" (lambda ()
+    ("v" magit-status)
+    ("g" (lambda ()
            (interactive)
            (setq-local eww-launch-in-new-buffer t)
            (eww-launch)))

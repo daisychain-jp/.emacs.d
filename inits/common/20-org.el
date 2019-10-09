@@ -15,7 +15,7 @@
   :interpreter (("org" . org-mode))
   :bind (("C-c a" . org-agenda)
          ("C-c c" . org-capture)
-         ("C-c j" . org-clock-goto)
+         ("C-M-j" . org-clock-goto)
          ("C-c s" . org-store-link))
   :init
   (add-to-list 'load-path (format "%s/straight/repos/org/lisp"
@@ -42,7 +42,6 @@
              ("C-,"     . nil)
              ("C-x C-a s" . org-afile-store)
              ("C-x C-a d" . org-afile-delete)
-             ("C-c o" . org-mu4e-compose-org-mode)
              :map org-agenda-mode-map
              ("C-j" . org-agenda-switch-to)
              ("T" . counsel-org-tag-agenda)

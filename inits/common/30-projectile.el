@@ -9,8 +9,10 @@
   (defhydra hydra-projectile (global-map "C-c p"
                                          :exit t)
     "Projectile"
-    ("sa" counsel-projectile-ag)
-    ("ss" counsel-projectile-git-grep)
+    ("sg" counsel-projectile-grep)
+    ("ss" counsel-projectile-ag)
+    ("sr" counsel-projectile-rg)
+    ("si" counsel-projectile-git-grep)
     ("p" counsel-projectile-switch-project)
     ("+" projectile-add-known-project)
     ("d" projectile-find-dir)
