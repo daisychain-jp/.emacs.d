@@ -5,3 +5,7 @@
   :diminish "hd"
   :config
   (global-hungry-delete-mode 1))
+
+;; invoke up/downcase-region without any inquiry
+(put 'upcase-region 'disabled nil)
+(put 'downcase-region 'disabled nil)
