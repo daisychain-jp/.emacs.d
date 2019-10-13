@@ -211,7 +211,7 @@ If no entry is clocked, go to today's entry in archive file."
          :tree-type week)
         ("sR" "read (register to whisper as kindle)"
          entry (file+datetree ,org-archive-file)
-         "* SD %? :ac_read:ap_whisper:%^{WP_URL1_FORMAT}p%^{WP_URL1}p%^{WP_ALERT}p\n  ADDED: %U\n  - [ ] insert ID property\n  %a"
+         "* SD %? :ac_purchase:ap_whisper:%^{WP_URL1_FORMAT}p%^{WP_URL1}p%^{WP_ALERT}p\n  ADDED: %U\n  - [ ] insert ID property\n  %a"
          :tree-type week)
         ("sc" "cook"
          entry (file+datetree ,org-archive-file)
