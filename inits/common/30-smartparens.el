@@ -6,7 +6,9 @@
   :after (hydra)
   :hook (prog-mode . smartparens-mode)
   :config
-  (defhydra hydra-smartparens (global-map "C-("
+  (defhydra hydra-smartparens (global-map "C-c ("
+                                          :pre (set-face-background 'mode-line "red")
+                                          :post (set-face-background 'mode-line "gray10")
                                           :hint nil)
     "
  Moving^^^^                       Slurp & Barf^^   Wrapping^^            Sexp juggling^^^^               Destructive
