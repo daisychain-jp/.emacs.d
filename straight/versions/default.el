@@ -94,7 +94,7 @@
  ("tablist" . "c834a84efb6efa32497efe1e73160fade741b836")
  ("transpose-mark" . "667327602004794de97214cf336ac61650ef75b7")
  ("treepy.el" . "b40e6b09eb9be45da67b8c9e4990a5a0d7a2a09d")
- ("ts.el" . "0e87c4d4df7c2f835ae811d8b2a197839ffca493")
+ ("ts.el" . "540f6a5adab5d881cc5f50835c0a3fe70e74b992")
  ("twittering-mode" . "114891e8fdb4f06b1326a6cf795e49c205cf9e29")
  ("undo-tree" . "d54ef13e3c69655e39f977b8bf75399a6d2b5e42")
  ("use-package" . "1d5ffb2e0d1427066ced58febbba68c1328bf001")
