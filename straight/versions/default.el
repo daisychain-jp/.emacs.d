@@ -83,7 +83,6 @@
  ("s.el" . "03410e6a7a2b11e47e1fea3b7d9899c7df26435e")
  ("selected.el" . "03edaeac90bc6000d263f03be3d889b4685e1bf7")
  ("seq" . "095fb15a3baa082079799dd36b6caccdb062cb90")
- ("sequential-command" . "a48cbcbe273b33edd3ae56e68f44b4100fa3a48a")
  ("shackle" . "242bacc940c18b6f9c156e1912155d45537fd827")
  ("smartparens" . "14a4d62b18da022bb7a4db4584dd82cda6d2f779")
  ("straight.el" . "3305fe95b6161afc9747f83e8eac7cf4329b69b9")
