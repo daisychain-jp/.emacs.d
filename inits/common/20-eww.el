@@ -1,5 +1,7 @@
 (use-package eww
   :delight " EW"
+  :custom
+  (shr-width -1)
   :config
   (bind-keys :map eww-mode-map
              ("C-j" . eww-follow-link)
@@ -17,20 +19,28 @@
               (eww-lazy-control)))
   (add-hook 'eww-after-render-hook
             (lambda ()
-              (let ((url (eww-current-url)))
-                (when (string-match (concat (regexp-quote
-                                             "https://eow.alc.co.jp/search?q=") "\\([^&]+\\)") url)
-                  (let* ((search-word-escape (match-string 1 url))
-                         (search-word (org-link-unescape search-word-escape)))
-                    (search-forward (format "* %s" search-word))
-                    (beginning-of-line 1)
-                    (recenter-top-bottom 0)))
-                (when (string-match-p (regexp-quote "https://www.weblio.jp/content/") url)
-                  (forward-line 44)))))
+              (setq-local truncate-lines nil)
+              (eww-goto-contents)))
   (bind-keys :map eww-mode-map
              ("C-M-m" . eww-lazy-control))
   (add-hook 'eww-mode-hook #'xah-rename-eww-hook)
-  (setq eww-header-line-format nil))
+  (setq eww-header-line-format nil)
+  ;; redefine shr-fill-xxx to disable inserting line break
+  (defun shr-fill-text (text) text)
+  (defun shr-fill-lines (start end) nil)
+  (defun shr-fill-line () nil))
+
+(defun eww-goto-contents ()
+  (let ((url (eww-current-url)))
+    (when (string-match (concat (regexp-quote
+                                 "https://eow.alc.co.jp/search?q=") "\\([^&]+\\)") url)
+      (let* ((search-word-escape (match-string 1 url))
+             (search-word (org-link-unescape search-word-escape)))
+        (search-forward (format "* %s" search-word))
+        (beginning-of-line 1)
+        (recenter-top-bottom 0)))
+    (when (string-match-p (regexp-quote "https://www.weblio.jp/content/") url)
+      (forward-line 44))))
 
 (defun eww-lazy-control ()
   "Lazy control in EWW."
