@@ -34,11 +34,20 @@
 
   ;; local key bindings
   (bind-keys :map org-mode-map
+             ("C-j"     . org-return)
+             ("C-m"     . org-return-indent)
              ("M-j"     . org-meta-return)
              ("C-o"     . org-open-at-point)
              ("M-o"     . org-orgnize-open-at-point)
+             ("C-S-p"   . org-previous-item)
+             ("C-S-n"   . org-next-item)
+             ("C-S-u"   . org-up-element)
+             ("C-$"     . org-down-element)
+             ("C-<"     . org-previous-link)
+             ("C->"     . org-next-link)
              ("C-c /"   . org-sparse-tree-indirect-buffer)
              ("C-c \\"   . org-match-sparse-tree-indirect-buffer)
+             ("C-c C-a" . nil)
              ("C-,"     . nil)
              ("C-x C-a s" . org-afile-store)
              ("C-x C-a d" . org-afile-delete)
@@ -149,7 +158,6 @@ If 'ARG' is passed, shred afile instead delete."
   (setq org-use-speed-commands t)
   (setq org-speed-commands-user
         '(("$" org-archive-to-archive-file)
-          ("a" org-attach)
           ("A" org-toggle-archive-tag)
           ("W" org-copy)
           ("Q" org-clock-cancel)
