@@ -171,8 +171,16 @@ If optional argument 'YEAR passed, a file which contains the year's tree is used
 (defun org-goto-clocking-or-today ()
   "Go to currently clocking entry.
 
-If no entry is clocked, go to today's entry in archive file."
-  (if (org-clocking-p)
+If no entry is clocked or CATEGORY on clocking entry is Habit,
+go to today's entry in archive file."
+  (if (and (org-clocking-p)
+           (save-excursion
+             (with-current-buffer (org-clocking-buffer)
+               (org-clock-jump-to-current-clock)
+               (org-back-to-heading)
+               (not (string=
+                     (org-entry-get (point) "CATEGORY" t)
+                     "Habit")))))
       (org-clock-goto)
     (let* ((now (decode-time (current-time)))
            (day (nth 3 now))
@@ -180,11 +188,8 @@ If no entry is clocked, go to today's entry in archive file."
            (year (nth 5 now))
            (org-refile-targets
             `((,org-archive-file :regexp . ,(format "%04d-%02d-%02d" year month day)))))
-      (with-current-buffer (find-file-noselect org-archive-file)
-        (org-datetree-find-iso-week-create `(,month ,day ,year)))
-      (save-restriction
-        (org-clock-goto)
-        (org-refile t nil nil)))))
+      (find-file org-archive-file)
+      (org-datetree-find-iso-week-create `(,month ,day ,year) nil))))
 (setq org-capture-templates
       `(("t" "Task"
          entry (id "adcd63ea-f81a-4909-b659-6e5794052fcc")
@@ -225,12 +230,13 @@ If no entry is clocked, go to today's entry in archive file."
          entry (file+datetree ,org-archive-file)
          "* SD %? :ac_build:\n  ADDED: %U\n  %a"
          :tree-type week)
-        ("D" "Drill entry in currently clocking or today's entry."
+        ("D" "Drill")
+        ("Dd" "Drill entry in currently clocking or today's entry."
          entry (function org-goto-clocking-or-today)
-         "* %c :drill:\n  [%?]")
-        ("E" "English drill entry in currently clocking or today's entry."
+         "* %i :drill:\n  [%?]")
+        ("De" "English drill entry in currently clocking or today's entry."
          entry (function org-goto-clocking-or-today)
-         "* %c :drill:fd_eng:\n[%?]")
+         "* %i :drill:fd_eng:\n[%?]")
         ("M" "Memo to the clocked"
          item (clock)
          "- %i%?")
