@@ -23,7 +23,7 @@
               (eww-goto-contents)))
   (bind-keys :map eww-mode-map
              ("C-M-m" . eww-lazy-control))
-  (add-hook 'eww-mode-hook #'xah-rename-eww-hook)
+  (add-hook 'eww-after-render-hook #'eww-set-buffer-name-from-page-title)
   (setq eww-header-line-format nil)
   ;; redefine shr-fill-xxx to disable inserting line break
   (defun shr-fill-text (text) text)
@@ -69,11 +69,6 @@
   (setq-local hlc/backward-page-func 'eww-back-url)
   (setq-local hlc/forward-page-func 'eww-forward-url)
   (hydra-lazy-control/body))
-
-;; Auto-rename new eww buffers
-(defun xah-rename-eww-hook ()
-  "Rename eww browser's buffer so sites open in new page."
-  (rename-buffer "eww" t))
 
 (defvar eww-launch-in-new-buffer nil
   "If non-nil, create a new buffer and open in it when `eww-launch` is called.")
@@ -140,6 +135,22 @@ ARGS will be passed to the original function."
 (defun shr-put-image-alt (spec alt &optional flags)
   (insert alt))
 
+(defun eww-set-buffer-name-from-page-title ()
+  "Set EWW buffer name by extracting page title."
+  (interactive)
+  (let ((source (plist-get eww-data :source))
+        (dom nil))
+    (with-temp-buffer
+      (let ((source-file (make-temp-file "source-"))
+            (coding-system-for-write 'utf-8-unix))
+        (insert source)
+        (write-region (point-min) (point-max) source-file nil)
+        (erase-buffer)
+        (call-process "extract_headings" source-file t)
+        (delete-file source-file)
+        (setq dom (libxml-parse-xml-region (point-min) (point-max)))))
+    (rename-buffer (format "eww %s" (dom-attr (car (dom-by-tag dom 'headings)) 'title)) t)))
+
 (defun eww-goto-heading ()
   "Set point to the heading line."
   (interactive)
@@ -153,14 +164,14 @@ ARGS will be passed to the original function."
                   (insert source)
                   (write-region (point-min) (point-max) source-file nil)
                   (erase-buffer)
-                  (call-process "detect_heading" source-file t)
+                  (call-process "extract_headings" source-file t)
                   (delete-file source-file)
                   (print (buffer-substring-no-properties (point-min) (point-max)))))
             (shell-command-to-string
              (mapconcat #'identity
                         (if (string-suffix-p ".html" url)
-                            (list "detect_heading" url)
-                          (list "curl" "-s" url "|" "detect_heading"))))))
+                            (list "extract_headings" url)
+                          (list "curl" "-s" url "|" "extract_headings"))))))
          (min-strlen 4)
          (max-strlen (* 2 (/ (x-display-pixel-width) (font-get (face-attribute 'readable :font) :size)))))
     ;; search substring of heading by decrementing searching string

@@ -9,20 +9,30 @@
 (defface mode-line-read-only nil nil)
 (defface mode-line-read-only-modified nil nil)
 
-(defun truncate-file-name (file-name len)
-  (let* ((base (file-name-base file-name))
-         (ext (file-name-extension file-name)))
-    (cond
-     ((<= (length file-name) len) file-name)
-     (t (concat
-         (s-truncate (- len (length ext) 1) base)
-         ext)))))
+(defun truncate-buffer-name (buf-name max-display-len)
+  ""
+  (let ((base-name (file-name-base buf-name))
+        (ext-name (file-name-extension buf-name)))
+    (cl-labels ((truncate-display-string
+                 (base ext truncated)
+                 (if (<= (+ (string-width base)
+                            (if (stringp ext)
+                                (1+ (string-width ext)) 0)
+                            (if (bound-and-true-p truncated) 2 0))
+                         max-display-len)
+                     (concat base
+                             (when (bound-and-true-p truncated) "..")
+                             (when (stringp ext) (concat "." ext)))
+                   (truncate-display-string (substring base 0 (1- (length base)))
+                                            ext
+                                            t))))
+      (truncate-display-string base-name ext-name nil))))
 
 (setq-default mode-line-format
               '(" "
                 mode-line-mule-info
                 (:eval
-                 (let* ((raw-str (truncate-file-name (buffer-name) 24))
+                 (let* ((raw-str (truncate-buffer-name (buffer-name) 24))
                         (str (s-replace "%" "%%" raw-str)))
                    (cond
                     ((and buffer-read-only (buffer-modified-p))
