@@ -45,7 +45,7 @@
 (defun eww-lazy-control ()
   "Lazy control in EWW."
   (interactive)
-  (setq-local hlc/beginning-func 'eww-goto-heading)
+  (setq-local hlc/beginning-func 'eww-goto-title-heading)
   (setq-local hlc/forward-paragraph-func
               (lambda ()
                 (interactive)
@@ -135,9 +135,8 @@ ARGS will be passed to the original function."
 (defun shr-put-image-alt (spec alt &optional flags)
   (insert alt))
 
-(defun eww-set-buffer-name-from-page-title ()
-  "Set EWW buffer name by extracting page title."
-  (interactive)
+(defun eww-headings-dom ()
+  "Return heading list as a dom from xml."
   (let ((source (plist-get eww-data :source))
         (dom nil))
     (with-temp-buffer
@@ -148,45 +147,26 @@ ARGS will be passed to the original function."
         (erase-buffer)
         (call-process "extract_headings" source-file t)
         (delete-file source-file)
-        (setq dom (libxml-parse-xml-region (point-min) (point-max)))))
-    (rename-buffer (format "eww %s" (dom-attr (car (dom-by-tag dom 'headings)) 'title)) t)))
+        (libxml-parse-xml-region (point-min) (point-max))))))
 
-(defun eww-goto-heading ()
-  "Set point to the heading line."
+(defun eww-set-buffer-name-from-page-title ()
+  "Set EWW buffer name by extracting page title."
+  (rename-buffer (format "eww %s" (dom-attr (car (dom-by-tag (eww-headings-dom) 'headings)) 'title)) t))
+
+(defun eww-goto-title-heading ()
+  "Set point to a line which contaings the possible heading."
   (interactive)
-  (let* ((url (plist-get eww-data :url))
-         (source (plist-get eww-data :source))
-         (heading
-          (if (stringp source)
-              (with-temp-buffer
-                (let ((source-file (make-temp-file "source-"))
-                      (coding-system-for-write 'utf-8-unix))
-                  (insert source)
-                  (write-region (point-min) (point-max) source-file nil)
-                  (erase-buffer)
-                  (call-process "extract_headings" source-file t)
-                  (delete-file source-file)
-                  (print (buffer-substring-no-properties (point-min) (point-max)))))
-            (shell-command-to-string
-             (mapconcat #'identity
-                        (if (string-suffix-p ".html" url)
-                            (list "extract_headings" url)
-                          (list "curl" "-s" url "|" "extract_headings"))))))
-         (min-strlen 4)
-         (max-strlen (* 2 (/ (x-display-pixel-width) (font-get (face-attribute 'readable :font) :size)))))
-    ;; search substring of heading by decrementing searching string
-    (cl-labels ((search-heading (trunc-len)
-                                (if (>= trunc-len min-strlen)
-                                    (if-let* ((trunc-heading (string-trim-right (truncate-string-to-width heading trunc-len)))
-                                              (match-pos (search-forward trunc-heading nil t 1)))
-                                        (progn
-                                          (message "heading: %s" trunc-heading)
-                                          match-pos)
-                                      (search-heading (1- trunc-len)))
-                                  nil)))
-      (when-let ((match-pos (search-heading max-strlen)))
-        (beginning-of-line)
-        (recenter-top-bottom 0)))))
+  (when-let* ((headings-dom (eww-headings-dom))
+              (possible-heading (dom-text
+                                 (cl-reduce (lambda (node-a node-b)
+                                              (if (>= (string-to-number (dom-attr node-a 'proximity))
+                                                      (string-to-number (dom-attr node-b 'proximity)))
+                                                  node-a node-b))
+                                            (dom-children headings-dom))))
+              (match-pos (or (search-forward possible-heading nil t 1)
+                             (search-backward possible-heading nil t 1))))
+    (beginning-of-line)
+    (recenter-top-bottom 0)))
 
 (defun eww-goto-top ()
   "Set point to the line which contain either title or h1 text of the html file."
