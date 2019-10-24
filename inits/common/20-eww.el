@@ -1,7 +1,5 @@
 (use-package eww
   :delight " EW"
-  :custom
-  (shr-width -1)
   :config
   (bind-keys :map eww-mode-map
              ("C-j" . eww-follow-link)
@@ -24,11 +22,7 @@
   (bind-keys :map eww-mode-map
              ("C-M-m" . eww-lazy-control))
   (add-hook 'eww-after-render-hook #'eww-set-buffer-name-from-page-title)
-  (setq eww-header-line-format nil)
-  ;; redefine shr-fill-xxx to disable inserting line break
-  (defun shr-fill-text (text) text)
-  (defun shr-fill-lines (start end) nil)
-  (defun shr-fill-line () nil))
+  (setq eww-header-line-format nil))
 
 (defun eww-goto-contents ()
   (let ((url (eww-current-url)))
@@ -93,18 +87,16 @@ ARGS will be passed to the original function."
   (with-temp-buffer
     (apply orig-fun args)))
 
-;; insert line break so one line terminates right edge of the window
-;; this setting is optimal for my font size (shr-width)
-;; http://emacs.rubikitch.com/eww-width/
+;; avoid inserting line break
 (defun shr-insert-document--for-eww (&rest them)
-  (let ((shr-width (* 2 (/ (x-display-pixel-width) (font-get (face-attribute 'readable :font) :size)))))
+  (let ((shr-width -1))
     (apply them)))
-(defun eww-display-html--fill-column (&rest them)
+(defun eww-display-html--no-fill (&rest them)
   (advice-add 'shr-insert-document :around 'shr-insert-document--for-eww)
   (unwind-protect
       (apply them)
     (advice-remove 'shr-insert-document 'shr-insert-document--for-eww)))
-(advice-add 'eww-display-html :around 'eww-display-html--fill-column)
+(advice-add 'eww-display-html :around 'eww-display-html--no-fill)
 
 ;; control site color
 (defvar eww-disable-colorize t)
