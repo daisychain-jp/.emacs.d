@@ -86,7 +86,7 @@
  ("shackle" . "242bacc940c18b6f9c156e1912155d45537fd827")
  ("smartparens" . "14a4d62b18da022bb7a4db4584dd82cda6d2f779")
  ("straight.el" . "3305fe95b6161afc9747f83e8eac7cf4329b69b9")
- ("swiper" . "d73376f434f801e6f9b1ca05b53eb20368edc512")
+ ("swiper" . "3b35b458e138e7e7a51de7d9e0a1ac70b9f54780")
  ("switch-buffer-functions-el" . "651696ef9dec7affbe51c81d9318288376c35899")
  ("synosaurus" . "bc26f5c22b4d08dd09d0852435814977433c9521")
  ("system-packages" . "d18b2c0e38ddc1ccfcd7d787112fb3465df51769")
