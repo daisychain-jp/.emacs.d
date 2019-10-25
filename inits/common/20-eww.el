@@ -1,5 +1,7 @@
 (use-package eww
   :delight " EW"
+  :bind (:map eww-mode-map
+              ("C-M-m" . hydra-lazy-control/body))
   :config
   (bind-keys :map eww-mode-map
              ("C-j" . eww-follow-link)
@@ -19,8 +21,6 @@
             (lambda ()
               (visual-line-mode 1)
               (eww-goto-contents)))
-  (bind-keys :map eww-mode-map
-             ("C-M-m" . eww-lazy-control))
   (add-hook 'eww-after-render-hook #'eww-set-buffer-name-from-page-title)
   (setq eww-header-line-format nil))
 
@@ -38,7 +38,6 @@
 
 (defun eww-lazy-control ()
   "Lazy control in EWW."
-  (interactive)
   (setq-local hlc/beginning-func 'eww-goto-title-heading)
   (setq-local hlc/forward-paragraph-func
               (lambda ()
@@ -61,8 +60,7 @@
   (setq-local hlc/external-func 'eww-browse-with-external-browser)
   (setq-local hlc/enter-func 'eww-follow-link)
   (setq-local hlc/backward-page-func 'eww-back-url)
-  (setq-local hlc/forward-page-func 'eww-forward-url)
-  (hydra-lazy-control/body))
+  (setq-local hlc/forward-page-func 'eww-forward-url))
 
 (defvar eww-launch-in-new-buffer nil
   "If non-nil, create a new buffer and open in it when `eww-launch` is called.")

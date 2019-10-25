@@ -5,5 +5,4 @@
   :hook (help-mode . (lambda ()
                        (visual-line-mode 1)
                        (adaptive-wrap-prefix-mode 1)
-                       (hydra-lazy-control/body)
                        (buffer-face-set 'recognizable))))

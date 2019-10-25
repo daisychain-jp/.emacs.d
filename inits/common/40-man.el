@@ -6,5 +6,4 @@
   :hook (Man-mode . (lambda ()
                       (buffer-face-set 'visible)
                       (visual-line-mode 1)
-                      (adaptive-wrap-prefix-mode 1)
-                      (hydra-lazy-control/body))))
+                      (adaptive-wrap-prefix-mode 1))))
