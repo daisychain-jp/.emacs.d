@@ -5,5 +5,5 @@
               ("C-o" . Info-follow-nearest-node))
   :hook (Info-mode . (lambda ()
                        (buffer-face-set 'recognizable)
-                       (toggle-truncate-lines 0)
+                       (visual-line-mode 1)
                        (adaptive-wrap-prefix-mode 1))))

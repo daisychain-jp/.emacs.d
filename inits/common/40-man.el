@@ -5,6 +5,6 @@
               ("C-M-m" . hydra-lazy-control/body))
   :hook (Man-mode . (lambda ()
                       (buffer-face-set 'visible)
-                      (setq-local truncate-lines nil)
+                      (visual-line-mode 1)
                       (adaptive-wrap-prefix-mode 1)
                       (hydra-lazy-control/body))))

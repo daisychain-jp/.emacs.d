@@ -72,12 +72,13 @@
     ("t" org-table-transpose-table-at-point "Org mode table")
     ("q" nil "cancel" :color blue))
   (defhydra hydra-toggle
-    (global-map "C-t"
+    (global-map "C-c t"
                 :color pink
                 :pre (set-face-background 'mode-line "DarkOrange4")
                 :post (set-face-background 'mode-line "gray10"))
     "Toggle"
-    ("t" toggle-truncate-lines)
+    ("t" visual-line-mode)
+    ("T" toggle-truncate-lines)
     ("i" adaptive-wrap-prefix-mode)
     ("p" variable-pitch-mode)
     ("w" whitespace-mode)

@@ -17,7 +17,7 @@
               (eww-lazy-control)))
   (add-hook 'eww-after-render-hook
             (lambda ()
-              (setq-local truncate-lines nil)
+              (visual-line-mode 1)
               (eww-goto-contents)))
   (bind-keys :map eww-mode-map
              ("C-M-m" . eww-lazy-control))
