@@ -61,7 +61,9 @@
                                   :color teal)
     "Org Search"
     ("a" counsel-org-agenda-headlines)
+    ("c" counsel-org-capture)
     ("g" counsel-org-goto)
+    ("s" helm-org-rifle-current-buffer)
     ("r" helm-org-rifle-org-directory)
     ("R" helm-org-rifle-directories)
     ("q" nil "quit"))
