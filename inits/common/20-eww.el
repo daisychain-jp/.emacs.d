@@ -7,6 +7,8 @@
              ("C-j" . eww-follow-link)
              ("["   . eww-back-url)
              ("]"   . eww-next-url)
+             ("T"   . eww-goto-title-heading)
+             ("L"   . counsel-eww-headings)
              :map eww-bookmark-mode-map
              ("C-j" . eww-bookmark-browse))
   (setq shr-use-fonts nil)
@@ -147,82 +149,42 @@ ARGS will be passed to the original function."
   "Set point to a line which contaings the possible heading."
   (interactive)
   (when-let* ((headings-dom (eww-headings-dom))
-              (possible-heading (dom-text
-                                 (cl-reduce (lambda (node-a node-b)
-                                              (if (>= (string-to-number (dom-attr node-a 'proximity))
-                                                      (string-to-number (dom-attr node-b 'proximity)))
-                                                  node-a node-b))
-                                            (dom-children headings-dom))))
-              (match-pos (or (search-forward possible-heading nil t 1)
-                             (search-backward possible-heading nil t 1))))
+              (possible-heading (cl-reduce (lambda (node-a node-b)
+                                             (if (not (bound-and-true-p node-a))
+                                                 (if (not (bound-and-true-p node-b))
+                                                     nil
+                                                   node-b)
+                                               (if (>= (string-to-number (dom-attr node-a 'proximity))
+                                                       (string-to-number (dom-attr node-b 'proximity)))
+                                                   node-a node-b)))
+                                           (dom-children headings-dom)
+                                           :initial-value nil))
+              (possible-text (dom-text possible-heading))
+              (match-pos (or (re-search-forward (format "^*?[[:blank:]]*%s[[:blank:]]*$" (regexp-quote possible-text)) nil t 1)
+                             (re-search-backward (format "^*?[[:blank:]]*%s[[:blank:]]*$" (regexp-quote possible-text)) nil t 1))))
     (beginning-of-line)
     (recenter-top-bottom 0)))
 
-(defun eww-goto-top ()
-  "Set point to the line which contain either title or h1 text of the html file."
+(defun counsel-eww-headings ()
+  "Go to selected heading line."
   (interactive)
-  (let* ((html-string (prog2 (eww-view-source)
-                          (string-as-multibyte (string-as-unibyte (buffer-string)))
-                        (kill-buffer)))
-         (dom (dom-sanitize (with-temp-buffer
-                              (erase-buffer)
-                              (insert html-string)
-                              (libxml-parse-html-region (point-min) (point-max)))))
-         (title (car (dom-extract-title dom)))
-         (h1 (car (dom-extract-h1 dom))))
-    (loop for top-str in `(,title ,h1) until
-          (<
-           (point)
-           (let* ((strlen-min 6)
-                  (match-pos
-                   (loop for strlen downfrom (* 2 (/ (x-display-pixel-width) (font-get (face-attribute 'readable :font) :size))) to strlen-min
-                         for str = top-str then (string-trim-right (truncate-string-to-width top-str strlen))
-                         for p = (search-forward str nil t 1)
-                         if (integerp p) return p)))
-             (if (integerp match-pos)
-                 (progn (goto-char match-pos)
-                        (beginning-of-line)
-                        (recenter-top-bottom 0)
-                        (point))
-               (point)))))))
-
-(defun dom-sanitize (dom &optional result)
-  (push (nreverse
-         (cl-reduce (lambda (acc object)
-                      (cond
-                       ((and (stringp object)
-                             (not (string-match-p "[[:graph:]]" object)))
-                        acc)
-                       ((or (atom object)
-                            (consp (car object)))
-                        (cons object acc))
-                       (t
-                        (dom-sanitize object acc))))
-                    dom :initial-value nil))
-        result))
-
-(defun dom-extract-title (dom &optional result)
-  (nreverse
-   (cl-reduce (lambda (acc object)
-                (pcase object
-                  (`(title ,_ ,ttl)
-                   (cons ttl acc))
-                  ((or (pred atom)
-                       (guard (consp (car object))))
-                   acc)
-                  (_
-                   (dom-extract-title object acc))))
-              dom :initial-value result)))
-
-(defun dom-extract-h1 (dom &optional result)
-  (nreverse
-   (cl-reduce (lambda (acc object)
-                (pcase object
-                  (`(h1 ,_ ,h1-text)
-                   (cons h1-text acc))
-                  ((or (pred atom)
-                       (guard (consp (car object))))
-                   acc)
-                  (_
-                   (dom-extract-h1 object acc))))
-              dom :initial-value result)))
+  (lexical-let ((headings-root (eww-headings-dom))
+                (cur-buf (current-buffer)))
+    (ivy-read "Heading : "
+              (mapcar (lambda (heading-node)
+                        (when-let* ((heading (dom-text heading-node))
+                                    (tag (symbol-name (dom-tag heading-node)))
+                                    (match-pos (string-match "h\\([1-6]\\{1\\}\\)" tag))
+                                    (indent (string-to-number (match-string 1 tag))))
+                          (format "%s%s"
+                                  (apply 'concat (make-list indent " "))
+                                  heading)))
+                      (dom-children headings-root))
+              :action (lambda (candidate)
+                        (when-let ((heading (string-trim candidate))
+                                   (match-pos (or (re-search-forward (format "^*?[[:blank:]]*%s[[:blank:]]*$" (regexp-quote heading)) nil t 1)
+                                                  (re-search-backward (format "^*?[[:blank:]]*%s[[:blank:]]*$" (regexp-quote heading)) nil t 1))))
+                          (when (bufferp cur-buf)
+                            (switch-to-buffer cur-buf)
+                            (beginning-of-line)
+                            (recenter-top-bottom 0)))))))
