@@ -1,0 +1,15 @@
+# key: jl
+# name: journal
+# --
+journal
+- diary
+ #+begin_quote
+$0
+ #+end_quote
+- clocktable
+ #+BEGIN: clocktable-by-atag :maxlevel 3 :block $1-$2-$3 :wstart 1
+ #+END:
+- agenda
+ #+begin_verse
+$4
+ #+end_verse
