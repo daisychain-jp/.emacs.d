@@ -66,6 +66,7 @@
     ("s" helm-org-rifle-current-buffer)
     ("r" helm-org-rifle-org-directory)
     ("R" helm-org-rifle-directories)
+    ("i" org-info-find-node)
     ("q" nil "quit"))
   (defhydra hydra-search (global-map "M-s"
                                      :color teal)
