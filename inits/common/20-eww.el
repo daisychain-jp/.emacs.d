@@ -2,6 +2,9 @@
   :delight " EW"
   :bind (:map eww-mode-map
               ("C-M-m" . hydra-lazy-control/body))
+  :custom
+  ;; set enough large column number to prevent from inserting line break
+  (shr-width 10000)
   :config
   (bind-keys :map eww-mode-map
              ("C-j" . eww-follow-link)
@@ -86,17 +89,6 @@ the original function will be called in it.
 ARGS will be passed to the original function."
   (with-temp-buffer
     (apply orig-fun args)))
-
-;; avoid inserting line break
-(defun shr-insert-document--for-eww (&rest them)
-  (let ((shr-width -1))
-    (apply them)))
-(defun eww-display-html--no-fill (&rest them)
-  (advice-add 'shr-insert-document :around 'shr-insert-document--for-eww)
-  (unwind-protect
-      (apply them)
-    (advice-remove 'shr-insert-document 'shr-insert-document--for-eww)))
-(advice-add 'eww-display-html :around 'eww-display-html--no-fill)
 
 ;; control site color
 (defvar eww-disable-colorize t)
