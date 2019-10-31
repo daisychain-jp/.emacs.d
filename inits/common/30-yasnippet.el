@@ -5,12 +5,11 @@
   :after (hydra)
   :hook
   ((prog-mode org-mode shell-mode) . yas-minor-mode)
-  (after-init . yas-reload-all)
+  :custom
+  (yas-triggers-in-field t)
   :config
-  (setq yas-snippet-dirs `(,env-snippets-dir))
-  (setq yas-triggers-in-field t)
-  (defhydra hydra-yasnippet (global-map "C-c y"
-                                        :exit t)
+  (defhydra hydra-yasnippet (yas-minor-mode-map "C-c y"
+                                                :exit t)
     "Yasnippet"
     ("n" yas-new-snippet)
     ("y" yas-insert-snippet)
