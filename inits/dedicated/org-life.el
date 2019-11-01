@@ -308,39 +308,39 @@ If region is active, use the word in region for matching instead."
                       match)))
     (org-tags-view todo-only match-exp)))
 
-(defconst org-ref-id-property "REF_ID"
+(defconst org-project-property "PRJ_ID"
   "The property that is being used to use ref-id feature.")
-(defcustom org-ref-id-parent-tag-list
+(defcustom org-project-parent-tag-list
   '("project" "refile")
-  "List of tag names which all parents in org-ref-id feature must have.")
+  "List of tag names which all parents in org-project feature must have.")
 
-(defun org-ref-id-lookup-refs ()
+(defun org-project-lookup-children ()
   "Show all entries which refers this entry."
   (interactive)
   (let ((id (org-id-get)))
     (when id
-      (org-tags-view-archive nil (format "+%s=\"%s\"" org-ref-id-property id)))))
-(defun org-ref-id-relate-parent-child ()
+      (org-tags-view-archive nil (format "+%s=\"%s\"" org-project-property id)))))
+(defun org-project-correlate-parent-child ()
   "Make parent-child relationship.
-Children's `org-ref-id-property' will be parent's ID.
+Children's `org-project-property' will be parent's ID.
 
 This function must be called in parent entry
-which has any one of `org-ref-id-parent-tag-list'."
+which has any one of `org-project-parent-tag-list'."
   (interactive)
   (save-excursion
     (org-back-to-heading)
     (if (some (lambda (parent-tag)
                 (member parent-tag (org-get-tags)))
-              org-ref-id-parent-tag-list)
+              org-project-parent-tag-list)
         (let ((ref-id (org-id-get-create)))
           (when (org-goto-first-child)
             (cl-labels ((set-ref-id-to-siblings
                          ()
-                         (org-set-property org-ref-id-property ref-id)
+                         (org-set-property org-project-property ref-id)
                          (when (org-goto-sibling)
                            (set-ref-id-to-siblings))))
               (set-ref-id-to-siblings))))
-      (message "This entry does not compliant with 'org-ref-id-parent-tag-list"))))
+      (message "This entry does not compliant with 'org-project-parent-tag-list"))))
 (defun org-agenda-ref-id-tieup-tree ()
   "Tie up subtree by setting property."
   (interactive)
@@ -356,7 +356,7 @@ which has any one of `org-ref-id-parent-tag-list'."
         (widen)
         (goto-char pos)
         (org-show-context 'agenda)
-        (call-interactively 'org-ref-id-relate-parent-child)
+        (call-interactively 'org-project-correlate-parent-child)
         (end-of-line 1)
         (setq newhead (org-get-heading))))))
 
