@@ -379,10 +379,7 @@ If 'ARG' is passed, shred afile instead delete."
   (setq org-latex-default-class "jsarticle")
 
   ;; src
-  (setq org-src-window-setup 'current-window)
-
-  ;; save all org files every hour
-  (run-at-time 10 30000 'org-save-all-org-buffers))
+  (setq org-src-window-setup 'current-window))
 
 (use-package persist
   :straight t)

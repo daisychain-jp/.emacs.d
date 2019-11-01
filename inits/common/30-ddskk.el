@@ -102,6 +102,3 @@
 ;; jisyo settings
 (setq skk-share-private-jisyo t)
 (setq skk-save-jisyo-instantly t)
-(add-hook 'skk-load-hook
-          (lambda ()
-            (run-at-time 300 300 #'skk-reread-private-jisyo t)))
