@@ -16,7 +16,6 @@
              ("C-j" . eww-bookmark-browse))
   (setq shr-use-fonts nil)
   (setq shr-image-animate nil)
-  (setq eww-search-prefix "http://www.google.co.jp/search?q=")
   (add-hook 'eww-mode-hook
             (lambda ()
               (buffer-face-set 'readable)
