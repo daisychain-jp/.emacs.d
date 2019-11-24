@@ -3,14 +3,16 @@
 # key: nw
 # --
 ** `(format-time-string "%Y")`-W${1:week-number}
-#+CALL: insert_week_agenda(y=`(format-time-string "%Y")`, m=${2:month}, d=${3:day})
 - Mission [/]
-  - $0
+  - [$0
   - Review
-  - 主にやったこと
-- Clocktable
-  #+BEGIN: clocktable :maxlevel 3 :scope agenda :block `(format-time-string "%Y")`-W$1 :wstart 1 :narrow 40! :tcolumns 3 :formula %
-  #+END:
-- Clocktable by Tag
-  #+BEGIN: clocktable-by-atag :maxlevel 3 :block `(format-time-string "%Y")`-W$1 :wstart 1
-  #+END:
+#+begin_quote
+
+#+end_quote
+- clock table
+  - projects
+    #+BEGIN: clocktable :maxlevel 3 :scope agenda :block `(format-time-string "%Y")`-W$1 :wstart 1 :narrow 40! :tcolumns 3 :formula %
+    #+END:
+  - tags
+    #+BEGIN: clocktable-by-atag :maxlevel 3 :block `(format-time-string "%Y")`-W$1 :wstart 1
+    #+END:
