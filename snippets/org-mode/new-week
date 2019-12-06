@@ -6,9 +6,9 @@
 - Mission [/]
   - [$0
   - Review
-#+begin_quote
+    #+begin_example
 
-#+end_quote
+    #+end_example
 - clock table
   - projects
     #+BEGIN: clocktable :maxlevel 3 :scope agenda :block `(format-time-string "%Y")`-W$1 :wstart 1 :narrow 40! :tcolumns 3 :formula %
