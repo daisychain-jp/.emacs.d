@@ -16,11 +16,9 @@
         (apply function arguments)
       (quit (kill-buffer ibuf)))))
 
-(defun open-thing-at-point (&optional arg)
-  "Open thing.
-
-The optional prefix argument ARG is passed to lower function."
-  (interactive "P")
+(defun open-thing-at-point ()
+  "Open thing."
+  (interactive)
   (let ((button (button-at (point)))
         (email (thing-at-point 'email))
         (links (eww-links-at-point))
@@ -29,30 +27,32 @@ The optional prefix argument ARG is passed to lower function."
     (cond
      (button (push-button))
      (email (mu4e~compose-mail email))
-     (links (cl-case (car arg)
+     (links (cl-case (prefix-numeric-value current-prefix-arg)
               (16 (browse-url-default-browser (car links)))
               (4 (eww-browse-url (car links)))
               (t (open-url-switch-application (car links)))))
      (url (let ((url-pos (split-location-uri url)))
-            (cl-case (car arg)
+            (cl-case (prefix-numeric-value current-prefix-arg)
               (16 (browse-url-default-browser (car url-pos)))
               (4 (eww-browse-url (car url-pos)))
-              (t (open-url-switch-application (car url-pos) (cadr url-pos))))))
-     (filename
+              (t (open-url-switch-application (car url-pos) (cadr url-pos))))
+            t))
+     ((and (stringp filename)
+           (file-exists-p filename))
+      (message "fname: %s" filename)
       (let ((url-pos (split-location-uri filename)))
-        (open-file (car url-pos) arg)
-        (goto-pos (cadr url-pos))
-        (recenter-top-bottom 0))))))
+        (cl-case (prefix-numeric-value current-prefix-arg)
+          (16 (open-file-external (car url-pos)))
+          (t (open-file (car url-pos) arg)
+             (goto-pos (cadr url-pos))
+             (recenter-top-bottom 0))))))))
 
 (defun open-file (file &optional arg)
   "Open file `FILE' with appropriate application.
 
-If the optional argument `ARG' is non-nil, try to open in Emacs.
-If double prefix argument, try to open with external application that desktop environment defines."
+If the optional argument `ARG' is non-nil, try to open in Emacs."
   (let ((ex-file (expand-file-name file)))
     (cl-case (prefix-numeric-value arg)
-      (16 (let ((process-connection-type nil))
-            (start-process "" nil "xdg-open" ex-file)))
       (4 (find-file ex-file))
       (t (cond
           ((or (= (call-process-shell-command (format "filetype-cli check --type playable \"%s\"" ex-file)) 0)
@@ -65,6 +65,13 @@ If double prefix argument, try to open with external application that desktop en
            (open-uri-htmlize ex-file))
           ((file-directory-p ex-file) (dired ex-file))
           (t (find-file ex-file)))))))
+
+(defun open-file-external (file)
+  "Open file `FILE' in external application.
+Generally preferance application is used."
+  (let ((ex-file (expand-file-name file))
+        (process-connection-type nil))
+    (start-process-shell-command "xdg-open" nil (format "xdg-open \"%s\"" ex-file))))
 
 (defun split-location-uri (location-uri)
   "Split LOCATION-URI into normal uri and location specifier.
@@ -95,7 +102,7 @@ If POS is string, search it forward and set point to occurence."
 (defun open-url-switch-application (url &optional pos)
   "Open URL in an appropriate manner and jump to POS.
 
-If URL points to a multi media contents such as youtube video and mp3 audio file,
+If URL points to a multimedia contents such as youtube video and mp3 audio file,
 play it in media player."
   (cond
    ((or (s-ends-with? ".pdf" url)
@@ -104,14 +111,13 @@ play it in media player."
     (when pos (goto-pos pos)))
    ((eql (call-process-shell-command (format "filetype-cli check --type playable \"%s\"" url)) 0)
     (utl-play-media url pos))
-   (t
-    (browse-web url)
-    (lexical-let ((position pos))
-      (add-hook 'eww-after-render-hook
-                (lambda ()
-                  (when position (goto-pos position)) ;
-                  (setq-local eww-after-render-hook nil))
-                t t)))))
+   (t (browse-web url)
+      (lexical-let ((position pos))
+        (add-hook 'eww-after-render-hook
+                  (lambda ()
+                    (when position (goto-pos position)) ;
+                    (setq-local eww-after-render-hook nil))
+                  t t)))))
 
 (defun open-uri-htmlize (uri)
   "Open html converted from URI in EWW."

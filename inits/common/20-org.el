@@ -64,17 +64,34 @@
 
   ;; link
   (setq org-confirm-elisp-link-function nil) ; do not confirm when execute elisp
-  (defadvice org-open-at-point (around switch-browser activate)
-    (let ((link-str (car (org-link-at-point))))
-      (cond
-       ((and (stringp link-str)
-             (string-match-p "^https?://.+" link-str))
-        (let ((url-pos (split-location-uri (org-link-unescape link-str))))
-          (cl-case (car arg)
-            (16 (browse-url-default-browser (car url-pos)))
-            (4 (eww-browse-url (car url-pos)))
-            (t (open-url-switch-application (car url-pos) (cadr url-pos))))))
-       (t ad-do-it))))
+  (defun org-open-at-point-link ()
+    "This function is responsible for http(s) and file type on `org-open-at-point' call."
+    (let* ((context (org-element-lineage
+                     (org-element-context)
+                     '(link)
+                     t))
+           (type (org-element-property :type context))
+           (path (org-element-property :path context)))
+      (if (stringp type)
+          (cond
+           ((string-match-p "https?" type)
+            (let ((url-pos (split-location-uri (org-link-unescape (concat type ":" path)))))
+              (cl-case (prefix-numeric-value current-prefix-arg)
+                (16 (browse-url-default-browser (car url-pos)))
+                (4 (eww-browse-url (car url-pos)))
+                (t (open-url-switch-application (car url-pos) (cadr url-pos))))
+              t))
+           ((string= type "file")
+            (let ((url-pos (split-location-uri (org-link-unescape path))))
+              (if (= 16 (prefix-numeric-value current-prefix-arg))
+                  (progn
+                    (open-file-external (car url-pos))
+                    t)
+                nil)))
+           (t nil))
+        nil)))
+  (add-to-list 'org-open-at-point-functions 'org-open-at-point-link)
+  (add-to-list 'org-open-at-point-functions 'open-thing-at-point)
   (defun org-orgnize-open-at-point ()
     "Open org-mode link as org file."
     (interactive)
