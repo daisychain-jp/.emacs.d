@@ -1,10 +1,10 @@
 # key: jl
 # name: journal
 # --
-journal
+${1:title} :journal:
 - diary
- #+begin_example
-$0
+ #+begin_example text
+
  #+end_example
 - clocktable
  #+BEGIN: clocktable-by-atag :maxlevel 3 :block $1-$2-$3 :wstart 1
