@@ -3,9 +3,9 @@
 # --
 ${1:title} :journal:
 - diary
- #+begin_example text
+  #+begin_example -i
 
- #+end_example
+  #+end_example
 - clocktable
  #+BEGIN: clocktable-by-atag :maxlevel 3 :block $1-$2-$3 :wstart 1
  #+END:
