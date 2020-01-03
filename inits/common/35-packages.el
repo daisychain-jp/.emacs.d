@@ -67,3 +67,9 @@
   :straight t
   :custom
   (synosaurus-choose-method 'ivy))
+
+(use-package try
+  :straight t)
+
+(use-package free-keys
+  :straight t)
