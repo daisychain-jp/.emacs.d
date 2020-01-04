@@ -1,0 +1,42 @@
+# -*- mode: snippet -*-
+# name: annual-review-entry
+# key: arv
+# --
+* ${1:year}年の振り返り              :ac_taskm:
+- [ ] $0タスクリスト振り返り
+  #+NAME: tasks_in_year
+  #+BEGIN_SRC elisp :var year="$1" :var tag="" :results silent
+    (let ((org-agenda-files `(,(format "%s/archive/%s_archive.org" env-doc-dir year))))
+      (org-tags-view nil (format "%s/DN|CXL|PD" tag)))
+  #+END_SRC
+  - 創作リスト
+    #+CALL: tasks_in_year(tag="ac_build")
+    #+begin_example -i
+    #+end_example
+  - 読書リスト
+    #+CALL: tasks_in_year(tag="ac_read")
+    #+begin_example -i
+    #+end_example
+  - 購入リスト
+    #+CALL: tasks_in_year(tag="ac_purchase")
+    #+begin_example -i
+    #+end_example
+  - 料理リスト
+    #+CALL: tasks_in_year(tag="ac_cook")
+    #+begin_example -i
+    #+end_example
+  - 鑑賞リスト
+    #+CALL: tasks_in_year(tag="ac_watch")
+    #+begin_example -i
+    #+end_example
+  - 全タスクリスト
+    #+CALL: tasks_in_year()
+    #+begin_example -i
+    #+end_example
+- [ ] 1年分のCLOCK TABEL作成
+  1. xxxx_archive.orgを一時的にagenda-filesに追加
+     : (org-agenda-file-to-front) C-c [
+  2. clock table の作成
+     #+BEGIN: clocktable-by-atag :maxlevel 2 :block $1 :wstart 1
+  3. xxxx_archive.orgをagenda-fileから削除
+     : (org-remove-file) C-c ]
