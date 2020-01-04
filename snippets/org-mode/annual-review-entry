@@ -29,10 +29,6 @@
     #+CALL: tasks_in_year(tag="ac_watch")
     #+begin_example -i
     #+end_example
-  - 全タスクリスト
-    #+CALL: tasks_in_year()
-    #+begin_example -i
-    #+end_example
 - [ ] 1年分のCLOCK TABEL作成
   1. xxxx_archive.orgを一時的にagenda-filesに追加
      : (org-agenda-file-to-front) C-c [
