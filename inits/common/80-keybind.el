@@ -113,6 +113,7 @@
     ("d" dired-jump)
     ("@" twit)
     ("v" magit-status)
+    ("a" counsel-linux-app)
     ("g" (lambda ()
            (interactive)
            (let ((eww-launch-in-new-buffer t)
