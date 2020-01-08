@@ -3,6 +3,8 @@
   :delight " SQ"
   :commands (sql-mode)
   :mode (("\\.sql$" . sql-mode))
+  :bind (:map sql-interactive-mode-map
+              ("C-j" . comint-send-input))
   :hook (sql-interactive-mode . (lambda ()
                                   (setq-local truncate-lines t)))
   :config

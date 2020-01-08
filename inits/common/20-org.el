@@ -15,7 +15,7 @@
   :interpreter (("org" . org-mode))
   :bind (("C-c a" . org-agenda)
          ("C-c c" . org-capture)
-         ("C-M-j" . org-clock-goto)
+         ("M-J" . org-clock-goto)
          ("C-c s" . org-store-link))
   :init
   (add-to-list 'load-path (format "%s/straight/repos/org/lisp"

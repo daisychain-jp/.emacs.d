@@ -10,8 +10,7 @@
 
 (require 'skk-autoloads)
 
-(bind-keys ("C-x C-j" . skk-mode)
-           ("C-x j" . skk-mode))
+(bind-keys ("C-c j" . skk-mode))
 
 (setq default-input-method "japanese-skk")
 

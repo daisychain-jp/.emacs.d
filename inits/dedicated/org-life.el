@@ -212,7 +212,7 @@ go to today's entry in archive file."
          :tree-type week)
         ("sr" "read"
          entry (file+datetree ,org-archive-file)
-         "* SD %? :ac_read:\n  ADDED: %U\n  %a"
+         "* SD %? :ac_purchase:fd_book:\n  ADDED: %U\n  %a"
          :tree-type week)
         ("sR" "read (register to whisper as kindle)"
          entry (file+datetree ,org-archive-file)
