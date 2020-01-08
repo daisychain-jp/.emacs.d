@@ -28,7 +28,7 @@
         ("sp" "purchase" tags "TODO=\"SD\"+ac_purchase"
          ((org-agenda-files org-agenda-files-archive)
           (org-agenda-sorting-strategy '(priority-up time-down))))
-        ("sb" "build" tags "TODO=\"SD\"+ac_build"
+        ("sm" "make" tags "TODO=\"SD\"+ac_make"
          ((org-agenda-files org-agenda-files-archive)
           (org-agenda-sorting-strategy '(priority-up time-down))))
         ("b" "tag match for current Buffer"
@@ -226,9 +226,9 @@ go to today's entry in archive file."
          entry (file+datetree ,org-archive-file)
          "* SD %? :ac_purchase:\n  ADDED: %U\n  %a"
          :tree-type week)
-        ("sb" "build"
+        ("sm" "make"
          entry (file+datetree ,org-archive-file)
-         "* SD %? :ac_build:\n  ADDED: %U\n  %a"
+         "* SD %? :ac_make:\n  ADDED: %U\n  %a"
          :tree-type week)
         ("D" "Drill")
         ("Dd" "Drill entry in currently clocking or today's entry."

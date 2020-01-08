@@ -9,8 +9,8 @@
     (let ((org-agenda-files `(,(format "%s/archive/%s_archive.org" env-doc-dir year))))
       (org-tags-view nil (format "%s/DN|CXL|PD" tag)))
   #+END_SRC
-  - 創作リスト
-    #+CALL: tasks_in_year(tag="ac_build")
+  - 製作リスト
+    #+CALL: tasks_in_year(tag="ac_make")
     #+begin_example -i
     #+end_example
   - 読書リスト
