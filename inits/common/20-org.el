@@ -91,9 +91,8 @@
                    (when search-option
                      (goto-pos search-option))))
               t)))
-        nil)))
+        (open-thing-at-point))))
   (add-to-list 'org-open-at-point-functions 'org-open-at-point-link)
-  (add-to-list 'org-open-at-point-functions 'open-thing-at-point)
   (defun org-orgnize-open-at-point ()
     "Open org-mode link as org file."
     (interactive)

@@ -25,12 +25,18 @@
         (url (thing-at-point-url-at-point))
         (filename (thing-at-point 'filename)))
     (cond
-     (button (push-button))
-     (email (mu4e~compose-mail email))
-     (links (cl-case (prefix-numeric-value current-prefix-arg)
-              (16 (browse-url-default-browser (car links)))
-              (4 (eww-browse-url (car links)))
-              (t (open-url-switch-application (car links)))))
+     (button
+      (push-button)
+      t)
+     (email
+      (mu4e~compose-mail email)
+      t)
+     (links
+      (cl-case (prefix-numeric-value current-prefix-arg)
+        (16 (browse-url-default-browser (car links)))
+        (4 (eww-browse-url (car links)))
+        (t (open-url-switch-application (car links))))
+      t)
      (url (let ((url-pos (split-location-uri url)))
             (cl-case (prefix-numeric-value current-prefix-arg)
               (16 (browse-url-default-browser (car url-pos)))
@@ -43,8 +49,9 @@
         (cl-case (prefix-numeric-value current-prefix-arg)
           (16 (open-file-external (car url-pos)))
           (4 (find-file (car url-pos)))
-          (t (open-file (car url-pos) current-prefix-arg)
-             (goto-pos (cadr url-pos)))))))))
+          (t (open-file (car url-pos))
+             (goto-pos (cadr url-pos))))
+        t)))))
 
 (defun open-file (file)
   "Open file `FILE' with appropriate application."
