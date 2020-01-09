@@ -39,32 +39,27 @@
             t))
      ((and (stringp filename)
            (file-exists-p filename))
-      (message "fname: %s" filename)
       (let ((url-pos (split-location-uri filename)))
         (cl-case (prefix-numeric-value current-prefix-arg)
           (16 (open-file-external (car url-pos)))
-          (t (open-file (car url-pos) arg)
-             (goto-pos (cadr url-pos))
-             (recenter-top-bottom 0))))))))
+          (4 (find-file (car url-pos)))
+          (t (open-file (car url-pos) current-prefix-arg)
+             (goto-pos (cadr url-pos)))))))))
 
-(defun open-file (file &optional arg)
-  "Open file `FILE' with appropriate application.
-
-If the optional argument `ARG' is non-nil, try to open in Emacs."
+(defun open-file (file)
+  "Open file `FILE' with appropriate application."
   (let ((ex-file (expand-file-name file)))
-    (cl-case (prefix-numeric-value arg)
-      (4 (find-file ex-file))
-      (t (cond
-          ((or (= (call-process-shell-command (format "filetype-cli check --type playable \"%s\"" ex-file)) 0)
-               (string-suffix-p ".m3u" ex-file))
-           (utl-play-media ex-file))
-          ((= (call-process-shell-command (format "filetype-cli check --type tarpgp \"%s\"" ex-file)) 0)
-           (start-process-shell-command "mpv" nil (format "nohup orgafile play \"%s\" >/dev/null 2>&1" ex-file)))
-          ((or (= (call-process-shell-command (format "filetype-cli check --type pdf \"%s\"" ex-file)) 0)
-               (= (call-process-shell-command (format "filetype-cli check --type epub \"%s\"" ex-file)) 0))
-           (open-uri-htmlize ex-file))
-          ((file-directory-p ex-file) (dired ex-file))
-          (t (find-file ex-file)))))))
+    (cond
+     ((or (= (call-process-shell-command (format "filetype-cli check --type playable \"%s\"" ex-file)) 0)
+          (string-suffix-p ".m3u" ex-file))
+      (start-process-shell-command "mpv" nil (format "nohup mpv --force-window \"%s\" >/dev/null 2>&1" ex-file)))
+     ((= (call-process-shell-command (format "filetype-cli check --type tarpgp \"%s\"" ex-file)) 0)
+      (start-process-shell-command "mpv" nil (format "nohup orgafile play \"%s\" >/dev/null 2>&1" ex-file)))
+     ((or (= (call-process-shell-command (format "filetype-cli check --type pdf \"%s\"" ex-file)) 0)
+          (= (call-process-shell-command (format "filetype-cli check --type epub \"%s\"" ex-file)) 0))
+      (open-uri-htmlize ex-file))
+     ((file-directory-p ex-file) (dired ex-file))
+     (t (find-file ex-file)))))
 
 (defun open-file-external (file)
   "Open file `FILE' in external application.
@@ -86,18 +81,25 @@ If splitting is successful, this function returns a list containing uri and loca
    (t (list location-uri))))
 
 (defun goto-pos (pos)
-  "Go to POS.
+  "Move the cursor to the location where `POS' is pointing.
 
-if POS is numeric, go to line using 'forward-line.
-If POS is string, search it forward and set point to occurence."
+if `POS' is a number assumed to be a line number.
+If `POS' is a string assumed to be a searching word."
   (interactive)
-  (cond
-   ((numberp pos)
-    (forward-line (- pos (line-number-at-pos))))
-   ((stringp pos)
-    (goto-char
-     (re-search-forward
-      (string-join (split-string pos "" t "[ \t\r\n]*") "[ \t\r\n]*") nil nil)))))
+  (when (cond
+         ((numberp pos)
+          (forward-line (- pos (line-number-at-pos)))
+          t)
+         ((stringp pos)
+          (let ((pos-num (string-to-number pos)))
+            (cl-case pos-num
+              (0 (goto-char
+                  (re-search-forward
+                   (string-join (split-string pos "" t "[ \t\r\n]*") "[ \t\r\n]*") nil nil)))
+              (t (forward-line (- pos-num (line-number-at-pos))))))
+          t))
+    (beginning-of-line)
+    (recenter-top-bottom 0)))
 
 (defun open-url-switch-application (url &optional pos)
   "Open URL in an appropriate manner and jump to POS.
@@ -105,17 +107,28 @@ If POS is string, search it forward and set point to occurence."
 If URL points to a multimedia contents such as youtube video and mp3 audio file,
 play it in media player."
   (cond
-   ((or (s-ends-with? ".pdf" url)
-        (s-ends-with? ".epub" url))
+   ((or (string-suffix-p ".pdf" url)
+        (string-suffix-p ".epub" url))
     (open-uri-htmlize url)
     (when pos (goto-pos pos)))
-   ((eql (call-process-shell-command (format "filetype-cli check --type playable \"%s\"" url)) 0)
-    (utl-play-media url pos))
+   ((string-match-p "^https?://www.youtube.com.*" url)
+    ;; convert greedily watch url to playlist url if possible
+    (let ((url (if (string-match "&list=\\([[:graph:]]+\\)" url)
+                   (format "https://www.youtube.com/playlist?list=%s" (match-string 1 url))
+                 url))
+          (ytdl-opts
+           (remove nil
+                   (list (when (numberp pos)
+                           (format "--ytdl-raw-options=playlist-start=%d" pos))
+                         (if (not (string-prefix-p "192.168.179." (shell-command-to-string "hostname -I | cut -f1 -d' ' | tr -d '\n'")))
+                             "--ytdl-format=\"bestvideo[height<=?720]+bestaudio/best\""
+                           "--ytdl-format=\"worstvideo+worstaudio\"")))))
+      (start-process-shell-command "mpv" nil (format "nohup mpv --force-window %s \"%s\" >/dev/null 2>&1" (mapconcat 'identity ytdl-opts " ") url))))
    (t (browse-web url)
       (lexical-let ((position pos))
         (add-hook 'eww-after-render-hook
                   (lambda ()
-                    (when position (goto-pos position)) ;
+                    (when position (goto-pos position))
                     (setq-local eww-after-render-hook nil))
                   t t)))))
 
@@ -134,25 +147,6 @@ play it in media player."
                          (list "orgafile" "orgnize" uri)
                          " "))))
     (find-file org)))
-
-(defun utl-play-media (file &optional start)
-  "Play a media file `FILE' at START point."
-  (cond
-   ;; play youtube video with mpv
-   ((string-match-p "^https?://www.youtube.com.*" file)
-    ;; convert greedily watch url to playlist url if possible
-    (let ((file (if (string-match "&list=\\([[:graph:]]+\\)" file)
-                    (format "https://www.youtube.com/playlist?list=%s" (match-string 1 file))
-                  file))
-          (ytdl-opts
-           (remove nil
-                   (list (when (numberp start)
-                           (format "--ytdl-raw-options=playlist-start=%d" start))
-                         (if (not (string-prefix-p "192.168.179." (shell-command-to-string "hostname -I | cut -f1 -d' ' | tr -d '\n'")))
-                             "--ytdl-format=\"bestvideo[height<=?720]+bestaudio/best\""
-                           "--ytdl-format=\"worstvideo+worstaudio\"")))))
-      (start-process-shell-command "mpv" nil (format "nohup mpv --force-window %s \"%s\" >/dev/null 2>&1" (mapconcat 'identity ytdl-opts " ") file))))
-   (t (start-process-shell-command "mpv" nil (format "nohup mpv --force-window \"%s\" >/dev/null 2>&1" file)))))
 
 (defun increment-number-at-point (&optional inc)
   "Increment number at point by one.

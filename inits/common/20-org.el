@@ -71,7 +71,8 @@
                      '(link)
                      t))
            (type (org-element-property :type context))
-           (path (org-element-property :path context)))
+           (path (org-element-property :path context))
+           (search-option (org-element-property :search-option context)))
       (if (stringp type)
           (cond
            ((string-match-p "https?" type)
@@ -83,12 +84,13 @@
               t))
            ((string= type "file")
             (let ((url-pos (split-location-uri (org-link-unescape path))))
-              (if (= 16 (prefix-numeric-value current-prefix-arg))
-                  (progn
-                    (open-file-external (car url-pos))
-                    t)
-                nil)))
-           (t nil))
+              (cl-case (prefix-numeric-value current-prefix-arg)
+                (16 (open-file-external path))
+                (4 (find-file path))
+                (t (open-file path)
+                   (when search-option
+                     (goto-pos search-option))))
+              t)))
         nil)))
   (add-to-list 'org-open-at-point-functions 'org-open-at-point-link)
   (add-to-list 'org-open-at-point-functions 'open-thing-at-point)
@@ -105,29 +107,6 @@
              (string= link-protocol "file")
              (string-suffix-p ".epub" path))
         (open-uri-orgnize path)))))
-  (setq org-file-apps
-        '((auto-mode . emacs)
-          ("\\.mm\\'" . default)
-          ("\\.x?html?\\'" .
-           (lambda (file-path link-string)
-             (eww-open-file file-path)
-             (goto-pos (cadr (split-location-uri link-string)))))
-          ("org.gpg" . emacs)
-          ("tar.gpg" .
-           (lambda (file-path link-string)
-             (open-file file-path)))
-          ("\\(?:pdf\\|epub\\)\\'" .
-           (lambda (file-path link-string)
-             (open-file file-path)
-             (goto-pos (cadr (split-location-uri link-string)))
-             (recenter-top-bottom 0)))
-          ("\\(?:mp3\\|m4a\\|mp4\\|mkv\\|webm\\|m3u\\|jpg\\|jpeg\\|png\\)\\'" .
-           (lambda (file-path link-string)
-             (open-file file-path)))
-          (directory . (lambda (file-path link-string)
-                         (open-file file-path)))
-          (t . (lambda (file-path link-string)
-                 (open-uri-htmlize file-path)))))
   (org-add-link-type
    "sudo"
    (lambda (cmd)

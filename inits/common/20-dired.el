@@ -49,4 +49,4 @@ File is either on current line or marked targets.
 Optional argument `ARG' is passed to `open-file'."
   (interactive "P")
   (let ((files (dired-get-marked-files nil nil)))
-    (mapc (lambda (file) (open-file file arg)) files)))
+    (mapc (lambda (file) (open-file file)) files)))
