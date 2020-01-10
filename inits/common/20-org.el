@@ -72,6 +72,7 @@
                      t))
            (type (org-element-property :type context))
            (path (org-element-property :path context))
+           (app (org-element-property :application context))
            (search-option (org-element-property :search-option context)))
       (if (stringp type)
           (cond
@@ -87,9 +88,15 @@
               (cl-case (prefix-numeric-value current-prefix-arg)
                 (16 (open-file-external path))
                 (4 (find-file path))
-                (t (open-file path)
-                   (when search-option
-                     (goto-pos search-option))))
+                (t (cond
+                    ((not app)
+                     (open-file path)
+                     (when search-option
+                       (goto-pos search-option)))
+                    ((string= app "emacs")
+                     (find-file path))
+                    ((string= app "sys")
+                     (open-file-external path)))))
               t)))
         (open-thing-at-point))))
   (add-to-list 'org-open-at-point-functions 'org-open-at-point-link)
