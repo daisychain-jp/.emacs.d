@@ -81,7 +81,7 @@
               (cl-case (prefix-numeric-value current-prefix-arg)
                 (16 (browse-url-default-browser (car url-pos)))
                 (4 (eww-browse-url (car url-pos)))
-                (t (open-url-switch-application (car url-pos) (cadr url-pos))))
+                (t (open-url (car url-pos) (cadr url-pos))))
               t))
            ((string= type "file")
             (let ((url-pos (split-location-uri (org-link-unescape path))))

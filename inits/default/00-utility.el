@@ -35,13 +35,13 @@
       (cl-case (prefix-numeric-value current-prefix-arg)
         (16 (browse-url-default-browser (car links)))
         (4 (eww-browse-url (car links)))
-        (t (open-url-switch-application (car links))))
+        (t (open-url (car links))))
       t)
      (url (let ((url-pos (split-location-uri url)))
             (cl-case (prefix-numeric-value current-prefix-arg)
               (16 (browse-url-default-browser (car url-pos)))
               (4 (eww-browse-url (car url-pos)))
-              (t (open-url-switch-application (car url-pos) (cadr url-pos))))
+              (t (open-url (car url-pos) (cadr url-pos))))
             t))
      ((and (stringp filename)
            (file-exists-p filename))
@@ -108,7 +108,7 @@ If `POS' is a string assumed to be a searching word."
     (beginning-of-line)
     (recenter-top-bottom 0)))
 
-(defun open-url-switch-application (url &optional pos)
+(defun open-url (url &optional pos)
   "Open URL in an appropriate manner and jump to POS.
 
 If URL points to a multimedia contents such as youtube video and mp3 audio file,
@@ -131,6 +131,10 @@ play it in media player."
                              "--ytdl-format=\"bestvideo[height<=?720]+bestaudio/best\""
                            "--ytdl-format=\"worstvideo+worstaudio\"")))))
       (start-process-shell-command "mpv" nil (format "nohup mpv --force-window %s \"%s\" >/dev/null 2>&1" (mapconcat 'identity ytdl-opts " ") url))))
+   ((seq-some (lambda (suffix)
+                (string-suffix-p suffix url))
+              '(".mp3" ".m4a" ".mp4" ".mkv" ".web" ".|m3" ".|jp" ".|jp" ".png"))
+    (start-process-shell-command "mpv" nil (format "nohup mpv --force-window \"%s\" >/dev/null 2>&1" url)))
    (t (browse-web url)
       (lexical-let ((position pos))
         (add-hook 'eww-after-render-hook
