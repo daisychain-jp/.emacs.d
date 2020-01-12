@@ -65,7 +65,7 @@
   ;; link
   (setq org-confirm-elisp-link-function nil) ; do not confirm when execute elisp
   (defun org-open-at-point-link ()
-    "This function is responsible for http(s) and file type on `org-open-at-point' call."
+    "This function is responsible for org links when user calls `org-open-at-point'."
     (let* ((context (org-element-lineage
                      (org-element-context)
                      '(link)
@@ -99,7 +99,25 @@
                      (open-file-external path)))))
               t)))
         (open-thing-at-point))))
+  (defun org-open-at-point-headline ()
+    "This function is responsible for org headlines when user calls `org-open-at-point'.
+
+In fact used to prevent from opening attachment directory."
+    (let* ((context (org-element-lineage
+                     (org-element-context)
+                     '(headline)
+                     t))
+           (type (org-element-type context))
+           (org-match-line org-complex-heading-regexp))
+      (org-match-line org-complex-heading-regexp)
+      ;; do nothing if cursor is on headline and not on tag
+      (when (and (eq type 'headline)
+                 (not (and (match-beginning 5)
+                           (>= (point) (match-beginning 5))
+                           (< (point) (match-end 5)))))
+        t)))
   (add-to-list 'org-open-at-point-functions 'org-open-at-point-link)
+  (add-to-list 'org-open-at-point-functions 'org-open-at-point-headline)
   (defun org-orgnize-open-at-point ()
     "Open org-mode link as org file."
     (interactive)
