@@ -110,11 +110,12 @@ In fact used to prevent from opening attachment directory."
            (type (org-element-type context))
            (org-match-line org-complex-heading-regexp))
       (org-match-line org-complex-heading-regexp)
-      ;; do nothing if cursor is on headline and not on tag
+      ;; do nothing if cursor is on headline and not on tag neither on star
       (when (and (eq type 'headline)
                  (not (and (match-beginning 5)
                            (>= (point) (match-beginning 5))
-                           (< (point) (match-end 5)))))
+                           (< (point) (match-end 5))))
+                 (not (and (looking-at org-outline-regexp) (looking-back "^\**"))))
         t)))
   (add-to-list 'org-open-at-point-functions 'org-open-at-point-link)
   (add-to-list 'org-open-at-point-functions 'org-open-at-point-headline)
@@ -175,7 +176,8 @@ If 'ARG' is passed, shred afile instead delete."
             (minibuffer-message "NOT EXIST"))))))
 
   ;; speed command
-  (setq org-use-speed-commands t)
+  (setq org-use-speed-commands
+        (lambda () (and (looking-at org-outline-regexp) (looking-back "^\**"))))
   (setq org-speed-commands-user
         '(("$" org-archive-to-archive-file)
           ("A" org-toggle-archive-tag)
