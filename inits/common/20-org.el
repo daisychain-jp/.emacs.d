@@ -24,6 +24,8 @@
                                   user-emacs-directory))
   :custom
   (org-directory env-doc-dir)
+  (org-special-ctrl-a/e t)
+  (org-adapt-indentation nil)
   :config
   (require 'org-agenda)
   (require 'org-capture)
