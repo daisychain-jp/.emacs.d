@@ -142,6 +142,12 @@
    `(font-lock-regexp-grouping-backslash ((,class (:foreground ,onyx-yellow-4))))
    `(font-lock-regexp-grouping-construct ((,class (:foreground ,onyx-red))))
 
+   ;; whitespace-mode
+   '(whitespace-space ((t (:background "darkred" :foreground "white"))))
+   '(whitespace-tab ((t (:background "black" :foreground "darkslategray"))))
+   '(whitespace-trailing ((t (:background "darkred" :foreground "white"))))
+   '(whitespace-empty ((t (:background "maroon4" :foreground "white"))))
+
    ;; parens
    '(show-paren-match-face ((t (:background "orange" :foreground "white"))))
    '(paren-face ((t (:foreground "#A6E22A" :background nil))))
@@ -219,6 +225,8 @@
    `(org-block                 ((,class (:background ,onyx-bg))))
    `(org-block-begin-line      ((,class (:foreground "#008ED1" :background ,onyx-black-2))))
    `(org-block-end-line        ((,class (:foreground "#008ED1" :background ,onyx-black-2))))
+
+   `(org-mode-line-clock-overrun ((,class (:background "darkred"))))
 
    ;; `(org-deadline-announce ((,class (:foreground ,onyx-red-1))))
    ;; `(org-scheduled ((,class (:foreground ,onyx-green+4))))
