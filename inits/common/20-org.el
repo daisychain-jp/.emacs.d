@@ -118,6 +118,9 @@
              (string= link-protocol "file")
              (string-suffix-p ".epub" path))
         (open-uri-orgnize path)))))
+  (setq org-file-apps
+        '((t . (lambda (file-path link-string)
+                 (open-file file-path)))))
   (org-add-link-type
    "sudo"
    (lambda (cmd)
