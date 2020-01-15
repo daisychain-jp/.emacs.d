@@ -5,7 +5,6 @@
               (")" . dired-hide-details-mode)
               ("o" . dired-omit-mode)
               ("r" . wdired-change-to-wdired-mode)
-              ("C-j" . dired-find-alternate-file)
               ("C-o" . dired-open))
   :custom
   (dired-recursive-copies 'always)
@@ -20,6 +19,11 @@
               (dired-hide-details-mode 1)
               (setq-local truncate-lines t)
               (whitespace-mode 1))))
+
+(use-package dired+
+  :straight t
+  :bind (:map dired-mode-map
+              ("C-j" . diredp-find-file-reuse-dir-buffer)))
 
 (use-package dired-subtree
   :straight t

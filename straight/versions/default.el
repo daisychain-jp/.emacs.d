@@ -18,6 +18,7 @@
  ("delight" . "eaff920b9d3ef79d381548476d33e519693e3502")
  ("diminish.el" . "565a983a39d2e2cffab5df13b34f3b6116723208")
  ("dired-hacks" . "ae39981d7cc58206cfeb377d6621bdd9000fd472")
+ ("dired-plus" . "b51974b84b861592c3519117f3f51ee557ca01ba")
  ("dumb-jump" . "0319569f1332641057c3e23d1e3bffb2404435a8")
  ("easy-kill" . "e2b667f651a3531164d24ea4cbcd8c34fba0e17f")
  ("elfeed" . "352f58aae3380fbbeb10ed1b205f9a88b10e31ca")
