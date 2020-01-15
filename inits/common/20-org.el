@@ -168,7 +168,7 @@ If 'ARG' is passed, shred afile instead delete."
   (setq org-use-speed-commands
         (lambda () (and (looking-at org-outline-regexp) (looking-back "^\**"))))
   (setq org-speed-commands-user
-        '(("$" org-archive-to-archive-file)
+        '(("$" org-record-subtree)
           ("A" org-toggle-archive-tag)
           ("W" org-copy)
           ("Q" org-clock-cancel)
@@ -621,10 +621,10 @@ search whole subtree."
       (goto-char beg)
       (org-show-entry)
       (cl-loop while (re-search-forward org-tsr-regexp-both end t)
-               for ts = (save-excursion
-                          (goto-char (match-beginning 0))
-                          (org-element-timestamp-parser))
-               collect (ts-parse-org ts)))))
+               for context = (save-excursion
+                               (goto-char (match-beginning 0))
+                               (org-element-context))
+               collect (ts-parse-org-element context)))))
 
 ;;;###autoload
 (cl-defun org-refile-to-datetree (file &key (date (calendar-current-date)) entry)

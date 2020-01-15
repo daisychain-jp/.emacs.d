@@ -1,35 +1,35 @@
 (setq org-agenda-start-on-weekday 1)
 (setq org-deadline-warning-days 60)
 (setq org-agenda-include-diary t)
-(defvar org-agenda-files-archive
-  (append (sort (file-expand-wildcards (format "%s/archive/*_archive.org" env-doc-dir)) 'string<)
+(defvar org-agenda-files-record
+  (append (sort (file-expand-wildcards (format "%s/record/*_record.org" env-doc-dir)) 'string<)
           org-agenda-files-default)
-  "agenda files plus archive files")
+  "agenda files plus record files")
 (setq org-agenda-custom-commands
-      '(("r" . "Search for all archive files")
+      '(("r" . "Search for all record files")
         ("rs" "Entries containing search words entry or headline."
          search ""
-         ((org-agenda-files org-agenda-files-archive)
+         ((org-agenda-files org-agenda-files-record)
           (org-agenda-sorting-strategy '(time-down))))
-        ("rm" "Match a TAGS/PROP/TODO query in archive file"
+        ("rm" "Match a TAGS/PROP/TODO query in record file"
          tags ""
-         ((org-agenda-files org-agenda-files-archive)
+         ((org-agenda-files org-agenda-files-record)
           (org-agenda-sorting-strategy '(time-down))))
         ("s" . "Someday entries")
         ("sa" "all" tags "TODO=\"SD\""
-         ((org-agenda-files org-agenda-files-archive)
+         ((org-agenda-files org-agenda-files-record)
           (org-agenda-sorting-strategy '(priority-up time-down))))
         ("sr" "read" tags "TODO=\"SD\"+ac_read"
-         ((org-agenda-files org-agenda-files-archive)
+         ((org-agenda-files org-agenda-files-record)
           (org-agenda-sorting-strategy '(priority-up time-down))))
         ("sc" "cook" tags "TODO=\"SD\"+ac_cook"
-         ((org-agenda-files org-agenda-files-archive)
+         ((org-agenda-files org-agenda-files-record)
           (org-agenda-sorting-strategy '(priority-up time-down))))
         ("sp" "purchase" tags "TODO=\"SD\"+ac_purchase"
-         ((org-agenda-files org-agenda-files-archive)
+         ((org-agenda-files org-agenda-files-record)
           (org-agenda-sorting-strategy '(priority-up time-down))))
         ("sm" "make" tags "TODO=\"SD\"+ac_make"
-         ((org-agenda-files org-agenda-files-archive)
+         ((org-agenda-files org-agenda-files-record)
           (org-agenda-sorting-strategy '(priority-up time-down))))
         ("b" "tag match for current Buffer"
          tags ""
@@ -131,7 +131,7 @@
          todo "DN|CX"
          ((org-agenda-sorting-strategy
            '(todo-state-up priority-down deadline-up))))
-        ("$" "Archiving candidates"
+        ("$" "Candidates to record file"
          ((tags "LEVEL=2+TODO={DN\\|CX\\|PD}")))
         ("p" "Projects" tags "+project")
         ("h" "HB entries" tags-todo "TODO=\"HB\"+SCHEDULED<\"<+1d>\""
@@ -158,21 +158,21 @@
 
 (defvar auto-org-capture-file (make-temp-file "auto-org-capture" nil ".org"))
 (defvar org-capture-todo-file (concat env-doc-dir "/priv_a/life.org"))
-(defun org-archive-file (&optional year)
-  "Return a path of archive file.
+(defun org-record-file (&optional year)
+  "Return a path of record file.
 If optional argument 'YEAR passed, a file which contains the year's tree is used instead of this year's one.."
-  (let* ((archive-year (if year year (ts-year (ts-now))))
-         (archive-file (format "%s/archive/%s_archive.org" env-doc-dir archive-year)))
-    (if (or (file-exists-p archive-file)
-            (file-symlink-p archive-file))
-        archive-file
+  (let* ((record-year (if year year (ts-year (ts-now))))
+         (record-file (format "%s/record/%s_record.org" env-doc-dir record-year)))
+    (if (or (file-exists-p record-file)
+            (file-symlink-p record-file))
+        record-file
       nil)))
-(defvar org-archive-file (org-archive-file))
+(defvar org-record-file (org-record-file))
 (defun org-goto-clocking-or-today ()
   "Go to currently clocking entry.
 
 If no entry is clocked or CATEGORY on clocking entry is Habit,
-go to today's entry in archive file."
+go to today's entry in record file."
   (if (and (org-clocking-p)
            (save-excursion
              (with-current-buffer (org-clocking-buffer)
@@ -187,8 +187,8 @@ go to today's entry in archive file."
            (month (nth 4 now))
            (year (nth 5 now))
            (org-refile-targets
-            `((,org-archive-file :regexp . ,(format "%04d-%02d-%02d" year month day)))))
-      (find-file org-archive-file)
+            `((,org-record-file :regexp . ,(format "%04d-%02d-%02d" year month day)))))
+      (find-file org-record-file)
       (org-datetree-find-iso-week-create `(,month ,day ,year) nil))))
 (setq org-capture-templates
       `(("t" "Task"
@@ -199,35 +199,35 @@ go to today's entry in archive file."
          "* %? :project:\n  ADDED: %U\n  - [ ] insert REF_ID property if necessary"
          :prepend t :jump-to-captured t)
         ("m" "Memo"
-         entry (file+datetree ,org-archive-file)
+         entry (file+datetree ,org-record-file)
          "* %? %^g\n  ADDED: %U\n" :tree-type week)
         ("d" "Diary"
-         entry (file+datetree ,org-archive-file)
+         entry (file+datetree ,org-record-file)
          "* %? :mm_diary:\n  %U\n"
          :tree-type week :time-prompt t)
         ("s" "Someday memo")
         ("ss" "any"
-         entry (file+datetree ,org-archive-file)
+         entry (file+datetree ,org-record-file)
          "* SD %?\n  ADDED: %U\n  %a"
          :tree-type week)
         ("sr" "read"
-         entry (file+datetree ,org-archive-file)
+         entry (file+datetree ,org-record-file)
          "* SD %? :ac_purchase:fd_book:\n  ADDED: %U\n  %a"
          :tree-type week)
         ("sR" "read (register to whisper as kindle)"
-         entry (file+datetree ,org-archive-file)
+         entry (file+datetree ,org-record-file)
          "* SD %? :ac_purchase:fd_book:ap_whisper:%^{WP_URL1_FORMAT}p%^{WP_URL1}p%^{WP_ALERT}p\n  ADDED: %U\n  - [ ] insert ID property\n  %a"
          :tree-type week)
         ("sc" "cook"
-         entry (file+datetree ,org-archive-file)
+         entry (file+datetree ,org-record-file)
          "* SD %? :ac_cook:\n  ADDED: %U\n  %a"
          :tree-type week)
         ("sp" "purchase"
-         entry (file+datetree ,org-archive-file)
+         entry (file+datetree ,org-record-file)
          "* SD %? :ac_purchase:\n  ADDED: %U\n  %a"
          :tree-type week)
         ("sm" "make"
-         entry (file+datetree ,org-archive-file)
+         entry (file+datetree ,org-record-file)
          "* SD %? :ac_make:\n  ADDED: %U\n  %a"
          :tree-type week)
         ("D" "Drill")
@@ -242,7 +242,7 @@ go to today's entry in archive file."
          "- %i%?")
         ;; for auto refiling
         ("r" "note from region"
-         entry (file+datetree ,org-archive-file)
+         entry (file+datetree ,org-record-file)
          "* %i\n  %U\n" :immediate-finish t :tree-type week)
         ("0" "note"
          entry (file ,auto-org-capture-file)
@@ -251,13 +251,13 @@ go to today's entry in archive file."
          entry (id "e6ee5322-dfb3-407b-846f-87a6ddd4705c")
          "%i" :immediate-finish t :prepend t)
         ("n" "memo for auto refiling"
-         entry (file+datetree ,org-archive-file)
+         entry (file+datetree ,org-record-file)
          "%i" :immediate-finish t :prepend t :tree-type week)))
 ;; for auto refiling capture
 (defun auto-org-capture (arg)
   (interactive "p")
   (cl-case arg
-    (16 (find-file org-archive-file)
+    (16 (find-file org-record-file)
         (goto-char (point-min)))
     (4  (find-file org-capture-todo-file)
         (goto-char (point-min)))
@@ -293,16 +293,16 @@ go to today's entry in archive file."
       '("project-SCHEDULED>\"<today>\"-DEADLINE>\"<today>\"/-TD-DN-CX"
         ("UG" "DI" "WD" "TD" "OG") nil ""))
 
-(defun org-tags-view-archive (&optional todo-only match)
-  "Invoke `org-tags-view' using predetermined agenda files plus archive files.
+(defun org-tags-view-in-records (&optional todo-only match)
+  "Invoke `org-tags-view' using predetermined agenda files plus record files.
 The prefix args TODO-ONLY and MATCH are passed to 'org-tags-view.
 
 If region is active, use the word in region for matching instead."
   (interactive)
-  (let* ((archive-cands (file-expand-wildcards (format "%s/archive/*_archive.org" env-doc-dir)))
-         (archive-files (last archive-cands (safe-length archive-cands)))
+  (let* ((record-cands (file-expand-wildcards (format "%s/record/*_record.org" env-doc-dir)))
+         (record-files (last record-cands (safe-length record-cands)))
          (org-agenda-files (append org-agenda-files-default
-                                   (sort archive-files 'string<)))
+                                   (sort record-files 'string<)))
          (match-exp (if (region-active-p)
                         (buffer-substring (region-beginning) (region-end))
                       match)))
@@ -319,7 +319,7 @@ If region is active, use the word in region for matching instead."
   (interactive)
   (let ((id (org-id-get)))
     (when id
-      (org-tags-view-archive nil (format "+%s=\"%s\"" org-project-property id)))))
+      (org-tags-view-in-records nil (format "+%s=\"%s\"" org-project-property id)))))
 (defun org-project-correlate-parent-child ()
   "Make parent-child relationship.
 Children's `org-project-property' will be parent's ID.
@@ -387,18 +387,18 @@ which has any one of `org-project-parent-tag-list'."
                   (alert "Timer DN!" :style 'alarm)
                 (alert "Timer DN!" :style 'fringe :mode 'org-mode :buffer (org-clocking-buffer) :severity 'trivial)))))
 
-(defun org-archive-to-archive-file ()
-  "Archive current subtree to archive file using latest timestamp."
+(defun org-record-subtree ()
+  "Refile current subtree to record file using latest timestamp."
   (interactive)
   (let* ((ts (car (sort (org-timestamps-in-entry t) #'ts>)))
          (year (ts-year ts)))
-    (org-refile-to-datetree-using-ts-in-entry 'latest (org-archive-file year) t)
+    (org-refile-to-datetree-using-ts-in-entry 'latest (org-record-file year) t)
     (org-save-all-org-buffers)
-    (setq this-command 'org-archive-to-archive-file)))
-(defun org-agenda-archive-to-archive-file ()
-  "Archive the entry or subtree belonging to the current agenda entry."
+    (setq this-command 'org-record-subtree)))
+(defun org-agenda-record-subtree ()
+  "Refile the entry or subtree belonging to the current agenda entry."
   (interactive)
-  (org-agenda-archive-with 'org-archive-to-archive-file))
+  (org-agenda-archive-with 'org-record-subtree))
 (bind-keys :map org-agenda-mode-map
-           ("$" . org-agenda-archive-to-archive-file) ;
+           ("$" . org-agenda-record-subtree) ;
            ("&" . org-agenda-ref-id-tieup-tree))

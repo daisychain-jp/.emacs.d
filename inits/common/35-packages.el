@@ -48,7 +48,7 @@
               ("C-l l" . lookup-weblio)
               ("C-'" . utl-say)
               ("C-=" . count-words-region)
-              ("C-m" . org-tags-view-archive)
+              ("C-m" . org-tags-view-in-records)
               ("C-g" . selected-off)))
 
 (use-package expand-region
@@ -59,9 +59,7 @@
   (push 'er/mark-outside-pairs er/try-expand-list))
 
 (use-package ts
-  :straight (ts :type git
-                :host github
-                :repo "alphapapa/ts.el"))
+  :straight t)
 
 (use-package synosaurus
   :straight t
