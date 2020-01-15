@@ -25,7 +25,7 @@
             (lambda ()
               (visual-line-mode 1)
               (eww-goto-contents)))
-  (add-hook 'eww-after-render-hook #'eww-set-buffer-name-from-page-title)
+  (add-hook 'eww-after-render-hook #'eww-rename-buffer)
   (setq eww-header-line-format nil))
 
 (defun eww-goto-contents ()
@@ -132,9 +132,14 @@ ARGS will be passed to the original function."
         (delete-file source-file)
         (libxml-parse-xml-region (point-min) (point-max))))))
 
-(defun eww-set-buffer-name-from-page-title ()
-  "Set EWW buffer name by extracting page title."
-  (rename-buffer (format "eww %s" (dom-attr (car (dom-by-tag (eww-headings-dom) 'headings)) 'title)) t))
+(defun eww-rename-buffer ()
+  "Rename EWW mode buffer.
+
+If associated HTML file have a title tag, use title as a buffer name.
+Otherwise, use a current URL."
+  (let ((title (dom-attr (car (dom-by-tag (eww-headings-dom) 'headings)) 'title))
+        (url (file-name-base (eww-current-url))))
+    (rename-buffer (format "eww %s" (or title url "")) t)))
 
 (defun eww-goto-title-heading ()
   "Set point to a line which contaings the possible heading."
