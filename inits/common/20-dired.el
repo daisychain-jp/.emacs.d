@@ -20,10 +20,11 @@
               (setq-local truncate-lines t)
               (whitespace-mode 1))))
 
-(use-package dired+
+(use-package dired-single
   :straight t
   :bind (:map dired-mode-map
-              ("C-j" . diredp-find-file-reuse-dir-buffer)))
+              ("C-j" . dired-single-buffer)
+              ("^" . dired-single-up-directory)))
 
 (use-package dired-subtree
   :straight t
