@@ -3,10 +3,12 @@
   (interactive)
   (message "%s" (get-char-property (point) 'face)))
 
-(defun kill-line-number ()
-  "Add line number to kill ring."
+(defun copy-line-number ()
+  "Copy the line number of current point into the kill ring."
   (interactive)
-  (kill-new (number-to-string (line-number-at-pos))))
+  (let ((line-number (number-to-string (line-number-at-pos))))
+    (message "Line number: %s" line-number)
+    (kill-new line-number)))
 
 (defun apply-in-indirect-buffer (function &rest arguments)
   "Call FUNCTION in a indirect buffer with our remaining args, using ARGUMENTS."
