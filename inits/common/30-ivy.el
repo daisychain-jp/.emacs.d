@@ -37,7 +37,7 @@
 
 (use-package counsel
   :straight t
-  :after (swiper hydra helm-org-rifle)
+  :after (swiper hydra)
   :bind
   (("C-x b" . counsel-switch-buffer)
    ("C-M-y" . counsel-yank-pop)
@@ -63,9 +63,8 @@
     ("a" counsel-org-agenda-headlines)
     ("c" counsel-org-capture)
     ("g" counsel-org-goto)
-    ("s" helm-org-rifle-current-buffer)
-    ("r" helm-org-rifle-org-directory)
-    ("R" helm-org-rifle-directories)
+    ("s" (helm-org-ql (current-buffer)))
+    ("r" (helm-org-ql (file-expand-wildcards (concat env-doc-dir "/**/*.org"))))
     ("i" org-info-find-node)
     ("q" nil "quit"))
   (defhydra hydra-search (global-map "M-s"
@@ -75,7 +74,6 @@
     ("sr" counsel-rg)
     ("sg" counsel-grep-or-swiper)
     ("si" counsel-git-grep)
-    ("Or" helm-org-rifle-org-directory)
     ("q" nil "quit"))
   (defhydra hydra-hint (global-map "C-c h"
                                    :color teal)

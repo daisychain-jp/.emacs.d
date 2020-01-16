@@ -315,7 +315,7 @@ If 'ARG' is passed, shred afile instead delete."
 
   ;; org-agenda
   (defvar org-agenda-files-default (append
-                                    (file-expand-wildcards (concat env-doc-dir "/*_a"))
+                                    (file-expand-wildcards (concat env-doc-dir "/*_a/*.org"))
                                     (file-expand-wildcards (concat env-doc-dir "/**/*_a.org")))
     "Default org-agenda-files.")
   (setq org-agenda-files org-agenda-files-default)
@@ -400,10 +400,6 @@ If 'ARG' is passed, shred afile instead delete."
   :custom
   (org-drill-scope 'tree)
   (org-drill-cram-hours 0.5))
-
-(use-package helm-org-rifle
-  :straight t
-  :after (org helm))
 
 (defun org-sparse-tree-indirect-buffer (&optional arg type)
   "Create a sparse tree, prompt for the details.
@@ -670,3 +666,8 @@ search whole subtree."
 (use-package org-clock-split
   :straight t
   :after (org))
+
+(use-package org-ql
+  :straight t
+  :config
+  (require 'org-ql-search))

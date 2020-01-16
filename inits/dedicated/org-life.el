@@ -16,21 +16,30 @@
          ((org-agenda-files org-agenda-files-record)
           (org-agenda-sorting-strategy '(time-down))))
         ("s" . "Someday entries")
-        ("sa" "all" tags "TODO=\"SD\""
-         ((org-agenda-files org-agenda-files-record)
-          (org-agenda-sorting-strategy '(priority-up time-down))))
-        ("sr" "read" tags "TODO=\"SD\"+ac_read"
-         ((org-agenda-files org-agenda-files-record)
-          (org-agenda-sorting-strategy '(priority-up time-down))))
-        ("sc" "cook" tags "TODO=\"SD\"+ac_cook"
-         ((org-agenda-files org-agenda-files-record)
-          (org-agenda-sorting-strategy '(priority-up time-down))))
-        ("sp" "purchase" tags "TODO=\"SD\"+ac_purchase"
-         ((org-agenda-files org-agenda-files-record)
-          (org-agenda-sorting-strategy '(priority-up time-down))))
-        ("sm" "make" tags "TODO=\"SD\"+ac_make"
-         ((org-agenda-files org-agenda-files-record)
-          (org-agenda-sorting-strategy '(priority-up time-down))))
+        ("sa" "SOMEDAY items"
+         ((org-ql-search-block '(todo "SD")
+                               ((org-ql-block-header "SOMEDAY items"))))
+         ((org-agenda-files org-agenda-files-record)))
+        ("sr" "SOMEDAY items with ac_read"
+         ((org-ql-search-block '(and (todo "SD")
+                                     (tags "ac_read"))
+                               ((org-ql-block-header "SOMEDAY items with ac_read"))))
+         ((org-agenda-files org-agenda-files-record)))
+        ("sc" "SOMEDAY items with ac_cook"
+         ((org-ql-search-block '(and (todo "SD")
+                                     (tags "ac_cook"))
+                               ((org-ql-block-header "SOMEDAY items with ac_cook"))))
+         ((org-agenda-files org-agenda-files-record)))
+        ("sp" "SOMEDAY items with ac_purchase"
+         ((org-ql-search-block '(and (todo "SD")
+                                     (tags "ac_purchase"))
+                               ((org-ql-block-header "SOMEDAY items with ac_purchase"))))
+         ((org-agenda-files org-agenda-files-record)))
+        ("sm" "SOMEDAY items with ac_make"
+         ((org-ql-search-block '(and (todo "SD")
+                                     (tags "ac_make"))
+                               ((org-ql-block-header "SOMEDAY items with ac_make"))))
+         ((org-agenda-files org-agenda-files-record)))
         ("b" "tag match for current Buffer"
          tags ""
          ((org-agenda-files `(,buffer-file-name))))
@@ -319,7 +328,7 @@ If region is active, use the word in region for matching instead."
   (interactive)
   (let ((id (org-id-get)))
     (when id
-      (org-tags-view-in-records nil (format "+%s=\"%s\"" org-project-property id)))))
+      (org-ql-search org-agenda-files-record `(property "PRJ_ID" ,id)))))
 (defun org-project-correlate-parent-child ()
   "Make parent-child relationship.
 Children's `org-project-property' will be parent's ID.
