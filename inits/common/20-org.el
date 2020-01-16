@@ -251,8 +251,8 @@ If 'ARG' is passed, shred afile instead delete."
                           (s-matches? "DN\\|CX\\|PD" todo-state)
                           (bound-and-true-p priority))
                      (org-priority ? ))
-                   ;; remove DN state if CATEGORY of the entry is "Habit"
-                   (when (and (string= category "Habit")
+                   ;; remove DN state if CATEGORY of the entry is "Repeated"
+                   (when (and (string= category "Repeated")
                               (string= todo-state "DN")
                               (not (string= style "habit")))
                      (org-todo ""))))))

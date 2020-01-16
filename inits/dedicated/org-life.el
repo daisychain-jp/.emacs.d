@@ -137,7 +137,7 @@
         ("h" "HB entries" tags-todo "TODO=\"HB\"+SCHEDULED<\"<+1d>\""
          ((org-agenda-sorting-strategy
            '(scheduled-up))))
-        ("H" "All Habits" tags "CATEGORY=\"Habit\"+LEVEL=>2+{ac_.+}")
+        ("H" "All Repeated Tasks" tags "CATEGORY=\"Repeated\"+LEVEL=>2+{ac_.+}")
         ("g" "aggregated task list"
          ((tags "SCHEDULED<=\"<today>\"|DEADLINE<=\"<today>\"")
           (todo "UG|DI|OG")
@@ -171,7 +171,7 @@ If optional argument 'YEAR passed, a file which contains the year's tree is used
 (defun org-goto-clocking-or-today ()
   "Go to currently clocking entry.
 
-If no entry is clocked or CATEGORY on clocking entry is Habit,
+If no entry is clocked or CATEGORY on clocking entry is \"Repeated\",
 go to today's entry in record file."
   (if (and (org-clocking-p)
            (save-excursion
@@ -180,7 +180,7 @@ go to today's entry in record file."
                (org-back-to-heading)
                (not (string=
                      (org-entry-get (point) "CATEGORY" t)
-                     "Habit")))))
+                     "Repeated")))))
       (org-clock-goto)
     (let* ((now (decode-time (current-time)))
            (day (nth 3 now))
