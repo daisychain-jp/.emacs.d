@@ -195,6 +195,10 @@
                   hlc/previous-thing-func (lambda ()
                                             (interactive)
                                             (backward-button 1))))
+    ("C-M-i" (responsible-call
+              hlc/previous-thing-func (lambda ()
+                                        (interactive)
+                                        (backward-button 1))))
     ("R" (responsible-call hlc/readable-func 'redraw-display))
     ("&" (responsible-call hlc/external-func 'redraw-display))
     ("C-o" open-thing-at-point "open")
