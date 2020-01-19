@@ -25,7 +25,7 @@
   (mu4e-headers-advance-after-mark t)
   (mu4e-change-filenames-when-moving t)
   (mu4e-view-show-images t)
-  (mu4e-html2text-command "nkf -w -Lu | pandoc -f html -t plain")
+  (mu4e-html2text-command "nkf -w -Lu | html2text")
   :config
   (bind-keys :map mu4e-headers-mode-map
              ("C-j" . mu4e-headers-view-message)
@@ -34,7 +34,7 @@
              :map mu4e-compose-mode-map
              ("C-x C-o" . org-mu4e-compose-org-mode))
   (add-to-list 'mu4e-view-actions
-               '("view in browser" . mu4e-action-view-in-browser) t)
+               '("external browser" . mu4e-action-view-in-browser) t)
   (require 'gnus-dired)
   ;; make the `gnus-dired-mail-buffers' function also work on
   ;; message-mode derived modes, such as mu4e-compose-mode
