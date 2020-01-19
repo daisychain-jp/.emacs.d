@@ -207,7 +207,7 @@ If 'ARG' is passed, shred afile instead delete."
               (org-agenda-to-appt t '((category "appt")))))
 
   ;; tag/property
-  (setq org-use-tag-inheritance nil)
+  (setq org-use-tag-inheritance "ARCHIVE")
   (setq org-tags-column -48)
   (setq org-global-properties
         '(("Effort_ALL". "0 0:10 0:30 1:00 2:00 4:00 6:00 8:00")))
