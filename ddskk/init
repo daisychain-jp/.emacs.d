@@ -1,0 +1,12 @@
+;; -*- mode:emacs-lisp; -*-
+(setq skk-rom-kana-rule-list
+      (append skk-rom-kana-rule-list
+              '(("xka" nil ("ヵ" . "ヵ"))
+                ("xke" nil ("ヶ" . "ヶ"))
+                ("n" nil nil)
+                ("nn" nil ("ナノ" . "なの"))
+                ("nm" nil ("ノミ" . "のみ"))
+                ("ks" nil ("コソ" . "こそ"))
+                ("ym" nil ("ヤマ" . "やま"))
+                ("tga" nil ("タガ" . "たが"))
+                ("vj" nil ("ヴン" . "ぶん")))))
