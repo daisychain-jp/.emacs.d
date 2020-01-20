@@ -38,9 +38,12 @@
 
 ;; Set path for source code of 3rd party packages
 (mapc (lambda (new-path)
-        (add-to-list 'load-path new-path))
-      (file-expand-wildcards
-       (format "%s/site-lisp/*" user-emacs-directory)))
+        (when (file-directory-p new-path)
+          (add-to-list 'load-path new-path)))
+      (append
+       (list (format "%s/site-lisp" user-emacs-directory))
+       (file-expand-wildcards
+        (format "%s/site-lisp/*" user-emacs-directory))))
 
 ;; install El-Get by using package system
 (add-to-list 'load-path (concat el-get-dir "/el-get"))
