@@ -586,10 +586,9 @@ This function can be used as `org-agenda-cmp-user-defined' in `org-agenda-sortin
 (add-hook 'org-cycle-hook #'org-optimize-window-after-visibility-change t)
 
 ;;;###autoload
-(defun org-refile-to-datetree-using-ts-in-entry (which-ts file &optional subtree-p)
+(defun org-refile-to-datetree-using-ts-in-entry (which-ts file)
   "Refile current entry to datetree in FILE using timestamp found in entry.
-WHICH should be `earliest' or `latest'. If SUBTREE-P is non-nil,
-search whole subtree."
+WHICH should be `earliest' or `latest'."
   (interactive (list (intern (completing-read "Which timestamp? " '(earliest latest)))
                      (read-file-name "File: " (concat org-directory "/") nil 'mustmatch nil
                                      (lambda (filename)
@@ -598,29 +597,32 @@ search whole subtree."
   (let* ((sorter (pcase which-ts
                    ('earliest #'ts<)
                    ('latest #'ts>)))
-         (tss (org-timestamps-in-entry subtree-p))
+         (tss (org-timestamps-in-entry))
          (ts (car (sort tss sorter)))
          (date (list (ts-month ts) (ts-day ts) (ts-year ts))))
     (org-refile-to-datetree file :date date)))
 
 ;;;###autoload
-(defun org-timestamps-in-entry (&optional subtree-p)
-  "Return timestamp objects for all Org timestamps in entry.
- If SUBTREE-P is non-nil (interactively, with prefix), search
- whole subtree."
+(defun org-timestamps-in-entry ()
+  "Return timestamp objects for all Org timestamps in entry."
   (interactive (list current-prefix-arg))
   (save-excursion
-    (let* ((beg (org-entry-beginning-position))
-           (end (if subtree-p
-                    (org-end-of-subtree)
-                  (org-entry-end-position))))
-      (goto-char beg)
-      (org-show-entry)
-      (cl-loop while (re-search-forward org-tsr-regexp-both end t)
-               for context = (save-excursion
-                               (goto-char (match-beginning 0))
-                               (org-element-context))
-               collect (ts-parse-org-element context)))))
+    (goto-char (org-entry-beginning-position))
+    (org-show-entry)
+    (org-narrow-to-element)
+    (let* ((parsetree (org-element-parse-buffer))
+           (ts-list nil))
+      (org-element-map parsetree '(planning clock timestamp)
+        (lambda (elm)
+          (case (org-element-type elm)
+            ('planning
+             (add-to-list 'ts-list (ts-parse-org-element (org-element-property :closed elm)) t))
+            ('clock
+             (add-to-list 'ts-list (ts-parse-org-element (org-element-property :value elm)) t))
+            ('timestamp
+             (add-to-list 'ts-list (ts-parse-org-element elm) t)))))
+      (widen)
+      ts-list)))
 
 ;;;###autoload
 (cl-defun org-refile-to-datetree (file &key (date (calendar-current-date)) entry)

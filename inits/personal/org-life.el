@@ -403,9 +403,9 @@ which has any one of `org-project-parent-tag-list'."
 (defun org-record-subtree ()
   "Refile current subtree to record file using latest timestamp."
   (interactive)
-  (let* ((ts (car (sort (org-timestamps-in-entry t) #'ts>)))
+  (let* ((ts (car (sort (org-timestamps-in-entry) #'ts>)))
          (year (ts-year ts)))
-    (org-refile-to-datetree-using-ts-in-entry 'latest (org-record-file year) t)
+    (org-refile-to-datetree-using-ts-in-entry 'latest (org-record-file year))
     (org-save-all-org-buffers)
     (setq this-command 'org-record-subtree)))
 (defun org-agenda-record-subtree ()
