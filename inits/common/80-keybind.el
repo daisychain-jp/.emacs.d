@@ -141,7 +141,7 @@
     ("f" straight-fetch-package)
     ("F" straight-fetch-all)
     ("p" straight-pull-package)
-    ("p" straight-pull-all)
+    ("P" straight-pull-all)
     ("m" straight-merge-package)
     ("M" straight-merge-all)
     ("n" straight-normalize-package)
