@@ -1,6 +1,5 @@
-# state saving file
 session.*
-
+custom.el
 # package files
 package/
 straight/
