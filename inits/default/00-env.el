@@ -2,4 +2,4 @@
 (defvar env-proj-dir "~/git")
 (defvar env-doc-dir "~/org")
 (defvar env-var-dir "~/var")
-(defvar env-templates-dir (concat user-emacs-directory "/templates"))
+(defvar skk-data-dir (format "%s/lib/skk" env-var-dir))
