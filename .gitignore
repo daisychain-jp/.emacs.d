@@ -1,5 +1,6 @@
 session.*
 custom.el
+*.elc
 # package files
 package/
 straight/
