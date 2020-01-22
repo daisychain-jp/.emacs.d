@@ -113,7 +113,9 @@
          ((org-agenda-sorting-strategy
            '(todo-state-up priority-down deadline-up))))
         ("ti" "doIng task"
-         tags "/UG|DI"
+         ((org-ql-search-block '(or (or (todo "UG") (todo "DI"))
+                                    (scheduled :from today :to 0))
+                               ((org-ql-block-header "Today's tasks"))))
          ((org-agenda-sorting-strategy
            '(todo-state-up priority-down deadline-up))))
         ("tw" "Will-do task"
