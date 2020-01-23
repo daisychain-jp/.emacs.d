@@ -18,10 +18,8 @@
          ("M-J" . org-clock-goto)
          ("C-c s" . org-store-link))
   :init
-  (add-to-list 'load-path (format "%s/straight/repos/org/lisp"
-                                  user-emacs-directory))
-  (add-to-list 'load-path (format "%s/straight/repos/org/contrib/lisp"
-                                  user-emacs-directory))
+  (add-to-list 'load-path (concat (file-name-directory user-emacs-directory) "straight/repos/org/lisp"))
+  (add-to-list 'load-path (concat (file-name-directory user-emacs-directory) "straight/repos/org/contrib/lisp"))
   :custom
   (org-directory env-doc-dir)
   (org-special-ctrl-a/e t)
