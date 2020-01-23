@@ -331,11 +331,17 @@ If region is active, use the word in region for matching instead."
   "List of tag names which all parents in org-project feature must have.")
 
 (defun org-project-lookup-children ()
-  "Show all entries which refers this entry."
+  "Show all project tasks of this entry."
   (interactive)
   (let ((id (org-id-get)))
     (when id
-      (org-ql-search org-agenda-files-record `(property "PRJ_ID" ,id)))))
+      (org-ql-search org-agenda-files-record `(property ,org-project-property ,id)))))
+(defun org-project-lookup-siblings ()
+  "Show all sibling tasks in same project."
+  (interactive)
+  (let ((prj-id (org-entry-get (point) org-project-property)))
+    (when prj-id
+      (org-ql-search org-agenda-files-record `(property ,org-project-property ,prj-id)))))
 (defun org-project-correlate-parent-child ()
   "Make parent-child relationship.
 Children's `org-project-property' will be parent's ID.
