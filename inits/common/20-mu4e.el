@@ -25,7 +25,13 @@
   (mu4e-headers-advance-after-mark t)
   (mu4e-change-filenames-when-moving t)
   (mu4e-view-show-images t)
-  (mu4e-html2text-command "nkf -w -Lu | html2text")
+  (mu4e-html2text-command (lambda (msg)
+                            (plist-put msg :body-html
+                                       (with-temp-buffer
+                                         (insert (or (mu4e-message-field msg :body-html) ""))
+                                         (shell-command-on-region (point-min) (point-max) "nkf -w -Lu" (current-buffer) t)
+                                         (or (buffer-string) "")))
+                            (mu4e-shr2text msg)))
   :config
   (bind-keys :map mu4e-headers-mode-map
              ("C-j" . mu4e-headers-view-message)
