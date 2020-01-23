@@ -147,10 +147,9 @@
          ((tags "LEVEL=2+TODO={DN\\|CX\\|PD}")))
         ("p" "Projects" tags "+project")
         ("h" "HABIT items scheduled today"
-         ((org-ql-search-block '(and ;; (todo "HB")
-                                 (habit)
-                                 (scheduled :to today)
-                                 (not (tags-inherited "ARCHIVE")))
+         ((org-ql-search-block '(and (habit)
+                                     (scheduled :to today)
+                                     (not (tags-inherited "ARCHIVE")))
                                ((org-ql-block-header "HABIT items scheduled today"))))
          ((org-agenda-sorting-strategy '(scheduled-up))))
         ("H" "All Repeated Tasks" tags "CATEGORY=\"Repeated\"+LEVEL=>2+{ac_.+}")
