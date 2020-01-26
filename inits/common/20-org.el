@@ -670,7 +670,7 @@ WHICH should be `earliest' or `latest'."
   :config
   (require 'org-ql-search))
 
-(defun dzc-org-open-file (path &optional in-emacs line search)
+(defun my/org-open-file (path &optional in-emacs line search)
   "docstring"
   (case (prefix-numeric-value current-prefix-arg)
     (16 (open-file-external path))
@@ -688,4 +688,4 @@ WHICH should be `earliest' or `latest'."
   :custom
   (org-exfile-dirs-alist '(("priv-01" . "~/afile")
                            ("prj-xx" . "~/proj/xx")))
-  (org-exfile-org-open-file-custom-function   #'dzc-org-open-file))
+  (org-exfile-org-open-file-custom-function #'my/org-open-file))
