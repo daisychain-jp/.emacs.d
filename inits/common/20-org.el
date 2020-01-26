@@ -91,7 +91,7 @@
                                      ((string-match-p "\\`[0-9]+\\'" search-option)
                                       (list (string-to-number search-option)))
                                      (t (list nil search-option)))))
-              (apply #'dzc-org-open-file
+              (apply #'my/org-open-file
                      path
                      (cond
                       ((equal app "sys") 'system)
