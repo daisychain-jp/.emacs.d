@@ -87,20 +87,18 @@
                 (t (open-url (car url-pos) (cadr url-pos))))
               t))
            ((string= type "file")
-            (let ((url-pos (split-location-uri (org-link-unescape path))))
-              (cl-case (prefix-numeric-value current-prefix-arg)
-                (16 (open-file-external path))
-                (4 (find-file path))
-                (t (cond
-                    ((not app)
-                     (open-file path)
-                     (when search-option
-                       (goto-pos search-option)))
-                    ((string= app "emacs")
-                     (find-file path))
-                    ((string= app "sys")
-                     (open-file-external path)))))
-              t)))
+            (let ((line-search (cond ((not search-option) nil)
+                                     ((string-match-p "\\`[0-9]+\\'" search-option)
+                                      (list (string-to-number search-option)))
+                                     (t (list nil search-option)))))
+              (apply #'dzc-org-open-file
+                     path
+                     (cond
+                      ((equal app "sys") 'system)
+                      ((equal app "emacs") 'emacs)
+                      (t nil))
+                     line-search))
+            t))
         (open-thing-at-point))))
   (add-to-list 'org-open-at-point-functions 'org-open-at-point-link)
   (defun org-orgnize-open-at-point ()
@@ -671,3 +669,23 @@ WHICH should be `earliest' or `latest'."
   :straight t
   :config
   (require 'org-ql-search))
+
+(defun dzc-org-open-file (path &optional in-emacs line search)
+  "docstring"
+  (case (prefix-numeric-value current-prefix-arg)
+    (16 (open-file-external path))
+    (4 (org-open-file path t line search))
+    (t (cond
+        ((member in-emacs '((16) system))
+         (open-file-external path))
+        ((member in-emacs '((4) emacs))
+         (org-open-file path t line search))
+        (t (open-file path)
+           (when (or line search)
+             (goto-pos (or line search))))))))
+
+(use-package org-exfile
+  :custom
+  (org-exfile-dirs-alist '(("priv-01" . "~/afile")
+                           ("prj-xx" . "~/proj/xx")))
+  (org-exfile-org-open-file-custom-function   #'dzc-org-open-file))
