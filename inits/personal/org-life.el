@@ -1,5 +1,6 @@
 (setq org-agenda-start-on-weekday 1)
 (setq org-deadline-warning-days 60)
+(setq org-agenda-skip-deadline-if-done t)
 (setq org-agenda-include-diary t)
 (defvar org-agenda-files-record
   (append (sort (file-expand-wildcards (format "%s/record/*_record.org" env-doc-dir)) 'string<)
