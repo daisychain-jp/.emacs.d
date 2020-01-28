@@ -20,6 +20,8 @@
      (buffer-face-set 'visible)
      (setq-local line-spacing 0.1)))
   (elfeed-sort-order 'ascending)
+  (elfeed-enclosure-default-dir "~/Downloads/")
+  (elfeed-save-multiple-enclosures-without-asking t)
   :config
   (defalias 'elfeed-search-tag-all-unchecked
     (elfeed-expose #'elfeed-search-tag-all 'unchecked)
@@ -54,6 +56,8 @@
                       (elfeed-search-tag-all-checked)))
              ("R" . elfeed-search-untag-all-checked)
              ("d" . elfeed-search-untag-all-unread)
+             ("V" . my/elfeed-search-download-video)
+             ("A" . my/elfeed-search-download-audio)
              :map elfeed-show-mode-map
              ("C-i" . shr-next-link))
   (defface elfeed-search-unchecked-title-face
@@ -76,3 +80,32 @@
   (rmh-elfeed-org-auto-ignore-invalid-feeds t)
   :config
   (elfeed-org))
+
+(defun my/elfeed-search-download-video ()
+  "Downlaod video file."
+  (interactive)
+  (if-let* ((entry (elfeed-search-selected :single))
+            (title (replace-regexp-in-string "[/:]" "" (elfeed-entry-title entry)))
+            (link (elfeed-entry-link entry))
+            (match-index (string-match "https?://www.youtube.com.+" link))
+            (yt-url (match-string 0 link)))
+      (start-process-shell-command "ytdl" nil (format "cd ~/Videos && youtube-dl -f \"bestvideo[height<=?720]+bestaudio/best\" \"%s\"" yt-url))))
+
+(defun my/elfeed-search-download-audio ()
+  "Download audio file."
+  (interactive)
+  (if-let* ((entry (elfeed-search-selected :single))
+            (title (replace-regexp-in-string "[/:]" "" (elfeed-entry-title entry)))
+            (enc-alist (elfeed-entry-enclosures entry))
+            (format (nth 1 (car enc-alist)))
+            (url (caar enc-alist))
+            (is-mp3 (equal "audio/mpeg" format)))
+      (if (multibyte-string-p title)
+          (start-process-shell-command "ytdl" nil (format "cd ~/Music && youtube-dl -f mp3 -o \"%s.mp3\" \"%s\" && ffmpeg -i \"%s.mp3\" -filter:a \"atempo=1.6\" -vn \"%s_tempo.mp3\" && mv -f \"%s_tempo.mp3\" \"%s.mp3\"" title url title title title title))
+        (start-process-shell-command "ytdl" nil (format "cd ~/Music && youtube-dl -f mp3 -o \"%s.mp3\" \"%s\"" title url)))
+    (if-let* ((link (elfeed-entry-link entry))
+              (match-index (string-match "https?://www.youtube.com.+" link))
+              (yt-url (match-string 0 link)))
+        (if (multibyte-string-p title)
+            (start-process-shell-command "ytdl" nil (format "cd ~/Music && youtube-dl -f mp4 -o \"%s.mp4\" \"%s\" && ffmpeg -i \"%s.mp4\" -filter:a \"atempo=1.6\" -vn \"%s.mp3\" && rm -f \"%s.mp4\"" title yt-url title title title))
+          (start-process-shell-command "ytdl" nil (format "cd ~/Music && youtube-dl -f mp4 -o \"%s.mp4\" \"%s\" && ffmpeg -i \"%s.mp4\" \"%s.mp3\" && rm -f \"%s.mp4\"" title yt-url title title title))))))
