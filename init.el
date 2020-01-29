@@ -41,7 +41,7 @@
         (when (file-directory-p new-path)
           (add-to-list 'load-path new-path)))
       (append
-       (list (concat (file-name-directory user-emacs-directory) "site-lisp" ))
+       (list (concat (file-name-as-directory user-emacs-directory) "site-lisp" ))
        (file-expand-wildcards
         (format "%s/site-lisp/*" user-emacs-directory))))
 

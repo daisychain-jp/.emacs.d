@@ -75,9 +75,7 @@ If nil `org-open-file' would be used instead."
     (if (consp cons-dir)
         (let ((abs-dir (expand-file-name (cdr cons-dir))))
           (if (file-directory-p abs-dir)
-              (if (directory-name-p abs-dir)
-                  abs-dir
-                (concat abs-dir "/"))
+              (file-name-as-directory abs-dir)
             nil))
       nil)))
 
