@@ -85,7 +85,7 @@
   "Downlaod video file."
   (interactive)
   (if-let* ((entry (elfeed-search-selected :single))
-            (title (replace-regexp-in-string "[/:]" "" (elfeed-entry-title entry)))
+            (title (replace-regexp-in-string "[/:|]" "" (elfeed-entry-title entry)))
             (link (elfeed-entry-link entry))
             (match-index (string-match "https?://www.youtube.com.+" link))
             (yt-url (match-string 0 link)))
@@ -95,7 +95,7 @@
   "Download audio file."
   (interactive)
   (if-let* ((entry (elfeed-search-selected :single))
-            (title (replace-regexp-in-string "[/:]" "" (elfeed-entry-title entry)))
+            (title (replace-regexp-in-string "[/:|]" "" (elfeed-entry-title entry)))
             (enc-alist (elfeed-entry-enclosures entry))
             (format (nth 1 (car enc-alist)))
             (url (caar enc-alist))
