@@ -116,7 +116,7 @@
         ("ti" "doIng task"
          ((org-ql-search-block '(or (or (todo "UG") (todo "DI"))
                                     (and (scheduled :from today :to 0)
-                                         (not (todo "HB"))))
+                                         (not (todo "HB" "DN" "CX" "PD"))))
                                ((org-ql-block-header "Today's tasks"))))
          ((org-agenda-sorting-strategy
            '(todo-state-up priority-down deadline-up))))
