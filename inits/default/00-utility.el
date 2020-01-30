@@ -55,13 +55,35 @@
              (goto-pos (cadr url-pos))))
         t)))))
 
+(defvar open-file-work-dir "~/var/tmp/exfile")
+
 (defun open-file (file)
   "Open file `FILE' with appropriate application."
-  (let ((ex-file (expand-file-name file)))
+  (let ((ex-file (expand-file-name file))
+        (rm-file nil))
+    (cond
+     ((string-suffix-p ".mp4.gpg" ex-file)
+      (call-process-shell-command
+       (format "gpg -o \"%s\" -d \"%s\""
+               (setf rm-file (expand-file-name (concat (make-temp-name
+                                                        (file-name-as-directory open-file-work-dir))
+                                                       ".mp4")))
+               ex-file))
+      (setf ex-file rm-file))
+     ((string-suffix-p ".tar.gpg" ex-file)
+      (call-process-shell-command
+       (format "mkdir -p \"%s\"; gpg -d %s | tar xv -C %s"
+               (setf rm-file (expand-file-name (make-temp-name
+                                                (file-name-as-directory open-file-work-dir))))
+               ex-file
+               rm-file))
+      (setf ex-file rm-file)))
     (cond
      ((or (= (call-process-shell-command (format "filetype-cli check --type playable \"%s\"" ex-file)) 0)
           (string-suffix-p ".m3u" ex-file))
-      (start-process-shell-command "mpv" nil (format "nohup mpv --force-window \"%s\" >/dev/null 2>&1" ex-file)))
+      (start-process-shell-command "mpv" nil
+                                   (concat (format "mpv --force-window \"%s\" >/dev/null 2>&1;" ex-file)
+                                           (if rm-file (format "rm -rf \"%s\"" rm-file) nil))))
      ((= (call-process-shell-command (format "filetype-cli check --type tarpgp \"%s\"" ex-file)) 0)
       (start-process-shell-command "mpv" nil (format "nohup orgafile play \"%s\" >/dev/null 2>&1" ex-file)))
      ((or (= (call-process-shell-command (format "filetype-cli check --type pdf \"%s\"" ex-file)) 0)

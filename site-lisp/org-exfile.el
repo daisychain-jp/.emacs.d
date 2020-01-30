@@ -114,12 +114,38 @@ When `org-exfile-org-open-file-custom-function' is set, use it instead of org-op
                      (in-emacs "+emacs")))
             loc-label (file-relative-name fpath loc))))
 
-(defun org-exfile-export ()
-  )
-
-(defun org-exfile-cp-store-link ()
-  "Copy file to some exfile dir and store a link to it."
-  )
+(defun org-exfile-store-link-cp (&optional arg)
+  "Copy file/dir to exfile dir and store a link to it."
+  (interactive "P")
+  (let* ((file (expand-file-name (read-file-name "File: ")))
+         (label (completing-read "Target dir label: " (mapcar #'car org-exfile-dirs-alist)))
+         (base-dir (org-exfile-dir label))
+         (target-dir (read-directory-name "Copy destination:" base-dir))
+         (dest-file nil))
+    (case (car arg)
+      (4 (if (file-directory-p file)
+             (call-process-shell-command
+              (format "tar -c -C %s %s | gpg -e --default-recipient-self -o %s"
+                      (file-name-directory (directory-file-name file))
+                      (file-name-nondirectory (directory-file-name file))
+                      (setf dest-file (concat (file-name-as-directory target-dir)
+                                              (file-name-nondirectory (directory-file-name file))
+                                              ".tar.gpg"))))
+           (call-process-shell-command
+            (format "gpg -e --default-recipient-self -o \"%s\" \"%s\""
+                    (setf dest-file (concat (file-name-as-directory target-dir)
+                                            (file-name-nondirectory file)
+                                            ".gpg"))
+                    file))))
+      (t (if (file-directory-p file)
+             (copy-directory file (setf dest-file (concat (file-name-as-directory target-dir)
+                                                          (file-name-nondirectory (directory-file-name file)))))
+           (copy-file file (setf dest-file (concat (file-name-as-directory target-dir)
+                                                   (file-name-nondirectory file)))))))
+    (setq org-stored-links
+          (cons (list (format "exfile:%s:%s" label (file-relative-name dest-file base-dir))
+                      (file-name-nondirectory dest-file))
+                org-stored-links))))
 
 (defun org-exfile-detect-broken-link ()
   )
