@@ -53,21 +53,21 @@ If nil `org-open-file' would be used instead."
 (org-link-set-parameters "exfile"
                          :follow #'org-exfile-open
                          :complete #'org-exfile-complete-link
-                         :export #'org-exfile-export)
+                         :export #'org-exfile-export-link)
 
 (org-link-set-parameters "exfile+emacs"
                          :follow (lambda (path)
                                    (org-exfile-open path 'emacs))
                          :complete (lambda ()
                                      (org-exfile-complete-link nil t))
-                         :export #'org-exfile-export)
+                         :export #'org-exfile-export-link)
 
 (org-link-set-parameters "exfile+sys"
                          :follow (lambda (path)
                                    (org-exfile-open path 'system))
                          :complete (lambda ()
                                      (org-exfile-complete-link nil 'system))
-                         :export #'org-exfile-export)
+                         :export #'org-exfile-export-link)
 
 (defun org-exfile-dir (label)
   "Return directory path associated with `LABEL'."
@@ -79,6 +79,12 @@ If nil `org-open-file' would be used instead."
             nil))
       nil)))
 
+(defun org-exfile-expand-link (link)
+  "docstring"
+  (when (string-match "^\\([^:]+\\):\\(\\(?:.+/\\)*[^/]*\\)$" link)
+    (concat (org-exfile-dir (match-string 1 link))
+            (match-string 2 link))))
+
 (defun org-exfile-open (path &optional in-emacs)
   "Open file described as `PATH' in exfile org link type.
 
@@ -86,20 +92,20 @@ If optional argument `IN-EMACS' is `C-u' or 'emacs, try to open in Emacs.
 If `C-u C-u' or 'system, try to open in external application.
 
 When `org-exfile-org-open-file-custom-function' is set, use it instead of org-open-file."
-  (if-let* ((main-option (split-string path "::"))
-            (label-path (split-string (car main-option) ":"))
-            (abs-path (concat (org-exfile-dir (car label-path))
-                              (cadr label-path))))
-      (let* ((search-option (cadr main-option))
-             (line-search (cond ((not search-option) nil)
-                                ((string-match-p "\\`[0-9]+\\'" search-option)
-                                 (list (string-to-number search-option)))
-                                (t (list nil search-option)))))
-        (apply (or org-exfile-org-open-file-custom-function
-                   #'org-open-file)
-               abs-path
-               in-emacs
-               line-search))))
+  (let ((abs-path (org-exfile-expand-link path))
+        line-search)
+    (cond
+     ((string-match "::\\([0-9]+\\)\\'" abs-path)
+      (setq line-search (list (string-to-number (match-string 1 abs-path))))
+      (setq abs-path (substring abs-path 0 (match-beginning 0))))
+     ((string-match "::\\(.+\\)\\'" abs-path)
+      (setq line-search (list nil (match-string 1 abs-path)))
+      (setq abs-path (substring abs-path 0 (match-beginning 0)))))
+    (apply (or org-exfile-org-open-file-custom-function
+               #'org-open-file)
+           abs-path
+           in-emacs
+           line-search)))
 
 (defun org-exfile-complete-link (&optional arg in-emacs)
   "Create a exfile link using completion"
@@ -146,6 +152,27 @@ When `org-exfile-org-open-file-custom-function' is set, use it instead of org-op
           (cons (list (format "exfile:%s:%s" label (file-relative-name dest-file base-dir))
                       (file-name-nondirectory dest-file))
                 org-stored-links))))
+
+(defun org-exfile-export-link (link description format)
+  "Translate exfile LINK from Org mode format to exported FORMAT.
+Also includes the DESCRIPTION of the link in the export."
+  (save-excursion
+    (let* ((abs-path (org-exfile-expand-link link))
+           desc)
+      (print abs-path)
+      (cond
+       ((string-match "::\\([0-9]+\\)\\'" abs-path)
+        (setq abs-path (substring abs-path 0 (match-beginning 0))))
+       ((string-match "::\\(.+\\)\\'" abs-path)
+        (setq abs-path (substring abs-path 0 (match-beginning 0)))))
+      (setq desc (or description link))
+      (pcase format
+        (`html (format "<a target=\"_blank\" href=\"%s\">%s</a>" abs-path desc))
+        (`latex (format "\\href{%s}{%s}" abs-path desc))
+        (`texinfo (format "@uref{%s,%s}" abs-path desc))
+        (`ascii (format "%s (%s)" desc abs-path))
+        (`md (format "[%s](%s)" desc abs-path))
+        (_ path)))))
 
 (defun org-exfile-detect-broken-link ()
   )
