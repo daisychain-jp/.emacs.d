@@ -84,8 +84,6 @@
       (start-process-shell-command "mpv" nil
                                    (concat (format "mpv --force-window \"%s\" >/dev/null 2>&1;" ex-file)
                                            (if rm-file (format "rm -rf \"%s\"" rm-file) nil))))
-     ((= (call-process-shell-command (format "filetype-cli check --type tarpgp \"%s\"" ex-file)) 0)
-      (start-process-shell-command "mpv" nil (format "nohup orgafile play \"%s\" >/dev/null 2>&1" ex-file)))
      ((or (= (call-process-shell-command (format "filetype-cli check --type pdf \"%s\"" ex-file)) 0)
           (= (call-process-shell-command (format "filetype-cli check --type epub \"%s\"" ex-file)) 0))
       (open-uri-htmlize ex-file))
