@@ -108,6 +108,6 @@
                                    (format "cd ~/Music && youtube-dl \"%s\" -o - | ffmpeg -i - %s -vn \"%s\".mp3"
                                            url
                                            (if (equal '(undecided) (find-coding-systems-string title))
-                                               ""
-                                             "-filter:a \"atempo=1.7\"")
+                                               "-filter:a \"atempo=1.1\""
+                                             "-filter:a \"atempo=1.6\"")
                                            title)))))
