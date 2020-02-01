@@ -84,12 +84,13 @@
 (defun my/elfeed-search-download-video ()
   "Downlaod video file."
   (interactive)
-  (if-let* ((entry (elfeed-search-selected :single))
-            (title (replace-regexp-in-string "[/:|]" "" (elfeed-entry-title entry)))
-            (link (elfeed-entry-link entry))
-            (match-index (string-match "https?://www.youtube.com.+" link))
-            (yt-url (match-string 0 link)))
-      (start-process-shell-command "ytdl" nil (format "cd ~/Videos && youtube-dl -f \"bestvideo[height<=?720]+bestaudio/best\" \"%s\"" yt-url))))
+  (let* ((entry (elfeed-search-selected :single))
+         (title (replace-regexp-in-string "[/:|]" "" (elfeed-entry-title entry)))
+         (link (elfeed-entry-link entry))
+         (match-index (string-match "https?://www.youtube.com.+" link))
+         (yt-url (match-string 0 link)))
+    (princ (format "Donwloading %s" title))
+    (start-process-shell-command "ytdl" nil (format "cd ~/Videos && youtube-dl -f \"bestvideo[height<=?720]+bestaudio/best\" \"%s\"" yt-url))))
 
 (defun my/elfeed-search-download-audio ()
   "Download audio file."
@@ -102,7 +103,7 @@
                    (match-string 0 link)))
          url)
     (when (setq url (or enc-url yt-url))
-      (princ (format "Donwloading from %s" url))
+      (princ (format "Donwloading %s" title))
       (setq title (replace-regexp-in-string "[/:|]" "" title))
       (start-process-shell-command "ytdl" nil
                                    (format "cd ~/Music && youtube-dl \"%s\" -o - | ffmpeg -i - %s -vn \"%s\".mp3"
