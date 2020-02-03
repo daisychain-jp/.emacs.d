@@ -10,3 +10,8 @@
                 ("ym" nil ("ヤマ" . "やま"))
                 ("tga" nil ("タガ" . "たが"))
                 ("vj" nil ("ヴン" . "ぶん")))))
+(add-hook 'skk-azik-load-hook
+          (lambda ()
+            (dolist (key '("kA" "kE" "tU" "wA"))
+              (setq skk-rom-kana-rule-list
+                    (skk-del-alist key skk-rom-kana-rule-list)))))

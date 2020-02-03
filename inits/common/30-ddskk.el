@@ -56,14 +56,6 @@
   ;; jisyo server
   (skk-server-host "localhost")
   (skk-server-portnum nil)
-  :config
-  (require 'skk-autoloads)
-  (add-hook 'skk-azik-load-hook
-            (lambda ()
-              (dolist (key '("kA" "kE" "tU" "wA"))
-                (setq skk-rom-kana-rule-list
-                      (skk-del-alist key skk-rom-kana-rule-list)))))
   ;; study
-  (require 'skk-study)
-  (setf skk-study-file (format "%s/study" skk-data-dir))
-  (setf skk-study-backup-file (format "%s/study.bak" skk-data-dir)))
+  (skk-study-file (format "%s/study" skk-data-dir))
+  (skk-study-backup-file (format "%s/study.bak" skk-data-dir)))
