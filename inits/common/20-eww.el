@@ -137,7 +137,7 @@ ARGS will be passed to the original function."
 
 If associated HTML file have a title tag, use title as a buffer name.
 Otherwise, use a current URL."
-  (let ((title (dom-attr (car (dom-by-tag (eww-headings-dom) 'headings)) 'title))
+  (let ((title (plist-get eww-data :title))
         (url (file-name-base (eww-current-url))))
     (rename-buffer (format "eww %s" (or title url "")) t)))
 
