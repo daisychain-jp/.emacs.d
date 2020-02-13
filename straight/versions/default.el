@@ -61,7 +61,7 @@
  ("migemo" . "e4744efae1b2fdea2bbd2ceaff0f6ea0bb739f5a")
  ("mu4e-alert" . "96a293b28646f4620e257f24748becc4a06843cd")
  ("open-junk-file" . "558bec7372b0fed4c4cb6074ab906535fae615bd")
- ("org" . "e9526b5a79e64f9d333693bed4ec96acf4c0f1cb")
+ ("org" . "855f5fda76b3c9d7ab78ab536a80adfed07d5a79")
  ("org-clock-convenience" . "7d14699a15ad6c5b9a63246a11188c77f8800e94")
  ("org-clock-split" . "b2f1497b62e7f4a767be02e249e4ac95d4f8f21c")
  ("org-ql" . "538373bb481cf82f3b373184da65cf051d6064e8")
