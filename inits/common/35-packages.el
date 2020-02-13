@@ -71,3 +71,10 @@
 
 (use-package free-keys
   :straight t)
+
+(use-package company
+  :straight t
+  :bind (:map company-active-map
+              ("C-j" . company-complete-selection)
+              ("C-n" . company-select-next)
+              ("C-p" . company-select-previous)))
