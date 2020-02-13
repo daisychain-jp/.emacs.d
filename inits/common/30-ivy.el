@@ -75,7 +75,7 @@
     ("sg" counsel-grep-or-swiper)
     ("si" counsel-git-grep)
     ("q" nil "quit"))
-  (defhydra hydra-hint (global-map "C-c h"
+  (defhydra hydra-help (global-map "M-h"
                                    :color teal)
     "Hint"
     ("a" counsel-apropos)
