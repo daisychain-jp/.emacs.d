@@ -49,6 +49,7 @@
              ("C-c \\"   . org-match-sparse-tree-indirect-buffer)
              ("C-c C-a" . nil)
              ("C-,"     . nil)
+             ("M-h"     . nil)
              ("C-x C-a s" . org-afile-store)
              ("C-x C-a d" . org-afile-delete)
              :map org-agenda-mode-map
@@ -170,7 +171,6 @@ If 'ARG' is passed, shred afile instead delete."
           ("Q" org-clock-cancel)
           ("/" org-sparse-tree-indirect-buffer)
           ("m" org-match-sparse-tree-indirect-buffer)
-          ("z" org-narrow-to-element-indirect-buffer)
           ("!" org-readable)
           ("M" org-mail-entry)
           ("k" nil)
@@ -181,6 +181,8 @@ If 'ARG' is passed, shred afile instead delete."
           ("T" counsel-org-tag)
           ("P" call-interactively 'org-set-property)
           ("s" call-interactively 'org-schedule)
+          ("z" org-narrow-to-element-indirect-buffer)
+          ("Z" widen)
           ("d" call-interactively 'org-deadline)))
 
   ;; basic
