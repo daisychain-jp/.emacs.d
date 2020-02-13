@@ -139,7 +139,7 @@ If associated HTML file have a title tag, use title as a buffer name.
 Otherwise, use a current URL."
   (let ((title (plist-get eww-data :title))
         (url (file-name-base (eww-current-url))))
-    (rename-buffer (format "eww %s" (or title url "")) t)))
+    (rename-buffer (format "eww: %s" (or title url "")) t)))
 
 (defun eww-goto-title-heading ()
   "Set point to a line which contaings the possible heading."

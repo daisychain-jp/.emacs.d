@@ -52,6 +52,29 @@
         (alert msg :buffer buffer :severity  'normal)
       (alert msg :buffer buffer :severity 'urgent))))
 
+(defun eshell-switcher (&optional arg)
+  "Switch to eshell buffer if some exists.
+If C-u prefix is passed as `ARG`, new eshell buffer will be created forcibly."
+  (interactive "P")
+  (let* ((buffers (cl-remove-if-not (lambda (buf)
+                                      (eq (buffer-local-value 'major-mode buf)
+                                          'eshell-mode))
+                                    (buffer-list)))
+         (num-buffers (length buffers))
+         (in-eshellp (eq major-mode 'eshell-mode))
+         (buf-names (mapcar (lambda (buf)
+                              (buffer-name buf))
+                            buffers)))
+    (cond
+     ((or (eq num-buffers 0)
+          (equal arg '(4)))
+      (eshell t)
+      (rename-buffer (concat "eshell: "
+                             (eval (read-string "Eshell buffer name: " nil nil "general")))
+                     t))
+     (t
+      (princ (switch-to-buffer (completing-read "eshell buffer: " buf-names)))))))
+
 (use-package tramp
   :defer t
   :config
