@@ -82,7 +82,7 @@
      ((or (= (call-process-shell-command (format "filetype-cli check --type playable \"%s\"" ex-file)) 0)
           (string-suffix-p ".m3u" ex-file))
       (start-process-shell-command "mpv" nil
-                                   (concat (format "mpv --force-window \"%s\" >/dev/null 2>&1;" ex-file)
+                                   (concat (format "nohup mpv --force-window \"%s\" >/dev/null 2>&1;" ex-file)
                                            (if rm-file (format "rm -rf \"%s\"" rm-file) nil))))
      ((or (= (call-process-shell-command (format "filetype-cli check --type pdf \"%s\"" ex-file)) 0)
           (= (call-process-shell-command (format "filetype-cli check --type epub \"%s\"" ex-file)) 0))
