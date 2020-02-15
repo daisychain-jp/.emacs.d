@@ -445,7 +445,9 @@ The sparse tree is according to tags string MATCH."
   (interactive)
   (let ((heading (org-get-heading t t t t))
         (org-export-show-temporary-export-buffer nil)
-        (export-buf-name "*Org ASCII Export*"))
+        (export-buf-name "*Org ASCII Export*")
+        (org-export-with-toc nil)
+        (org-export-with-author nil))
     (org-ascii-export-as-ascii nil t nil)
     (mail-simple-send heading
                       (with-current-buffer export-buf-name
