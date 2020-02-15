@@ -52,28 +52,33 @@
         (alert msg :buffer buffer :severity  'normal)
       (alert msg :buffer buffer :severity 'urgent))))
 
-(defun eshell-switcher (&optional arg)
-  "Switch to eshell buffer if some exists.
-If C-u prefix is passed as `ARG`, new eshell buffer will be created forcibly."
+(defun shell-switcher (&optional arg)
+  "Switch to specified shell/eshell buffer.
+If C-u prefix is passed, new shell/eshell buffer will be created forcibly along with entered suffix."
   (interactive "P")
   (let* ((buffers (cl-remove-if-not (lambda (buf)
-                                      (eq (buffer-local-value 'major-mode buf)
-                                          'eshell-mode))
+                                      (member (buffer-local-value 'major-mode buf)
+                                              '(shell-mode eshell-mode)))
                                     (buffer-list)))
          (num-buffers (length buffers))
-         (in-eshellp (eq major-mode 'eshell-mode))
          (buf-names (mapcar (lambda (buf)
                               (buffer-name buf))
                             buffers)))
     (cond
      ((or (eq num-buffers 0)
           (equal arg '(4)))
-      (eshell t)
-      (rename-buffer (concat "eshell: "
-                             (eval (read-string "Eshell buffer name: " nil nil "general")))
-                     t))
+      (let ((mode (completing-read "select mode: " '("shell" "eshell"))))
+        (cond
+         ((string= mode "shell")
+          (shell (concat "shell: "
+                         (eval (read-string "Shell buffer name: " nil nil "general")))))
+         ((string= mode "eshell")
+          (eshell t)
+          (rename-buffer (concat "eshell: "
+                                 (eval (read-string "Eshell buffer name: " nil nil "general")))
+                         t)))))
      (t
-      (princ (switch-to-buffer (completing-read "eshell buffer: " buf-names)))))))
+      (switch-to-buffer (completing-read "buffer name: " buf-names))))))
 
 (use-package tramp
   :defer t

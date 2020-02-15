@@ -109,7 +109,8 @@
     "Launch"
     ("t" ansi-term)
     ("s" shell)
-    ("e" (eshell-switcher current-prefix-arg))
+    ("e" (eshell t))
+    ("S" (shell-switcher current-prefix-arg))
     ("d" dired-jump)
     ("@" twit)
     ("v" magit-status)
