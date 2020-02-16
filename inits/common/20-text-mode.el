@@ -3,7 +3,7 @@
   :delight " TX"
   :hook (text-mode . (lambda ()
                        (buffer-face-set 'visible)
-                       (setq-local truncate-lines t)))
+                       (setq-local truncate-lines nil)))
   :bind (:map text-mode-map
               ("C-M-m" . text-lazy-control)))
 

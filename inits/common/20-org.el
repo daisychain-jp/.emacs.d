@@ -196,7 +196,8 @@ If 'ARG' is passed, shred afile instead delete."
             (lambda ()
               (whitespace-mode 1)
               (buffer-face-set 'outline)
-              (setq-local line-spacing 0.1)))
+              (setq-local line-spacing 0.1)
+              (setq-local truncate-lines t)))
   (add-hook 'org-agenda-mode-hook
             (lambda ()
               (buffer-face-set 'outline)
