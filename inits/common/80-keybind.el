@@ -108,9 +108,9 @@
                                        :color blue)
     "Launch"
     ("t" ansi-term)
-    ("s" shell)
+    ("s" (shell-switcher current-prefix-arg))
+    ("S" shell)
     ("e" (eshell t))
-    ("S" (shell-switcher current-prefix-arg))
     ("d" dired-jump)
     ("@" twit)
     ("v" magit-status)
