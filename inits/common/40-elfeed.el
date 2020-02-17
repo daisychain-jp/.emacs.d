@@ -4,25 +4,27 @@
   (elfeed-show-mode   " EF")
   (elfeed-search-mode " EF")
   :commands (elfeed)
+  :hook
+  (elfeed-search-update . (lambda ()
+                            (buffer-face-set 'visible)
+                            (setq-local line-spacing 0.1)))
   :custom
   (elfeed-db-directory (concat env-var-dir "/lib/elfeed/db"))
-  (elfeed-search-date-format '("%m%d" 4 :left))
-  (elfeed-search-title-min-width 34)
-  (elfeed-search-trailing-width 16)
+  (elfeed-search-date-format '("%y%m%d" 6 :left))
+  (elfeed-search-title-min-width 100)
+  (elfeed-search-title-max-width 120)
+  (elfeed-search-trailing-width 160)
   (elfeed-show-refresh-function
    (lambda ()
      (interactive)
      (buffer-face-set 'variable-pitch)
      (elfeed-show-refresh--mail-style)))
-  (elfeed-search-header-function
-   (lambda ()
-     (interactive)
-     (buffer-face-set 'visible)
-     (setq-local line-spacing 0.1)))
   (elfeed-sort-order 'ascending)
   (elfeed-enclosure-default-dir "~/Downloads/")
   (elfeed-save-multiple-enclosures-without-asking t)
   :config
+  (setf elfeed-search-print-entry-function
+        'my/elfeed-search-print-entry)
   (defalias 'elfeed-search-tag-all-unchecked
     (elfeed-expose #'elfeed-search-tag-all 'unchecked)
     "Add the `unchecked' tag to all selected entries.")
@@ -80,6 +82,34 @@
   (rmh-elfeed-org-auto-ignore-invalid-feeds t)
   :config
   (elfeed-org))
+
+(defun my/elfeed-search-print-entry (entry)
+  "Print ENTRY to the buffer with my style."
+  (let* ((date (elfeed-search-format-date (elfeed-entry-date entry)))
+         (title (or (elfeed-meta entry :title) (elfeed-entry-title entry) ""))
+         (title-faces (elfeed-search--faces (elfeed-entry-tags entry)))
+         (feed (elfeed-entry-feed entry))
+         (feed-title
+          (when feed
+            (or (elfeed-meta feed :title) (elfeed-feed-title feed))))
+         (tags (mapcar #'symbol-name (elfeed-entry-tags entry)))
+         (tags-str (mapconcat
+                    (lambda (s) (propertize s 'face 'elfeed-search-tag-face))
+                    tags ","))
+         (title-width (- (window-width) 10 elfeed-search-trailing-width))
+         (title-column (elfeed-format-column
+                        title (elfeed-clamp
+                               elfeed-search-title-min-width
+                               title-width
+                               elfeed-search-title-max-width)
+                        :left)))
+    (when feed-title
+      (insert (propertize (elfeed-format-column feed-title 4 :left)
+                          'face 'elfeed-search-feed-face) " "))
+    (insert (propertize title-column 'face title-faces 'kbd-help title) " ")
+    (insert (propertize date 'face 'elfeed-search-date-face) " ")
+    (when tags
+      (insert "(" tags-str ")"))))
 
 (defun my/elfeed-search-download-video ()
   "Downlaod video file."
