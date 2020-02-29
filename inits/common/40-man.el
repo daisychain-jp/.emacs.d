@@ -7,3 +7,6 @@
                       (buffer-face-set 'visible)
                       (visual-line-mode 1)
                       (adaptive-wrap-prefix-mode 1))))
+
+(use-package woman
+  :delight " WM")
