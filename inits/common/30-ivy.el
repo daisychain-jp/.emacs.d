@@ -54,6 +54,7 @@
    ("TAB" . counsel-down-directory)
    ("M-y" . ivy-next-line))
   :config
+  (add-to-list 'counsel-linux-apps-directories "~/Desktop")
   (require 'avy-migemo-e.g.counsel)
   (bind-keys :map hydra-base-map
              ("C-d" . counsel-hydra-heads))
