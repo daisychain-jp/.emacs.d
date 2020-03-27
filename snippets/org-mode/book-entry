@@ -1,6 +1,9 @@
 # key: book
 # name: book-entry
 # --
-* ${1:title}
-  ADDED: `(format-time-string "[%Y-%m-%d %a]")`
-  - [[afile:ebook/][EPUB]]$0
+* ${1:title} :at_book:ac_read:
+:PROPERTIES:
+:BOOK_AUTHOR: ${2:author}
+:END:
+ADDED: `(format-time-string "[%Y-%m-%d %a]")`
+$0
