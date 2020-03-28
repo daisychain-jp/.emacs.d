@@ -108,7 +108,7 @@
                                        :color blue)
     "Launch"
     ("t" ansi-term)
-    ("s" (shell-switcher current-prefix-arg))
+    ("s" shell-switcher)
     ("S" shell)
     ("e" (eshell t))
     ("d" dired-jump)
