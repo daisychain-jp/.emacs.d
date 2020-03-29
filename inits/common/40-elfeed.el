@@ -131,16 +131,16 @@
          (enc-url (caar (elfeed-entry-enclosures entry)))
          (yt-url (when (string-match "https?://www\\.youtube\\.com.+" link)
                    (match-string 0 link)))
-         url
          (work-dir "~/Music/")
          (temp-fname (make-temp-name work-dir)))
-    (when (setq url (or enc-url yt-url))
+    (when (or enc-url yt-url)
       (princ (format "Donwloading %s" title))
-      (setq title (replace-regexp-in-string "[/:|]" "" title))
+      (setq title (replace-regexp-in-string "[/:|’]" "" title))
       (start-process-shell-command "ytdl" nil
-                                   (format "youtube-dl \"%s\" -o %s; cd %s && ffmpeg -i %s %s -vn \"%s.mp3\"; rm -f %s"
-                                           url
-                                           temp-fname
+                                   (format "%s; cd %s && ffmpeg -i %s %s -vn \"%s.mp3\"; rm -f %s"
+                                           (if enc-url
+                                               (format "curl -LJs \"%s\" -o %s" enc-url temp-fname)
+                                             (format "youtube-dl \"%s\" -f worst -o %s" yt-url temp-fname))
                                            work-dir
                                            temp-fname
                                            (if (equal '(undecided) (find-coding-systems-string title))
