@@ -6,9 +6,16 @@
   :config
   (global-hungry-delete-mode 1))
 
-;; invoke up/downcase-region without any inquiry
+(bind-keys :map global-map
+           ("M-u" . upcase-dwim)
+           ("M-l" . downcase-dwim)
+           ("M-c" . capitalize-dwim))
+
+;; suppress inquiry in up/downcase-region
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
+
 ;; prevent from executing save-buffers-kill-emacs by mistake
 (unbind-key "C-x C-c")
-(global-set-key (kbd "C-x C-c") 'capitalize-region)
+(unbind-key "C-x C-u")
+(unbind-key "C-x C-l")
