@@ -145,6 +145,6 @@
                                            temp-fname
                                            (if (equal '(undecided) (find-coding-systems-string title))
                                                "-filter:a \"atempo=1.1\""
-                                             "-filter:a \"atempo=1.6\"")
+                                             "-filter:a \"atempo=1.7\"")
                                            title
                                            temp-fname)))))
