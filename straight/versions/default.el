@@ -64,7 +64,7 @@
  ("org" . "855f5fda76b3c9d7ab78ab536a80adfed07d5a79")
  ("org-clock-convenience" . "7d14699a15ad6c5b9a63246a11188c77f8800e94")
  ("org-clock-split" . "b2f1497b62e7f4a767be02e249e4ac95d4f8f21c")
- ("org-ql" . "538373bb481cf82f3b373184da65cf051d6064e8")
+ ("org-ql" . "f4d7399e677904cdc7e220440610704e4bd668bc")
  ("org-reveal" . "1cdd088ec5fab631c564dca7f9f74fd3e9b7d4d4")
  ("org-super-agenda" . "cd0d78cdd5cbdd678f002e2367c4b02b644f700e")
  ("org-web-tools" . "65c118a3614e75a4fda47248f44f120a20c15738")
@@ -106,5 +106,5 @@
  ("with-editor" . "3e6424764ee06fb50c580283baea3851c6f9ea66")
  ("yaml-mode" . "40067a10ac1360f0b9533f0bbbb2eea128e2574d")
  ("yasnippet" . "3bf9a3b1af37174a004798b7195826af0123fa6a")
- ("yasnippet-snippets" . "e813c1479a9fb2773d95ddba39c4aa0e7a1c33c5"))
+ ("yasnippet-snippets" . "d39c424fa846fdadb41cca530817cd54c9435f6b"))
 :pluto
