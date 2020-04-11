@@ -2,7 +2,6 @@
 (setq org-deadline-warning-days 60)
 (setq org-agenda-skip-deadline-if-done t)
 (setq org-agenda-include-diary t)
-(setq org-agenda-skip-archived-trees nil)
 (setq org-scheduled-past-days 30)
 (defvar org-agenda-files-record
   (append (sort (file-expand-wildcards (format "%s/record/*_record.org" env-doc-dir)) 'string<)
@@ -154,8 +153,7 @@
                                      (scheduled :to today)
                                      (not (tags-inherited "ARCHIVE")))
                                ((org-ql-block-header "HABIT items scheduled today"))))
-         ((org-agenda-skip-archived-trees t)
-          (org-agenda-sorting-strategy '(scheduled-up))))
+         ((org-agenda-sorting-strategy '(scheduled-up))))
         ("H" "All Repeated Tasks" tags "CATEGORY=\"Repeated\"+LEVEL=>2+{ac_.+}")
         ("g" "aggregated task list"
          ((tags "SCHEDULED<=\"<today>\"|DEADLINE<=\"<today>\"")
