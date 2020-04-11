@@ -450,7 +450,7 @@ The sparse tree is according to tags string MATCH."
         (org-export-with-toc nil)
         (org-export-with-author nil))
     (org-ascii-export-as-ascii nil t nil)
-    (mail-simple-send heading
+    (mail-simple-send "takayuki.inamori@zoho.com" heading
                       (with-current-buffer export-buf-name
                         (buffer-string)))
     (kill-buffer export-buf-name)))
