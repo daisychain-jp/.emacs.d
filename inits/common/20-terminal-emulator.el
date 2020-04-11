@@ -52,35 +52,43 @@
         (alert msg :buffer buffer :severity  'normal)
       (alert msg :buffer buffer :severity 'urgent))))
 
-(defun shell-switcher (buffer-name &optional force-create eshell-mode default-dir)
-  "Switch to shell buffer named BUFFER-NAME.
+(defun shell-switcher (shell-buf-name &optional force-create eshell-mode default-dir)
+  "Switch to shell buffer named SHELL-BUF-NAME.
 
 If optional argument FORCE-CREATE is non-nil,
  create shell buffer rather than switching.
 If optional argument ESHELL-MODE is non-nil,
  use eshell mode instead of shell mode.
 If optional argument DEFAULT-DIR is string, change directory to there at first."
-  (interactive (let* ((buffer-name-select (read-buffer "Buffer name: " nil nil
-                                                       (lambda (cand) (if (member (buffer-local-value 'major-mode (cdr cand))
-                                                                                  '(shell-mode eshell-mode))
-                                                                          t nil))))
-                      (force-create-select (not (member buffer-name-select (mapcar (lambda (buf) (buffer-name buf))
-                                                                                   (buffer-list)))))
+  (interactive (let* ((shell-buf-name-select (read-buffer "Buffer name: " nil nil
+                                                          (lambda (cand) (if (member (buffer-local-value 'major-mode (cdr cand))
+                                                                                     '(shell-mode eshell-mode))
+                                                                             t nil))))
+                      (force-create-select (not (member shell-buf-name-select (mapcar (lambda (buf) (buffer-name buf))
+                                                                                      (buffer-list)))))
                       (eshell-mode-select (if force-create-select
-                                              (read-char-choice "Use shell rather than eshell? (y or n): " '(?y ?n))
+                                              (read-char-choice "Use shell rather than eshell? (y(s) or n(e)): " '(?y ?s ?n ?e))
                                             ?y)))
-                 (list buffer-name-select force-create-select (char-equal ?n eshell-mode-select) nil)))
-  (if force-create
-      (let ((default-directory (or default-dir (buffer-local-value 'default-directory (current-buffer)))))
-        (if eshell-mode
-            (progn
-              (eshell t)
-              (rename-buffer buffer-name t))
-          (shell buffer-name)))
-    (when (member buffer-name
-                  (mapcar (lambda (buf) (buffer-name buf))
-                          (buffer-list)))
-      (switch-to-buffer buffer-name))))
+                 (list shell-buf-name-select
+                       force-create-select
+                       (or (char-equal ?n eshell-mode-select)
+                           (char-equal ?e eshell-mode-select))
+                       nil)))
+  (let ((real-buf-name (if (or (not (string-prefix-p "*" shell-buf-name))
+                               (not (string-suffix-p "*" shell-buf-name)))
+                           (format "*%s*" shell-buf-name)
+                         shell-buf-name)))
+    (if force-create
+        (let ((default-directory (or default-dir (buffer-local-value 'default-directory (current-buffer)))))
+          (if eshell-mode
+              (progn
+                (eshell t)
+                (rename-buffer real-buf-name t))
+            (shell real-buf-name)))
+      (when (member real-buf-name
+                    (mapcar (lambda (buf) (buffer-name buf))
+                            (buffer-list)))
+        (switch-to-buffer real-buf-name)))))
 
 (use-package tramp
   :defer t
