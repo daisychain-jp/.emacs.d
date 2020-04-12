@@ -60,10 +60,14 @@ If optional argument FORCE-CREATE is non-nil,
 If optional argument ESHELL-MODE is non-nil,
  use eshell mode instead of shell mode.
 If optional argument DEFAULT-DIR is string, change directory to there at first."
-  (interactive (let* ((shell-buf-name-select (read-buffer "Buffer name: " nil nil
-                                                          (lambda (cand) (if (member (buffer-local-value 'major-mode (cdr cand))
-                                                                                     '(shell-mode eshell-mode))
-                                                                             t nil))))
+  (interactive (let* ((shell-buf-name-select-tmp (read-buffer "Buffer name: " nil nil
+                                                              (lambda (cand) (if (member (buffer-local-value 'major-mode (cdr cand))
+                                                                                         '(shell-mode eshell-mode))
+                                                                                 t nil))))
+                      (shell-buf-name-select (if (or (not (string-prefix-p "*" shell-buf-name-select-tmp))
+                                                     (not (string-suffix-p "*" shell-buf-name-select-tmp)))
+                                                 (format "*%s*" shell-buf-name-select-tmp)
+                                               shell-buf-name-select-tmp))
                       (force-create-select (not (member shell-buf-name-select (mapcar (lambda (buf) (buffer-name buf))
                                                                                       (buffer-list)))))
                       (eshell-mode-select (if force-create-select
@@ -74,21 +78,17 @@ If optional argument DEFAULT-DIR is string, change directory to there at first."
                        (or (char-equal ?n eshell-mode-select)
                            (char-equal ?e eshell-mode-select))
                        nil)))
-  (let ((real-buf-name (if (or (not (string-prefix-p "*" shell-buf-name))
-                               (not (string-suffix-p "*" shell-buf-name)))
-                           (format "*%s*" shell-buf-name)
-                         shell-buf-name)))
-    (if force-create
-        (let ((default-directory (or default-dir (buffer-local-value 'default-directory (current-buffer)))))
-          (if eshell-mode
-              (progn
-                (eshell t)
-                (rename-buffer real-buf-name t))
-            (shell real-buf-name)))
-      (when (member real-buf-name
-                    (mapcar (lambda (buf) (buffer-name buf))
-                            (buffer-list)))
-        (switch-to-buffer real-buf-name)))))
+  (if force-create
+      (let ((default-directory (or default-dir (buffer-local-value 'default-directory (current-buffer)))))
+        (if eshell-mode
+            (progn
+              (eshell t)
+              (rename-buffer shell-buf-name t))
+          (shell shell-buf-name)))
+    (when (member shell-buf-name
+                  (mapcar (lambda (buf) (buffer-name buf))
+                          (buffer-list)))
+      (switch-to-buffer shell-buf-name))))
 
 (use-package tramp
   :defer t
