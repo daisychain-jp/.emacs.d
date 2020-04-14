@@ -5,6 +5,9 @@
                   :mode   'eshell-mode
                   :style  'fringe)
   (alert-add-rule :status '(buried)
+                  :mode   'dired-mode
+                  :style  'fringe)
+  (alert-add-rule :status '(buried)
                   :mode   'org-mode
                   :style  'libnotify))
 
