@@ -422,24 +422,22 @@ The sparse tree is according to tags string MATCH."
   "Directory where all html file for org-readable is located.")
 
 (defun org-readable ()
-  "View the main readable of current org subtree in EWW."
+  "Show current org subtree in EWW."
   (interactive)
-  (org-copy-subtree)
-  (save-excursion
-    (with-temp-buffer
-      (org-paste-subtree)
-      (let ((org-export-with-author nil)
-            (org-export-show-temporary-export-buffer nil)
-            (org-export-with-broken-links t))
-        (org-html-export-as-html nil t)))
-    (let* ((id (org-id-get))
-           (uuid (downcase (if id id (org-id-uuid))))
-           (org-export-buffer-name "*Org HTML Export*")
-           (org-readable-file (format "%s/%s.html" org-readable-directory uuid)))
-      (with-current-buffer org-export-buffer-name
-        (write-file org-readable-file)
-        (eww-open-file org-readable-file)
-        (kill-buffer (format "%s.html" uuid))))))
+  (let* ((heading (org-get-heading t t t t))
+         (org-export-show-temporary-export-buffer nil)
+         (export-buf-name "*Org HTML Export*")
+         (org-export-with-toc nil)
+         (org-export-with-author nil)
+         (org-export-with-broken-links 'mark)
+         (id (org-id-get))
+         (uuid (downcase (if id id (org-id-uuid))))
+         (org-readable-file (format "%s/%s.html" org-readable-directory uuid)))
+    (org-html-export-as-html nil t nil)
+    (with-current-buffer export-buf-name
+      (write-file org-readable-file)
+      (eww-open-file org-readable-file))
+    (kill-buffer export-buf-name)))
 
 (defun org-mail-entry ()
   "Send a mail with current org entry."
