@@ -213,7 +213,7 @@ go to today's entry in record file."
          "* TD %?\n  ADDED: %U\n")
         ("p" "Project"
          entry (id "adcd63ea-f81a-4909-b659-6e5794052fcc")
-         "* %? :project:\n  ADDED: %U\n  - [ ] insert REF_ID property if necessary"
+         "* %? [/] :project:\n  ADDED: %U\n  - [ ] insert PRJ_ID property if necessary"
          :prepend t :jump-to-captured t)
         ("m" "Memo"
          entry (file+datetree ,org-record-file)

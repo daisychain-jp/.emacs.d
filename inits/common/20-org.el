@@ -255,6 +255,14 @@ If 'ARG' is passed, shred afile instead delete."
                               (string= todo-state "DN")
                               (not (string= style "habit")))
                      (org-todo ""))))))
+  (add-hook 'org-after-todo-statistics-hook
+            (lambda (n-done n-not-done)
+              "Switch project entry to DONE when all subentries are done, to empty otherwise."
+              (when (member "project" (org-get-tags))
+                (org-todo (if (= n-not-done 0)
+                              (prog1 "DN"
+                                (org-add-planning-info 'closed "now"))
+                            "")))))
 
   ;; clock
   (setq org-clock-into-drawer "CLOCKLOG")
