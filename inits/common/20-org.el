@@ -237,7 +237,6 @@ If 'ARG' is passed, shred afile instead delete."
           ("PD" . ((org-todo    (:foreground "sea green"))))))
   (add-hook  'org-after-todo-state-change-hook
              (lambda ()
-               (interactive)
                (save-excursion
                  (org-back-to-heading t)
                  (let* ((element (org-element-at-point))
@@ -245,7 +244,7 @@ If 'ARG' is passed, shred afile instead delete."
                         (priority (org-element-property :priority element))
                         (category (org-entry-get (point) "CATEGORY"))
                         (style (org-entry-get (point) "STYLE")))
-                   ;; remove priority when the todo state moves to DN|CX|PD
+                   ;; remove priority level when the to-do state is changed to DN|CX|PD
                    (when (and
                           (s-matches? "DN\\|CX\\|PD" todo-state)
                           (bound-and-true-p priority))
