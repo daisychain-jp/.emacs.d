@@ -140,7 +140,7 @@
                                    (format "%s; cd %s && ffmpeg -i %s %s -vn \"%s.mp3\"; rm -f %s"
                                            (if enc-url
                                                (format "curl -LJs \"%s\" -o %s" enc-url temp-fname)
-                                             (format "youtube-dl \"%s\" -f worst -o %s" yt-url temp-fname))
+                                             (format "youtube-dl --extract-audio --audio-format mp3 \"%1$s\" -o %2$s.mp3; mv -f %2$s.mp3 %2$s" yt-url temp-fname))
                                            work-dir
                                            temp-fname
                                            (if (equal '(undecided) (find-coding-systems-string title))
