@@ -10,7 +10,11 @@ If optional argument 'YEAR passed, a file which contains the year's tree is used
         record-file
       nil)))
 (defvar org-record-file (org-record-file))
-(defun org-record-find-location (date)
+(defvar org-record-files
+  (append (sort (file-expand-wildcards (format "%s/record/*_record.org" env-doc-dir)) 'string<)
+          org-agenda-files-default)
+  "agenda files plus record files")
+(defun org-record-find-date (date)
   "Find the location of DATE in record file.
 
 If this called interactively, find today's entry of the datetree."
@@ -35,5 +39,5 @@ If this called interactively, find today's entry of the datetree."
   (interactive)
   (org-agenda-archive-with 'org-record-subtree))
 (bind-keys :map org-agenda-mode-map
-           ("$" . org-agenda-record-subtree) ;
+           ("$" . org-agenda-record-subtree)
            ("&" . org-agenda-ref-id-tieup-tree))

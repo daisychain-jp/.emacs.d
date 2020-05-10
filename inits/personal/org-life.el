@@ -3,45 +3,41 @@
 (setq org-agenda-skip-deadline-if-done t)
 (setq org-agenda-include-diary t)
 (setq org-scheduled-past-days 30)
-(defvar org-agenda-files-record
-  (append (sort (file-expand-wildcards (format "%s/record/*_record.org" env-doc-dir)) 'string<)
-          org-agenda-files-default)
-  "agenda files plus record files")
 (setq org-agenda-custom-commands
       '(("r" . "Search for all record files")
         ("rs" "Entries containing search words entry or headline."
          search ""
-         ((org-agenda-files org-agenda-files-record)
+         ((org-agenda-files org-record-files)
           (org-agenda-sorting-strategy '(time-down))))
         ("rm" "Match a TAGS/PROP/TODO query in record file"
          tags ""
-         ((org-agenda-files org-agenda-files-record)
+         ((org-agenda-files org-record-files)
           (org-agenda-sorting-strategy '(time-down))))
         ("s" . "Someday entries")
         ("sa" "SOMEDAY items"
          ((org-ql-search-block '(todo "SD")
                                ((org-ql-block-header "SOMEDAY items"))))
-         ((org-agenda-files org-agenda-files-record)))
+         ((org-agenda-files org-record-files)))
         ("sr" "SOMEDAY items with ac_read"
          ((org-ql-search-block '(and (todo "SD")
                                      (tags "ac_read"))
                                ((org-ql-block-header "SOMEDAY items with ac_read"))))
-         ((org-agenda-files org-agenda-files-record)))
+         ((org-agenda-files org-record-files)))
         ("sc" "SOMEDAY items with ac_cook"
          ((org-ql-search-block '(and (todo "SD")
                                      (tags "ac_cook"))
                                ((org-ql-block-header "SOMEDAY items with ac_cook"))))
-         ((org-agenda-files org-agenda-files-record)))
+         ((org-agenda-files org-record-files)))
         ("sp" "SOMEDAY items with ac_purchase"
          ((org-ql-search-block '(and (todo "SD")
                                      (tags "ac_purchase"))
                                ((org-ql-block-header "SOMEDAY items with ac_purchase"))))
-         ((org-agenda-files org-agenda-files-record)))
+         ((org-agenda-files org-record-files)))
         ("sm" "SOMEDAY items with ac_make"
          ((org-ql-search-block '(and (todo "SD")
                                      (tags "ac_make"))
                                ((org-ql-block-header "SOMEDAY items with ac_make"))))
-         ((org-agenda-files org-agenda-files-record)))
+         ((org-agenda-files org-record-files)))
         ("b" "tag match for current Buffer"
          tags ""
          ((org-agenda-files `(,buffer-file-name))))
@@ -204,7 +200,7 @@ go to today's entry in record file."
          "* TD %?\n  ADDED: %U\n")
         ("p" "Project"
          entry (id "adcd63ea-f81a-4909-b659-6e5794052fcc")
-         "* %? [/] :project:\n  ADDED: %U\n  - [ ] insert PRJ_ID property if necessary"
+         "* %? [/] :project:\n  ADDED: %U\n  - [ ] insert ID property if necessary"
          :prepend t :jump-to-captured t)
         ("m" "Memo"
          entry (file+datetree ,org-record-file)
@@ -240,7 +236,7 @@ go to today's entry in record file."
          "* %i :drill:\n  [%?]")
         ("De" "English drill entry in currently clocking or today's entry."
          entry (function org-goto-clocking-or-today)
-         "* %i :drill:fd_eng:\n[%?]")
+         "* %i :drill:fd_eng:\n[%^C%?]\n- %a")
         ("M" "Memo to the clocked"
          item (clock)
          "- %i%?")
@@ -323,13 +319,13 @@ If region is active, use the word in region for matching instead."
   (interactive)
   (let ((id (org-id-get)))
     (when id
-      (org-ql-search org-agenda-files-record `(property ,org-project-property ,id)))))
+      (org-ql-search org-record-files `(property ,org-project-property ,id)))))
 (defun org-project-lookup-siblings ()
   "Show all sibling tasks in same project."
   (interactive)
   (let ((prj-id (org-entry-get (point) org-project-property)))
     (when prj-id
-      (org-ql-search org-agenda-files-record `(property ,org-project-property ,prj-id)))))
+      (org-ql-search org-record-files `(property ,org-project-property ,prj-id)))))
 (defun org-project-correlate-parent-child ()
   "Make parent-child relationship.
 Children's `org-project-property' will be parent's ID.

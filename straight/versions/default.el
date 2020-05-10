@@ -45,7 +45,7 @@
  ("ggtags" . "669676461c74ffd30b81dce60cf4f081270f2858")
  ("gntp.el" . "767571135e2c0985944017dc59b0be79af222ef5")
  ("gnu-elpa-mirror" . "01001b660cd3677228e25a6f544d579b56845c37")
- ("google-translate" . "dc118de511c433750d4c98b9dd67350118c04fd6")
+ ("google-translate" . "3a4d9cc35e799acf2f36d66eb477e59fbbb3c485")
  ("helm" . "f4e0168b281e127b8ace87e5fc28cac4116d893d")
  ("ht.el" . "5a665d00dc8fda77bad2a43277d8809c23e46ab8")
  ("hungry-delete" . "0434458d3f6b2b585f332271feaa054bf4ec96d7")

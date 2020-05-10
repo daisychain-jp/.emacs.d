@@ -1,5 +1,6 @@
 (use-package google-translate
-  :straight t
+  :straight (:host github :repo "dalanicolai/google-translate"
+                   :branch "master")
   :init
   (require 'google-translate-smooth-ui))
 

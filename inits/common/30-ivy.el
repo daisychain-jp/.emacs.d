@@ -15,6 +15,7 @@
   (ivy-mode 1)
   (setf ivy-re-builders-alist
         '((t . ivy--regex-plus)))
+  (map-put ivy-initial-inputs-alist 'counsel-org-capture "")
   (require 'avy-migemo-e.g.ivy))
 
 (use-package swiper
