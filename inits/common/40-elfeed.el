@@ -39,7 +39,7 @@
     "Remove the `checked' tag from all selected entries.")
   (bind-keys :map elfeed-search-mode-map
              ("C-j" . elfeed-search-show-entry)
-             ("C-o" . elfeed-search-show-entry)
+             ("C-o" . elfeed-search-open-url)
              ("f" . scroll-up-line)
              ("e" . scroll-down-line)
              ("q" . quit-window)
@@ -110,6 +110,12 @@
     (insert (propertize date 'face 'elfeed-search-date-face) " ")
     (when tags
       (insert "(" tags-str ")"))))
+
+(defun elfeed-search-open-url ()
+  "Visit the current entry in your browser using 'eww-browse-url'."
+  (interactive)
+  (let ((browse-url-browser-function 'open-url))
+    (elfeed-search-browse-url)))
 
 (defun my/elfeed-search-download-video ()
   "Downlaod video file."
