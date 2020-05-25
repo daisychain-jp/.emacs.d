@@ -141,9 +141,9 @@
          (temp-fname (make-temp-name work-dir)))
     (when (or enc-url yt-url)
       (princ (format "Donwloading %s" title))
-      (setq title (replace-regexp-in-string "[/:|’]" "" title))
+      (setq title (replace-regexp-in-string "[\\?/:|’]" "" title))
       (start-process-shell-command "ytdl" nil
-                                   (format "%s; cd %s && ffmpeg -i %s %s -vn \"%s.mp3\"; rm -f %s"
+                                   (format "%s; cd %s && ffmpeg -i %s %s -map_metadata 0 -vn \"%s.mp3\"; rm -f %s"
                                            (if enc-url
                                                (format "curl -LJs \"%s\" -o %s" enc-url temp-fname)
                                              (format "youtube-dl --extract-audio --audio-format mp3 \"%1$s\" -o %2$s.mp3; mv -f %2$s.mp3 %2$s" yt-url temp-fname))
