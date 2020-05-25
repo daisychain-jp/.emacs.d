@@ -126,7 +126,7 @@
          (match-index (string-match "https?://www.youtube.com.+" link))
          (yt-url (match-string 0 link)))
     (princ (format "Donwloading %s" title))
-    (start-process-shell-command "ytdl" nil (format "cd ~/Videos && youtube-dl -f \"bestvideo[height<=?720]+bestaudio/best\" \"%s\"" yt-url))))
+    (start-process-shell-command "ytdl" nil (format "cd ~/Videos && youtube-dl -f \"%1$s\" \"%2$s\"" (youtube-dl-format) yt-url))))
 
 (defun my/elfeed-search-download-audio ()
   "Download audio file."

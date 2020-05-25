@@ -149,9 +149,7 @@ play it in media player."
            (remove nil
                    (list (when (numberp pos)
                            (format "--ytdl-raw-options=playlist-start=%d" pos))
-                         (if (not (string-prefix-p "192.168.179." (shell-command-to-string "hostname -I | cut -f1 -d' ' | tr -d '\n'")))
-                             "--ytdl-format=\"bestvideo[height<=?720]+bestaudio/best\""
-                           "--ytdl-format=\"worstvideo+worstaudio\"")))))
+                         (format "--ytdl-format=\"%s\"" (youtube-dl-format))))))
       (start-process-shell-command "mpv" nil (format "nohup mpv --force-window %s \"%s\" >/dev/null 2>&1" (mapconcat 'identity ytdl-opts " ") url))))
    ((seq-some (lambda (suffix)
                 (string-suffix-p suffix url))
@@ -180,6 +178,21 @@ play it in media player."
                          (list "orgafile" "orgnize" uri)
                          " "))))
     (find-file org)))
+
+(defun youtube-dl-format ()
+  "Return appropriate format option value for youtube-dl command."
+  (let ((ipv4-addr (shell-command-to-string "hostname -I | cut -f1 -d' ' | tr -d '\n'"))
+        (wifi-ssid (shell-command-to-string "iwgetid -r | tr -d '\n'")))
+    (cond
+     ;; using mobile Wi-Fi
+     ((string-prefix-p "192.168.179." ipv4-addr)
+      "bestvideo[height<=?240]+worstaudio/best")
+     ;; using wired home network
+     ((string= "192.168.100.126" ipv4-addr)
+      "bestvideo[height<=?720]+bestaudio/best")
+     ;; usin unknown network
+     (t
+      "worstvideo+worstaudio"))))
 
 (defun increment-number-at-point (&optional inc)
   "Increment number at point by one.
