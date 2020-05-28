@@ -392,3 +392,24 @@ which has any one of `org-project-parent-tag-list'."
               (if (string= org-clock-current-task-alert "alarm")
                   (alert "Timer DN!" :style 'alarm)
                 (alert "Timer DN!" :style 'fringe :mode 'org-mode :buffer (org-clocking-buffer) :severity 'trivial)))))
+
+(defun org-capture-phrase (phrase &optional search)
+  "Capture PHRASE by passing keyword to `org-capture'.
+
+If simgle prefix SEARCH is passed search in record file instead."
+  (interactive (list (if (use-region-p)
+                         (buffer-substring (region-beginning) (region-end))
+                       (read-string "Phrase: "))
+                     current-prefix-arg))
+  (cond
+   ((equal search '(4)) (let ((files (org-record-file)))
+                          (org-ql-search files `(and (heading ,phrase)
+                                                     (tags "drill")))))
+   (t (org-capture nil "De"))))
+(bind-keys ("C-c P" . org-capture-phrase)
+           ("C-c q" . org-ql-view))
+(push '("English phrase list"
+        :buffers-files org-record-files
+        :query (and (tags "drill")
+                    (tags "fd_eng")))
+      org-ql-views)
