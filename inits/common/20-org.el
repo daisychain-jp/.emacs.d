@@ -47,6 +47,8 @@
              ("C->"     . org-next-link)
              ("C-c /"   . org-sparse-tree-indirect-buffer)
              ("C-c \\"   . org-match-sparse-tree-indirect-buffer)
+             ("C-c V" . org-download-video-link-at-point)
+             ("C-c A" . org-download-audio-link-at-point)
              ("C-c C-a" . nil)
              ("C-,"     . nil)
              ("M-h"     . nil)
@@ -677,6 +679,44 @@ WHICH should be `earliest' or `latest'."
         (t (open-file path)
            (when (or line search)
              (goto-pos (or line search))))))))
+
+(defun org-download-video-link-at-point ()
+  "Download video file at point.
+
+Video file is expected appear in org-link."
+  (interactive)
+  (let* ((context (org-element-lineage
+                   (org-element-context)
+                   '(link)
+                   t))
+         (type (org-element-property :type context))
+         (path (org-element-property :path context))
+         (desc (when-let ((begin (org-element-property :contents-begin context))
+                          (end (org-element-property :contents-end context)))
+                 (buffer-substring begin end))))
+    (cond
+     ((string-match-p "https?" type)
+      (princ (format "Downloading %s" (or desc path)))
+      (download-video (org-link-unescape (concat type ":" path)) desc)))))
+
+(defun org-download-audio-link-at-point ()
+  "Download audio file at point.
+
+Video file is expected appear in org-link."
+  (interactive)
+  (let* ((context (org-element-lineage
+                   (org-element-context)
+                   '(link)
+                   t))
+         (type (org-element-property :type context))
+         (path (org-element-property :path context))
+         (desc (when-let ((begin (org-element-property :contents-begin context))
+                          (end (org-element-property :contents-end context)))
+                 (buffer-substring begin end))))
+    (cond
+     ((string-match-p "https?" type)
+      (princ (format "Downloading %s" (or desc path)))
+      (download-audio (org-link-unescape (concat type ":" path)) desc)))))
 
 (use-package org-exfile
   :custom

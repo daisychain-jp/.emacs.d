@@ -25,7 +25,9 @@
                            (next-line 1)
                            (transpose-lines 1)
                            (previous-line 1)))
-           ("C-o" . open-thing-at-point))
+           ("C-o" . open-thing-at-point)
+           ("C-c V" . download-video-at-point)
+           ("C-c A" . download-audio-at-point))
 
 (use-package hydra
   :straight t

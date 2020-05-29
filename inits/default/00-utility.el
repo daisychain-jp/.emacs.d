@@ -195,6 +195,64 @@ play it in media player."
      (t
       "worstvideo+worstaudio"))))
 
+(defvar download-video-dir "~/Videos" "Directory where downloaded video locate.")
+(defun download-video (url &optional filename)
+  "Download video from `URL'.
+
+If optional argument `FILENAME' is given use this as a filename."
+  (when (string-match "https?://www.youtube.com.+" url)
+    (let ((yt-url (match-string 0 url)))
+      (start-process-shell-command
+       "download video" nil
+       (format "cd %1$s && youtube-dl %2$s %3$s"
+               download-video-dir
+               (mapconcat #'identity
+                          (list (format "--format \"%s\"" (youtube-dl-format))
+                                (when filename (format "--output \"%s\"" filename)))
+                          " ")
+               yt-url)))))
+
+(defvar download-audio-dir "~/Audio" "Directory where downloaded audio locate.")
+(defun download-audio (url &optional filename)
+  "Download audio from `URL'.
+
+If optional argument `FILENAME' is given use this as a filename."
+  (let ((temp-fname (make-temp-name (if (directory-name-p download-audio-dir)
+                                        download-audio-dir
+                                      (concat download-audio-dir "/")))))
+    (start-process-shell-command
+     "download audio" nil
+     (format "%s; %s; %s"
+             (if (string-match "https?://www.youtube.com.+" url)
+                 (format "youtube-dl --extract-audio --audio-format mp3 %1$s -o %2$s.mp3; mv -f %2$s.mp3 %2$s" (match-string 0 url) temp-fname)
+               (format "curl -LJs \"%s\" -o %s" url temp-fname))
+             (format "cd %s && ffmpeg %s %s.mp3"
+                     download-audio-dir
+                     (mapconcat #'identity
+                                (list (format "-i %s" temp-fname)
+                                      (if (equal '(undecided) (find-coding-systems-string (or filename url)))
+                                          "-filter:a \"atempo=1.1\""
+                                        "-filter:a \"atempo=1.7\"")
+                                      "-vn")
+                                " ")
+                     (or filename temp-fname))
+             (format "rm -f %s" temp-fname)))))
+
+(defun download-video-at-point ()
+  "Download video file from url currently pointed."
+  (interactive)
+  (when-let ((url (thing-at-point-url-at-point)))
+    (princ (format "Downloading from %s" url))
+    (download-video url)))
+
+(defun download-audio-at-point ()
+  "Download audio file from url currently pointed."
+  (interactive)
+  (let ((url (thing-at-point-url-at-point)))
+    (when url
+      (princ (format "Downloading from %s" url))
+      (download-audio url))))
+
 (defun increment-number-at-point (&optional inc)
   "Increment number at point by one.
 

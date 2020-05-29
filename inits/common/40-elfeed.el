@@ -58,8 +58,8 @@
                       (elfeed-search-tag-all-checked)))
              ("R" . elfeed-search-untag-all-checked)
              ("d" . elfeed-search-untag-all-unread)
-             ("V" . my/elfeed-search-download-video)
-             ("A" . my/elfeed-search-download-audio)
+             ("V" . elfeed-search-download-video)
+             ("A" . elfeed-search-download-audio)
              :map elfeed-show-mode-map
              ("C-i" . shr-next-link))
   (defface elfeed-search-unchecked-title-face
@@ -121,40 +121,32 @@
     (unless (use-region-p) (forward-line -1))
     (elfeed-search-browse-url)))
 
-(defun my/elfeed-search-download-video ()
+(defun elfeed-search-download-video ()
   "Downlaod video file."
   (interactive)
-  (let* ((entry (elfeed-search-selected :single))
-         (title (replace-regexp-in-string "[/:|]" "" (elfeed-entry-title entry)))
-         (link (elfeed-entry-link entry))
-         (match-index (string-match "https?://www.youtube.com.+" link))
-         (yt-url (match-string 0 link)))
-    (princ (format "Donwloading %s" title))
-    (start-process-shell-command "ytdl" nil (format "cd ~/Videos && youtube-dl -f \"%1$s\" \"%2$s\"" (youtube-dl-format) yt-url))))
+  (let ((entries (elfeed-search-selected)))
+    (cl-loop for entry in entries
+             do (elfeed-untag entry 'unchecked)
+             do (elfeed-tag entry 'checked)
+             when (elfeed-entry-link entry)
+             do (let ((title (elfeed-entry-title entry)))
+                  (princ (format "Donwloading %s" title))
+                  (download-video it (replace-regexp-in-string "[\\?/:|’]" "" (elfeed-entry-title entry)))))
+    (mapc #'elfeed-search-update-entry entries)
+    (unless (or elfeed-search-remain-on-entry (use-region-p))
+      (forward-line))))
 
-(defun my/elfeed-search-download-audio ()
+(defun elfeed-search-download-audio ()
   "Download audio file."
   (interactive)
-  (let* ((entry (elfeed-search-selected :single))
-         (title (elfeed-entry-title entry))
-         (link (elfeed-entry-link entry))
-         (enc-url (caar (elfeed-entry-enclosures entry)))
-         (yt-url (when (string-match "https?://www\\.youtube\\.com.+" link)
-                   (match-string 0 link)))
-         (work-dir "~/Music/")
-         (temp-fname (make-temp-name work-dir)))
-    (when (or enc-url yt-url)
-      (princ (format "Donwloading %s" title))
-      (setq title (replace-regexp-in-string "[\\?/:|’]" "" title))
-      (start-process-shell-command "ytdl" nil
-                                   (format "%s; cd %s && ffmpeg -i %s %s -vn \"%s.mp3\"; rm -f %s"
-                                           (if enc-url
-                                               (format "curl -LJs \"%s\" -o %s" enc-url temp-fname)
-                                             (format "youtube-dl --extract-audio --audio-format mp3 \"%1$s\" -o %2$s.mp3; mv -f %2$s.mp3 %2$s" yt-url temp-fname))
-                                           work-dir
-                                           temp-fname
-                                           (if (equal '(undecided) (find-coding-systems-string title))
-                                               "-filter:a \"atempo=1.1\""
-                                             "-filter:a \"atempo=1.7\"")
-                                           title
-                                           temp-fname)))))
+  (let ((entries (elfeed-search-selected)))
+    (cl-loop for entry in entries
+             do (elfeed-untag entry 'unchecked)
+             do (elfeed-tag entry 'checked)
+             when (elfeed-entry-link entry)
+             do (let ((title (elfeed-entry-title entry)))
+                  (princ (format "Donwloading %s" title))
+                  (download-audio it (replace-regexp-in-string "[\\?/:|’]" "" (elfeed-entry-title entry)))))
+    (mapc #'elfeed-search-update-entry entries)
+    (unless (or elfeed-search-remain-on-entry (use-region-p))
+      (forward-line))))
