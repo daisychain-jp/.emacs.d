@@ -115,6 +115,10 @@
   "Visit the current entry in your browser using 'eww-browse-url'."
   (interactive)
   (let ((browse-url-browser-function 'open-url))
+    (elfeed-search-untag-all-unchecked)
+    (unless (use-region-p) (forward-line -1))
+    (elfeed-search-tag-all-checked)
+    (unless (use-region-p) (forward-line -1))
     (elfeed-search-browse-url)))
 
 (defun my/elfeed-search-download-video ()
