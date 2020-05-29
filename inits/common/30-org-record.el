@@ -42,7 +42,7 @@ If this called interactively, find today's entry of the datetree."
 (defun org-record-search (query)
   "Search org entries matched QUERY in record files using `org-ql-search'."
   (interactive (list (read-string "Query: ")))
-  (let ((files (org-record-file)))
+  (let ((files (org-record-files)))
     (org-ql-search files query)))
 (bind-keys :map org-agenda-mode-map
            ("$" . org-agenda-record-subtree)
