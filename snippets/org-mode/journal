@@ -12,3 +12,5 @@ ${1:title} :journal:
  #+begin_verse
 $4
  #+end_verse
+- checked
+  - [[elfeed:+checked +$1$2$3][Elfeed]]

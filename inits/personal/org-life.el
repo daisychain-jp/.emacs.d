@@ -237,6 +237,12 @@ go to today's entry in record file."
         ("De" "English drill entry in currently clocking or today's entry."
          entry (function org-goto-clocking-or-today)
          "* %i :drill:fd_eng:\n[%^C%?]\n- %a")
+        ("ds" "Deferred checking site"
+         item (id "6cc656d1-15ae-4f40-8ad0-9159c495f81c")
+         "- [ ] %a")
+        ("dm" "Deferred checking video/audio"
+         item (id "f0ef2654-90b3-4230-8bfc-618154ea6533")
+         "- [ ] %a")
         ("M" "Memo to the clocked"
          item (clock)
          "- %i%?")
