@@ -37,9 +37,6 @@
   (defalias 'elfeed-search-untag-all-checked
     (elfeed-expose #'elfeed-search-untag-all 'checked)
     "Remove the `checked' tag from all selected entries.")
-  (defalias 'elfeed-search-tag-all-date
-    (elfeed-expose #'elfeed-search-tag-all (intern (format-time-string "%Y%m%d")))
-    "Add date string tag to all selected entries.")
   (bind-keys :map elfeed-search-mode-map
              ("C-j" . elfeed-search-show-entry)
              ("C-o" . elfeed-search-open-url)
@@ -60,7 +57,7 @@
                       (unless (use-region-p) (forward-line -1))
                       (elfeed-search-tag-all-checked)
                       (unless (use-region-p) (forward-line -1))
-                      (elfeed-search-tag-all-date)))
+                      (elfeed-search-tag-all (intern (format-time-string "%Y%m%d")))))
              ("R" . elfeed-search-untag-all-checked)
              ("d" . elfeed-search-untag-all-unread)
              ("V" . elfeed-search-download-video)
@@ -123,6 +120,8 @@
     (elfeed-search-untag-all-unchecked)
     (unless (use-region-p) (forward-line -1))
     (elfeed-search-tag-all-checked)
+    (unless (use-region-p) (forward-line -1))
+    (elfeed-search-tag-all (intern (format-time-string "%Y%m%d")))
     (unless (use-region-p) (forward-line -1))
     (elfeed-search-browse-url)))
 
