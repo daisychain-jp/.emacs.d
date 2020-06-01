@@ -8,10 +8,10 @@
 - Review
   #+BEGIN_SRC text
   #+END_SRC
-- tags
+- Tags
   #+BEGIN: clocktable-by-atag :maxlevel 3 :block `(format-time-string "%Y")`-W$1 :wstart 1
   #+END:
-- projects
+- Projects
   #+BEGIN: clocktable :maxlevel 3 :scope agenda :block `(format-time-string "%Y")`-W$1 :wstart 1 :narrow 40! :tcolumns 3 :formula %
   #+END:
-- abandoned
+- Abandoned
