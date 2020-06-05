@@ -225,14 +225,14 @@ If 'ARG' is passed, shred afile instead delete."
 
   ;; todo
   (setq org-todo-keywords
-        '((sequence "HB(h)" "UG(u/!)" "DI(i/!)" "WD(w/!)" "TD(t/!)" "OG(o/!)" "SD(s/!)" "|" "DN(d/@)" "CX(x@/@)" "PD(p@/@)")))
+        '((sequence "HB(h)" "UG(u/!)" "DI(i/!)" "WD(w/!)" "TD(t/!)" "VI(v/!)" "SD(s/!)" "|" "DN(d/@)" "CX(x@/@)" "PD(p@/@)")))
   (setq org-todo-keyword-faces
         '(("HB" . ((org-todo    (:foreground "OliveDrab1"))))
           ("UG" . ((org-warning (:foreground "red1"))))
           ("DI" . ((org-todo    (:foreground "DodgerBlue1"))))
           ("WD" . ((org-todo    (:foreground "DeepPink1"))))
           ("TD" . ((org-todo    (:foreground "green1"))))
-          ("OG" . ((org-todo    (:foreground "chocolate"))))
+          ("VI" . ((org-todo    (:foreground "chocolate"))))
           ("SD" . ((org-todo    (:foreground "SpringGreen"))))
           ("DN" . ((org-done    (:foreground "gray30"))))
           ("CX" . ((org-done    (:foreground "dark gray"))))

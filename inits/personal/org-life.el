@@ -107,7 +107,7 @@
         ("Ea" "all task" tags "+Effort<\"0:01\"/UG|DI|WD|TD")
         ("t" . "TD entries")
         ("ta" "Master task list"
-         tags "/UG|DI|WD|TD|OG|SD"
+         tags "/UG|DI|WD|TD|VI|SD"
          ((org-agenda-sorting-strategy
            '(todo-state-up priority-down deadline-up))))
         ("ti" "doIng task"
@@ -125,8 +125,8 @@
          tags "-CONDITION/UG|DI|WD|TD"
          ((org-agenda-sorting-strategy
            '(todo-state-up priority-down deadline-up))))
-        ("to" "on-going task"
-         tags "/OG"
+        ("tv" "viable task"
+         tags "/VI"
          ((org-agenda-sorting-strategy
            '(category-up priority-down deadline-up))))
         ("ts" "Someday list"
@@ -153,7 +153,7 @@
         ("H" "All Repeated Tasks" tags "CATEGORY=\"Repeated\"+LEVEL=>2+{ac_.+}")
         ("g" "aggregated task list"
          ((tags "SCHEDULED<=\"<today>\"|DEADLINE<=\"<today>\"")
-          (todo "UG|DI|OG")
+          (todo "UG|DI|VI")
           (agenda ""))
          ((org-agenda-sorting-strategy
            '(todo-state-up
@@ -297,7 +297,7 @@ go to today's entry in record file."
         (,(file-expand-wildcards (concat env-doc-dir "/**/*.org")) :tag . "refile")))
 (setq org-stuck-projects
       '("project-SCHEDULED>\"<today>\"-DEADLINE>\"<today>\"/-TD-DN-CX"
-        ("UG" "DI" "WD" "TD" "OG") nil ""))
+        ("UG" "DI" "WD" "TD" "VI") nil ""))
 
 (defun org-tags-view-in-records (&optional todo-only match)
   "Invoke `org-tags-view' using predetermined agenda files plus record files.
@@ -305,7 +305,7 @@ The prefix args TODO-ONLY and MATCH are passed to 'org-tags-view.
 
 If region is active, use the word in region for matching instead."
   (interactive)
-  (let* ((record-cands (file-expand-wildcards (format "%s/record/*_record.org" env-doc-dir)))
+  (let* ((record-cands (file-expand-wildcards (format "%s/archive/record_*.org" env-doc-dir)))
          (record-files (last record-cands (safe-length record-cands)))
          (org-agenda-files (append org-agenda-files-default
                                    (sort record-files 'string<)))

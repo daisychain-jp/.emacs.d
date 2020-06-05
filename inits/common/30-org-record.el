@@ -4,7 +4,7 @@
   "Return a path of record file.
 If optional argument 'YEAR passed, a file which contains the year's tree is used instead of this year's one.."
   (let* ((record-year (if year year (ts-year (ts-now))))
-         (record-file (format "%s/record/%s_record.org" env-doc-dir record-year)))
+         (record-file (format "%s/archive/record_%s.org" env-doc-dir record-year)))
     (if (or (file-exists-p record-file)
             (file-symlink-p record-file))
         record-file
@@ -12,7 +12,7 @@ If optional argument 'YEAR passed, a file which contains the year's tree is used
 (defvar org-record-file (org-record-file))
 (defun org-record-files ()
   "Return list of record files."
-  (append (sort (file-expand-wildcards (format "%s/record/*_record.org" env-doc-dir)) 'string<)
+  (append (sort (file-expand-wildcards (format "%s/archive/record_*.org" env-doc-dir)) 'string<)
           org-agenda-files-default))
 (defvar org-record-files (org-record-files))
 (defun org-record-find-date (date)
