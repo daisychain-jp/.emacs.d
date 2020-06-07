@@ -580,7 +580,7 @@ This function can be used as `org-agenda-cmp-user-defined' in `org-agenda-sortin
 ;;;###autoload
 (defun org-refile-to-datetree-using-ts-in-entry (which-ts file)
   "Refile current entry to datetree in FILE using timestamp found in entry.
-WHICH should be `earliest' or `latest'."
+WHICH-TS should be `earliest' or `latest'."
   (interactive (list (intern (completing-read "Which timestamp? " '(earliest latest)))
                      (read-file-name "File: " (concat org-directory "/") nil 'mustmatch nil
                                      (lambda (filename)
