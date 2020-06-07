@@ -408,7 +408,7 @@ If simgle prefix SEARCH is passed search in record file instead."
                        (read-string "Phrase: "))
                      current-prefix-arg))
   (cond
-   ((equal search '(4)) (let ((files (org-record-file)))
+   ((equal search '(4)) (let ((files (org-record-files)))
                           (org-ql-search files `(and (heading ,phrase)
                                                      (tags "drill")))))
    (t (org-capture nil "De"))))
