@@ -135,7 +135,9 @@
          ((org-agenda-sorting-strategy
            '(todo-state-up priority-down deadline-up))))
         ("tv" "viable task"
-         tags "/VI"
+         ((org-ql-search-block '(and (todo "VI")
+                                     (not (deadline :to -1)))
+                               ((org-ql-block-header "Viable entries"))))
          ((org-agenda-sorting-strategy
            '(category-up priority-down deadline-up))))
         ("ts" "Someday list"
@@ -150,8 +152,11 @@
          todo "DN|CX"
          ((org-agenda-sorting-strategy
            '(todo-state-up priority-down deadline-up))))
-        ("$" "Candidates to record file"
-         ((tags "LEVEL=2+TODO={DN\\|CX\\|PD}")))
+        ("$" "ready-to-archive entries"
+         ((org-ql-search-block '(or (todo "DN" "CX" "PD")
+                                    (and (tags "scrap")
+                                         (deadline :to -1)))
+                               ((org-ql-block-header "Ready to archive entries")))))
         ("p" "Projects" tags "+project")
         ("h" "HABIT items scheduled today"
          ((org-ql-search-block '(and (habit)
@@ -246,12 +251,9 @@ go to today's entry in record file."
         ("De" "English drill entry in currently clocking or today's entry."
          entry (function org-goto-clocking-or-today)
          "* %i :drill:fd_eng:\n[%^C%?]\n- %a")
-        ("ds" "Deferred checking site"
-         item (id "6cc656d1-15ae-4f40-8ad0-9159c495f81c")
-         "- [ ] %a")
-        ("dm" "Deferred checking video/audio"
-         item (id "f0ef2654-90b3-4230-8bfc-618154ea6533")
-         "- [ ] %a")
+        ("S" "Web site for deferred checking (scrap)"
+         entry (id "6cc656d1-15ae-4f40-8ad0-9159c495f81c")
+         "* VI %a :scrap:\nDEADLINE: %(org-capture-templates-insert-week-ahead)")
         ("M" "Memo to the clocked"
          item (clock)
          "- %i%?")
@@ -268,6 +270,16 @@ go to today's entry in record file."
         ("n" "memo for auto refiling"
          entry (file+datetree ,org-record-file)
          "%i" :immediate-finish t :prepend t :tree-type week)))
+(defun org-capture-templates-insert-week-ahead ()
+  "Insert timestamp of a week ahead."
+  (let* ((current (decode-time (current-time)))
+         (week-ahead (encode-time (nth 0 current)
+                                  (nth 1 current)
+                                  (nth 2 current)
+                                  (+ (nth 3 current) 7)
+                                  (nth 4 current)
+                                  (nth 5 current))))
+    (format-time-string "<%Y-%m-%d %a>" week-ahead)))
 ;; for auto refiling capture
 (defun auto-org-capture (arg)
   (interactive "p")
