@@ -1,0 +1,6 @@
+# key: sc
+# name: scrap
+# --
+* VI ${1:Heading} :scrap:
+DEADLINE: `(org-capture-templates-insert-week-ahead)`
+$0
