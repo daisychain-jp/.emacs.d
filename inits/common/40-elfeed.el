@@ -62,6 +62,7 @@
              ("d" . elfeed-search-untag-all-unread)
              ("V" . elfeed-search-download-video)
              ("A" . elfeed-search-download-audio)
+             ("$" . elfeed-search-scrap-entry)
              :map elfeed-show-mode-map
              ("C-i" . shr-next-link))
   (defface elfeed-search-unchecked-title-face
@@ -147,6 +148,19 @@
              do (let ((title (elfeed-entry-title entry)))
                   (princ (format "Donwloading %s" title))
                   (download-audio it (replace-regexp-in-string "[\\?/:|’]" "" (elfeed-entry-title entry)))))
+    (mapc #'elfeed-search-update-entry entries)
+    (unless (or elfeed-search-remain-on-entry (use-region-p))
+      (forward-line))))
+
+(defun elfeed-search-scrap-entry ()
+  "Store elfeed entry as a scrap."
+  (interactive)
+  (let ((entries (elfeed-search-selected)))
+    (cl-loop for entry in entries
+             do (progn
+                  (elfeed-show-entry entry)
+                  (org-capture nil "$")
+                  (elfeed-kill-buffer)))
     (mapc #'elfeed-search-update-entry entries)
     (unless (or elfeed-search-remain-on-entry (use-region-p))
       (forward-line))))
