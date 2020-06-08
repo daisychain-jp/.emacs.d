@@ -4,7 +4,16 @@
 (setq org-agenda-include-diary t)
 (setq org-scheduled-past-days 30)
 (setq org-agenda-custom-commands
-      '(("r" . "Search for all record files")
+      '(("a" "custom agenda"
+         agenda ""
+         ((org-agenda-skip-function
+           `(lambda ()
+              ;; skip entry which has 'scrap' tag even if it has deadline
+              (and (save-excursion
+                     (let ((tags (org-get-tags)))
+                       (member "scrap" tags)))
+                   (progn (outline-next-heading) (point)))))))
+        ("r" . "Search for all record files")
         ("rs" "Entries containing search words entry or headline."
          search ""
          ((org-agenda-files org-record-files)

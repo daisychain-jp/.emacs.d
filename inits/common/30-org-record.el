@@ -31,8 +31,15 @@ If this called interactively, find today's entry of the datetree."
   "Refile current subtree to record file using latest timestamp."
   (interactive)
   (let* ((ts (car (sort (org-timestamps-in-entry) #'ts>)))
-         (year (ts-year ts)))
-    (org-refile-to-datetree-using-ts-in-entry 'latest (org-record-file year))
+         (year (ts-year (or ts (ts-now))))
+         (archive-file (if (string= (save-excursion
+                                      (org-back-to-heading t)
+                                      (org-up-heading-safe)
+                                      (org-id-get))
+                                    "6cc656d1-15ae-4f40-8ad0-9159c495f81c")
+                           (format "%s/archive/scrap_%s.org" env-doc-dir year)
+                         (org-record-file year))))
+    (org-refile-to-datetree-using-ts-in-entry 'latest archive-file)
     (org-save-all-org-buffers)
     (setq this-command 'org-record-subtree)))
 (defun org-agenda-record-subtree ()

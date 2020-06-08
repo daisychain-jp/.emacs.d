@@ -243,6 +243,7 @@ If 'ARG' is passed, shred afile instead delete."
                  (org-back-to-heading t)
                  (let* ((element (org-element-at-point))
                         (todo-state (org-get-todo-state))
+                        (tags (org-get-tags))
                         (priority (org-element-property :priority element))
                         (category (org-entry-get (point) "CATEGORY"))
                         (style (org-entry-get (point) "STYLE")))
@@ -254,6 +255,7 @@ If 'ARG' is passed, shred afile instead delete."
                    ;; remove DN state if CATEGORY of the entry is "Repeated"
                    (when (and (string= category "Repeated")
                               (string= todo-state "DN")
+                              (not (member "scrap" tags))
                               (not (string= style "habit")))
                      (org-todo ""))))))
   (add-hook 'org-after-todo-statistics-hook
@@ -590,7 +592,8 @@ WHICH-TS should be `earliest' or `latest'."
                    ('earliest #'ts<)
                    ('latest #'ts>)))
          (tss (org-timestamps-in-entry))
-         (ts (car (sort tss sorter)))
+         (ts (or (car (sort tss sorter))
+                 (ts-now)))
          (date (list (ts-month ts) (ts-day ts) (ts-year ts))))
     (org-refile-to-datetree file :date date)))
 
