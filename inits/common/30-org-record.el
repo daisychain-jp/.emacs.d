@@ -32,11 +32,7 @@ If this called interactively, find today's entry of the datetree."
   (interactive)
   (let* ((ts (car (sort (org-timestamps-in-entry) #'ts>)))
          (year (ts-year (or ts (ts-now))))
-         (archive-file (if (string= (save-excursion
-                                      (org-back-to-heading t)
-                                      (org-up-heading-safe)
-                                      (org-id-get))
-                                    "6cc656d1-15ae-4f40-8ad0-9159c495f81c")
+         (archive-file (if (member "scrap" (org-get-local-tags))
                            (format "%s/archive/scrap_%s.org" env-doc-dir year)
                          (org-record-file year))))
     (org-refile-to-datetree-using-ts-in-entry 'latest archive-file)

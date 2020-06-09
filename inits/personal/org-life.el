@@ -252,10 +252,10 @@ go to today's entry in record file."
          entry (function org-goto-clocking-or-today)
          "* %i :drill:fd_eng:\n[%^C%?]\n- %a")
         ("S" "Web site for deferred checking (scrap)"
-         entry (id "6cc656d1-15ae-4f40-8ad0-9159c495f81c")
+         entry (id "68d74115-1f70-448d-a76e-738e32b272d8")
          "* VI %a :scrap:\nDEADLINE: %(org-capture-templates-insert-week-ahead)")
         ("$" "deferred checking with immediate finish"
-         entry (id "6cc656d1-15ae-4f40-8ad0-9159c495f81c")
+         entry (id "68d74115-1f70-448d-a76e-738e32b272d8")
          "* VI %a :scrap:\nDEADLINE: %(org-capture-templates-insert-week-ahead)"
          :immediate-finish t)
         ("M" "Memo to the clocked"
