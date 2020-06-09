@@ -152,8 +152,16 @@
          todo "DN|CX"
          ((org-agenda-sorting-strategy
            '(todo-state-up priority-down deadline-up))))
+        ("#" "stuck project"
+         ((org-ql-search-block '(and (tags "project")
+                                     ;; exclude projects
+                                     (not (children (todo "TD" "WD" "DI" "VI"))))
+                               ((org-ql-block-header "Stuck projects")))))
         ("$" "ready-to-archive entries"
-         ((org-ql-search-block '(or (todo "DN" "CX" "PD")
+         ((org-ql-search-block '(or (and (todo "DN" "CX" "PD")
+                                         ;; exclude projects
+                                         (not (tags "project")))
+                                    ;; scraps before due date
                                     (and (tags "scrap")
                                          (deadline :to -1)))
                                ((org-ql-block-header "Ready to archive entries")))))
@@ -320,9 +328,7 @@ go to today's entry in record file."
 (setq org-refile-targets
       `((org-agenda-files :tag . "project")
         (,(file-expand-wildcards (concat env-doc-dir "/**/*.org")) :tag . "refile")))
-(setq org-stuck-projects
-      '("project-SCHEDULED>\"<today>\"-DEADLINE>\"<today>\"/-TD-DN-CX"
-        ("UG" "DI" "WD" "TD" "VI") nil ""))
+
 
 (defun org-tags-view-in-records (&optional todo-only match)
   "Invoke `org-tags-view' using predetermined agenda files plus record files.
