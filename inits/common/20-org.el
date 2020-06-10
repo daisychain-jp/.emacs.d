@@ -56,6 +56,7 @@
              ("C-x C-a d" . org-afile-delete)
              :map org-agenda-mode-map
              ("C-j" . org-agenda-switch-to)
+             ("C-o" . org-agenda-open-link)
              ("T" . counsel-org-tag-agenda)
              ("M" . org-agenda-month-view))
 
