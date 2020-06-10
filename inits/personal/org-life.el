@@ -261,10 +261,10 @@ go to today's entry in record file."
          "* %i :drill:fd_eng:\n[%^C%?]\n- %a")
         ("S" "Web site for deferred checking (scrap)"
          entry (id "68d74115-1f70-448d-a76e-738e32b272d8")
-         "* VI %a :scrap:\nDEADLINE: %(org-capture-templates-insert-week-ahead)")
+         "* VI %a :scrap:ac_read:\nDEADLINE: %(org-capture-templates-insert-week-ahead)")
         ("$" "deferred checking with immediate finish"
          entry (id "68d74115-1f70-448d-a76e-738e32b272d8")
-         "* VI %a :scrap:\nDEADLINE: %(org-capture-templates-insert-week-ahead)"
+         "* VI %a :scrap:ac_read:\nDEADLINE: %(org-capture-templates-insert-week-ahead)"
          :immediate-finish t)
         ("M" "Memo to the clocked"
          item (clock)
