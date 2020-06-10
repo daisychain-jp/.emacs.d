@@ -60,14 +60,10 @@ If optional argument FORCE-CREATE is non-nil,
 If optional argument ESHELL-MODE is non-nil,
  use eshell mode instead of shell mode.
 If optional argument DEFAULT-DIR is string, change directory to there at first."
-  (interactive (let* ((shell-buf-name-select-tmp (read-buffer "Buffer name: " nil nil
-                                                              (lambda (cand) (if (member (buffer-local-value 'major-mode (cdr cand))
-                                                                                         '(shell-mode eshell-mode))
-                                                                                 t nil))))
-                      (shell-buf-name-select (if (or (not (string-prefix-p "*" shell-buf-name-select-tmp))
-                                                     (not (string-suffix-p "*" shell-buf-name-select-tmp)))
-                                                 (format "*%s*" shell-buf-name-select-tmp)
-                                               shell-buf-name-select-tmp))
+  (interactive (let* ((shell-buf-name-select (read-buffer "Buffer name: " nil nil
+                                                          (lambda (cand) (if (member (buffer-local-value 'major-mode (cdr cand))
+                                                                                     '(shell-mode eshell-mode))
+                                                                             t nil))))
                       (force-create-select (not (member shell-buf-name-select (mapcar (lambda (buf) (buffer-name buf))
                                                                                       (buffer-list)))))
                       (eshell-mode-select (if force-create-select
