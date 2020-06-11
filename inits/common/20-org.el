@@ -721,9 +721,3 @@ Video file is expected appear in org-link."
      ((string-match-p "https?" type)
       (princ (format "Downloading %s" (or desc path)))
       (download-audio (org-link-unescape (concat type ":" path)) desc)))))
-
-(use-package org-exfile
-  :custom
-  (org-exfile-dirs-alist '(("priv-01" . "~/afile")
-                           ("prj-xx" . "~/proj/xx")))
-  (org-exfile-org-open-file-custom-function #'my/org-open-file))
