@@ -9,7 +9,7 @@
  ("avy" . "8686845ed907b986ac7c95169b6396300ee114c2")
  ("avy-migemo" . "922a6dd82c0bfa316b0fbb56a9d4dd4ffa5707e7")
  ("cl-lib" . "deb92588d9d83d46c4698936ea31c5f58d244f04")
- ("comment-dwim-2" . "8da8aba4cab4a0a1eef3aea2de219227526876e4")
+ ("comment-dwim-2" . "3dfdd58495c46a37708344a57c5c52beca6b2c1c")
  ("company-mode" . "f6974e3103497afe01da2ad4d2ea3668ad68bc27")
  ("counsel-dash" . "370d5f6f14b5294d0eb717f7b2a6a8e93df1ed24")
  ("counsel-projectile" . "fb19569c9799e3edac7504d21a5ecf49231e9500")
