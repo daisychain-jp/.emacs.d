@@ -139,7 +139,7 @@
                                      (not (deadline :to -1)))
                                ((org-ql-block-header "Viable entries"))))
          ((org-agenda-sorting-strategy
-           '(category-up priority-down deadline-up))))
+           '(deadline-up category-up priority-down))))
         ("ts" "Someday list"
          todo "SD"
          ((org-agenda-archives-mode t)
