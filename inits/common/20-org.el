@@ -52,6 +52,7 @@
              ("C-c C-a" . nil)
              ("C-,"     . nil)
              ("M-h"     . nil)
+             ("C-M-m" . hydra-lazy-control/body)
              ("C-x C-a s" . org-afile-store)
              ("C-x C-a d" . org-afile-delete)
              :map org-agenda-mode-map

@@ -84,7 +84,7 @@
     ("f" counsel-describe-function)
     ("v" counsel-describe-variable)
     ("c" counsel-describe-face)
-    ("d" counsel-descbinds)
+    ("m" counsel-descbinds)
     ("i" info)
     ("I" counsel-info-lookup-symbol)
     ("l" counsel-find-library)

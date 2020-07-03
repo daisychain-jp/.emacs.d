@@ -180,7 +180,8 @@
     "Move"
     ("f" scroll-up-line "next")
     ("e" scroll-down-line)
-    ("s" org-store-link)
+    ("<" (scroll-left 1))
+    (">" (scroll-right 1))
     ("l" recenter-top-bottom)
     ("L" copy-line-number)
     ("t" (responsible-call hlc/beginning-func 'beginning-of-buffer))
