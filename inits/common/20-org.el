@@ -361,7 +361,8 @@ If 'ARG' is passed, shred afile instead delete."
   ;; org-babel
   (org-babel-do-load-languages
    'org-babel-load-languages
-   '((R        . t)
+   '((C        . t)
+     (R        . t)
      (shell    . t)
      (ruby     . t)
      (python   . t)
