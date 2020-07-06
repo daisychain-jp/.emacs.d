@@ -460,7 +460,7 @@ If simgle prefix SEARCH is passed search in record file instead."
 
 (defun org-weekly-review-archive-candidates (due-date)
   "List candidate entries for archiving in weekly review ends with DUE-DATE."
-  (interactive (list (org-read-date)))
+  (interactive (list (org-read-date nil nil nil "Due date: ")))
   (let ((files (org-agenda-files)))
     (org-ql-search files `(or (and (todo "DN" "CX" "PD")
                                    (not (tags "project"))
