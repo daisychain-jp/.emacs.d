@@ -614,7 +614,10 @@ WHICH-TS should be `earliest' or `latest'."
         (lambda (elm)
           (case (org-element-type elm)
             ('planning
-             (add-to-list 'ts-list (ts-parse-org-element (org-element-property :closed elm)) t))
+             (add-to-list 'ts-list (ts-parse-org-element (or (org-element-property :closed elm)
+                                                             (org-element-property :scheduled elm)
+                                                             (org-element-property :deadline elm)))
+                          t))
             ('clock
              (add-to-list 'ts-list (ts-parse-org-element (org-element-property :value elm)) t))
             ('timestamp
