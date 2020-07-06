@@ -120,10 +120,11 @@
          ((org-agenda-sorting-strategy
            '(todo-state-up priority-down deadline-up))))
         ("ti" "doIng task"
-         ((org-ql-search-block '(or (or (todo "UG") (todo "DI"))
-                                    (and (scheduled :from today :to 0)
-                                         (not (todo "HB" "DN" "CX" "PD"))))
-                               ((org-ql-block-header "Today's tasks"))))
+         ((org-ql-search-block '(or (todo "UG") (todo "DI"))
+                               ((org-ql-block-header "Today's tasks")))
+          (org-ql-search-block '(and (planning :on today)
+                                     (not (todo "HB" "DN" "CX" "PD")))
+                               ((org-ql-block-header "Scheduled/Deadlined today"))))
          ((org-agenda-sorting-strategy
            '(todo-state-up priority-down deadline-up))))
         ("tw" "Will-do task"
@@ -158,13 +159,14 @@
                                      (not (children (todo "TD" "WD" "DI" "VI"))))
                                ((org-ql-block-header "Stuck projects")))))
         ("$" "ready-to-archive entries"
-         ((org-ql-search-block '(or (and (todo "DN" "CX" "PD")
-                                         ;; exclude projects
-                                         (not (tags "project")))
-                                    ;; scraps before due date
-                                    (and (tags "scrap")
-                                         (deadline :to -1)))
-                               ((org-ql-block-header "Ready to archive entries")))))
+         ((org-ql-search-block '(and (todo "DN" "CX" "PD")
+                                     (closed :to -1)
+                                     (not (tags "project")))
+                               ((org-ql-block-header "Completed tasks")))
+          (org-ql-search-block '(and (tags "scrap")
+                                     (deadline :to -1)
+                                     (not (todo "DN" "CX" "PD")))
+                               ((org-ql-block-header "Expired scrap entries")))))
         ("p" "Projects" tags "+project")
         ("h" "HABIT items scheduled today"
          ((org-ql-search-block '(and (habit)
@@ -450,3 +452,15 @@ If simgle prefix SEARCH is passed search in record file instead."
         :query (and (tags "drill")
                     (tags "fd_eng")))
       org-ql-views)
+
+(defun org-weekly-review-archive-candidates (due-date)
+  "List candidate entries for archiving in weekly review ends with DUE-DATE."
+  (interactive (list (org-read-date)))
+  (let ((files (org-agenda-files)))
+    (org-ql-search files `(or (and (todo "DN" "CX" "PD")
+                                   (not (tags "project"))
+                                   (closed :to ,due-date))
+                              (and (tags "scrap")
+                                   (not (todo "DN" "CX" "PD"))
+                                   (deadline :to ,due-date)))
+      :sort '(todo))))
