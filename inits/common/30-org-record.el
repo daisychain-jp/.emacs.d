@@ -50,6 +50,9 @@ If this called interactively, find today's entry of the datetree."
 (bind-keys :map org-agenda-mode-map
            ("$" . org-agenda-record-subtree)
            ("&" . org-agenda-ref-id-tieup-tree)
+           :map org-ql-view-map
+           ("$" . org-agenda-record-subtree)
+           ("&" . org-agenda-ref-id-tieup-tree)
            :map global-map
            ("C-c R" . org-record-search))
 (push '("Record entries" . org-record-search)
