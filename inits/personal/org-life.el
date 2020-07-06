@@ -124,7 +124,12 @@
                                ((org-ql-block-header "Today's tasks")))
           (org-ql-search-block '(and (planning :on today)
                                      (not (todo "HB" "DN" "CX" "PD")))
-                               ((org-ql-block-header "Scheduled/Deadlined today"))))
+                               ((org-ql-block-header "Scheduled/Deadlined today")))
+          (org-ql-search-block '(and (habit)
+                                     (todo "HB")
+                                     (scheduled :to today)
+                                     (not (tags-inherited "ARCHIVE")))
+                               ((org-ql-block-header "Incomplete habits"))))
          ((org-agenda-sorting-strategy
            '(todo-state-up priority-down deadline-up))))
         ("tw" "Will-do task"
