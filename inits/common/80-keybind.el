@@ -182,6 +182,7 @@
     ("e" scroll-down-line)
     ("<" (scroll-left 1))
     (">" (scroll-right 1))
+    ("s" org-store-link)
     ("l" recenter-top-bottom)
     ("L" copy-line-number)
     ("t" (responsible-call hlc/beginning-func 'beginning-of-buffer))
