@@ -10,6 +10,7 @@
   :custom
   (dired-recursive-copies 'always)
   (dired-recursive-deletes 'top)
+  (dired-listing-switches "-ahgG --time-style=iso")
   (dired-dwim-target t)
   (dired-hide-details-hide-information-lines nil)
   :config
@@ -48,6 +49,14 @@
         ("c" . dired-ranger-copy)
         ("P" . dired-ranger-paste)
         ("V" . dired-ranger-move)))
+
+(use-package dired-du
+  :straight t
+  :diminish ((dired-du-mode . "du"))
+  :bind (:map dired-mode-map
+              ("C-M-S-u" . dired-du-mode))
+  :custom
+  (dired-du-size-format 'comma))
 
 (defun dired-open (&optional arg)
   "Open file in Dired.
