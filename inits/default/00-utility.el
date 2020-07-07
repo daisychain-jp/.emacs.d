@@ -238,6 +238,16 @@ If optional argument `FILENAME' is given use this as a filename."
                      (or filename temp-fname))
              (format "rm -f %s" temp-fname)))))
 
+(defun get-media-duration (url)
+  "Return a duration value for media located at URL."
+  (cond
+   ((string-match "https?://www.youtube.com.+" url)
+    (car (split-string (shell-command-to-string
+                        (format "youtube-dl --get-duration %s" url)))))
+   ((string-match "https?://.+" url)
+    (car (split-string (shell-command-to-string
+                        (format "ffmpeg -i \"%s\" 2>&1 | grep Duration | awk -F '[ ]+' '{print substr($3, 0, length($3)-1)}'" url)))))))
+
 (defun download-video-at-point ()
   "Download video file from url currently pointed."
   (interactive)

@@ -62,6 +62,7 @@
              ("d" . elfeed-search-untag-all-unread)
              ("V" . elfeed-search-download-video)
              ("A" . elfeed-search-download-audio)
+             ("D" . elfeed-search-show-media-duration)
              ("$" . elfeed-search-scrap-entry)
              :map elfeed-show-mode-map
              ("C-i" . shr-next-link))
@@ -153,6 +154,16 @@
     (mapc #'elfeed-search-update-entry entries)
     (unless (or elfeed-search-remain-on-entry (use-region-p))
       (forward-line))))
+
+(defun elfeed-search-show-media-duration ()
+  "Show duration of media attached to current entry."
+  (interactive)
+  (let* ((entry (elfeed-search-selected :single))
+         (url (or (caar (elfeed-entry-enclosures entry))
+                  (elfeed-entry-link entry)))
+         (duration (get-media-duration url)))
+    (message "Duration: %s" (if (stringp duration)
+                                duration "N/A"))))
 
 (defun elfeed-search-scrap-entry ()
   "Store elfeed entry as a scrap."
