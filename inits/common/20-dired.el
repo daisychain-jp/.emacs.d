@@ -1,5 +1,5 @@
 (use-package dired
-  :delight " DD"
+  :delight " DR"
   :bind (:map dired-mode-map
               ("(" . dired-hide-details-mode)
               (")" . dired-hide-details-mode)
@@ -11,6 +11,7 @@
   (dired-recursive-copies 'always)
   (dired-recursive-deletes 'top)
   (dired-dwim-target t)
+  (dired-hide-details-hide-information-lines nil)
   :config
   (put 'dired-find-alternate-file 'disabled nil)
   (setq dired-isearch-filenames t)
