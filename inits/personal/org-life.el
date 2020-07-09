@@ -47,9 +47,6 @@
                                      (tags "ac_make"))
                                ((org-ql-block-header "SOMEDAY items with ac_make"))))
          ((org-agenda-files org-record-files)))
-        ("b" "tag match for current Buffer"
-         tags ""
-         ((org-agenda-files `(,buffer-file-name))))
         ("l" "Log entries in a week"
          agenda ""
          ((org-agenda-span 'week)
@@ -114,16 +111,12 @@
         ("Ei" "doing task" tags "+Effort<\"0:01\"/UG|DI")
         ("Ew" "will-do task" tags "+Effort<\"0:01\"/UG|DI|WD")
         ("Ea" "all task" tags "+Effort<\"0:01\"/UG|DI|WD|TD")
-        ("t" . "TD entries")
-        ("ta" "Master task list"
-         tags "/UG|DI|WD|TD|VI|SD"
-         ((org-agenda-sorting-strategy
-           '(todo-state-up priority-down deadline-up))))
-        ("ti" "doIng task"
+        ("i" "Daily task list"
          ((org-ql-search-block '(or (todo "UG") (todo "DI"))
                                ((org-ql-block-header "Today's tasks")))
           (org-ql-search-block '(and (planning :on today)
                                      (not (todo "DI" "HB" "DN" "CX" "PD"))
+                                     (not (tags "scrap"))
                                      (not (habit)))
                                ((org-ql-block-header "Scheduled/Deadlined today")))
           (org-ql-search-block '(and (habit)
@@ -133,8 +126,49 @@
                                ((org-ql-block-header "Incomplete habits"))))
          ((org-agenda-sorting-strategy
            '(todo-state-up priority-down deadline-up))))
-        ("tw" "Will-do task"
-         tags "-CONDITION/UG|DI|WD"
+        ("w" "Weekly task list"
+         ((org-ql-search-block '(or (todo "WD"))
+                               ((org-ql-block-header "This week's tasks")))
+          (org-ql-search-block '(or (todo "UG") (todo "DI"))
+                               ((org-ql-block-header "Today's tasks")))
+          (org-ql-search-block '(and (planning :from 0 :to 7)
+                                     (not (todo "DI" "HB" "DN" "CX" "PD"))
+                                     (not (tags "scrap"))
+                                     (not (habit)))
+                               ((org-ql-block-header "Scheduled/Deadlined this week"))))
+         ((org-agenda-sorting-strategy
+           '(todo-state-up priority-down deadline-up))))
+        ("v" "Viable task list"
+         ((org-ql-search-block '(and (todo "VI")
+                                     (not (tags "scrap"))())
+                               ((org-ql-block-header "Viable tasks")))
+          (org-ql-search-block '(and (todo "VI")
+                                     (tags "scrap")
+                                     (not (deadline :to -1)))
+                               ((org-ql-block-header "Scraps"))))
+         ((org-agenda-sorting-strategy
+           '(todo-state-up priority-down deadline-up))))
+        ("o" "Someday list"
+         ((org-ql-search-block '(and (todo "SD")
+                                     (tags "ac_purchase"))
+                               ((org-ql-block-header "with ac_purchase tag")))
+          (org-ql-search-block '(and (todo "SD")
+                                     (tags "ac_read"))
+                               ((org-ql-block-header "with ac_read tag")))
+          (org-ql-search-block '(and (todo "SD")
+                                     (tags "ac_cook"))
+                               ((org-ql-block-header "with ac_cook tag")))
+          (org-ql-search-block '(and (todo "SD")
+                                     (tags "ac_make"))
+                               ((org-ql-block-header "with ac_make tag")))
+          (org-ql-search-block '(and (todo "SD")
+                                     (not (tags "ac_purchase" "ac_read" "ac_cook" "ac_make")))
+                               ((org-ql-block-header "with other tag"))))
+         ((org-agenda-files org-record-files)
+          (org-agenda-sorting-strategy '(priority-down))))
+        ("t" . "TD entries")
+        ("ta" "Master task list"
+         tags "/UG|DI|WD|TD|VI|SD"
          ((org-agenda-sorting-strategy
            '(todo-state-up priority-down deadline-up))))
         ("tt" "Todo task"
