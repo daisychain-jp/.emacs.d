@@ -112,7 +112,10 @@
         ("Ew" "will-do task" tags "+Effort<\"0:01\"/UG|DI|WD")
         ("Ea" "all task" tags "+Effort<\"0:01\"/UG|DI|WD|TD")
         ("i" "Daily task list"
-         ((org-ql-search-block '(or (todo "UG") (todo "DI"))
+         ((org-ql-search-block `(heading ,(format-time-string "%Y-%m-%d %A"))
+                               ((org-agenda-files `(,(org-record-file)))
+                                (org-ql-block-header "Today's tree")))
+          (org-ql-search-block '(or (todo "UG") (todo "DI"))
                                ((org-ql-block-header "Today's tasks")))
           (org-ql-search-block '(and (planning :on today)
                                      (not (todo "DI" "HB" "DN" "CX" "PD"))
@@ -127,7 +130,10 @@
          ((org-agenda-sorting-strategy
            '(todo-state-up priority-down deadline-up))))
         ("w" "Weekly task list"
-         ((org-ql-search-block '(or (todo "WD"))
+         ((org-ql-search-block `(heading ,(format-time-string "%G-W%V"))
+                               ((org-agenda-files `(,(org-record-file)))
+                                (org-ql-block-header "This week's tree")))
+          (org-ql-search-block '(or (todo "WD"))
                                ((org-ql-block-header "This week's tasks")))
           (org-ql-search-block '(or (todo "UG") (todo "DI"))
                                ((org-ql-block-header "Today's tasks")))
