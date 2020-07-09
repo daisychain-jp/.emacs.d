@@ -94,18 +94,6 @@
     ("F" toggle-frame-fullscreen)
     ("SPC" pangu-spacing-mode)
     ("q" nil "quit"))
-  (defhydra hydra-text-scale
-    (global-map "C-M-="
-                :color amaranth
-                :pre (set-face-background 'mode-line "dark green")
-                :post (set-face-background 'mode-line "gray10"))
-    "Text Scaling"
-    ("C-M-=" text-scale-increase)
-    ("+"     text-scale-adjust)
-    ("="     text-scale-adjust)
-    ("-"     text-scale-adjust)
-    ("0"     text-scale-adjust)
-    ("q"     nil "quit"))
   (defhydra hydra-launcher (global-map "C-M-j"
                                        :color blue)
     "Launch"
@@ -185,6 +173,10 @@
     ("s" org-store-link)
     ("l" recenter-top-bottom)
     ("L" copy-line-number)
+    ("+" text-scale-adjust)
+    ("=" text-scale-adjust)
+    ("-" text-scale-adjust)
+    ("0" text-scale-adjust)
     ("t" (responsible-call hlc/beginning-func 'beginning-of-buffer))
     ("y" (responsible-call hlc/end-func 'end-of-buffer))
     ("g" (responsible-call hlc/forward-paragraph-func 'forward-paragraph))
