@@ -2,8 +2,9 @@
 
 (defun org-record-file (&optional year)
   "Return a path of record file.
-If optional argument 'YEAR passed, a file which contains the year's tree is used instead of this year's one.."
-  (let* ((record-year (if year year (ts-year (ts-now))))
+
+If optional argument `YEAR' is passed that year's file is returned instead of current year's."
+  (let* ((record-year (or year (ts-year (ts-now))))
          (record-file (format "%s/archive/record_%s.org" env-doc-dir record-year)))
     (if (or (file-exists-p record-file)
             (file-symlink-p record-file))
