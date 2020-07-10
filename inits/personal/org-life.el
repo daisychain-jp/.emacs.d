@@ -126,7 +126,10 @@
                                      (todo "HB")
                                      (scheduled :to today)
                                      (not (tags-inherited "ARCHIVE")))
-                               ((org-ql-block-header "Incomplete habits"))))
+                               ((org-ql-block-header "Incomplete habits")))
+          (org-ql-search-block '(and (ts-active :on today)
+                                     (not (or (todo) (done))))
+                               ((org-ql-block-header "Today's common event"))))
          ((org-agenda-sorting-strategy
            '(todo-state-up priority-down deadline-up))))
         ("w" "Weekly task list"
@@ -141,7 +144,10 @@
                                      (not (todo "DI" "HB" "DN" "CX" "PD"))
                                      (not (tags "scrap"))
                                      (not (habit)))
-                               ((org-ql-block-header "Scheduled/Deadlined this week"))))
+                               ((org-ql-block-header "Scheduled/Deadlined this week")))
+          (org-ql-search-block '(and (ts-active :from 0 :to 7)
+                                     (not (or (todo) (done))))
+                               ((org-ql-block-header "This week's common event"))))
          ((org-agenda-sorting-strategy
            '(todo-state-up priority-down deadline-up))))
         ("v" "Viable task list"
