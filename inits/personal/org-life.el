@@ -178,6 +178,26 @@
                                ((org-ql-block-header "with other tag"))))
          ((org-agenda-files org-record-files)
           (org-agenda-sorting-strategy '(priority-down))))
+        ("n" "Anniversary"
+         ((org-ql-search-block `(heading ,(let ((month-ago (decode-time)))
+                                            (cl-incf (nth 4 month-ago) -1)
+                                            (format-time-string "%Y-%m-%d %A"
+                                                                (apply #'encode-time
+                                                                       month-ago))))
+                               ((org-ql-block-header "One month ago")))
+          (org-ql-search-block `(heading ,(let ((half-a-year-ago (decode-time)))
+                                            (cl-incf (nth 4 half-a-year-ago) -6)
+                                            (format-time-string "%Y-%m-%d %A"
+                                                                (apply #'encode-time
+                                                                       half-a-year-ago))))
+                               ((org-ql-block-header "Half a year ago")))
+          (org-ql-search-block `(heading ,(let ((year-ago (decode-time)))
+                                            (cl-incf (nth 5 year-ago) -1)
+                                            (format-time-string "%Y-%m-%d %A"
+                                                                (apply #'encode-time
+                                                                       year-ago))))
+                               ((org-ql-block-header "One year ago"))))
+         ((org-agenda-files `,(org-record-files))))
         ("t" . "TD entries")
         ("ta" "Master task list"
          tags "/UG|DI|WD|TD|VI|SD"
