@@ -235,7 +235,7 @@ If optional argument `FILENAME' is given use this as a filename."
                                         "-filter:a \"atempo=1.7\"")
                                       "-vn")
                                 " ")
-                     (or filename temp-fname))
+                     (or filename (file-name-base temp-fname)))
              (format "rm -f %s" temp-fname)))))
 
 (defun get-media-duration (url)
