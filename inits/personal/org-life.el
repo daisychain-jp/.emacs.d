@@ -116,7 +116,9 @@
                                ((org-agenda-files `(,(org-record-file)))
                                 (org-ql-block-header "Today's tree")))
           (org-ql-search-block '(or (todo "UG") (todo "DI"))
-                               ((org-ql-block-header "Today's tasks")))
+                               ((org-ql-block-header "Today's tasks")
+                                (org-agenda-sorting-strategy
+                                 '(priority-down))))
           (org-ql-search-block '(and (planning :on today)
                                      (not (todo "DI" "HB" "DN" "CX" "PD"))
                                      (not (tags "scrap"))
