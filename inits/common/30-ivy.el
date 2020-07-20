@@ -104,7 +104,7 @@
   :straight t
   :after (counsel)
   :bind (:map global-map
-              ("C-c D" . counsel-dash))
+              ("C-c d" . counsel-dash))
   :config
   (setf counsel-dash-docsets-path (expand-file-name (format "%s/lib/dash/docsets" env-var-dir)))
   (setf counsel-dash-browser-func 'eww)

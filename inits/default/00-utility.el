@@ -263,6 +263,14 @@ If optional argument `FILENAME' is given use this as a filename."
       (princ (format "Downloading from %s" url))
       (download-audio url))))
 
+(defun show-media-duration-at-point ()
+  "Show duration of media file which cursor currently pointed."
+  (interactive)
+  (if-let* ((url (thing-at-point-url-at-point))
+            (duration (get-media-duration url)))
+      (message "Duration: %s" (if (stringp duration)
+                                  duration "N/A"))))
+
 (defun increment-number-at-point (&optional inc)
   "Increment number at point by one.
 

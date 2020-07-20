@@ -1,6 +1,6 @@
 (use-package projectile
   :straight t
-  :after (hydra counsel)
+  :after (hydra counsel dumb-jump)
   :init
   (projectile-load-known-projects)
   :custom
@@ -21,6 +21,10 @@
     ("b" counsel-projectile-switch-to-buffer)
     ("r" projectile-recentf)
     ("k" projectile-kill-buffers)
+    ("g" dumb-jump-go)
+    ("e" dumb-jump-go-prefer-external)
+    ("i" dumb-jump-go-prompt)
+    ("l" dumb-jump-quick-look)
     ("C-g" nil "quit")
     ("q" nil "quit")))
 
