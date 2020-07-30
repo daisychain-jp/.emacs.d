@@ -116,7 +116,7 @@
                                ((org-agenda-files `(,(org-record-file)))
                                 (org-ql-block-header "Today's tree")))
           (org-ql-search-block '(or (todo "UG") (todo "DI"))
-                               ((org-ql-block-header "Today's tasks")
+                               ((org-ql-block-header "Today's task")
                                 (org-agenda-sorting-strategy
                                  '(priority-down))))
           (org-ql-search-block '(and (planning :on today)
@@ -128,10 +128,13 @@
                                      (todo "HB")
                                      (scheduled :to today)
                                      (not (tags-inherited "ARCHIVE")))
-                               ((org-ql-block-header "Incomplete habits")))
+                               ((org-ql-block-header "Habits to take")))
           (org-ql-search-block '(and (ts-active :on today)
                                      (not (or (todo) (done))))
-                               ((org-ql-block-header "Today's common event"))))
+                               ((org-ql-block-header "Today's common event")))
+          (org-ql-search-block '(and (done)
+                                     (closed :on today))
+                               ((org-ql-block-header "Completed tasks on today"))))
          ((org-agenda-sorting-strategy
            '(todo-state-up priority-down deadline-up))))
         ("w" "Weekly task list"
