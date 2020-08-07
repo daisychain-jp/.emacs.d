@@ -275,6 +275,7 @@ If 'ARG' is passed, shred afile instead delete."
   (setq org-clock-persist-query-resume nil)
   (org-clock-persistence-insinuate)
   (setq org-clock-string-limit 20)
+  (setq org-clock-continuously t)
   (add-hook 'org-clock-in-hook
             (lambda () (save-buffer)))
   (add-hook 'org-clock-out-hook
