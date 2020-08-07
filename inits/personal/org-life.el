@@ -158,11 +158,11 @@
                                ((org-ql-block-header "This week's common event"))))
          ((org-agenda-sorting-strategy
            '(todo-state-up priority-down deadline-up))))
-        ("v" "Viable task list"
-         ((org-ql-search-block '(and (todo "VI")
+        ("A" "Doable thing list"
+         ((org-ql-search-block '(and (todo "DA")
                                      (not (tags "scrap"))())
-                               ((org-ql-block-header "Viable tasks")))
-          (org-ql-search-block '(and (todo "VI")
+                               ((org-ql-block-header "Doable things")))
+          (org-ql-search-block '(and (todo "DA")
                                      (tags "scrap")
                                      (not (deadline :to -1)))
                                ((org-ql-block-header "Scraps"))))
@@ -208,17 +208,17 @@
          ((org-agenda-files `,(org-record-files))))
         ("t" . "TD entries")
         ("ta" "Master task list"
-         tags "/UG|DI|WD|TD|VI|SD"
+         tags "/UG|DI|WD|TD|DA|SD"
          ((org-agenda-sorting-strategy
            '(todo-state-up priority-down deadline-up))))
         ("tt" "Todo task"
          tags "-CONDITION/UG|DI|WD|TD"
          ((org-agenda-sorting-strategy
            '(todo-state-up priority-down deadline-up))))
-        ("tv" "viable task"
-         ((org-ql-search-block '(and (todo "VI")
+        ("tA" "doable thing"
+         ((org-ql-search-block '(and (todo "DA")
                                      (not (deadline :to -1)))
-                               ((org-ql-block-header "Viable entries"))))
+                               ((org-ql-block-header "Doable entries"))))
          ((org-agenda-sorting-strategy
            '(deadline-up category-up priority-down))))
         ("ts" "Someday list"
@@ -236,11 +236,12 @@
         ("#" "stuck project"
          ((org-ql-search-block '(and (tags "project")
                                      ;; exclude projects
-                                     (not (children (todo "TD" "WD" "DI" "VI"))))
+                                     (not (children (todo "TD" "WD" "DI" "DA"))))
                                ((org-ql-block-header "Stuck projects")))))
         ("$" "ready-to-archive entries"
-         ((org-ql-search-block '(and (todo "DN" "CX" "PD")
-                                     (closed :to -1)
+         ((org-ql-search-block '(and (or (and (todo "DN" "CX" "PD")
+                                              (closed :to -1))
+                                         (todo "SD"))
                                      (not (tags "project")))
                                ((org-ql-block-header "Completed tasks")))
           (org-ql-search-block '(and (tags "scrap")
@@ -257,7 +258,7 @@
         ("H" "All Repeated Tasks" tags "CATEGORY=\"Repeated\"+LEVEL=>2+{ac_.+}")
         ("g" "aggregated task list"
          ((tags "SCHEDULED<=\"<today>\"|DEADLINE<=\"<today>\"")
-          (todo "UG|DI|VI")
+          (todo "UG|DI|DA")
           (agenda ""))
          ((org-agenda-sorting-strategy
            '(todo-state-up
@@ -343,10 +344,10 @@ go to today's entry in record file."
          "* %i :drill:fd_eng:\n[%^C%?]\n- %a")
         ("S" "Web site for deferred checking (scrap)"
          entry (id "68d74115-1f70-448d-a76e-738e32b272d8")
-         "* VI %a :scrap:ac_read:\nDEADLINE: %(org-capture-templates-insert-week-ahead)")
+         "* DA %a :scrap:ac_read:\nDEADLINE: %(org-capture-templates-insert-week-ahead)")
         ("$" "deferred checking with immediate finish"
          entry (id "68d74115-1f70-448d-a76e-738e32b272d8")
-         "* VI %a :scrap:ac_read:\nDEADLINE: %(org-capture-templates-insert-week-ahead)"
+         "* DA %a :scrap:ac_read:\nDEADLINE: %(org-capture-templates-insert-week-ahead)"
          :immediate-finish t)
         ("M" "Memo to the clocked"
          item (clock)
