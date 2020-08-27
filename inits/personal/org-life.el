@@ -84,19 +84,19 @@
              priority-down))))
         ("e" . "Effort table")
         ("ei" "of doing task"
-         tags "+Effort=>\"0\"/UG|DI"
+         tags "+Effort=>\"0\"/UG|IP"
          ((org-agenda-overriding-header "Today's Task")
           (org-local-columns-format "%26ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM(Time){:}")
           (org-agenda-view-columns-initially t)
           (org-agenda-sorting-strategy '(todo-state-up priority-down deadline-up))))
         ("ew" "of will-do task"
-         tags "+Effort=>\"0\"/UG|DI|WD"
+         tags "+Effort=>\"0\"/UG|IP|WD"
          ((org-agenda-overriding-header "This Week's Task")
           (org-local-columns-format "%26ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM(Time){:}")
           (org-agenda-view-columns-initially t)
           (org-agenda-sorting-strategy '(todo-state-up priority-down deadline-up))))
         ("ea" "of all task"
-         tags "+Effort=>\"0\"/UG|DI|WD|TD"
+         tags "+Effort=>\"0\"/UG|IP|WD|TD"
          ((org-agenda-overriding-header "This Week's Task")
           (org-local-columns-format "%26ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM(Time){:}")
           (org-agenda-view-columns-initially t)
@@ -108,19 +108,19 @@
           (org-agenda-view-columns-initially t)
           (org-agenda-sorting-strategy '(todo-state-up priority-down deadline-up))))
         ("E" . "tasks without Effort")
-        ("Ei" "doing task" tags "+Effort<\"0:01\"/UG|DI")
-        ("Ew" "will-do task" tags "+Effort<\"0:01\"/UG|DI|WD")
-        ("Ea" "all task" tags "+Effort<\"0:01\"/UG|DI|WD|TD")
+        ("Ei" "doing task" tags "+Effort<\"0:01\"/UG|IP")
+        ("Ew" "will-do task" tags "+Effort<\"0:01\"/UG|IP|WD")
+        ("Ea" "all task" tags "+Effort<\"0:01\"/UG|IP|WD|TD")
         ("i" "Daily task list"
          ((org-ql-search-block `(heading ,(format-time-string "%Y-%m-%d %A"))
                                ((org-agenda-files `(,(org-record-file)))
                                 (org-ql-block-header "Today's tree")))
-          (org-ql-search-block '(or (todo "UG") (todo "DI"))
+          (org-ql-search-block '(or (todo "UG") (todo "IP"))
                                ((org-ql-block-header "Today's task")
                                 (org-agenda-sorting-strategy
                                  '(priority-down))))
           (org-ql-search-block '(and (planning :on today)
-                                     (not (todo "DI" "HB" "DN" "CX" "PD"))
+                                     (not (todo "IP" "HB" "DN" "CX" "PD"))
                                      (not (tags "scrap"))
                                      (not (habit)))
                                ((org-ql-block-header "Scheduled/Deadlined today")))
@@ -143,10 +143,10 @@
                                 (org-ql-block-header "This week's tree")))
           (org-ql-search-block '(or (todo "WD"))
                                ((org-ql-block-header "This week's tasks")))
-          (org-ql-search-block '(or (todo "UG") (todo "DI"))
+          (org-ql-search-block '(or (todo "UG") (todo "IP"))
                                ((org-ql-block-header "Today's tasks")))
           (org-ql-search-block '(and (planning :from 0 :to 6)
-                                     (not (todo "DI" "HB" "DN" "CX" "PD"))
+                                     (not (todo "IP" "HB" "DN" "CX" "PD"))
                                      (not (tags "scrap"))
                                      (not (habit)))
                                ((org-ql-block-header "Scheduled/Deadlined this week")))
@@ -208,11 +208,11 @@
          ((org-agenda-files `,(org-record-files))))
         ("t" . "TD entries")
         ("ta" "Master task list"
-         tags "/UG|DI|WD|TD|DA|SD"
+         tags "/UG|IP|WD|TD|DA|SD"
          ((org-agenda-sorting-strategy
            '(todo-state-up priority-down deadline-up))))
         ("tt" "Todo task"
-         tags "-CONDITION/UG|DI|WD|TD"
+         tags "-CONIPTION/UG|IP|WD|TD"
          ((org-agenda-sorting-strategy
            '(todo-state-up priority-down deadline-up))))
         ("tA" "doable thing"
@@ -236,7 +236,7 @@
         ("#" "stuck project"
          ((org-ql-search-block '(and (tags "project")
                                      ;; exclude projects
-                                     (not (children (todo "TD" "WD" "DI" "DA"))))
+                                     (not (children (todo "TD" "WD" "IP" "DA"))))
                                ((org-ql-block-header "Stuck projects")))))
         ("$" "ready-to-archive entries"
          ((org-ql-search-block '(and (or (and (todo "DN" "CX" "PD")
@@ -258,7 +258,7 @@
         ("H" "All Repeated Tasks" tags "CATEGORY=\"Repeated\"+LEVEL=>2+{ac_.+}")
         ("g" "aggregated task list"
          ((tags "SCHEDULED<=\"<today>\"|DEADLINE<=\"<today>\"")
-          (todo "UG|DI|DA")
+          (todo "UG|IP|DA")
           (agenda ""))
          ((org-agenda-sorting-strategy
            '(todo-state-up
@@ -390,7 +390,7 @@ go to today's entry in record file."
       (unwind-protect
           (org-capture-string
            (buffer-string)
-           (if (string-match (concat org-ts-regexp "\\|\\* \\(UG\\|DI\\|WD\\|TD\\)")
+           (if (string-match (concat org-ts-regexp "\\|\\* \\(UG\\|IP\\|WD\\|TD\\)")
                              (buffer-string))
                "i" "n"))
         (set-buffer-modified-p nil)
