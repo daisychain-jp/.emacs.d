@@ -238,16 +238,6 @@
                                      ;; exclude projects
                                      (not (children (todo "TD" "WD" "IP" "DA"))))
                                ((org-ql-block-header "Stuck projects")))))
-        ("$" "ready-to-archive entries"
-         ((org-ql-search-block '(and (or (and (todo "DN" "CX" "PD")
-                                              (closed :to -1))
-                                         (todo "SD"))
-                                     (not (tags "project")))
-                               ((org-ql-block-header "Completed tasks")))
-          (org-ql-search-block '(and (tags "scrap")
-                                     (deadline :to -1)
-                                     (not (todo "DN" "CX" "PD")))
-                               ((org-ql-block-header "Expired scrap entries")))))
         ("p" "Projects" tags "+project")
         ("h" "HABIT items scheduled today"
          ((org-ql-search-block '(and (habit)
@@ -538,10 +528,10 @@ If simgle prefix SEARCH is passed search in record file instead."
   "List candidate entries for archiving in weekly review ends with DUE-DATE."
   (interactive (list (org-read-date nil nil nil "Due date: ")))
   (let ((files (org-agenda-files)))
-    (org-ql-search files `(or (and (todo "DN" "CX" "PD")
+    (org-ql-search files `(or (todo "SD")
+                              (and (done)
                                    (not (tags "project"))
-                                   (closed :to ,due-date))
+                                   (planning :to ,due-date))
                               (and (tags "scrap")
-                                   (not (todo "DN" "CX" "PD"))
                                    (deadline :to ,due-date)))
-      :sort '(todo))))
+      :sort '(date))))
