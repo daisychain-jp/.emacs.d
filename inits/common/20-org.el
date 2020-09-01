@@ -706,7 +706,6 @@ Video file is expected appear in org-link."
                  (buffer-substring begin end))))
     (cond
      ((string-match-p "https?" type)
-      (princ (format "Downloading %s" (or desc path)))
       (download-video (org-link-unescape (concat type ":" path)) desc)))))
 
 (defun org-download-audio-link-at-point ()
@@ -725,5 +724,4 @@ Video file is expected appear in org-link."
                  (buffer-substring begin end))))
     (cond
      ((string-match-p "https?" type)
-      (princ (format "Downloading %s" (or desc path)))
       (download-audio (org-link-unescape (concat type ":" path)) desc)))))
