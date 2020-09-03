@@ -9,6 +9,8 @@
                             (buffer-face-set 'visible)
                             (setq-local line-spacing 0.1)))
   :custom
+  (elfeed-use-curl t)
+  (elfeed-curl-program-name (concat env-local-usr-bin-dir "/curl"))
   (elfeed-db-directory (concat env-var-dir "/lib/elfeed/db"))
   (elfeed-search-date-format '("%y%m%d" 6 :left))
   (elfeed-search-title-min-width 100)
