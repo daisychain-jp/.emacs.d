@@ -86,6 +86,7 @@
     ("c" counsel-describe-face)
     ("m" counsel-descbinds)
     ("i" info)
+    ("n" view-emacs-news)
     ("I" counsel-info-lookup-symbol)
     ("l" counsel-find-library)
     ("s" counsel-info-lookup-symbol)
