@@ -25,10 +25,9 @@
 (use-package adaptive-wrap
   :straight t)
 
-(use-package epa-file
+(use-package epg
   :custom
-  (epg-gpg-program "/usr/bin/gpg")
-  (epa-pinentry-mode 'loopback))
+  (epg-pinentry-mode 'loopback))
 
 (use-package selected
   :straight t
