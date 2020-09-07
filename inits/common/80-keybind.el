@@ -117,6 +117,7 @@
     ("f" elfeed)
     ("o" org-scratch)
     ("p" proced)
+    ("P" list-processes)
     ("b" battery)
     ("?" woman)
     ("q" quickrun)
