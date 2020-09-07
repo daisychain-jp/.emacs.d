@@ -3,6 +3,7 @@
   :bind (:map dired-mode-map
               ("(" . dired-hide-details-mode)
               (")" . dired-hide-details-mode)
+              ("E" . dired-create-empty-file)
               ("o" . dired-omit-mode)
               ("r" . wdired-change-to-wdired-mode)
               ("C-o" . dired-open))
