@@ -3,6 +3,8 @@
   :delight " TW"
   :after (hydra)
   :custom
+  (twittering-private-info-file (concat (directory-file-name user-emacs-directory) "/.twittering-mode.gpg"))
+  (twittering-user-id-db-file (concat (directory-file-name user-emacs-directory) "/.twittering-mode-user-info.gz"))
   (twittering-use-master-password t)
   (twittering-use-ssl t)
   (twittering-number-of-tweets-on-retrieval 50)
