@@ -187,7 +187,13 @@
          ((org-agenda-files org-record-files)
           (org-agenda-sorting-strategy '(priority-down))))
         ("n" "Anniversary"
-         ((org-ql-search-block `(heading ,(let ((month-ago (decode-time)))
+         ((org-ql-search-block `(heading ,(let ((week-ago (decode-time)))
+                                            (cl-incf (nth 3 week-ago) -7)
+                                            (format-time-string "%Y-%m-%d %A"
+                                                                (apply #'encode-time
+                                                                       week-ago))))
+                               ((org-ql-block-header "One week ago")))
+          (org-ql-search-block `(heading ,(let ((month-ago (decode-time)))
                                             (cl-incf (nth 4 month-ago) -1)
                                             (format-time-string "%Y-%m-%d %A"
                                                                 (apply #'encode-time
