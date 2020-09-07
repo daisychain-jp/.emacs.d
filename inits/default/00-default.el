@@ -109,5 +109,8 @@
 (setq-default indent-tabs-mode nil)
 (setq text-scale-mode-step 1.0625)
 
+;; fill
+(setq-default fill-column 80)
+
 ;; alarm
 (setq visible-bell nil)
