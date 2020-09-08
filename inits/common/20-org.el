@@ -178,7 +178,7 @@ If 'ARG' is passed, shred afile instead delete."
           ("!" org-readable)
           ("M" org-mail-entry)
           ("k" nil)
-          ("c" org-entry-kill-property)
+          ("c" org-property-copy-as-kill)
           ("%" org-project-lookup-children)
           ("&" org-project-correlate-parent-child)
           ("N" org-add-note)
@@ -468,15 +468,23 @@ The sparse tree is according to tags string MATCH."
                         (buffer-string)))
     (kill-buffer export-buf-name)))
 
-(defun org-entry-kill-property ()
-  "Append property value to the kill ring by selecting key."
+(defun org-property-copy-as-kill ()
+  "Prompt user to select property to append to the kill ring.
+
+If property's value matches $(...) format, ... is interpreted as shell command and execute it."
   (interactive)
   (let* ((properties (org-entry-properties))
-         (selected-key
+         (prop-key-to-copy
           (completing-read "Property name: "
                            (mapcar #'(lambda (var) (car var)) properties))))
-    (when (stringp selected-key)
-      (kill-new (cdr (assoc selected-key properties))))))
+    (when (stringp prop-key-to-copy)
+      (let* ((prop-value (cdr (assoc prop-key-to-copy properties)))
+             (str-to-copy
+              (cond
+               ((string-match "$(\\(.+\\))" prop-value)
+                (shell-command-to-string (match-string 1 prop-value)))
+               (t prop-value))))
+        (kill-new str-to-copy)))))
 
 (defun org-end-of-subtree ()
   (interactive)
