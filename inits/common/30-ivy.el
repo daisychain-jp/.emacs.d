@@ -14,7 +14,8 @@
   :config
   (ivy-mode 1)
   (setf ivy-re-builders-alist
-        '((t . ivy--regex-plus)))
+        '((counsel-describe-function . ivy--regex-ignore-order)
+          (t . ivy--regex-plus)))
   (map-put ivy-initial-inputs-alist 'counsel-org-capture "")
   (require 'avy-migemo-e.g.ivy))
 
