@@ -32,6 +32,10 @@
                                          (shell-command-on-region (point-min) (point-max) "nkf -w -Lu" (current-buffer) t)
                                          (or (buffer-string) "")))
                             (mu4e-shr2text msg)))
+  (message-send-mail-function 'smtpmail-send-it)
+  (mm-sign-option nil)
+  (mml-secure-openpgp-sign-with-sender t)
+  (mml-default-sign-method 'pgpmime)
   :config
   (bind-keys :map mu4e-headers-mode-map
              ("C-j" . mu4e-headers-view-message)
