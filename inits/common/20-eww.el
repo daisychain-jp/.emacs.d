@@ -66,20 +66,6 @@
   (setq-local hlc/backward-page-func 'eww-back-url)
   (setq-local hlc/forward-page-func 'eww-forward-url))
 
-(defvar eww-launch-in-new-buffer nil
-  "If non-nil, create a new buffer and open in it when `eww-launch` is called.")
-(defun eww-launch ()
-  "Open url or request query to searching engine by calling `eww`.
-
-If `eww-launch-in-new-buffer` is non-nil,
-this function force to create a new buffer and display rendering results in it."
-  (interactive)
-  (if eww-launch-in-new-buffer
-      (progn
-        (advice-add 'eww :around #'open-in-new-buffer)
-        (call-interactively 'eww)
-        (advice-remove 'eww #'open-in-new-buffer))
-    (call-interactively 'eww)))
 (defun open-in-new-buffer (orig-fun &rest args)
   "If this function is added as an advice to ORIG-FUN,
 a new buffer will be created and
