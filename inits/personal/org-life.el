@@ -335,7 +335,7 @@ go to today's entry in record file."
          "* %i :drill:\n  [%?]")
         ("De" "English drill entry in currently clocking or today's entry."
          entry (function org-goto-clocking-or-today)
-         "* %i :drill:fd_eng:\n[%^C%?]\n- %a")
+         "* %i :drill:fd_en:\n[%^C%?]\n- %a")
         ("S" "Web site for deferred checking (scrap)"
          entry (id "68d74115-1f70-448d-a76e-738e32b272d8")
          "* DA %a :scrap:ac_read:\nDEADLINE: %(org-capture-templates-insert-week-ahead)")
@@ -525,7 +525,7 @@ If simgle prefix SEARCH is passed search in record file instead."
 (push '("English phrase list"
         :buffers-files org-record-files
         :query (and (tags "drill")
-                    (tags "fd_eng")))
+                    (tags "fd_en")))
       org-ql-views)
 
 (defun org-weekly-review-archive-candidates (due-date)
