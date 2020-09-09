@@ -1,6 +1,7 @@
 (use-package bookmark
   :custom
-  (bookmark-default-file (concat (directory-file-name user-emacs-directory) "/.bookmarks.gpg"))
+  (bookmark-default-file
+   (expand-file-name ".bookmarks.gpg" user-emacs-directory))
   (bookmark-watch-bookmark-file 'silent)
   :config
   (delight 'bookmark-bmenu-mode " BB"))
