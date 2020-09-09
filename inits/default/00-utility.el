@@ -28,9 +28,6 @@
         (url (thing-at-point-url-at-point))
         (filename (thing-at-point 'filename)))
     (cond
-     (button
-      (push-button)
-      t)
      (email
       (mu4e~compose-mail email)
       t)
@@ -54,7 +51,11 @@
           (4 (find-file (car url-pos)))
           (t (open-file (car url-pos))
              (goto-pos (cadr url-pos))))
-        t)))))
+        t))
+     (button
+      (push-button)
+      t)
+     )))
 
 (defvar open-file-work-dir "~/var/tmp/exfile")
 
