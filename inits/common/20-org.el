@@ -6,6 +6,7 @@
   ;; you need to make in org directory in advance
   ;; $ make clean all
   :straight t
+  :defer t
   :delight
   (org-mode         " OG")
   (org-agenda-mode  " OG")
@@ -13,6 +14,11 @@
   :diminish ((org-src-mode . "os"))
   :mode (("\\.org$" . org-mode))
   :interpreter (("org" . org-mode))
+  :init
+  (defvar org-agenda-files-default (append
+                                    (file-expand-wildcards (concat env-doc-dir "/*_a/*.org"))
+                                    (file-expand-wildcards (concat env-doc-dir "/**/*_a.org")))
+    "Default org-agenda-files.")
   :bind (("C-c a" . org-agenda)
          ("C-c c" . org-capture)
          ("M-J" . org-clock-goto)
@@ -28,8 +34,6 @@
   (require 'org-agenda)
   (require 'org-capture)
   (require 'org-habit)
-  (require 'org-eww)
-  (require 'org-eshell)
   (require 'org-mu4e)
 
   ;; local key bindings
@@ -327,10 +331,6 @@ If 'ARG' is passed, shred afile instead delete."
               (setq skk-dcomp-multiple-activate nil)))
 
   ;; org-agenda
-  (defvar org-agenda-files-default (append
-                                    (file-expand-wildcards (concat env-doc-dir "/*_a/*.org"))
-                                    (file-expand-wildcards (concat env-doc-dir "/**/*_a.org")))
-    "Default org-agenda-files.")
   (setq org-agenda-files org-agenda-files-default)
   (setq org-agenda-prefix-format
         '((agenda   . "%?-12t% s")
@@ -409,9 +409,9 @@ If 'ARG' is passed, shred afile instead delete."
 
 (use-package persist
   :straight t)
-(el-get-bundle org-drill)
 (use-package org-drill
   :after (org persist)
+  :straight t
   :custom
   (org-drill-scope 'tree)
   (org-drill-cram-hours 0.5))
