@@ -363,6 +363,7 @@ If 'ARG' is passed, shred afile instead delete."
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((C        . t)
+     (java     . t)
      (R        . t)
      (shell    . t)
      (ruby     . t)
