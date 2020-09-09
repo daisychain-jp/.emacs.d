@@ -3,8 +3,6 @@
   :delight
   (pdf-view-mode " PV")
   :mode ("\\.pdf$" . pdf-view-mode)
-  :init
-  (pdf-tools-install)
   :config
   (add-hook 'pdf-view-mode-hook
             (lambda ()
