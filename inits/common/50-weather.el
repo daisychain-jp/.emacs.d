@@ -1,6 +1,5 @@
 ;; 気象庁配信の天気情報を加工して表示
 
-(el-get-bundle request)
 (require 'request)
 
 (defvar weather-areas

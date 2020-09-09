@@ -9,7 +9,8 @@
   (skk-kakutei-key (kbd "C-m"))
   (skk-user-directory (format "%s/ddskk" user-emacs-directory))
   (skk-byte-compile-init-file t)
-  (skk-tut-file (concat el-get-dir "/ddskk/etc/SKK.tut"))
+  (skk-tut-file
+   (expand-file-name "etc/SKK.tut" (straight--repos-dir "ddskk")))
   ;; cursor color
   (skk-use-color-cursor t)
   (skk-cursor-hiragana-color "orange")

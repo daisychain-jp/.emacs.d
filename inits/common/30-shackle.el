@@ -10,7 +10,6 @@
      ("*shell*" :same t)
      ("*Help*" :same t)
      ("*Apropos*" :same t)
-     ("*el-get packages*" :same t)
      ("*pry*" :same t)
      ("j-\*" :regexp t :same t)))
   :config

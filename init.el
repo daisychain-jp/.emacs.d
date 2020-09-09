@@ -15,11 +15,10 @@
 (when load-file-name
   (setq user-emacs-directory (file-name-directory load-file-name)))
 
-;; switch default package directory to "package/xx.x.x/(elpa|el-get)"
+;; switch default package directory to "package/xx.x.x/(elpa)"
 (let ((pkg-emacs-ver-dir
        (locate-user-emacs-file
         (concat "package/" emacs-version))))
-  (add-to-list 'load-path (setq el-get-dir (expand-file-name "el-get" pkg-emacs-ver-dir)))
   (add-to-list 'load-path (setq package-user-dir (expand-file-name "elpa" pkg-emacs-ver-dir)))
   (add-to-list 'load-path (expand-file-name "elisp" pkg-emacs-ver-dir)))
 
@@ -31,15 +30,6 @@
        (list (concat (file-name-as-directory user-emacs-directory) "site-lisp" ))
        (file-expand-wildcards
         (format "%s/site-lisp/*" user-emacs-directory))))
-
-;; install El-Get by using package system
-(add-to-list 'load-path (concat el-get-dir "/el-get"))
-(unless (require 'el-get nil 'noerror)
-  (with-current-buffer
-      (url-retrieve-synchronously
-       "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el")
-    (goto-char (point-max))
-    (eval-print-last-sexp)))
 
 ;; install straight.el
 (setq straight-recipes-gnu-elpa-use-mirror t)
