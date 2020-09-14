@@ -92,6 +92,7 @@
     ("I" counsel-info-lookup-symbol)
     ("l" counsel-find-library)
     ("s" counsel-info-lookup-symbol)
+    ("P" describe-package)
     ("q" nil "quit"))
   (defhydra hydra-git (global-map "C-c g"
                                   :color teal)
