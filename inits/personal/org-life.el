@@ -22,27 +22,40 @@
          tags ""
          ((org-agenda-files org-record-files)
           (org-agenda-sorting-strategy '(time-down))))
-        ("s" . "Someday entries")
-        ("sa" "SOMEDAY items"
-         ((org-ql-search-block '(todo "SD")
-                               ((org-ql-block-header "SOMEDAY items"))))
+        ("o" . "sOmeday entries")
+        ("oo" "SOMEDAY items"
+         ((org-ql-search-block '(and (todo "SD")
+                                     (tags "ac_purchase"))
+                               ((org-ql-block-header "with ac_purchase tag")))
+          (org-ql-search-block '(and (todo "SD")
+                                     (tags "ac_read"))
+                               ((org-ql-block-header "with ac_read tag")))
+          (org-ql-search-block '(and (todo "SD")
+                                     (tags "ac_cook"))
+                               ((org-ql-block-header "with ac_cook tag")))
+          (org-ql-search-block '(and (todo "SD")
+                                     (tags "ac_make"))
+                               ((org-ql-block-header "with ac_make tag")))
+          (org-ql-search-block '(and (todo "SD")
+                                     (not (tags "ac_purchase" "ac_read" "ac_cook" "ac_make")))
+                               ((org-ql-block-header "with other tag"))))
          ((org-agenda-files org-record-files)))
-        ("sr" "SOMEDAY items with ac_read"
+        ("or" "SOMEDAY items with ac_read"
          ((org-ql-search-block '(and (todo "SD")
                                      (tags "ac_read"))
                                ((org-ql-block-header "SOMEDAY items with ac_read"))))
          ((org-agenda-files org-record-files)))
-        ("sc" "SOMEDAY items with ac_cook"
+        ("oc" "SOMEDAY items with ac_cook"
          ((org-ql-search-block '(and (todo "SD")
                                      (tags "ac_cook"))
                                ((org-ql-block-header "SOMEDAY items with ac_cook"))))
          ((org-agenda-files org-record-files)))
-        ("sp" "SOMEDAY items with ac_purchase"
+        ("op" "SOMEDAY items with ac_purchase"
          ((org-ql-search-block '(and (todo "SD")
                                      (tags "ac_purchase"))
                                ((org-ql-block-header "SOMEDAY items with ac_purchase"))))
          ((org-agenda-files org-record-files)))
-        ("sm" "SOMEDAY items with ac_make"
+        ("om" "SOMEDAY items with ac_make"
          ((org-ql-search-block '(and (todo "SD")
                                      (tags "ac_make"))
                                ((org-ql-block-header "SOMEDAY items with ac_make"))))
@@ -168,24 +181,6 @@
                                ((org-ql-block-header "Scraps"))))
          ((org-agenda-sorting-strategy
            '(todo-state-up priority-down deadline-up))))
-        ("o" "Someday list"
-         ((org-ql-search-block '(and (todo "SD")
-                                     (tags "ac_purchase"))
-                               ((org-ql-block-header "with ac_purchase tag")))
-          (org-ql-search-block '(and (todo "SD")
-                                     (tags "ac_read"))
-                               ((org-ql-block-header "with ac_read tag")))
-          (org-ql-search-block '(and (todo "SD")
-                                     (tags "ac_cook"))
-                               ((org-ql-block-header "with ac_cook tag")))
-          (org-ql-search-block '(and (todo "SD")
-                                     (tags "ac_make"))
-                               ((org-ql-block-header "with ac_make tag")))
-          (org-ql-search-block '(and (todo "SD")
-                                     (not (tags "ac_purchase" "ac_read" "ac_cook" "ac_make")))
-                               ((org-ql-block-header "with other tag"))))
-         ((org-agenda-files org-record-files)
-          (org-agenda-sorting-strategy '(priority-down))))
         ("n" "Anniversary"
          ((org-ql-search-block `(heading ,(let ((week-ago (decode-time)))
                                             (cl-incf (nth 3 week-ago) -7)
