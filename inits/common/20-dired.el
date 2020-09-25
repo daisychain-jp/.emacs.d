@@ -11,7 +11,7 @@
   (dired-recursive-copies 'always)
   (dired-recursive-deletes 'top)
   (dired-listing-switches "-ahgG --time-style=iso")
-  (dired-dwim-target t)
+  (dired-dwim-target 'dired-dwim-target-recent)
   (dired-hide-details-hide-information-lines nil)
   :config
   (put 'dired-find-alternate-file 'disabled nil)
