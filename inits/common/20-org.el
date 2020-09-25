@@ -174,7 +174,6 @@ If 'ARG' is passed, shred afile instead delete."
         (lambda () (and (looking-at org-outline-regexp) (looking-back "^\**"))))
   (setq org-speed-commands-user
         '(("$" org-record-subtree)
-          ("A" org-toggle-archive-tag)
           ("W" org-copy)
           ("Q" org-clock-cancel)
           ("/" org-sparse-tree-indirect-buffer)
@@ -406,6 +405,11 @@ If 'ARG' is passed, shred afile instead delete."
 
   ;; src
   (setq org-src-window-setup 'current-window))
+
+(use-package org-archive
+  :after (org)
+  :custom
+  (org-archive-default-command 'org-archive-set-tag))
 
 (use-package persist
   :straight t)
