@@ -706,35 +706,53 @@ WHICH-TS should be `earliest' or `latest'."
 (defun org-download-video-link-at-point ()
   "Download video file at point.
 
-Video file is expected appear in org-link."
+Video file is expected to appear in org-link."
   (interactive)
-  (let* ((context (org-element-lineage
-                   (org-element-context)
-                   '(link)
-                   t))
-         (type (org-element-property :type context))
-         (path (org-element-property :path context))
-         (desc (when-let ((begin (org-element-property :contents-begin context))
-                          (end (org-element-property :contents-end context)))
-                 (buffer-substring begin end))))
-    (cond
-     ((string-match-p "https?" type)
-      (download-video (org-link-unescape (concat type ":" path)) desc)))))
+  (if-let* ((context (org-element-lineage
+                      (org-element-context)
+                      '(link)
+                      t))
+            (type (org-element-property :type context))
+            (path (org-element-property :path context))
+            (desc (when-let ((begin (org-element-property :contents-begin context))
+                             (end (org-element-property :contents-end context)))
+                    (buffer-substring begin end))))
+      (cond
+       ((string-match-p "https?" type)
+        (download-video (org-link-unescape (concat type ":" path)) desc))
+       ((string-match-p "elfeed" type)
+        (save-excursion
+          (org-open-at-point)
+          (when (eq major-mode 'elfeed-show-mode)
+            (when-let ((url (or (caar (elfeed-entry-enclosures elfeed-show-entry))
+                                (elfeed-entry-link elfeed-show-entry)))
+                       (title (elfeed-entry-title elfeed-show-entry)))
+              (download-video url title))
+            (quit-window)))))))
 
 (defun org-download-audio-link-at-point ()
   "Download audio file at point.
 
-Video file is expected appear in org-link."
+Audio file is expected to appear in org-link."
   (interactive)
-  (let* ((context (org-element-lineage
-                   (org-element-context)
-                   '(link)
-                   t))
-         (type (org-element-property :type context))
-         (path (org-element-property :path context))
-         (desc (when-let ((begin (org-element-property :contents-begin context))
-                          (end (org-element-property :contents-end context)))
-                 (buffer-substring begin end))))
-    (cond
-     ((string-match-p "https?" type)
-      (download-audio (org-link-unescape (concat type ":" path)) desc)))))
+  (if-let* ((context (org-element-lineage
+                      (org-element-context)
+                      '(link)
+                      t))
+            (type (org-element-property :type context))
+            (path (org-element-property :path context))
+            (desc (when-let ((begin (org-element-property :contents-begin context))
+                             (end (org-element-property :contents-end context)))
+                    (buffer-substring begin end))))
+      (cond
+       ((string-match-p "https?" type)
+        (download-audio (org-link-unescape (concat type ":" path)) desc))
+       ((string-match-p "elfeed" type)
+        (save-excursion
+          (org-open-at-point)
+          (when (eq major-mode 'elfeed-show-mode)
+            (when-let ((url (or (caar (elfeed-entry-enclosures elfeed-show-entry))
+                                (elfeed-entry-link elfeed-show-entry)))
+                       (title (elfeed-entry-title elfeed-show-entry)))
+              (download-audio url title))
+            (quit-window)))))))
