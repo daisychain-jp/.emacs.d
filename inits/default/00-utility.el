@@ -54,8 +54,7 @@
         t))
      (button
       (push-button)
-      t)
-     )))
+      t))))
 
 (defvar open-file-work-dir "~/var/tmp/exfile")
 
