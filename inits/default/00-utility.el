@@ -63,8 +63,19 @@
   "Open file `FILE' with appropriate application."
   (let ((ex-file (expand-file-name file))
         (rm-file nil))
-    (cond
-     ((string-suffix-p ".mp4.gpg" ex-file)
+    (let ((is-tar (string-suffix-p ".tar.gpg" ex-file))
+          (is-gzip (string-match-p "\\.t\\(ar\\.\\)?gz\\.gpg$" ex-file)))
+      (when (or is-tar is-gzip)
+        (call-process-shell-command
+         (format "mkdir -p \"%s\"; gpg -d %s | tar -x %s -C %s"
+                 (setf rm-file (expand-file-name (make-temp-name
+                                                  (file-name-as-directory open-file-work-dir))))
+                 ex-file
+                 (cond (is-gzip "-z")
+                       (t ""))
+                 rm-file))
+        (setf ex-file rm-file)))
+    (when (string-suffix-p ".mp4.gpg" ex-file)
       (call-process-shell-command
        (format "gpg -o \"%s\" -d \"%s\""
                (setf rm-file (expand-file-name (concat (make-temp-name
@@ -72,14 +83,6 @@
                                                        ".mp4")))
                ex-file))
       (setf ex-file rm-file))
-     ((string-suffix-p ".tar.gpg" ex-file)
-      (call-process-shell-command
-       (format "mkdir -p \"%s\"; gpg -d %s | tar xv -C %s"
-               (setf rm-file (expand-file-name (make-temp-name
-                                                (file-name-as-directory open-file-work-dir))))
-               ex-file
-               rm-file))
-      (setf ex-file rm-file)))
     (cond
      ((or (= (call-process-shell-command (format "filetype-cli check --type playable \"%s\"" ex-file)) 0)
           (string-suffix-p ".m3u" ex-file))
