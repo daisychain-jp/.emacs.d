@@ -179,7 +179,6 @@ If 'ARG' is passed, shred afile instead delete."
           ("/" org-sparse-tree-indirect-buffer)
           ("m" org-match-sparse-tree-indirect-buffer)
           ("!" org-readable)
-          ("M" org-mail-entry)
           ("k" nil)
           ("c" org-property-copy-as-kill)
           ("%" org-project-lookup-children)
@@ -668,6 +667,12 @@ WHICH-TS should be `earliest' or `latest'."
     (error (unless entry
              (org-paste-subtree))
            (message "Unable to refile! %s" err))))
+
+(use-package org-mime
+  :straight t
+  :after (org)
+  :config
+  (map-put org-speed-commands-user "M" 'org-mime-org-subtree-htmlize))
 
 (use-package org-web-tools
   :straight t

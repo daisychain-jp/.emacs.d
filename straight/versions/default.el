@@ -68,6 +68,7 @@
  ("org-clock-convenience" . "7d14699a15ad6c5b9a63246a11188c77f8800e94")
  ("org-clock-split" . "b2f1497b62e7f4a767be02e249e4ac95d4f8f21c")
  ("org-drill" . "35c1ce349949cc213f3076799211210f49431850")
+ ("org-mime" . "9bb6351b25c62835c7881fc64096028eb8ef83ef")
  ("org-ql" . "6633dbb276d51767c3f401d0f68ef99e7b9364b6")
  ("org-reveal" . "1cdd088ec5fab631c564dca7f9f74fd3e9b7d4d4")
  ("org-super-agenda" . "cd0d78cdd5cbdd678f002e2367c4b02b644f700e")
