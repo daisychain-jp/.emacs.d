@@ -261,15 +261,17 @@ If optional argument `FILENAME' is given use this as a filename."
                (alert (format "Downloaded: %s" (or filename-lex url-lex)) :severity 'normal :style 'fringe)
              (alert (format "Failed(%d): %s" exit-status (or filename-lex url-lex)) :severity 'urgent :style 'fringe))))))))
 
-(defun get-media-duration (url)
+(defun show-media-duration (url)
   "Return a duration value for media located at URL."
-  (cond
-   ((string-match "https?://www.youtube.com.+" url)
-    (car (split-string (shell-command-to-string
-                        (format "youtube-dl --get-duration %s" url)))))
-   ((string-match "https?://.+" url)
-    (car (split-string (shell-command-to-string
-                        (format "ffmpeg -i \"%s\" 2>&1 | grep Duration | awk -F '[ ]+' '{print substr($3, 0, length($3)-1)}'" url)))))))
+  (when-let ((duration (cond
+                        ((string-match "https?://www.youtube.com.+" url)
+                         (car (split-string (shell-command-to-string
+                                             (format "youtube-dl --get-duration %s" url)))))
+                        ((string-match "https?://.+" url)
+                         (car (split-string (shell-command-to-string
+                                             (format "ffmpeg -i \"%s\" 2>&1 | grep Duration | awk -F '[ ]+' '{print substr($3, 0, length($3)-1)}'" url))))))))
+    (message "Duration: %s" (if (stringp duration)
+                                duration "N/A"))))
 
 (defun download-video-at-point ()
   "Download video file from url currently pointed."
@@ -287,10 +289,8 @@ If optional argument `FILENAME' is given use this as a filename."
 (defun show-media-duration-at-point ()
   "Show duration of media file which cursor currently pointed."
   (interactive)
-  (if-let* ((url (thing-at-point-url-at-point))
-            (duration (get-media-duration url)))
-      (message "Duration: %s" (if (stringp duration)
-                                  duration "N/A"))))
+  (if-let* ((url (thing-at-point-url-at-point)))
+      (show-media-duration url)))
 
 (defun increment-number-at-point (&optional inc)
   "Increment number at point by one.

@@ -160,10 +160,8 @@
   (interactive)
   (let* ((entry (elfeed-search-selected :single))
          (url (or (caar (elfeed-entry-enclosures entry))
-                  (elfeed-entry-link entry)))
-         (duration (get-media-duration url)))
-    (message "Duration: %s" (if (stringp duration)
-                                duration "N/A"))))
+                  (elfeed-entry-link entry))))
+    (show-media-duration url)))
 
 (defun elfeed-search-scrap-entry ()
   "Store elfeed entry as a scrap."

@@ -50,13 +50,14 @@
              ("C-<"     . org-previous-link)
              ("C->"     . org-next-link)
              ("C-c /"   . org-sparse-tree-indirect-buffer)
-             ("C-c \\"   . org-match-sparse-tree-indirect-buffer)
-             ("C-c V" . org-download-video-link-at-point)
-             ("C-c A" . org-download-audio-link-at-point)
+             ("C-c \\"  . org-match-sparse-tree-indirect-buffer)
+             ("C-c V"   . org-download-video-link-at-point)
+             ("C-c A"   . org-download-audio-link-at-point)
+             ("C-c D"   . org-show-media-duration-at-point)
              ("C-c C-a" . nil)
              ("C-,"     . nil)
              ("M-h"     . nil)
-             ("C-M-m" . hydra-lazy-control/body)
+             ("C-M-m"   . hydra-lazy-control/body)
              ("C-x C-a s" . org-afile-store)
              ("C-x C-a d" . org-afile-delete)
              :map org-agenda-mode-map
@@ -713,33 +714,25 @@ WHICH-TS should be `earliest' or `latest'."
 
 Video file is expected to appear in org-link."
   (interactive)
-  (if-let* ((context (org-element-lineage
-                      (org-element-context)
-                      '(link)
-                      t))
-            (type (org-element-property :type context))
-            (path (org-element-property :path context))
-            (desc (when-let ((begin (org-element-property :contents-begin context))
-                             (end (org-element-property :contents-end context)))
-                    (buffer-substring begin end))))
-      (cond
-       ((string-match-p "https?" type)
-        (download-video (org-link-unescape (concat type ":" path)) desc))
-       ((string-match-p "elfeed" type)
-        (save-excursion
-          (org-open-at-point)
-          (when (eq major-mode 'elfeed-show-mode)
-            (when-let ((url (or (caar (elfeed-entry-enclosures elfeed-show-entry))
-                                (elfeed-entry-link elfeed-show-entry)))
-                       (title (elfeed-entry-title elfeed-show-entry)))
-              (download-video url title))
-            (quit-window)))))))
+  (org-link-at-point-map (lambda (url title)
+                           (download-video url title))))
 
 (defun org-download-audio-link-at-point ()
   "Download audio file at point.
 
 Audio file is expected to appear in org-link."
   (interactive)
+  (org-link-at-point-map (lambda (url title)
+                           (download-audio url title))))
+
+(defun org-show-media-duration-at-point ()
+  "Show duration of media at point."
+  (interactive)
+  (org-link-at-point-map (lambda (url title)
+                           (show-media-duration url))))
+
+(defun org-link-at-point-map (function)
+  ""
   (if-let* ((context (org-element-lineage
                       (org-element-context)
                       '(link)
@@ -751,7 +744,7 @@ Audio file is expected to appear in org-link."
                     (buffer-substring begin end))))
       (cond
        ((string-match-p "https?" type)
-        (download-audio (org-link-unescape (concat type ":" path)) desc))
+        (funcall function (org-link-unescape (concat type ":" path)) desc))
        ((string-match-p "elfeed" type)
         (save-excursion
           (org-open-at-point)
@@ -759,5 +752,5 @@ Audio file is expected to appear in org-link."
             (when-let ((url (or (caar (elfeed-entry-enclosures elfeed-show-entry))
                                 (elfeed-entry-link elfeed-show-entry)))
                        (title (elfeed-entry-title elfeed-show-entry)))
-              (download-audio url title))
+              (funcall function url title))
             (quit-window)))))))
