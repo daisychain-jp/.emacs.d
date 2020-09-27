@@ -66,9 +66,10 @@
           (is-gzip (string-match-p "\\.t\\(ar\\.\\)?gz\\.gpg$" ex-file)))
       (when (or is-tar is-gzip)
         (call-process-shell-command
-         (format "mkdir -p \"%s\"; gpg -d %s | tar -x %s -C %s"
-                 (setf rm-file (expand-file-name (make-temp-name
-                                                  (file-name-as-directory open-file-work-dir))))
+         (format "mkdir -p %s; gpg -d %s | tar -x %s -C %s"
+                 (setf rm-file (shell-quote-argument
+                                (expand-file-name (make-temp-name
+                                                   (file-name-as-directory open-file-work-dir)))))
                  ex-file
                  (cond (is-gzip "-z")
                        (t ""))
@@ -76,20 +77,20 @@
         (setf ex-file rm-file)))
     (when (string-suffix-p ".mp4.gpg" ex-file)
       (call-process-shell-command
-       (format "gpg -o \"%s\" -d \"%s\""
+       (format "gpg -o %s -d %s"
                (setf rm-file (expand-file-name (concat (make-temp-name
                                                         (file-name-as-directory open-file-work-dir))
                                                        ".mp4")))
-               ex-file))
+               (shell-quote-argument ex-file)))
       (setf ex-file rm-file))
     (cond
-     ((or (= (call-process-shell-command (format "filetype-cli check --type playable \"%s\"" ex-file)) 0)
+     ((or (= (call-process-shell-command (format "filetype-cli check --type playable %s" (shell-quote-argument ex-file))) 0)
           (string-suffix-p ".m3u" ex-file))
       (start-process-shell-command "mpv" nil
-                                   (concat (format "nohup mpv --force-window \"%s\" >/dev/null 2>&1;" ex-file)
-                                           (if rm-file (format "rm -rf \"%s\"" rm-file) nil))))
-     ((or (= (call-process-shell-command (format "filetype-cli check --type pdf \"%s\"" ex-file)) 0)
-          (= (call-process-shell-command (format "filetype-cli check --type epub \"%s\"" ex-file)) 0))
+                                   (concat (format "nohup mpv --force-window %s >/dev/null 2>&1;" (shell-quote-argument ex-file))
+                                           (if rm-file (format "rm -rf %s" (shell-quote-argument rm-file)) nil))))
+     ((or (= (call-process-shell-command (format "filetype-cli check --type pdf %s" (shell-quote-argument ex-file))) 0)
+          (= (call-process-shell-command (format "filetype-cli check --type epub %s" (shell-quote-argument ex-file))) 0))
       (open-uri-htmlize ex-file))
      ((file-directory-p ex-file) (dired ex-file))
      (t (find-file ex-file)))))
@@ -99,7 +100,7 @@
 Generally preferance application is used."
   (let ((ex-file (expand-file-name file))
         (process-connection-type nil))
-    (start-process-shell-command "xdg-open" nil (format "xdg-open \"%s\"" ex-file))))
+    (start-process-shell-command "xdg-open" nil (format "xdg-open %s" (shell-quote-argument ex-file)))))
 
 (defun split-location-uri (location-uri)
   "Split LOCATION-URI into normal uri and location specifier.
@@ -153,7 +154,7 @@ play it in media player."
            (remove nil
                    (list (when (numberp pos)
                            (format "--ytdl-raw-options=playlist-start=%d" pos))
-                         (format "--ytdl-format=\"%s\"" (youtube-dl-format))))))
+                         (format "--ytdl-format=%s" (shell-quote-argument (youtube-dl-format)))))))
       (start-process-shell-command "mpv" nil (format "nohup mpv --force-window %s \"%s\" >/dev/null 2>&1" (mapconcat 'identity ytdl-opts " ") url))))
    ((seq-some (lambda (suffix)
                 (string-suffix-p suffix url))
@@ -215,7 +216,7 @@ If optional argument `FILENAME' is given use this as a filename."
                 download-video-dir
                 (mapconcat #'identity
                            (list (format "--format \"%s\"" (youtube-dl-format))
-                                 (when filename (format "--output \"%s\"" filename)))
+                                 (when filename (format "--output %s" (shell-quote-argument filename))))
                            " ")
                 yt-url))
        (lambda (process desc)
