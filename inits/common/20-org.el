@@ -460,7 +460,9 @@ The sparse tree is according to tags string MATCH."
     (kill-buffer export-buf-name)))
 
 (defun org-mail-entry ()
-  "Send a mail with current org entry."
+  "Send a mail whose contents converted from current org entry.
+
+Format of mail contents is plain text."
   (interactive)
   (let ((heading (org-get-heading t t t t))
         (org-export-show-temporary-export-buffer nil)
@@ -468,7 +470,9 @@ The sparse tree is according to tags string MATCH."
         (org-export-with-toc nil)
         (org-export-with-author nil))
     (org-ascii-export-as-ascii nil t nil)
-    (mail-simple-send env-user-mail-address-2 heading
+    (mail-simple-send (or (org-entry-get (point) "MAIL_TO" t)
+                          (read-string "MAIL_TO: "))
+                      heading
                       (with-current-buffer export-buf-name
                         (buffer-string)))
     (kill-buffer export-buf-name)))
@@ -673,7 +677,15 @@ WHICH-TS should be `earliest' or `latest'."
   :straight t
   :after (org)
   :config
-  (map-put org-speed-commands-user "M" 'org-mime-org-subtree-htmlize))
+  (map-put org-speed-commands-user "M"
+           (lambda (&optional arg)
+             (interactive "P")
+             (cond
+              ((equal arg '(4))
+               (call-interactively #'org-mail-entry))
+              (t
+               (let ((org-mime-use-property-inheritance t))
+                 (call-interactively #'org-mime-org-subtree-htmlize)))))))
 
 (use-package org-web-tools
   :straight t
