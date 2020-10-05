@@ -205,9 +205,23 @@ play it in media player."
 
 If optional argument `FILENAME' is given use this as a filename."
   (when (string-match "https?://www.youtube.com.+" url)
-    (lexical-let ((yt-url (match-string 0 url))
-                  (url-lex url)
-                  (filename-lex filename))
+    (lexical-let* ((url-orig (match-string 0 url))
+                   (urlobj-orig (url-generic-parse-url url-orig))
+                   (pq-orig (url-path-and-query urlobj-orig))
+                   (q-str (url-build-query-string
+                           (list (assoc "v" (url-parse-query-string (cdr pq-orig))))))
+                   (yt-url (url-recreate-url
+                            (url-parse-make-urlobj (url-type urlobj-orig)
+                                                   (url-user urlobj-orig)
+                                                   (url-password urlobj-orig)
+                                                   (url-host urlobj-orig)
+                                                   (url-portspec urlobj-orig)
+                                                   (concat (car pq-orig) "?" q-str)
+                                                   (url-target urlobj-orig)
+                                                   (url-attributes urlobj-orig)
+                                                   (url-fullness urlobj-orig))))
+                   (url-lex url)
+                   (filename-lex filename))
       (princ (format "Downloading: %s" (or filename url)))
       (set-process-sentinel
        (start-process-shell-command
