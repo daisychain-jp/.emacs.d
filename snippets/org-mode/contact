@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: contact
+# key: cnt
+# --
+* ${1:Name}
+:PROPERTIES:
+:EMAIL:    ${2:Email}
+:BIRTHDAY: ${3:Year}-${4:Month}-${5:Day}
+:PHONE:    ${6:Tel}
+:END:

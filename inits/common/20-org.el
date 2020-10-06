@@ -411,6 +411,11 @@ If 'ARG' is passed, shred afile instead delete."
   :custom
   (org-archive-default-command 'org-archive-set-tag))
 
+(use-package org-contacts
+  :after org
+  :custom
+  (org-contacts-files `(,env-contacts-file)))
+
 (use-package persist
   :straight t)
 (use-package org-drill
