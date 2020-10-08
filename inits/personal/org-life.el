@@ -504,12 +504,14 @@ which has any one of `org-project-parent-tag-list'."
                   (alert "Timer DN!" :style 'alarm)
                 (alert "Timer DN!" :style 'fringe :mode 'org-mode :buffer (org-clocking-buffer) :severity 'trivial)))))
 
-(defun org-capture-phrase (phrase &optional search)
-  "Capture PHRASE by passing PHRASE to `org-capture'.
+(defun org-capture-phrase (phrase &optional selective)
+  "Search or capture PHRASE.
+If there is an org entry whose heading is PHRASE, show it.
+Otherwise capture it.
 
-If there is an org entry whose heading is PHRASE, show it in agenda mode.
-If `C-u' prefix argument is pressed explicitly and passed as SEARCH,
- find an org entry forcibly from record file."
+If called interactively with `C-u' prefix, namely SELECTIVE is '(4),
+ capture PHRASE forcibly.
+With `C-uC-u' prefix, search PHRASE forcibly."
   (interactive (list (if (use-region-p)
                          (buffer-substring (region-beginning) (region-end))
                        (read-string "Phrase: "))
@@ -518,12 +520,12 @@ If `C-u' prefix argument is pressed explicitly and passed as SEARCH,
                             (tags "drill")))
         (rec-files (org-record-files)))
     (cond
-     ((equal search '(4))
-      (org-ql-search rec-files query-phrase))
+     ((or (equal search '(4))
+          (and (not search)
+               (not (org-ql-select rec-files query-phrase))))
+      (org-capture nil "De"))
      (t
-      (if (org-ql-select rec-files query-phrase)
-          (org-ql-search rec-files query-phrase)
-        (org-capture nil "De"))))))
+      (org-ql-search rec-files query-phrase)))))
 (bind-keys ("C-c P" . org-capture-phrase)
            ("C-c q" . org-ql-view))
 (push '("English phrase list"
