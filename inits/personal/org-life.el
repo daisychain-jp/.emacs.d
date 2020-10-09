@@ -520,8 +520,8 @@ With `C-uC-u' prefix, search PHRASE forcibly."
                             (tags "drill")))
         (rec-files (org-record-files)))
     (cond
-     ((or (equal search '(4))
-          (and (not search)
+     ((or (equal selective '(4))
+          (and (not selective)
                (not (org-ql-select rec-files query-phrase))))
       (org-capture nil "De"))
      (t
