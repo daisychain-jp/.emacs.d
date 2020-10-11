@@ -103,6 +103,7 @@
     ("S" shell)
     ("e" (eshell t))
     ("d" dired-jump)
+    ("D" ediff)
     ("@" twit)
     ("v" magit-status)
     ("a" counsel-linux-app)
