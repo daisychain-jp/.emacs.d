@@ -18,7 +18,8 @@
   :defer 1
   :bind ("M-;" . comment-dwim-2)
   :config
-  (setq comment-dwim-2--inline-comment-behavior 'reindent-comment))
+  (setf comment-dwim-2--inline-comment-behavior 'reindent-comment
+        cd2/region-command 'cd2/comment-or-uncomment-region))
 
 (use-package quickrun
   :straight t)
