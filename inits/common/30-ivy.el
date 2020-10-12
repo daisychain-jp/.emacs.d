@@ -84,8 +84,8 @@
     "Hint"
     ("a" counsel-apropos)
     ("f" counsel-describe-function)
+    ("F" counsel-faces)
     ("v" counsel-describe-variable)
-    ("c" counsel-describe-face)
     ("m" counsel-descbinds)
     ("i" info)
     ("n" view-emacs-news)
