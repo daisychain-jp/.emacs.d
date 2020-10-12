@@ -56,7 +56,8 @@
     (file-expand-wildcards (concat skk-user-jisyo-directory "/SKK-JISYO.*"))))
   ;; jisyo server
   (skk-server-host "localhost")
-  (skk-server-portnum nil)
+  (skk-server-portnum 1178)
+  (skk-server-inhibit-startup-server t)
   ;; study
   (skk-study-file (format "%s/study" skk-data-dir))
   (skk-study-backup-file (format "%s/study.bak" skk-data-dir)))
