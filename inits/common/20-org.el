@@ -474,7 +474,7 @@ Format of mail contents is plain text."
         (export-buf-name "*Org ASCII Export*")
         (org-export-with-toc nil)
         (org-export-with-author nil))
-    (org-ascii-export-as-ascii nil t nil)
+    (org-ascii-export-as-ascii nil t t t)
     (mail-simple-send (or (org-entry-get (point) "MAIL_TO" t)
                           (read-string "MAIL_TO: "))
                       heading
