@@ -16,7 +16,7 @@
   (twittering-icon-mode -1)
   (add-hook 'twittering-mode-hook
             (lambda ()
-              (buffer-face-set 'variable-pitch)
+              (buffer-face-set 'readable)
               (twittering-lazy-control)))
   (bind-keys :map twittering-mode-map
              ("C-M-m" . twittering-lazy-control)))
