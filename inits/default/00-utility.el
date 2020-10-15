@@ -20,39 +20,54 @@
       (quit (kill-buffer ibuf)))))
 
 (defun open-thing-at-point ()
-  "Open thing."
+  "Open thing with appropriate manner."
   (interactive)
-  (let ((button (button-at (point)))
-        (email (thing-at-point 'email))
-        (links (eww-links-at-point))
-        (url (thing-at-point-url-at-point))
-        (filename (thing-at-point 'filename)))
+  (let* ((thing nil)
+         (region-thing (when (use-region-p)
+                         (buffer-substring (region-beginning) (region-end)))))
     (cond
-     (email
-      (mu4e~compose-mail email)
+     ((setq thing
+            (if region-thing
+                (when (string-match thing-at-point-email-regexp
+                                    region-thing)
+                  (match-string 0 region-thing))
+              (thing-at-point 'email t)))
+      (mu4e~compose-mail thing)
       t)
-     (links
+     ((setq thing (car (eww-links-at-point)))
       (cl-case (prefix-numeric-value current-prefix-arg)
-        (16 (browse-url-default-browser (car links)))
-        (4 (eww-browse-url (car links)))
-        (t (open-url (car links))))
+        (16 (browse-url-default-browser thing))
+        (4 (eww-browse-url thing))
+        (t (open-url thing)))
       t)
-     (url (let ((url-pos (split-location-uri url)))
-            (cl-case (prefix-numeric-value current-prefix-arg)
-              (16 (browse-url-default-browser (car url-pos)))
-              (4 (eww-browse-url (car url-pos)))
-              (t (open-url (car url-pos) (cadr url-pos))))
-            t))
-     ((and (stringp filename)
-           (file-exists-p filename))
-      (let ((url-pos (split-location-uri filename)))
+     ((setq thing
+            (if region-thing
+                (when (string-match browse-url-button-regexp
+                                    region-thing)
+                  (match-string 0 region-thing))
+              (thing-at-point 'url t)))
+      (let ((url-pos (split-location-uri thing)))
+        (cl-case (prefix-numeric-value current-prefix-arg)
+          (16 (browse-url-default-browser (car url-pos)))
+          (4 (eww-browse-url (car url-pos)))
+          (t (open-url (car url-pos) (cadr url-pos))))
+        t))
+     ((and (setq thing
+                 (if region-thing
+                     (when (string-match (format "[%s].+" thing-at-point-file-name-chars)
+                                         region-thing)
+                       (match-string 0 region-thing))
+                   (thing-at-point 'filename t)))
+           (file-exists-p thing))
+      (let ((url-pos (split-location-uri thing)))
         (cl-case (prefix-numeric-value current-prefix-arg)
           (16 (open-file-external (car url-pos)))
           (4 (find-file (car url-pos)))
           (t (open-file (car url-pos))
              (goto-pos (cadr url-pos))))
         t))
-     (button
+     ;; this clause must be last in cond
+     ((setq thing (button-at (point)))
       (push-button)
       t))))
 
