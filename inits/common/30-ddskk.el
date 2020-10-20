@@ -30,9 +30,28 @@
   (skk-egg-like-newline t)
   (skk-henkan-strict-okuri-precedence t)
   (skk-check-okurigana-on-touroku t)
-  (skk-show-candidates-always-pop-to-buffer t)
-  (skk-henkan-number-to-display-candidates 10)
   (skk-show-annotation nil)
+  ;; how candidates behave
+  (skk-show-candidates-always-pop-to-buffer t)
+  (skk-henkan-number-to-display-candidates 7)
+  (skk-show-candidates-nth-henkan-char 3)
+  (skk-henkan-show-candidates-keys
+   '(?1 ?2 ?3 ?4 ?5 ?6 ?7))
+  ;; set face for candidates list
+  (skk-treat-candidate-appearance-function
+   (lambda (candidate listing-p)
+     (cond
+      ((string-match ";" candidate)
+       (put-text-property 0 (match-beginning 0)
+                          'face 'recognizable
+                          candidate)
+       (put-text-property (match-beginning 0)
+                          (length candidate) 'face 'shadow candidate))
+      (t
+       (put-text-property 0 (length candidate)
+                          'face 'recognizable
+                          candidate)))
+     candidate))
   ;; C-q for hankaku-kana input mode
   (skk-use-jisx0201-input-method t)
   ;; dynamic conversion
