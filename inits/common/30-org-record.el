@@ -77,8 +77,6 @@ If called interactively, it prompt the user to select the date to find."
            ("$" . org-ql-view-record-subtree)
            ("&" . org-agenda-ref-id-tieup-tree)
            :map calendar-mode-map
-           ("C" . org-record-find-date)
-           :map global-map
-           ("C-c R" . org-record-search))
+           ("C" . org-record-find-date))
 (push '("Record entries" . org-record-search)
       org-ql-views)

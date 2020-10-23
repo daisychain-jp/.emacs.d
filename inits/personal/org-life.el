@@ -526,8 +526,6 @@ With `C-uC-u' prefix, search PHRASE forcibly."
       (org-capture nil "De"))
      (t
       (org-ql-search rec-files query-phrase)))))
-(bind-keys ("C-c P" . org-capture-phrase)
-           ("C-c q" . org-ql-view))
 (push '("English phrase list"
         :buffers-files org-record-files
         :query (and (tags "drill")

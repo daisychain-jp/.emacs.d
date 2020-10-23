@@ -61,16 +61,6 @@
   (require 'avy-migemo-e.g.counsel)
   (bind-keys :map hydra-base-map
              ("C-d" . counsel-hydra-heads))
-  (defhydra hydra-org (global-map "C-c o"
-                                  :color teal)
-    "Org Search"
-    ("a" counsel-org-agenda-headlines)
-    ("c" counsel-org-capture)
-    ("g" counsel-org-goto)
-    ("s" (helm-org-ql (current-buffer)))
-    ("r" (helm-org-ql (file-expand-wildcards (concat env-doc-dir "/**/*.org"))))
-    ("i" org-info-find-node)
-    ("q" nil "quit"))
   (defhydra hydra-search (global-map "M-s"
                                      :color teal)
     "Search"

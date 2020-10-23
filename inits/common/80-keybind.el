@@ -95,6 +95,20 @@
     ("F" toggle-frame-fullscreen)
     ("SPC" pangu-spacing-mode)
     ("q" nil "quit"))
+  (defhydra hydra-org (global-map "C-c o"
+                                  :color teal)
+    "Org Search"
+    ("a" counsel-org-agenda-headlines)
+    ("A" counsel-org-goto-all)
+    ("c" counsel-org-capture)
+    ("g" counsel-org-goto)
+    ("q" org-ql-view)
+    ("p" org-capture-phrase)
+    ("s" org-save-all-org-buffers)
+    ("i" org-info-find-node)
+    ("rr" org-record-search)
+    ("rd" org-record-find-date)
+    ("q" nil "quit"))
   (defhydra hydra-launcher (global-map "C-M-j"
                                        :color blue)
     "Launch"
