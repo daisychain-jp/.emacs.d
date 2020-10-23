@@ -5,7 +5,11 @@
 
 If optional argument `YEAR' is passed that year's file is returned instead of current year's."
   (let* ((record-year (or year (ts-year (ts-now))))
-         (record-file (format "%s/archive/record_%s.org" env-doc-dir record-year)))
+         (record-file-cand (format "%s/archive/record_%s.org" env-doc-dir record-year))
+         (record-file
+          (if (file-exists-p record-file-cand)
+              record-file-cand
+            (expand-file-name "archive/record_0000.org" env-doc-dir))))
     (if (or (file-exists-p record-file)
             (file-symlink-p record-file))
         record-file
