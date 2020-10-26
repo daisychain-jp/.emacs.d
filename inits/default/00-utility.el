@@ -346,6 +346,13 @@ With numeric prefix arg DEC, decrement the number by DEC amount."
   (yank)
   (indent-region (region-beginning) (region-end)))
 
+(defun insert-time-stamp ()
+  "Insert date string formatted YYYYMMDD style."
+  (interactive)
+  (insert (format-time-string "%Y%m%d")))
+(bind-key "C-c ." #'insert-time-stamp
+          global-map)
+
 (defun refresh-buffer-and-display ()
   "Revert buffer and redraw display in one command."
   (interactive)
