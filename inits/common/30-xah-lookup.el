@@ -32,15 +32,16 @@
     ("q" nil "quit")))
 
 (defun lookup-word-on-internet (url &optional word)
-  "Lookup WORD on URL."
+  "Issue query searching WORD to URL.
+
+If some word is selected in region, use it as WORD.
+Otherwise ask user to input WORD."
   (let* ((raw-word (cond
-                    (current-prefix-arg
-                     (read-string "Words to lookup: "))
                     ((stringp word) word)
                     ((use-region-p)
                      (buffer-substring (region-beginning) (region-end)))
-                    ((stringp (word-at-point)) (word-at-point))
-                    (t "")))
+                    (t
+                     (read-string "Words to lookup: "))))
          (word-to-lookup (replace-regexp-in-string
                           "\n"
                           (if (string-match-p "[^[:ascii:]]" raw-word)
