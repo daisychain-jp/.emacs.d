@@ -11,6 +11,7 @@
   (ivy-display-style 'fancy)
   (ivy-use-virtual-buffers t)
   (ivy-count-format "%d/%d ")
+  (ivy-wrap t)
   :config
   (ivy-mode 1)
   (setf ivy-re-builders-alist
