@@ -59,7 +59,11 @@
           (mapc #'load-file
                 (directory-files
                  (format "%s/inits/%s" user-emacs-directory dir-name)
-                 t ".+\\.el\\(\\.gpg\\)?" nil)))
+                 t
+                 (rx (one-or-more not-newline)
+                     (or ".el" ".el.gpg")
+                     line-end)
+                 nil)))
         `("default"
           ,(cond
             ((string= system-type "gnu/linux") "linux")
