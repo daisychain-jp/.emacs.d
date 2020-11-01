@@ -31,6 +31,7 @@
  ("emacs-deferred" . "2239671d94b38d92e9b28d4e12fd79814cfb9c16")
  ("emacs-epc" . "e1bfa5ca163273859336e3cc89b4b6460f7f8cda")
  ("emacs-jedi" . "d9b53d2ca103c46686f6fb4aa92d8af403107982")
+ ("emacs-libvterm" . "01a1332ebb11daca5408f7fcb8a08454b0176e79")
  ("emacs-python-environment" . "401006584e32864a10c69d29f14414828909362e")
  ("emacs-quickrun" . "55bbe5d54b80206ea5a60bf2f58eb6368b2c8201")
  ("emacs-request" . "db88fd21d25399ff9940c208173665b12493992b")
