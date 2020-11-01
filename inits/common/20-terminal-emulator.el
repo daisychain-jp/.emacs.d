@@ -21,6 +21,28 @@
               (buffer-face-set 'selecting)
               (setq-local counsel-dash-docsets '("Linux" "Pandoc")))))
 
+(use-package vterm
+  :straight t
+  :delight " VT"
+  :diminish ((vterm-copy-mode . "vc"))
+  :bind
+  (:map vterm-mode-map
+        ("C-h" . vterm-send-backspace)
+        ("M-h" . vterm-send-meta-backspace))
+  (:map vterm-copy-mode-map
+        ("C-j" . vterm-copy-mode-done))
+  :config
+  (advice-add 'counsel-yank-pop-action :around #'vterm-counsel-yank-pop-action))
+
+(defun vterm-counsel-yank-pop-action (orig-fun &rest args)
+  (if (equal major-mode 'vterm-mode)
+      (let ((inhibit-read-only t)
+            (yank-undo-function (lambda (_start _end) (vterm-undo))))
+        (cl-letf (((symbol-function 'insert-for-yank)
+                   (lambda (str) (vterm-send-string str t))))
+          (apply orig-fun args)))
+    (apply orig-fun args)))
+
 (use-package eshell
   :delight " ES"
   :hook

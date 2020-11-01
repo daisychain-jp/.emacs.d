@@ -113,7 +113,7 @@
   (defhydra hydra-launcher (global-map "C-M-j"
                                        :color blue)
     "Launch"
-    ("t" ansi-term)
+    ("t" vterm)
     ("s" shell-switcher)
     ("S" shell)
     ("e" (eshell t))
