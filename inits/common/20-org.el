@@ -515,13 +515,6 @@ If property's value matches $(...) format, ... is interpreted as shell command a
             nil))
       nil)))
 
-(defun org-scratch (arg)
-  "Create and visit temporal org file."
-  (interactive "p")
-  (find-file
-   (make-temp-file "auto-org-capture" nil ".org"))
-  (skk-mode 1))
-
 (defun org-clock-remove-old-timestamps (old-time)
   "Remove old clock timestamps earlier than 'OLD-TIME' in the current subtree."
   ;; TODO: This function could be refactored with

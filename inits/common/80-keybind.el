@@ -132,7 +132,6 @@
     ("M" mu4e-alert-view-unread-mails)
     ("j" open-junk-file)
     ("f" elfeed)
-    ("o" org-scratch)
     ("p" proced)
     ("P" list-processes)
     ("b" battery)
