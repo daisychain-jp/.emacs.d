@@ -30,12 +30,12 @@
 (set-face-font 'coding
                (create-fontset-for-unicode
                 "coding"
-                "TakaoGothic" (utl-x-display-adjust-font-size 66)))
+                "TakaoGothic" (utl-x-display-adjust-font-size 64)))
 (set-face-font 'selecting
                (create-fontset-for-unicode
                 "selecting"
                 "TakaoGothic" (utl-x-display-adjust-font-size 78)))
 (set-face-font 'calendar
                (create-fontset-for-unicode
-                "coding"
+                "calendar"
                 "TakaoGothic" (utl-x-display-adjust-font-size 48)))
