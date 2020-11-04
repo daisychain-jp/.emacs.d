@@ -208,7 +208,7 @@ play it in media player."
      ((string-prefix-p "192.168.179." ipv4-addr)
       "bestvideo[height<=?240]+worstaudio/best")
      ;; using wired home network
-     ((string= "192.168.100.126" ipv4-addr)
+     ((string-prefix-p "192.168.100." ipv4-addr)
       "bestvideo[height<=?720]+bestaudio/best")
      ;; usin unknown network
      (t
