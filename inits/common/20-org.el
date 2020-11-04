@@ -77,6 +77,8 @@
 
   ;; link
   (setq org-confirm-elisp-link-function nil) ; do not confirm when execute elisp
+  (org-link-set-parameters
+   "src" :follow #'org-babel-ref-resolve)
   (defun org-open-at-point-link ()
     "This function is responsible for org links when user calls `org-open-at-point'."
     (let* ((context (org-element-lineage
