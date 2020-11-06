@@ -23,7 +23,7 @@
              (dolist (entry (nth 2 clock-data))
                (insert (format "| | . %s%s | %s %.2f |\n"
                                (org-clocktable-indent-string (nth 0 entry))
-                               (nth 1 entry)
+                               (replace-regexp-in-string "|" "\\vert\{\}" (nth 1 entry) nil t)
                                (clocktable-by-atag/shift-cell (nth 0 entry))
                                (/ (nth 4 entry) 60.0)))))))
        (org-agenda-files))
