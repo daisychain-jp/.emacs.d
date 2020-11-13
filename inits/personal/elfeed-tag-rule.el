@@ -37,8 +37,7 @@
                                         "news/article/international"
                                         "sports/article/sumo"
                                         "sports/article/golf"
-                                        "sports/article/baseball/npb"
-                                        "sports/article/baseball/mlb"))
+                                        "sports/article/baseball"))
                                 :remove 'unread))
   ;; for favorite entries
   (add-hook 'elfeed-new-entry-hook
@@ -50,4 +49,9 @@
             (elfeed-make-tagger :feed-title (rx "デモクラシータイムス.")
                                 :entry-title
                                 (rx "WeN")
-                                :add 'valuable)))
+                                :add 'valuable))
+  (add-hook 'elfeed-new-entry-hook
+            (elfeed-make-tagger :feed-title (rx "Jリーグ ニュース")
+                                :entry-title
+                                (rx "子が誕生")
+                                :remove 'unread)))
