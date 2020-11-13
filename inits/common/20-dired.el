@@ -10,7 +10,7 @@
   :custom
   (dired-recursive-copies 'always)
   (dired-recursive-deletes 'top)
-  (dired-listing-switches "-ahgG --time-style=iso")
+  (dired-listing-switches "-ahgG --time-style=iso --group-directories-first")
   (dired-dwim-target 'dired-dwim-target-recent)
   (dired-hide-details-hide-information-lines nil)
   :config
@@ -41,6 +41,13 @@
         ("z" . dired-narrow))
   (:map dired-narrow-map
         ("C-j" . exit-minibuffer)))
+
+(use-package dired-hide-dotfiles
+  :straight t
+  :bind (:map dired-mode-map
+              ("." . dired-hide-dotfiles-mode))
+  :config
+  (dired-hide-dotfiles-mode))
 
 (use-package dired-du
   :straight t

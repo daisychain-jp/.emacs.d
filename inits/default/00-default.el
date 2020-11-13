@@ -21,6 +21,7 @@
 (setq auto-save-interval 100)
 (setq auto-save-timeout 10)
 (setq delete-auto-save-files t)
+(setq delete-by-moving-to-trash t)
 (auto-compression-mode t)
 (custom-set-variables '(enable-remote-dir-locals t))
 (require 'saveplace)

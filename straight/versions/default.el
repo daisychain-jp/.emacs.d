@@ -20,6 +20,7 @@
  ("diminish.el" . "565a983a39d2e2cffab5df13b34f3b6116723208")
  ("dired-du" . "d6571317673ba44566ba411d26b7af74e3139ff7")
  ("dired-hacks" . "ae39981d7cc58206cfeb377d6621bdd9000fd472")
+ ("dired-hide-dotfiles" . "b715f643ec805b3b8aca334595e6589320f04a49")
  ("dired-single" . "b0ccca83df0542c5525c047ae283c0eadf500f5c")
  ("dumb-jump" . "0319569f1332641057c3e23d1e3bffb2404435a8")
  ("easy-kill" . "e2b667f651a3531164d24ea4cbcd8c34fba0e17f")
