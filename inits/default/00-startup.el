@@ -96,9 +96,10 @@
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
 (tooltip-mode -1)
+(set-fringe-mode 5)
 
 ;; display
-(setq inhibit-splash-screen t)
+(setq inhibit-startup-screen t)
 (setq-default bidi-display-reordering nil)
 
 ;; scroll
