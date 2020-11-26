@@ -316,16 +316,6 @@ If 'ARG' is passed, shred afile instead delete."
   (setq org-log-into-drawer t)
   (setq org-log-states-order-reversed nil)
   (setq org-reverse-note-order t)
-  (setq org-log-note-headings
-        '((done .  "CLOSING NOTE %t")
-          (state . "")
-          (note .  "")
-          (reschedule .  "Rescheduled from %S on %t")
-          (delschedule .  "Not scheduled, was %S on %t")
-          (redeadline .  "New deadline from %S on %t")
-          (deldeadline .  "Removed deadline, was %S on %t")
-          (refile . "Refiled from %s to %S on %t")
-          (clock-out . "")))
   (add-hook 'org-log-buffer-setup-hook
             (lambda ()
               (setq skk-dcomp-activate 'eolp)

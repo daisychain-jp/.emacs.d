@@ -1,8 +1,6 @@
 (setq org-agenda-start-on-weekday 1)
-(setq org-deadline-warning-days 60)
 (setq org-agenda-skip-deadline-if-done t)
 (setq org-agenda-include-diary t)
-(setq org-scheduled-past-days 30)
 (setq org-agenda-custom-commands
       '(("a" "Week-agenda"
          agenda ""
@@ -138,12 +136,12 @@
                                      (not (habit)))
                                ((org-ql-block-header "Scheduled/Deadlined on today")))
           (org-ql-search-block '(and (habit)
-                                     (todo "HB")
+                                     (todo "HB" "TD")
                                      (scheduled :to today)
                                      (not (tags-inherited "ARCHIVE")))
                                ((org-ql-block-header "Habits to take")))
           (org-ql-search-block '(and (ts-active :on today)
-                                     (not (or (todo "IP" "HB") (done))))
+                                     (not (or (todo "IP") (habit) (done))))
                                ((org-ql-block-header "Today's common event")))
           (org-ql-search-block '(and (done)
                                      (closed :on today))
@@ -240,13 +238,22 @@
                                      (not (children (todo "TD" "WD" "IP" "DA"))))
                                ((org-ql-block-header "Stuck projects")))))
         ("p" "Projects" tags "+project")
-        ("h" "HABIT items scheduled today"
-         ((org-ql-search-block '(and (habit)
-                                     (scheduled :to today)
-                                     (not (tags-inherited "ARCHIVE")))
-                               ((org-ql-block-header "HABIT items scheduled today"))))
-         ((org-agenda-sorting-strategy '(scheduled-up))))
-        ("H" "All Repeated Tasks" tags "CATEGORY=\"Repeated\"+LEVEL=>2+{ac_.+}")
+        ("h" "Habits in consistency graph"
+         agenda ""
+         ((org-agenda-span 'day)
+          (org-agenda-use-time-grid nil)
+          (org-agenda-prefix-format '((agenda . "")))
+          (org-habit-show-all-today t)
+          (org-habit-graph-column 32)
+          (org-habit-preceding-days 14)
+          (org-habit-following-days 21)
+          (org-agenda-sorting-strategy '(scheduled-up))
+          ;; display habits only
+          (org-agenda-skip-function
+           (lambda ()
+             (and (save-excursion
+                    (not (org-is-habit-p)))
+                  (progn (outline-next-heading) (point)))))))
         ("g" "aggregated task list"
          ((tags "SCHEDULED<=\"<today>\"|DEADLINE<=\"<today>\"")
           (todo "UG|IP|DA")
