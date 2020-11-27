@@ -54,4 +54,12 @@
             (elfeed-make-tagger :feed-title (rx "Jリーグ ニュース")
                                 :entry-title
                                 (rx "子が誕生")
+                                :remove 'unread))
+  (add-hook 'elfeed-new-entry-hook
+            (elfeed-make-tagger :feed-title (rx "BSAsahi")
+                                :entry-title
+                                (rx "町山智浩のアメリカの今を知るTV")
+                                :add 'valuable))
+  (add-hook 'elfeed-new-entry-hook
+            (elfeed-make-tagger :feed-title (rx "BSAsahi")
                                 :remove 'unread)))
