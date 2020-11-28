@@ -59,7 +59,9 @@
             (elfeed-make-tagger :feed-title (rx "BSAsahi")
                                 :entry-title
                                 (rx "町山智浩のアメリカの今を知るTV")
-                                :add 'valuable))
+                                :add 'unread)
+            20)
   (add-hook 'elfeed-new-entry-hook
             (elfeed-make-tagger :feed-title (rx "BSAsahi")
-                                :remove 'unread)))
+                                :remove 'unread)
+            10))
