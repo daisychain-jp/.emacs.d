@@ -20,59 +20,23 @@
          tags ""
          ((org-agenda-files org-record-files)
           (org-agenda-sorting-strategy '(time-down))))
-        ("o" . "sOmeday entries")
-        ("oo" "SOMEDAY items"
-         ((org-ql-search-block '(and (todo "SD")
-                                     (tags "ac_purchase"))
-                               ((org-ql-block-header "with ac_purchase tag")))
-          (org-ql-search-block '(and (todo "SD")
-                                     (tags "ac_read"))
-                               ((org-ql-block-header "with ac_read tag")))
-          (org-ql-search-block '(and (todo "SD")
-                                     (tags "ac_cook"))
-                               ((org-ql-block-header "with ac_cook tag")))
-          (org-ql-search-block '(and (todo "SD")
-                                     (tags "ac_make"))
-                               ((org-ql-block-header "with ac_make tag")))
-          (org-ql-search-block '(and (todo "SD")
-                                     (not (tags "ac_purchase" "ac_read" "ac_cook" "ac_make")))
-                               ((org-ql-block-header "with other tag"))))
-         ((org-agenda-files org-record-files)))
-        ("or" "SOMEDAY items with ac_read"
-         ((org-ql-search-block '(and (todo "SD")
-                                     (tags "ac_read"))
-                               ((org-ql-block-header "SOMEDAY items with ac_read"))))
-         ((org-agenda-files org-record-files)))
-        ("oc" "SOMEDAY items with ac_cook"
-         ((org-ql-search-block '(and (todo "SD")
-                                     (tags "ac_cook"))
-                               ((org-ql-block-header "SOMEDAY items with ac_cook"))))
-         ((org-agenda-files org-record-files)))
-        ("op" "SOMEDAY items with ac_purchase"
-         ((org-ql-search-block '(and (todo "SD")
-                                     (tags "ac_purchase"))
-                               ((org-ql-block-header "SOMEDAY items with ac_purchase"))))
-         ((org-agenda-files org-record-files)))
-        ("om" "SOMEDAY items with ac_make"
+        ("o" "Someday entries"
          ((org-ql-search-block '(and (todo "SD")
                                      (tags "ac_make"))
-                               ((org-ql-block-header "SOMEDAY items with ac_make"))))
+                               ((org-ql-block-header "Someday to make")))
+          (org-ql-search-block '(and (todo "SD")
+                                     (tags "ac_purchase"))
+                               ((org-ql-block-header "Someday to purchase")))
+          (org-ql-search-block '(and (todo "SD")
+                                     (tags "ac_cook"))
+                               ((org-ql-block-header "Someday to cook")))
+          (org-ql-search-block '(and (todo "SD")
+                                     (not (tags "ac_purchase" "ac_cook" "ac_make")))
+                               ((org-ql-block-header "Someday things"))))
          ((org-agenda-files org-record-files)))
         ("l" "Log entries in a week"
          agenda ""
          ((org-agenda-span 'week)
-          (org-agenda-start-with-log-mode t)
-          (org-agenda-include-inactive-timestamps nil)
-          (org-agenda-include-diary t)
-          (org-agenda-sorting-strategy
-           '(time-up
-             deadline-up
-             todo-state-up
-             priority-down))))
-        ("d" "daily log view"
-         agenda ""
-         ((org-agenda-prefix-format (eval (car (get 'org-agenda-prefix-format 'standard-value))))
-          (org-agenda-span 'day)
           (org-agenda-start-with-log-mode t)
           (org-agenda-include-inactive-timestamps nil)
           (org-agenda-include-diary t)
@@ -205,33 +169,19 @@
                                                                        year-ago))))
                                ((org-ql-block-header "One year ago"))))
          ((org-agenda-files `,(org-record-files))))
-        ("t" . "TD entries")
-        ("ta" "Master task list"
-         tags "/UG|IP|WD|TD|DA|SD"
-         ((org-agenda-sorting-strategy
-           '(todo-state-up priority-down deadline-up))))
-        ("tt" "Todo task"
-         tags "-CONIPTION/UG|IP|WD|TD"
-         ((org-agenda-sorting-strategy
-           '(todo-state-up priority-down deadline-up))))
-        ("tA" "doable thing"
-         ((org-ql-search-block '(and (todo "DA")
-                                     (not (deadline :to -1)))
-                               ((org-ql-block-header "Doable entries"))))
-         ((org-agenda-sorting-strategy
-           '(deadline-up category-up priority-down))))
-        ("ts" "Someday list"
-         todo "SD"
-         ((org-agenda-archives-mode t)
-          (org-agenda-sorting-strategy '(time-down))))
-        ("tP" "Pending list"
-         todo "PD"
-         ((org-agenda-archives-mode t)
-          (org-agenda-sorting-strategy '(time-down))))
-        ("td" "Done list"
-         todo "DN|CX"
-         ((org-agenda-sorting-strategy
-           '(todo-state-up priority-down deadline-up))))
+        ("t" "All tasks"
+         ((org-ql-search-block '(todo "UG")
+                               ((org-ql-block-header "Urgent task")))
+          (org-ql-search-block '(todo "IP")
+                               ((org-ql-block-header "Today's task")))
+          (org-ql-search-block '(todo "WD")
+                               ((org-ql-block-header "This week's task")))
+          (org-ql-search-block '(and (todo "TD")
+                                     (not (habit)))
+                               ((org-ql-block-header "Remaining task")))))
+        ("d" "Done tasks"
+         ((org-ql-search-block '(done)
+                               ((org-ql-block-header "Done/Canceled/Pending task")))))
         ("#" "stuck project"
          ((org-ql-search-block '(and (tags "project")
                                      ;; exclude projects
