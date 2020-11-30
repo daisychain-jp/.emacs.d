@@ -99,6 +99,8 @@
                (shell-quote-argument ex-file)))
       (setf ex-file rm-file))
     (cond
+     ((string-match-p "\\.midi?$" ex-file)
+      (call-process-shell-command (format "xdg-open %s" (shell-quote-argument ex-file))))
      ((or (= (call-process-shell-command (format "filetype-cli check --type playable %s" (shell-quote-argument ex-file))) 0)
           (string-suffix-p ".m3u" ex-file))
       (start-process-shell-command "mpv" nil

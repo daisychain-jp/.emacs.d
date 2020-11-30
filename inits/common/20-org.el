@@ -364,7 +364,8 @@ If 'ARG' is passed, shred afile instead delete."
      (org      . t)
      (gnuplot  . t)
      (dot      . t)
-     (plantuml . t)))
+     (plantuml . t)
+     (lilypond . t)))
   (setq org-confirm-babel-evaluate nil)
   (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
   (cond
