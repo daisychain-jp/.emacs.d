@@ -232,11 +232,10 @@ If 'ARG' is passed, shred afile instead delete."
 
   ;; todo
   (setq org-enforce-todo-dependencies t)
-  (setq org-enforce-todo-checkbox-dependencies t)
   (setq org-todo-keywords
         '((sequence "TD(t/!)" "UG(u/!)" "IP(i/!)" "WD(w/!)" "|" "DN(d/@)" "CX(x@/@)" "PD(p@/@)")
           (sequence "DA(a/!)" "|" "DN(d/@)" "CX(x@/@)" "PD(p@/@)")
-          (sequence "TD(t/!)" "SD(s/!)" "|")))
+          (sequence "TD(t/!)" "SD(s/!)" "|" "CX(x@/@)" "PD(p@/@)")))
   (setq org-todo-keyword-faces
         '(("UG" . ((org-warning (:foreground "red1"))))
           ("IP" . ((org-todo    (:foreground "DodgerBlue1"))))
