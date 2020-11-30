@@ -31,6 +31,8 @@
         ("M-h" . vterm-send-meta-backspace))
   (:map vterm-copy-mode-map
         ("C-j" . vterm-copy-mode-done))
+  :custom
+  (vterm-min-window-width 55)
   :config
   (advice-add 'counsel-yank-pop-action :around #'vterm-counsel-yank-pop-action))
 
