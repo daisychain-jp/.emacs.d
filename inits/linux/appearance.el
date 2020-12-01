@@ -25,7 +25,7 @@
                 "TakaoExGothic" (utl-x-display-adjust-font-size 114)))
 (set-face-font 'recognizable
                (create-fontset-for-unicode
-                "manual"
+                "recognizable"
                 "TakaoGothic" (utl-x-display-adjust-font-size 103)))
 (set-face-font 'coding
                (create-fontset-for-unicode
