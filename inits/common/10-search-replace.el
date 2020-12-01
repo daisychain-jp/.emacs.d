@@ -31,6 +31,38 @@
           (isearch-repeat-forward)))
     ad-do-it))
 
+;; grep
+
+(use-package compile
+  :bind (:map compilation-mode-map
+              ("C-j" . compile-goto-error)))
+
+(use-package grep
+  :bind (("M-s g" . grep-find)
+         (:map grep-mode-map
+               ("C-j" . compile-goto-error)))
+  :custom
+  (grep-program "rg")
+  (grep-find-command '("rga --with-filename --no-heading --line-number --color never -e ''" . 66)))
+
+(use-package find-dired
+  :after (grep hydra)
+  :custom
+  (find-grep-options "-n -H --no-heading -q")
+  (find-ls-option '("-print0 | xargs -0 ls -ld" . "-ld"))
+  :config
+  (unbind-key "C-x f")
+  (defhydra hydra-find-dired (global-map "C-x f"
+                                         :color teal)
+    "find dired"
+    ("f" find-dired)
+    ("F" find-lisp-find-dired)
+    ("g" find-grep-dired)
+    ("r" find-rg-dired)
+    ("n" find-name-dired)
+    ("d" find-lisp-find-dired-subdirectories)
+    ("q" nil "quit")))
+
 (use-package wgrep
   :straight t)
 

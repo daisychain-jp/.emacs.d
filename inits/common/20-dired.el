@@ -57,17 +57,6 @@
   :custom
   (dired-du-size-format 'comma))
 
-(unbind-key "C-x f")
-(use-package find-dired
-  :bind (:map global-map
-              ("C-x f f" . find-dired)
-              ("C-x f F" . find-lisp-find-dired)
-              ("C-x f g" . find-grep-dired)
-              ("C-x f n" . find-name-dired)
-              ("C-x f d" . find-lisp-find-dired-subdirectories))
-  :custom
-  (find-ls-option '("-print0 | xargs -0 ls -ld" . "-ld")))
-
 (defun dired-open (&optional arg)
   "Open file in Dired.
 

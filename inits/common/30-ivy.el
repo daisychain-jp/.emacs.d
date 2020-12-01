@@ -61,13 +61,13 @@
   (require 'avy-migemo-e.g.counsel)
   (bind-keys :map hydra-base-map
              ("C-d" . counsel-hydra-heads))
-  (defhydra hydra-search (global-map "M-s"
+  (defhydra hydra-search (global-map "M-s s"
                                      :color teal)
     "Search"
-    ("ss" counsel-ag)
-    ("sr" counsel-rg)
-    ("sg" counsel-grep-or-swiper)
-    ("si" counsel-git-grep)
+    ("s" counsel-ag)
+    ("r" counsel-rg)
+    ("g" counsel-grep-or-swiper)
+    ("i" counsel-git-grep)
     ("q" nil "quit"))
   (defhydra hydra-help (global-map "C-M-h"
                                    :color teal)
