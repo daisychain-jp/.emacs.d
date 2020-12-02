@@ -106,6 +106,8 @@
       (start-process-shell-command "mpv" nil
                                    (concat (format "nohup mpv --force-window %s >/dev/null 2>&1;" (shell-quote-argument ex-file))
                                            (if rm-file (format "rm -rf %s" (shell-quote-argument rm-file)) nil))))
+     ((= (call-process-shell-command (format "filetype-cli check --type html %s" (shell-quote-argument ex-file))) 0)
+      (eww-open-file ex-file))
      ((or (= (call-process-shell-command (format "filetype-cli check --type pdf %s" (shell-quote-argument ex-file))) 0)
           (= (call-process-shell-command (format "filetype-cli check --type epub %s" (shell-quote-argument ex-file))) 0))
       (open-uri-htmlize ex-file))
