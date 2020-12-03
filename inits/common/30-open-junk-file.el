@@ -1,6 +1,7 @@
 (use-package open-junk-file
   :straight t
+  :custom
+  (open-junk-file-format
+   (concat env-var-dir "/tmp/junk/j-%Y%m%d-%H%M."))
   :config
-  (setq open-junk-file-format
-        (concat env-var-dir "/tmp/junk/%Y/%m/j-%d-%H%M."))
   (remove-hook 'find-file-hook 'find-file-hook--open-junk-file))
