@@ -494,7 +494,7 @@ With `C-uC-u' prefix, search PHRASE forcibly."
   (interactive (list (org-read-date nil nil nil "Due date: ")))
   (let ((files (org-agenda-files)))
     (org-ql-search files `(or (todo "SD")
-                              (and (done)
+                              (and (not (habit))
                                    (not (tags "project"))
                                    (planning :to ,due-date))
                               (and (tags "scrap")
