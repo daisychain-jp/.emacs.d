@@ -240,8 +240,12 @@ If optional argument `FILENAME' is given use this as a filename."
                                                    (url-attributes urlobj-orig)
                                                    (url-fullness urlobj-orig))))
                    (url-lex url)
-                   (filename-lex filename))
-      (princ (format "Downloading: %s" (or filename url)))
+                   (canonical-filename (if filename
+                                           (replace-regexp-in-string
+                                            "[\\?\"/:|’]" "" filename)
+                                         nil))
+                   (filename-lex canonical-filename))
+      (princ (format "Downloading: %s" (or canonical-filename url)))
       (set-process-sentinel
        (start-process-shell-command
         "download video" nil
@@ -249,7 +253,7 @@ If optional argument `FILENAME' is given use this as a filename."
                 download-video-dir
                 (mapconcat #'identity
                            (list (format "--format \"%s\"" (youtube-dl-format))
-                                 (when filename (format "--output %s" (shell-quote-argument filename))))
+                                 (when canonical-filename (format "--output %s" (shell-quote-argument canonical-filename))))
                            " ")
                 yt-url))
        (lambda (process desc)
@@ -264,12 +268,16 @@ If optional argument `FILENAME' is given use this as a filename."
   "Download audio from `URL'.
 
 If optional argument `FILENAME' is given use this as a filename."
-  (lexical-let ((temp-fname (make-temp-name (if (directory-name-p download-audio-dir)
-                                                download-audio-dir
-                                              (concat download-audio-dir "/"))))
-                (url-lex url)
-                (filename-lex filename))
-    (princ (format "Downloading: %s" (or filename url)))
+  (lexical-let* ((temp-fname (make-temp-name (if (directory-name-p download-audio-dir)
+                                                 download-audio-dir
+                                               (concat download-audio-dir "/"))))
+                 (url-lex url)
+                 (canonical-filename (if filename
+                                         (replace-regexp-in-string
+                                          "[\\?\"/:|’]" "" filename)
+                                       nil))
+                 (filename-lex canonical-filename))
+    (princ (format "Downloading: %s" (or canonical-filename url)))
     (set-process-sentinel
      (start-process-shell-command
       "download audio" nil
@@ -277,16 +285,18 @@ If optional argument `FILENAME' is given use this as a filename."
               (if (string-match "https?://www.youtube.com.+" url)
                   (format "youtube-dl --extract-audio --audio-format mp3 %1$s -o %2$s.mp3; mv -f %2$s.mp3 %2$s" (match-string 0 url) temp-fname)
                 (format "curl -LJs \"%s\" -o %s" url temp-fname))
-              (format "cd %s && ffmpeg -n %s \"%s.mp3\""
+              (format "cd %s && ffmpeg -n %s %s.mp3"
                       download-audio-dir
                       (mapconcat #'identity
                                  (list (format "-i %s" temp-fname)
-                                       (if (equal '(undecided) (find-coding-systems-string (or filename url)))
+                                       (if (equal '(undecided) (find-coding-systems-string (or canonical-filename url)))
                                            "-filter:a \"atempo=1.1\""
                                          "-filter:a \"atempo=1.7\"")
                                        "-vn")
                                  " ")
-                      (or filename (file-name-base temp-fname)))
+                      (if canonical-filename
+                          (shell-quote-argument canonical-filename)
+                        (file-name-base temp-fname)))
               (format "rm -f %s" temp-fname)))
      (lambda (process desc)
        (when (eq (process-status process) 'exit)
