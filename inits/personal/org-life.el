@@ -36,7 +36,8 @@
          ((org-agenda-files org-record-files)))
         ("l" "Log entries in a week"
          agenda ""
-         ((org-agenda-span 'week)
+         ((org-agenda-span (if (equal current-prefix-arg '(4))
+                               'day 'week))
           (org-agenda-start-with-log-mode t)
           (org-agenda-include-inactive-timestamps nil)
           (org-agenda-include-diary t)
@@ -48,7 +49,8 @@
         ("L" "Log entry timeline on today with default org-agenda-prefix-format"
          agenda ""
          ((org-agenda-prefix-format (eval (car (get 'org-agenda-prefix-format 'standard-value))))
-          (org-agenda-span 'week)
+          (org-agenda-span (if (equal current-prefix-arg '(4))
+                               'day 'week))
           (org-agenda-start-with-log-mode t)
           (org-agenda-include-inactive-timestamps nil)
           (org-agenda-include-diary t)
