@@ -28,7 +28,9 @@
   :bind
   (:map vterm-mode-map
         ("C-h" . vterm-send-backspace)
-        ("M-h" . vterm-send-meta-backspace))
+        ("M-h" . vterm-send-meta-backspace)
+        ("C-y" . vterm-yank)
+        ("M-y" . vterm-yank-pop))
   (:map vterm-copy-mode-map
         ("C-j" . vterm-copy-mode-done))
   :custom

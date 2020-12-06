@@ -96,7 +96,7 @@
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
 (tooltip-mode -1)
-(set-fringe-mode 5)
+(set-fringe-mode 10)
 
 ;; display
 (setq inhibit-startup-screen t)

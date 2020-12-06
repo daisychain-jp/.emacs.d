@@ -9,15 +9,7 @@
   (let ((line-number (number-to-string (line-number-at-pos))))
     (message "Line number: %s" line-number)
     (kill-new line-number)))
-(bind-keys ("C-M-W" . copy-line-number))
-
-(defun apply-in-indirect-buffer (function &rest arguments)
-  "Call FUNCTION in a indirect buffer with our remaining args, using ARGUMENTS."
-  (interactive "P")
-  (let ((ibuf (switch-to-buffer (org-get-indirect-buffer))))
-    (condition-case _
-        (apply function arguments)
-      (quit (kill-buffer ibuf)))))
+(bind-keys ("C-M-S-w" . copy-line-number))
 
 (defun open-thing-at-point ()
   "Open thing with appropriate manner."

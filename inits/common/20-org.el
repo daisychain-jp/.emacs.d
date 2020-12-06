@@ -49,8 +49,6 @@
              ("C-$"     . org-down-element)
              ("C-<"     . org-previous-link)
              ("C->"     . org-next-link)
-             ("C-c /"   . org-sparse-tree-indirect-buffer)
-             ("C-c \\"  . org-match-sparse-tree-indirect-buffer)
              ("C-c V"   . org-download-video-link-at-point)
              ("C-c A"   . org-download-audio-link-at-point)
              ("C-c D"   . org-show-media-duration-at-point)
@@ -179,8 +177,6 @@ If 'ARG' is passed, shred afile instead delete."
         '(("$" org-record-subtree)
           ("W" org-copy)
           ("Q" org-clock-cancel)
-          ("/" org-sparse-tree-indirect-buffer)
-          ("m" org-match-sparse-tree-indirect-buffer)
           ("!" org-readable)
           ("k" nil)
           ("c" org-property-copy-as-kill)
@@ -190,8 +186,7 @@ If 'ARG' is passed, shred afile instead delete."
           ("T" counsel-org-tag)
           ("P" call-interactively 'org-set-property)
           ("s" call-interactively 'org-schedule)
-          ("z" org-narrow-to-element-indirect-buffer)
-          ("Z" widen)
+          ("z" org-toggle-narrow-to-subtree)
           ("d" call-interactively 'org-deadline)))
 
   ;; basic
@@ -420,24 +415,6 @@ If 'ARG' is passed, shred afile instead delete."
   (org-drill-scope 'tree)
   (org-drill-cram-hours 0.5))
 
-(defun org-sparse-tree-indirect-buffer (&optional arg type)
-  "Create a sparse tree, prompt for the details.
-This command can create sparse trees.
-You first need to select the type same in org-sparse-tree."
-  (interactive "P")
-  (apply-in-indirect-buffer 'org-sparse-tree arg type))
-(defun org-match-sparse-tree-indirect-buffer (&optional todo-only match)
-  "Create a sparse tree in a indirect buffer.
-If optional argument TODO-ONLY is non-nil,
- only select lines that are also TODO tasks.
-The sparse tree is according to tags string MATCH."
-  (interactive)
-  (apply-in-indirect-buffer 'org-match-sparse-tree todo-only match))
-(defun org-narrow-to-element-indirect-buffer ()
-  "Narrow to current element in indirect buffer."
-  (interactive)
-  (apply-in-indirect-buffer 'org-narrow-to-element))
-
 (defcustom org-readable-directory "~/var/tmp/readable"
   "Directory where all html file for org-readable is located.")
 
@@ -450,6 +427,7 @@ The sparse tree is according to tags string MATCH."
          (org-export-with-toc nil)
          (org-export-with-author nil)
          (org-export-with-broken-links 'mark)
+         (org-export-preserve-breaks t)
          (id (org-id-get))
          (uuid (downcase (if id id (org-id-uuid))))
          (org-readable-file (format "%s/%s.html" org-readable-directory uuid)))

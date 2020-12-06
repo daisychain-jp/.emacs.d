@@ -2,9 +2,7 @@
 # name: journal
 # --
 ${1:title} :journal:
-- diary
-  #+BEGIN_SRC text
-  #+END_SRC
+<diary>
 - clocktable
  #+BEGIN: clocktable-by-atag :maxlevel 3 :block $1-$2-$3 :wstart 1
  #+END:
