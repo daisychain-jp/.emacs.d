@@ -9,14 +9,17 @@ Plus text size in the buffer becomes a little bit larger."
               (eq major-mode 'Info-mode)
               (string-match-p (rx (seq line-start "CAPTURE-" (one-or-more ascii) line-end))
                               (buffer-name)))
-    (set-face-attribute
-     'fringe nil :background (if (buffer-narrowed-p)
+    (let ((hl-fringe-color "DeepPink")
+          (hl-text-scale (exp 1)))
+      (set-face-attribute
+       'fringe nil :background (if (buffer-narrowed-p)
+                                   (progn
+                                     (text-scale-set hl-text-scale)
+                                     hl-fringe-color)
                                  (progn
-                                   (text-scale-set 3)
-                                   "DeepPink")
-                               (progn
-                                 (text-scale-set 0)
-                                 nil)))))
+                                   (when (= text-scale-mode-amount hl-text-scale)
+                                     (text-scale-set 0))
+                                   nil))))))
 
 (unbind-key "C-x n d")
 (unbind-key "C-x n n")
