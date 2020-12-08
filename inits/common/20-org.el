@@ -16,8 +16,8 @@
   :interpreter (("org" . org-mode))
   :init
   (defvar org-agenda-files-default (append
-                                    (file-expand-wildcards (concat env-doc-dir "/*_a/*.org"))
-                                    (file-expand-wildcards (concat env-doc-dir "/**/*_a.org")))
+                                    (file-expand-wildcards (concat env-org-dir "/*_a/*.org"))
+                                    (file-expand-wildcards (concat env-org-dir "/**/*_a.org")))
     "Default org-agenda-files.")
   :bind (("C-c a" . org-agenda)
          ("C-c c" . org-capture)
@@ -27,7 +27,7 @@
   (add-to-list 'load-path (concat (file-name-as-directory user-emacs-directory) "straight/repos/org/lisp"))
   (add-to-list 'load-path (concat (file-name-as-directory user-emacs-directory) "straight/repos/org/contrib/lisp"))
   :custom
-  (org-directory env-doc-dir)
+  (org-directory env-org-dir)
   (org-special-ctrl-a/e t)
   (org-adapt-indentation nil)
   :config
@@ -220,8 +220,8 @@ If 'ARG' is passed, shred afile instead delete."
   (setq org-default-priority ?Z)
 
   ;; id
-  (setq org-id-files (file-expand-wildcards (concat env-doc-dir "/**/*.org")))
-  (setq org-id-locations-file (concat env-doc-dir "/.org-id-locations"))
+  (setq org-id-files (file-expand-wildcards (concat env-org-dir "/**/*.org")))
+  (setq org-id-locations-file (concat env-org-dir "/.org-id-locations"))
   (setq org-id-track-globally t)
   (setq org-id-link-to-org-use-id 'create-if-interactive)
 

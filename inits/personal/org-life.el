@@ -228,7 +228,7 @@
           (org-agenda-todo-ignore-deadlines 'far)))))
 
 (defvar auto-org-capture-file (make-temp-file "auto-org-capture" nil ".org"))
-(defvar org-capture-todo-file (concat env-doc-dir "/priv_a/life.org"))
+(defvar org-capture-todo-file (concat env-org-dir "/priv_a/life.org"))
 
 (defun org-goto-clocking-or-today ()
   "Go to currently clocking entry.
@@ -363,7 +363,7 @@ go to today's entry in record file."
 
 (setq org-refile-targets
       `((org-agenda-files :tag . "project")
-        (,(file-expand-wildcards (concat env-doc-dir "/**/*.org")) :tag . "refile")))
+        (,(file-expand-wildcards (concat env-org-dir "/**/*.org")) :tag . "refile")))
 
 
 (defun org-tags-view-in-records (&optional todo-only match)
@@ -372,7 +372,7 @@ The prefix args TODO-ONLY and MATCH are passed to 'org-tags-view.
 
 If region is active, use the word in region for matching instead."
   (interactive)
-  (let* ((record-cands (file-expand-wildcards (format "%s/archive/record_*.org" env-doc-dir)))
+  (let* ((record-cands (file-expand-wildcards (format "%s/archive/record_*.org" env-org-dir)))
          (record-files (last record-cands (safe-length record-cands)))
          (org-agenda-files (append org-agenda-files-default
                                    (sort record-files 'string<)))

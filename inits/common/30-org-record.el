@@ -5,11 +5,11 @@
 
 If optional argument `YEAR' is passed that year's file is returned instead of current year's."
   (let* ((record-year (or year (ts-year (ts-now))))
-         (record-file-cand (format "%s/archive/record_%s.org" env-doc-dir record-year))
+         (record-file-cand (format "%s/archive/record_%s.org" env-org-dir record-year))
          (record-file
           (if (file-exists-p record-file-cand)
               record-file-cand
-            (expand-file-name "archive/record_0000.org" env-doc-dir))))
+            (expand-file-name "archive/record_0000.org" env-org-dir))))
     (if (or (file-exists-p record-file)
             (file-symlink-p record-file))
         record-file
@@ -17,7 +17,7 @@ If optional argument `YEAR' is passed that year's file is returned instead of cu
 (defvar org-record-file (org-record-file))
 (defun org-record-files ()
   "Return list of record files."
-  (append (sort (file-expand-wildcards (format "%s/archive/record_*.org" env-doc-dir)) 'string<)
+  (append (sort (file-expand-wildcards (format "%s/archive/record_*.org" env-org-dir)) 'string<)
           org-agenda-files-default))
 (defvar org-record-files (org-record-files))
 (defun org-record-find-date (date)
@@ -50,7 +50,7 @@ If called interactively, it prompt the user to select the date to find."
          (year (ts-year (or ts (ts-now))))
          (archive-file (if (and (member "scrap" (org-get-local-tags))
                                 (not (member (org-get-todo-state) '("DN" "PD"))))
-                           (format "%s/archive/scrap_%s.org" env-doc-dir year)
+                           (format "%s/archive/scrap_%s.org" env-org-dir year)
                          (org-record-file year))))
     (org-refile-to-datetree-using-ts-in-entry 'latest archive-file)
     (org-save-all-org-buffers)
