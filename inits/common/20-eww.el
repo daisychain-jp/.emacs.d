@@ -166,9 +166,18 @@ Otherwise, use a current URL."
                       (dom-children headings-root))
               :action (lambda (candidate)
                         (when-let ((heading (string-trim candidate))
-                                   (match-pos (or (re-search-forward (format "*?[[:blank:]]*%s[[:blank:]]*$" (regexp-quote heading)) nil t 1)
-                                                  (re-search-backward (format "*?[[:blank:]]*%s[[:blank:]]*$" (regexp-quote heading)) nil t 1))))
+                                   (match-pos (or (re-search-forward (fuzzy-regex heading) nil t 1)
+                                                  (re-search-backward (fuzzy-regex heading) nil t 1))))
+                          (princ match-pos)
                           (when (bufferp cur-buf)
                             (switch-to-buffer cur-buf)
                             (beginning-of-line)
                             (recenter-top-bottom 0)))))))
+
+(defun fuzzy-regex (str)
+  "Return regexp of `STR' for fuzzy matching."
+  (format "[[:blank:]]*%s[[:blank:]]*"
+          (ivy--regex-fuzzy
+           (concat (seq-remove (lambda (x)
+                                 (string-match-p "[[:blank:]]" (concat `(,x))))
+                               str)))))
