@@ -109,6 +109,7 @@
     ("i" org-info-find-node)
     ("rr" org-record-search)
     ("rd" org-record-find-date)
+    ("m" org-roam)
     ("q" nil "quit"))
   (defhydra hydra-launcher (global-map "C-M-j"
                                        :color blue)

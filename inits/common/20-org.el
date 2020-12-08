@@ -415,6 +415,18 @@ If 'ARG' is passed, shred afile instead delete."
   (org-drill-scope 'tree)
   (org-drill-cram-hours 0.5))
 
+(use-package org-roam
+  :straight (:host github
+                   :repo "jethrokuan/org-roam"
+                   :branch "master")
+  :after org
+  :diminish "or"
+  :custom
+  (org-roam-directory env-org-dir)
+  (org-roam-db-location (expand-file-name "org-roam.db" env-org-dir))
+  (org-roam-index-file (expand-file-name "index.org" env-org-dir))
+  (org-roam-db-update-idle-seconds (* 10 60)))
+
 (defcustom org-readable-directory "~/var/tmp/readable"
   "Directory where all html file for org-readable is located.")
 
