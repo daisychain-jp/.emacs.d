@@ -203,8 +203,10 @@ play it in media player."
      ;; using mobile Wi-Fi
      ((string-prefix-p "192.168.179." ipv4-addr)
       "bestvideo[height<=?240]+worstaudio/best")
-     ;; using wired home network
-     ((string-prefix-p "192.168.100." ipv4-addr)
+     ;; using wired network or broad wifi
+     ((or (string= ipv4-addr "192.168.100.126")
+          (member wifi-ssid
+                  '("saint_laurent_ap")))
       "bestvideo[height<=?720]+bestaudio/best")
      ;; usin unknown network
      (t
