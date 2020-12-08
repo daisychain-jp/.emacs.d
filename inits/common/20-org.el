@@ -427,7 +427,7 @@ If 'ARG' is passed, shred afile instead delete."
          (org-export-with-toc nil)
          (org-export-with-author nil)
          (org-export-with-broken-links 'mark)
-         (org-export-preserve-breaks t)
+         (org-export-preserve-breaks nil)
          (id (org-id-get))
          (uuid (downcase (if id id (org-id-uuid))))
          (org-readable-file (format "%s/%s.html" org-readable-directory uuid)))
