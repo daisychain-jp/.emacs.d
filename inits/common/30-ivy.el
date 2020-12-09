@@ -55,7 +55,7 @@
    :map ivy-minibuffer-map
    ("C-l" . counsel-up-directory)
    ("TAB" . counsel-down-directory)
-   ("M-y" . ivy-next-line))
+   ("M-y" . yank-pop))
   :config
   (add-to-list 'counsel-linux-apps-directories "~/Desktop")
   (require 'avy-migemo-e.g.counsel)
