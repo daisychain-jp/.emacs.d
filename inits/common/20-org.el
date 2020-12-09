@@ -49,6 +49,7 @@
              ("C-$"     . org-down-element)
              ("C-<"     . org-previous-link)
              ("C->"     . org-next-link)
+             ("C-c &"   . org-mark-ring-goto)
              ("C-c V"   . org-download-video-link-at-point)
              ("C-c A"   . org-download-audio-link-at-point)
              ("C-c D"   . org-show-media-duration-at-point)
