@@ -260,7 +260,7 @@ If 'ARG' is passed, shred afile instead delete."
                    ;; remove DN state if CATEGORY of the entry is "Repeated"
                    (when (and (string= category "Repeated")
                               (string= todo-state "DN")
-                              (not (member "scrap" tags))
+                              (not (member "episode" tags))
                               (not (string= style "habit")))
                      (org-todo ""))))))
   (add-hook 'org-after-todo-statistics-hook

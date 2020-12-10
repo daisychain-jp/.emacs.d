@@ -1,6 +1,6 @@
 # key: sc
-# name: scrap
+# name: episode
 # --
-* DA ${1:Heading} :scrap:ac_read:
+* DA ${1:Heading} :episode:ac_read:
 DEADLINE: `(org-capture-templates-insert-week-ahead)`
 $0

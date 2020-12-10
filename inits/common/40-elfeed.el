@@ -65,7 +65,7 @@
              ("V" . elfeed-search-download-video)
              ("A" . elfeed-search-download-audio)
              ("D" . elfeed-search-show-media-duration)
-             ("$" . elfeed-search-scrap-entry)
+             ("E" . elfeed-search-make-episode-entry)
              :map elfeed-show-mode-map
              ("C-i" . shr-next-link))
   (defface elfeed-search-unchecked-title-face
@@ -163,8 +163,8 @@
                   (elfeed-entry-link entry))))
     (show-media-duration url)))
 
-(defun elfeed-search-scrap-entry ()
-  "Store elfeed entry as a scrap."
+(defun elfeed-search-make-episode-entry ()
+  "Store elfeed entry as a episode org entry."
   (interactive)
   (let ((entries (elfeed-search-selected)))
     (cl-loop for entry in entries

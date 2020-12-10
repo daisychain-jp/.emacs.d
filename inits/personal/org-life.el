@@ -6,10 +6,10 @@
          agenda ""
          ((org-agenda-skip-function
            (lambda ()
-             ;; skip entry which has 'scrap' tag even if it has deadline
+             ;; skip entry which has 'episode' tag even if it has deadline
              (and (save-excursion
                     (let ((tags (org-get-tags)))
-                      (member "scrap" tags)))
+                      (member "episode" tags)))
                   (progn (outline-next-heading) (point)))))))
         ("r" . "Search for all record files")
         ("rs" "Entries containing search words entry or headline."
@@ -98,7 +98,7 @@
                                  '(priority-down))))
           (org-ql-search-block '(and (planning :on today)
                                      (not (todo "IP" "DN" "CX" "PD"))
-                                     (not (tags "scrap"))
+                                     (not (tags "episode"))
                                      (not (habit)))
                                ((org-ql-block-header "Scheduled/Deadlined on today")))
           (org-ql-search-block '(and (habit)
@@ -127,7 +127,7 @@
                                ((org-ql-block-header "Today's tasks")))
           (org-ql-search-block '(and (planning :from 0 :to 6)
                                      (not (todo "IP" "DN" "CX" "PD"))
-                                     (not (tags "scrap"))
+                                     (not (tags "episode"))
                                      (not (habit)))
                                ((org-ql-block-header "Scheduled/Deadlined this week")))
           (org-ql-search-block '(and (and (ts-active :from 0 :to 6)
@@ -139,13 +139,8 @@
          ((org-agenda-sorting-strategy
            '(todo-state-up priority-down deadline-up))))
         ("A" "Doable thing list"
-         ((org-ql-search-block '(and (todo "DA")
-                                     (not (tags "scrap"))())
-                               ((org-ql-block-header "Doable things")))
-          (org-ql-search-block '(and (todo "DA")
-                                     (tags "scrap")
-                                     (not (deadline :to -1)))
-                               ((org-ql-block-header "Scraps"))))
+         ((org-ql-search-block '(todo "DA")
+                               ((org-ql-block-header "Doable things"))))
          ((org-agenda-sorting-strategy
            '(todo-state-up priority-down deadline-up))))
         ("n" "Anniversary"
@@ -295,12 +290,12 @@ go to today's entry in record file."
         ("De" "English drill entry in currently clocking or today's entry."
          entry (function org-goto-clocking-or-today)
          "* %i :drill:fd_en:\n[%^C%?]\n- %a")
-        ("S" "Web site for deferred checking (scrap)"
+        ("E" "Web site for deferred checking (episode)"
          entry (id "68d74115-1f70-448d-a76e-738e32b272d8")
-         "* DA %a :scrap:ac_read:\nDEADLINE: %(org-capture-templates-insert-week-ahead)")
+         "* DA %a :episode:ac_read:\nDEADLINE: %(org-capture-templates-insert-week-ahead)")
         ("$" "deferred checking with immediate finish"
          entry (id "68d74115-1f70-448d-a76e-738e32b272d8")
-         "* DA %a :scrap:ac_read:\nDEADLINE: %(org-capture-templates-insert-week-ahead)"
+         "* DA %a :episode:ac_read:\nDEADLINE: %(org-capture-templates-insert-week-ahead)"
          :immediate-finish t)
         ("M" "Memo to the clocked"
          item (clock)
@@ -505,6 +500,6 @@ With `C-uC-u' prefix, search PHRASE forcibly."
                               (and (not (habit))
                                    (not (tags "project"))
                                    (planning :to ,due-date))
-                              (and (tags "scrap")
+                              (and (tags "episode")
                                    (deadline :to ,due-date)))
       :sort '(date))))
