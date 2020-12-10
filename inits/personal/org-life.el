@@ -265,11 +265,11 @@ go to today's entry in record file."
          :tree-type week)
         ("sr" "read"
          entry (file+datetree ,org-record-file)
-         "* SD %? :ac_purchase:fd_book:\n  ADDED: %U\n  %a"
+         "* SD %? :ac_purchase:book:\n  ADDED: %U\n  %a"
          :tree-type week)
         ("sR" "read (register to whisper as kindle)"
          entry (file+datetree ,org-record-file)
-         "* SD %? :ac_purchase:fd_book:ap_whisper:%^{WP_URL1_FORMAT}p%^{WP_URL1}p%^{WP_ALERT}p\n  ADDED: %U\n  - [ ] insert ID property\n  %a"
+         "* SD %? :ac_purchase:book:ap_whisper:%^{WP_URL1_FORMAT}p%^{WP_URL1}p%^{WP_ALERT}p\n  ADDED: %U\n  - [ ] insert ID property\n  %a"
          :tree-type week)
         ("sc" "cook"
          entry (file+datetree ,org-record-file)
