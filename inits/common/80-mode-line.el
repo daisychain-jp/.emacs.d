@@ -50,4 +50,6 @@
                 " "
                 global-mode-string
                 mode-name
-                minor-mode-alist))
+                ;; disable showing minor modes
+                ;; minor-mode-alist
+                ))
