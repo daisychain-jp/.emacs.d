@@ -8,7 +8,6 @@
               (hl-line-mode 1)
               (hs-minor-mode 1)
               (abbrev-mode 1)
-              (smartparens-mode 1)
               (flyspell-prog-mode)
               (display-fill-column-indicator-mode 1)
               (setq-local truncate-lines t))))
