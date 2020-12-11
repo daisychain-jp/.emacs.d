@@ -110,6 +110,7 @@
     ("s" org-store-link)
     ("S" org-save-all-org-buffers)
     ("i" org-info-find-node)
+    ("&" org-mark-ring-goto)
     ("r" org-record-search)
     ("C" org-record-find-date)
     ("m" org-roam)
