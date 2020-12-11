@@ -12,6 +12,7 @@
              ("]"   . eww-next-url)
              ("T"   . eww-goto-title-heading)
              ("L"   . counsel-eww-headings)
+             ("M-n" . nil)
              :map eww-bookmark-mode-map
              ("C-j" . eww-bookmark-browse))
   (setq shr-use-fonts nil)
