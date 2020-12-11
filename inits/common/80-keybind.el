@@ -102,17 +102,19 @@
     ("a" counsel-org-agenda-headlines)
     ("A" counsel-org-goto-all)
     ("c" counsel-org-capture)
+    ("j" org-clock-goto)
     ("g" counsel-org-goto)
     ("q" org-ql-search)
     ("Q" org-ql-view)
     ("p" org-capture-phrase)
-    ("s" org-save-all-org-buffers)
+    ("s" org-store-link)
+    ("S" org-save-all-org-buffers)
     ("i" org-info-find-node)
-    ("rr" org-record-search)
-    ("rd" org-record-find-date)
+    ("r" org-record-search)
+    ("C" org-record-find-date)
     ("m" org-roam)
     ("q" nil "quit"))
-  (defhydra hydra-launcher (global-map "C-M-j"
+  (defhydra hydra-launcher (global-map "M-j"
                                        :color blue)
     "Launch"
     ("t" vterm)

@@ -89,6 +89,7 @@
     "Git"
     ("s" counsel-git-grep)
     ("c" counsel-git-checkout)
+    ("f" magit-file-dispatch)
     ("l" counsel-git-log)
     ("w" counsel-git-change-worktree)
     ("z" counsel-git-stash)

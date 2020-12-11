@@ -20,9 +20,7 @@
                                     (file-expand-wildcards (concat env-org-dir "/**/*_a.org")))
     "Default org-agenda-files.")
   :bind (("C-c a" . org-agenda)
-         ("C-c c" . org-capture)
-         ("M-J" . org-clock-goto)
-         ("C-c s" . org-store-link))
+         ("C-c c" . org-capture))
   :init
   (add-to-list 'load-path (concat (file-name-as-directory user-emacs-directory) "straight/repos/org/lisp"))
   (add-to-list 'load-path (concat (file-name-as-directory user-emacs-directory) "straight/repos/org/contrib/lisp"))
