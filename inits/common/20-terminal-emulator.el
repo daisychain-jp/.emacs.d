@@ -35,6 +35,7 @@
         ("C-j" . vterm-copy-mode-done))
   :custom
   (vterm-min-window-width 55)
+  (vterm-buffer-name-string "vterm %s")
   :config
   (advice-add 'counsel-yank-pop-action :around #'vterm-counsel-yank-pop-action))
 
