@@ -52,4 +52,5 @@
                 mode-name
                 ;; disable showing minor modes
                 ;; minor-mode-alist
+                (projectile-mode projectile--mode-line)
                 ))

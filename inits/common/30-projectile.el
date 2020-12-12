@@ -3,9 +3,19 @@
   :after (hydra counsel dumb-jump)
   :init
   (projectile-load-known-projects)
+  :hook
+  (prog-mode . projectile-mode)
   :custom
   (projectile-completion-system 'ivy)
+  (projectile-mode-line-function 'projectile-short-mode-line)
+  (projectile-mode-line-prefix " P")
   :config
+  (defun projectile-short-mode-line ()
+    "Report project name and type in the modeline."
+    (let ((project-name (projectile-project-name)))
+      (format "%s:%s"
+              projectile-mode-line-prefix
+              (or project-name "-"))))
   (defhydra hydra-projectile (global-map "C-c p"
                                          :exit t)
     "Projectile"
