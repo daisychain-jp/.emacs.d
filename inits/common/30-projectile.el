@@ -7,6 +7,7 @@
   (find-file . projectile-mode-switch-dwim)
   :custom
   (projectile-completion-system 'ivy)
+  (projectile-track-known-projects-automatically nil)
   (projectile-mode-line-prefix " P")
   (projectile-mode-line-function 'projectile-short-mode-line)
   :config

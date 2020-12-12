@@ -1,1 +1,1 @@
-("~/git/.emacs.d/" "~/git/org/" "~/git/dotfiles/" "~/git/bin/" "~/git/.emacs.d/straight/repos/projectile/" "/ssh:sv04|sudo:t.inamori@sv04:/var/www/kana/" "~/git/whisper/" "~/org/" "~/bin/" "~/.emacs.d/")
+("~/git/dotfiles/" "/ssh:sv04|sudo:t.inamori@sv04:/var/www/kana/" "~/git/whisper/" "~/org/" "~/bin/" "~/.emacs.d/")
