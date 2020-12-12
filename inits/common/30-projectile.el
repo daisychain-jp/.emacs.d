@@ -4,15 +4,17 @@
   :init
   (projectile-load-known-projects)
   :hook
-  (prog-mode . (lambda ()
-                 (when-let* ((bfn (buffer-file-name))
-                             (vc-registered (buffer-file-name)))
-                   (projectile-mode 1))))
+  (find-file . projectile-mode-switch-dwim)
   :custom
   (projectile-completion-system 'ivy)
   (projectile-mode-line-prefix " P")
   (projectile-mode-line-function 'projectile-short-mode-line)
   :config
+  (defun projectile-mode-switch-dwim ()
+    "Intelligently switch on/off projectile mode."
+    (when-let* ((bfn (buffer-file-name))
+                (vc-registered (buffer-file-name)))
+      (setq-local projectile-mode t)))
   (defun projectile-short-mode-line ()
     "Report project name and type in the modeline."
     (let ((project-name (projectile-project-name)))

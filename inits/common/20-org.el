@@ -40,7 +40,6 @@
              ("C-m"     . org-return-indent)
              ("M-j"     . org-meta-return)
              ("C-o"     . org-open-at-point)
-             ("M-o"     . org-orgnize-open-at-point)
              ("C-S-p"   . org-previous-item)
              ("C-S-n"   . org-next-item)
              ("C-S-u"   . org-up-element)
