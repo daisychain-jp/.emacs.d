@@ -4,11 +4,14 @@
   :init
   (projectile-load-known-projects)
   :hook
-  (prog-mode . projectile-mode)
+  (prog-mode . (lambda ()
+                 (when-let* ((bfn (buffer-file-name))
+                             (vc-registered (buffer-file-name)))
+                   (projectile-mode 1))))
   :custom
   (projectile-completion-system 'ivy)
-  (projectile-mode-line-function 'projectile-short-mode-line)
   (projectile-mode-line-prefix " P")
+  (projectile-mode-line-function 'projectile-short-mode-line)
   :config
   (defun projectile-short-mode-line ()
     "Report project name and type in the modeline."
