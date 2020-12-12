@@ -116,7 +116,8 @@
     ("C" org-record-find-date)
     ("m" org-roam)
     ("q" nil "quit"))
-  (defhydra hydra-launcher (global-map "M-n"
+  (unbind-key "M-o")
+  (defhydra hydra-launcher (global-map "M-o"
                                        :color blue)
     "Launch"
     ("t" vterm)
