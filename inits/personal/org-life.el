@@ -139,7 +139,8 @@
          ((org-agenda-sorting-strategy
            '(todo-state-up priority-down deadline-up))))
         ("A" "Doable thing list"
-         ((org-ql-search-block '(todo "DA")
+         ((org-ql-search-block '(and (todo "DA")
+                                     (not (deadline :to -1)))
                                ((org-ql-block-header "Doable things"))))
          ((org-agenda-sorting-strategy
            '(todo-state-up priority-down deadline-up))))
