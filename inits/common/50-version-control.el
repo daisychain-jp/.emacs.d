@@ -1,16 +1,20 @@
+(custom-set-variables '(vc-follow-symlinks t))
+
 (use-package projectile
   :straight t
-  :after (hydra counsel dumb-jump)
-  :init
-  (projectile-load-known-projects)
   :hook
   (find-file . projectile-mode-switch-dwim)
+  :bind-keymap
+  ("C-c P" . projectile-command-map)
   :custom
+  (projectile-project-search-path env-proj-dir)
+  (projectile-switch-project-action 'projectile-dired)
   (projectile-completion-system 'ivy)
   (projectile-track-known-projects-automatically nil)
   (projectile-mode-line-prefix " P")
   (projectile-mode-line-function 'projectile-short-mode-line)
   :config
+  (projectile-load-known-projects)
   (defun projectile-mode-switch-dwim ()
     "Intelligently switch on/off projectile mode."
     (when-let* ((bfn (buffer-file-name))
@@ -21,7 +25,12 @@
     (let ((project-name (projectile-project-name)))
       (format "%s:%s"
               projectile-mode-line-prefix
-              (or project-name "-"))))
+              (or project-name "-")))))
+
+(use-package counsel-projectile
+  :straight t
+  :after hydra
+  :config
   (defhydra hydra-projectile (global-map "C-c p"
                                          :exit t)
     "Projectile"
@@ -30,6 +39,7 @@
     ("sr" counsel-projectile-rg)
     ("si" counsel-projectile-git-grep)
     ("p" counsel-projectile-switch-project)
+    ("P" projectile-switch-project)
     ("+" projectile-add-known-project)
     ("d" projectile-find-dir)
     ("D" projectile-dired)
@@ -44,9 +54,6 @@
     ("l" dumb-jump-quick-look)
     ("C-g" nil "quit")
     ("q" nil "quit")))
-
-(use-package counsel-projectile
-  :straight t)
 
 (use-package ag
   :straight t)

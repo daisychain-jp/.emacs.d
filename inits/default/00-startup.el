@@ -16,7 +16,6 @@
 
 ;; file
 (setq custom-file (format "%s/custom.el" user-emacs-directory))
-(setq vc-follow-symlinks t)
 (setq make-backup-files nil)
 (setq auto-save-interval 100)
 (setq auto-save-timeout 10)
