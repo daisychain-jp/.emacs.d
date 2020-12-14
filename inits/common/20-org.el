@@ -685,6 +685,8 @@ WHICH-TS should be `earliest' or `latest'."
 
 (use-package org-ql
   :straight t
+  :custom
+  (org-ql-search-directories-files-recursive t)
   :config
   (require 'org-ql-search))
 
