@@ -6,7 +6,8 @@
          ("C-M-r" . ivy-resume)
          :map ivy-minibuffer-map
          ("M-=" . ivy-minibuffer-grow)
-         ("M--" . ivy-minibuffer-shrink))
+         ("M--" . ivy-minibuffer-shrink)
+         ("C-?" . ivy-describe-actions))
   :custom
   (ivy-display-style 'fancy)
   (ivy-use-virtual-buffers t)
@@ -19,6 +20,12 @@
           (t . ivy--regex-plus)))
   (map-put ivy-initial-inputs-alist 'counsel-org-capture "")
   (require 'avy-migemo-e.g.ivy))
+
+(defun ivy-describe-actions ()
+  "Show available actions in current context."
+  (interactive)
+  (let ((ivy-read-action-function #'ivy-read-action-ivy))
+    (ivy-read-action)))
 
 (use-package swiper
   :straight t
