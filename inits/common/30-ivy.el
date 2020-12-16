@@ -7,7 +7,7 @@
          :map ivy-minibuffer-map
          ("M-=" . ivy-minibuffer-grow)
          ("M--" . ivy-minibuffer-shrink)
-         ("C-?" . ivy-describe-actions))
+         ("C-<" . ivy-describe-actions))
   :custom
   (ivy-display-style 'fancy)
   (ivy-use-virtual-buffers t)
