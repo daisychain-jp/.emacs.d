@@ -15,9 +15,8 @@
   :mode (("\\.org$" . org-mode))
   :interpreter (("org" . org-mode))
   :init
-  (defvar org-agenda-files-default (append
-                                    (file-expand-wildcards (concat env-org-dir "/*_a/*.org"))
-                                    (file-expand-wildcards (concat env-org-dir "/**/*_a.org")))
+  (defvar org-agenda-files-default
+    (file-expand-wildcards (concat env-org-dir "/agenda/*.org"))
     "Default org-agenda-files.")
   :bind (("C-c a" . org-agenda)
          ("C-c c" . org-capture)
