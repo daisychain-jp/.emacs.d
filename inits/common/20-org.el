@@ -309,8 +309,8 @@ If 'ARG' is passed, shred afile instead delete."
   ;; logging
   (setq org-log-done 'time)
   (setq org-log-into-drawer t)
-  (setq org-log-states-order-reversed nil)
-  (setq org-reverse-note-order t)
+  (setq org-log-states-order-reversed t)
+  (setq org-reverse-note-order nil)
   (add-hook 'org-log-buffer-setup-hook
             (lambda ()
               (setq skk-dcomp-activate 'eolp)
