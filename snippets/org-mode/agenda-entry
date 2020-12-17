@@ -3,5 +3,5 @@
 # key: ag
 # --
 $2* ${1:Heading}
-  ADDED: `(format-time-string "<%Y-%m-%d %a %H:%M>")`
+  ADDED: `(format-time-string "[%Y-%m-%d %a %H:%M]")`
   $0
