@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: cook
+# key: cook
+# --
+* DA ${1:Menu} :ac_cook:
+:PROPERTIES:
+:REFERENCE: [[id:${2:Recipe-Entry-ID}]]
+:END:
+ADDED: `(format-time-string "[%Y-%m-%d %a %H:%M]")`
+$0

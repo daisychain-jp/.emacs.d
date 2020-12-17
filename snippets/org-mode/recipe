@@ -6,6 +6,7 @@
 # --
 ** ${1:menu}
    ADDED: `(format-time-string "[%Y-%m-%d %a]")`
+- [ ] create ID
 - 材料
   | 材料 | 分量 |
   |------+------|

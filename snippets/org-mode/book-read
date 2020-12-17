@@ -3,5 +3,8 @@
 # key: book-read
 # --
 * DA ${1:Heading} :book:ac_read:
+:PROPERTIES:
+:REFERENCE: [[id:${2:Book-Entry-ID}]]
+:END:
 ADDED: `(format-time-string "[%Y-%m-%d %a %H:%M]")`
 $0
