@@ -88,14 +88,14 @@
         ("Ei" "doing task" tags "+Effort<\"0:01\"/UG|IP")
         ("Ew" "will-do task" tags "+Effort<\"0:01\"/UG|IP|WD")
         ("Ea" "all task" tags "+Effort<\"0:01\"/UG|IP|WD|TD")
-        ("i" "Daily task list"
-         ((org-ql-search-block `(heading ,(format-time-string "%Y-%m-%d %A"))
+        ("i" "Today's agenda"
+         ((todo "Today's agenda"
+                ((org-agenda-sorting-strategy '(priority-up))))
+          (org-ql-search-block `(heading ,(format-time-string "%Y-%m-%d %A"))
                                ((org-agenda-files `(,(org-record-file)))
-                                (org-ql-block-header "Today's tree")))
+                                (org-ql-block-header "Today's tree node")))
           (org-ql-search-block '(or (todo "UG") (todo "IP"))
-                               ((org-ql-block-header "Today's task")
-                                (org-agenda-sorting-strategy
-                                 '(priority-down))))
+                               ((org-ql-block-header "Today's task")))
           (org-ql-search-block '(and (planning :on today)
                                      (not (todo "IP" "DN" "CX" "PD"))
                                      (not (tags "episode"))
@@ -114,10 +114,8 @@
                                     (and (habit)
                                          (clocked :on today)
                                          (planning :from 1)))
-                               ((org-ql-block-header "Completed tasks on today"))))
-         ((org-agenda-sorting-strategy
-           '(todo-state-up priority-down deadline-up))))
-        ("w" "Weekly task list"
+                               ((org-ql-block-header "Completed tasks on today")))))
+        ("w" "This Week's agenda"
          ((org-ql-search-block `(heading ,(format-time-string "%G-W%V"))
                                ((org-agenda-files `(,(org-record-file)))
                                 (org-ql-block-header "This week's tree")))
