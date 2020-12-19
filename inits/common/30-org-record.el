@@ -5,11 +5,11 @@
 
 If optional argument `YEAR' is passed that year's file is returned instead of current year's."
   (let* ((record-year (or year (ts-year (ts-now))))
-         (record-file-cand (format "%s/archive/record_%s.org" env-org-dir record-year))
+         (record-file-cand (format "%s/archive/archive_%s.org" env-org-dir record-year))
          (record-file
           (if (file-exists-p record-file-cand)
               record-file-cand
-            (expand-file-name "archive/record_0000.org" env-org-dir))))
+            (expand-file-name "archive/archive_0000.org" env-org-dir))))
     (if (or (file-exists-p record-file)
             (file-symlink-p record-file))
         record-file
@@ -17,7 +17,7 @@ If optional argument `YEAR' is passed that year's file is returned instead of cu
 (defvar org-record-file (org-record-file))
 (defun org-record-files ()
   "Return list of record files."
-  (append (sort (file-expand-wildcards (format "%s/archive/record_*.org" env-org-dir)) 'string<)
+  (append (sort (file-expand-wildcards (format "%s/archive/archive_*.org" env-org-dir)) 'string<)
           org-agenda-files-default))
 (defvar org-record-files (org-record-files))
 (defun org-record-find-date (date)

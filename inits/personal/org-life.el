@@ -396,7 +396,7 @@ The prefix args TODO-ONLY and MATCH are passed to 'org-tags-view.
 
 If region is active, use the word in region for matching instead."
   (interactive)
-  (let* ((record-cands (file-expand-wildcards (format "%s/archive/record_*.org" env-org-dir)))
+  (let* ((record-cands (file-expand-wildcards (format "%s/archive/archive_*.org" env-org-dir)))
          (record-files (last record-cands (safe-length record-cands)))
          (org-agenda-files (append org-agenda-files-default
                                    (sort record-files 'string<)))
