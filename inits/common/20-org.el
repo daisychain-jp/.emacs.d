@@ -215,7 +215,7 @@ If 'ARG' is passed, shred afile instead delete."
   (setq org-use-property-inheritance "TIMELIMIT.*")
   (setq org-highest-priority ?A)
   (setq org-lowest-priority ?Z)
-  (setq org-default-priority ?Z)
+  (setq org-default-priority ?E)
 
   ;; id
   (setq org-id-files (file-expand-wildcards (concat env-org-dir "/**/*.org")))
