@@ -2,7 +2,7 @@
 (setq org-agenda-skip-deadline-if-done t)
 (setq org-agenda-include-diary t)
 (setq org-agenda-custom-commands
-      '(("a" "Week-agenda"
+      `(("a" "Week-agenda"
          agenda ""
          ((org-agenda-skip-function
            (lambda ()
@@ -21,16 +21,16 @@
          ((org-agenda-files org-record-files)
           (org-agenda-sorting-strategy '(time-down))))
         ("o" "Someday entries"
-         ((org-ql-search-block '(and (todo "SD")
+         ((org-ql-search-block `(and (todo ,org-todo-keyword-4)
                                      (tags "ac_make"))
                                ((org-ql-block-header "Someday to make")))
-          (org-ql-search-block '(and (todo "SD")
+          (org-ql-search-block `(and (todo ,org-todo-keyword-4)
                                      (tags "ac_purchase"))
                                ((org-ql-block-header "Someday to purchase")))
-          (org-ql-search-block '(and (todo "SD")
+          (org-ql-search-block `(and (todo ,org-todo-keyword-4)
                                      (tags "ac_cook"))
                                ((org-ql-block-header "Someday to cook")))
-          (org-ql-search-block '(and (todo "SD")
+          (org-ql-search-block `(and (todo ,org-todo-keyword-4)
                                      (not (tags "ac_purchase" "ac_cook" "ac_make")))
                                ((org-ql-block-header "Someday things"))))
          ((org-agenda-files org-record-files)))
@@ -61,53 +61,78 @@
              priority-down))))
         ("e" . "Effort table")
         ("ei" "of doing task"
-         tags "+Effort=>\"0\"/UG|IP"
+         tags ,(format "+Effort=>\"0\"/%1$s|%2$s"
+                       org-warning-keyword-0
+                       org-todo-keyword-2)
          ((org-agenda-overriding-header "Today's Task")
           (org-local-columns-format "%26ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM(Time){:}")
           (org-agenda-view-columns-initially t)
           (org-agenda-sorting-strategy '(todo-state-up priority-down deadline-up))))
         ("ew" "of will-do task"
-         tags "+Effort=>\"0\"/UG|IP|WD"
+         tags ,(format "+Effort=>\"0\"/%1$s|%2$s|%3$s"
+                       org-warning-keyword-0
+                       org-todo-keyword-1
+                       org-todo-keyword-2)
          ((org-agenda-overriding-header "This Week's Task")
           (org-local-columns-format "%26ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM(Time){:}")
           (org-agenda-view-columns-initially t)
           (org-agenda-sorting-strategy '(todo-state-up priority-down deadline-up))))
         ("ea" "of all task"
-         tags "+Effort=>\"0\"/UG|IP|WD|TD"
+         tags ,(format "+Effort=>\"0\"/%1$s|%2$s|%3$s|%4$s"
+                       org-warning-keyword-0
+                       org-todo-keyword-0
+                       org-todo-keyword-1
+                       org-todo-keyword-2)
          ((org-agenda-overriding-header "This Week's Task")
           (org-local-columns-format "%26ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM(Time){:}")
           (org-agenda-view-columns-initially t)
           (org-agenda-sorting-strategy '(todo-state-up priority-down deadline-up))))
         ("ed" "of done task"
-         tags "+Effort=>\"0\"/DN|CX"
+         tags ,(format "+Effort=>\"0\"/%1$s|%2$s"
+                       org-done-keyword-0
+                       org-done-keyword-1)
          ((org-agenda-overriding-header "Done task")
           (org-local-columns-format "%26ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM(Time){:}")
           (org-agenda-view-columns-initially t)
           (org-agenda-sorting-strategy '(todo-state-up priority-down deadline-up))))
         ("E" . "tasks without Effort")
-        ("Ei" "doing task" tags "+Effort<\"0:01\"/UG|IP")
-        ("Ew" "will-do task" tags "+Effort<\"0:01\"/UG|IP|WD")
-        ("Ea" "all task" tags "+Effort<\"0:01\"/UG|IP|WD|TD")
+        ("Ei" "doing task" tags ,(format "+Effort<\"0:01\"/%1$s|%2$s"
+                                         org-warning-keyword-0
+                                         org-todo-keyword-2))
+        ("Ew" "will-do task" tags ,(format "+Effort<\"0:01\"/%1$s|%2$s|%3$s"
+                                           org-warning-keyword-0
+                                           org-todo-keyword-1
+                                           org-todo-keyword-2))
+        ("Ea" "all task" tags ,(format "+Effort<\"0:01\"/%1$s|%2$s|%3$s|%4$s"
+                                       org-warning-keyword-0
+                                       org-todo-keyword-0
+                                       org-todo-keyword-1
+                                       org-todo-keyword-2))
         ("i" "Today's agenda"
          ((todo "Today's agenda"
                 ((org-agenda-sorting-strategy '(priority-up))))
           (org-ql-search-block `(heading ,(format-time-string "%Y-%m-%d %A"))
                                ((org-agenda-files `(,(org-record-file)))
                                 (org-ql-block-header "Today's tree node")))
-          (org-ql-search-block '(or (todo "UG") (todo "IP"))
+          (org-ql-search-block `(or (todo ,org-warning-keyword-0)
+                                    (todo ,org-todo-keyword-2))
                                ((org-ql-block-header "Today's task")))
-          (org-ql-search-block '(and (planning :on today)
-                                     (not (todo "IP" "DN" "CX" "PD"))
+          (org-ql-search-block `(and (planning :on today)
+                                     (not (todo ,org-todo-keyword-2
+                                                ,org-done-keyword-0
+                                                ,org-done-keyword-1
+                                                ,org-done-keyword-2))
                                      (not (tags "episode"))
                                      (not (habit)))
                                ((org-ql-block-header "Scheduled/Deadlined on today")))
-          (org-ql-search-block '(and (habit)
-                                     (todo "TD")
+          (org-ql-search-block `(and (habit)
+                                     (todo ,org-todo-keyword-0)
                                      (scheduled :to today)
                                      (not (tags-inherited "ARCHIVE")))
                                ((org-ql-block-header "Habits to take")))
-          (org-ql-search-block '(and (ts-active :on today)
-                                     (not (or (todo "IP") (habit) (done))))
+          (org-ql-search-block `(and (ts-active :on today)
+                                     (not (or (todo ,org-todo-keyword-2)
+                                              (habit) (done))))
                                ((org-ql-block-header "Today's common event")))
           (org-ql-search-block '(or (and (done)
                                          (closed :on today))
@@ -115,29 +140,35 @@
                                          (clocked :on today)
                                          (planning :from 1)))
                                ((org-ql-block-header "Completed tasks on today")))))
-        ("w" "This Week's agenda"
+        ("g" "This Week's agenda"
          ((org-ql-search-block `(heading ,(format-time-string "%G-W%V"))
                                ((org-agenda-files `(,(org-record-file)))
                                 (org-ql-block-header "This week's tree")))
-          (org-ql-search-block '(or (todo "WD"))
+          (org-ql-search-block `(or (todo ,org-todo-keyword-1))
                                ((org-ql-block-header "This week's tasks")))
-          (org-ql-search-block '(or (todo "UG") (todo "IP"))
+          (org-ql-search-block `(or (todo ,org-warning-keyword-0)
+                                    (todo ,org-todo-keyword-2))
                                ((org-ql-block-header "Today's tasks")))
-          (org-ql-search-block '(and (planning :from 0 :to 6)
-                                     (not (todo "IP" "DN" "CX" "PD"))
+          (org-ql-search-block `(and (planning :from 0 :to 6)
+                                     (not (todo ,org-todo-keyword-2
+                                                ,org-done-keyword-0
+                                                ,org-done-keyword-1
+                                                ,org-done-keyword-2))
                                      (not (tags "episode"))
                                      (not (habit)))
                                ((org-ql-block-header "Scheduled/Deadlined this week")))
-          (org-ql-search-block '(and (and (ts-active :from 0 :to 6)
+          (org-ql-search-block `(and (and (ts-active :from 0 :to 6)
                                           (not (deadline))
                                           (not (scheduled))
                                           (not (closed)))
-                                     (not (or (todo "IP" "WD") (done))))
+                                     (not (or (todo ,org-todo-keyword-1
+                                                    ,org-todo-keyword-2)
+                                              (done))))
                                ((org-ql-block-header "This week's common event"))))
          ((org-agenda-sorting-strategy
            '(todo-state-up priority-down deadline-up))))
         ("A" "Doable thing list"
-         ((org-ql-search-block '(and (todo "DA")
+         ((org-ql-search-block `(and (todo ,org-todo-keyword-3)
                                      (not (deadline :to -1)))
                                ((org-ql-block-header "Doable things"))))
          ((org-agenda-sorting-strategy
@@ -169,22 +200,25 @@
                                ((org-ql-block-header "One year ago"))))
          ((org-agenda-files `,(org-record-files))))
         ("t" "All tasks"
-         ((org-ql-search-block '(todo "UG")
+         ((org-ql-search-block `(todo org-warning-keyword-0)
                                ((org-ql-block-header "Urgent task")))
-          (org-ql-search-block '(todo "IP")
+          (org-ql-search-block `(todo ,org-todo-keyword-2)
                                ((org-ql-block-header "Today's task")))
-          (org-ql-search-block '(todo "WD")
+          (org-ql-search-block `(todo ,org-todo-keyword-1)
                                ((org-ql-block-header "This week's task")))
-          (org-ql-search-block '(and (todo "TD")
+          (org-ql-search-block `(and (todo ,org-todo-keyword-0)
                                      (not (habit)))
                                ((org-ql-block-header "Remaining task")))))
         ("d" "Done tasks"
          ((org-ql-search-block '(done)
                                ((org-ql-block-header "Done/Canceled/Pending task")))))
         ("#" "stuck project"
-         ((org-ql-search-block '(and (tags "project")
+         ((org-ql-search-block `(and (tags "project")
                                      ;; exclude projects
-                                     (not (children (todo "TD" "WD" "IP" "DA"))))
+                                     (not (children (todo ,org-todo-keyword-0
+                                                          ,org-todo-keyword-1
+                                                          ,org-todo-keyword-2
+                                                          ,org-todo-keyword-3))))
                                ((org-ql-block-header "Stuck projects")))))
         ("p" "Projects" tags "+project")
         ("h" "Habits in consistency graph"
@@ -202,24 +236,7 @@
            (lambda ()
              (and (save-excursion
                     (not (org-is-habit-p)))
-                  (progn (outline-next-heading) (point)))))))
-        ("g" "aggregated task list"
-         ((tags "SCHEDULED<=\"<today>\"|DEADLINE<=\"<today>\"")
-          (todo "UG|IP|DA")
-          (agenda ""))
-         ((org-agenda-sorting-strategy
-           '(todo-state-up
-             priority-down
-             deadline-up
-             category-up))
-          (org-agenda-span 14)
-          (org-agenda-show-all-dates t)
-          (org-agenda-use-time-grid nil)
-          (org-agenda-show-current-time-in-grid nil)
-          (org-agenda-start-with-log-mode nil)
-          (org-agenda-skip-deadline-if-done t)
-          (org-deadline-warning-days 30)
-          (org-agenda-todo-ignore-deadlines 'far)))))
+                  (progn (outline-next-heading) (point)))))))))
 
 (defvar auto-org-capture-file (make-temp-file "auto-org-capture" nil ".org"))
 (defvar org-capture-todo-file (concat env-org-dir "/priv_a/life.org"))
@@ -249,7 +266,8 @@ go to today's entry in record file."
 (setq org-capture-templates
       `(("t" "Task"
          entry (id "adcd63ea-f81a-4909-b659-6e5794052fcc")
-         "* TD %?\n  ADDED: %U\n")
+         ,(format "* %s %%?\n  ADDED: %%U\n"
+                  org-todo-keyword-0))
         ("p" "Project"
          entry (id "adcd63ea-f81a-4909-b659-6e5794052fcc")
          "* %? [/] :project:\n  ADDED: %U\n  - [ ] insert ID property if necessary"
@@ -260,27 +278,33 @@ go to today's entry in record file."
         ("s" "Someday memo")
         ("ss" "any"
          entry (file+datetree ,org-record-file)
-         "* SD %?\n  ADDED: %U\n  %a"
+         ,(format "* %s %%?\n  ADDED: %%U\n  %%a"
+                  org-todo-keyword-4)
          :tree-type week)
         ("sr" "read"
          entry (file+datetree ,org-record-file)
-         "* SD %? :ac_purchase:book:\n  ADDED: %U\n  %a"
+         ,(format "* %s %%? :ac_purchase:book:\n  ADDED: %%U\n  %%a"
+                  org-todo-keyword-4)
          :tree-type week)
         ("sR" "read (register to whisper as kindle)"
          entry (file+datetree ,org-record-file)
-         "* SD %? :ac_purchase:book:ap_whisper:%^{WP_URL1_FORMAT}p%^{WP_URL1}p%^{WP_ALERT}p\n  ADDED: %U\n  - [ ] insert ID property\n  %a"
+         ,(format "* %s %%? :ac_purchase:book:ap_whisper:%%^{WP_URL1_FORMAT}p%%^{WP_URL1}p%%^{WP_ALERT}p\n  ADDED: %%U\n  - [ ] insert ID property\n  %%a"
+                  org-todo-keyword-4)
          :tree-type week)
         ("sc" "cook"
          entry (file+datetree ,org-record-file)
-         "* SD %? :ac_cook:\n  ADDED: %U\n  %a"
+         ,(format "* %s %%? :ac_cook:\n  ADDED: %%U\n  %%a"
+                  org-todo-keyword-4)
          :tree-type week)
         ("sp" "purchase"
          entry (file+datetree ,org-record-file)
-         "* SD %? :ac_purchase:\n  ADDED: %U\n  %a"
+         ,(format "* %s %%? :ac_purchase:\n  ADDED: %%U\n  %%a"
+                  org-todo-keyword-4)
          :tree-type week)
         ("sm" "make"
          entry (file+datetree ,org-record-file)
-         "* SD %? :ac_make:\n  ADDED: %U\n  %a"
+         ,(format "* %s %%? :ac_make:\n  ADDED: %%U\n  %%a"
+                  org-todo-keyword-4)
          :tree-type week)
         ("D" "Drill")
         ("Dd" "Drill entry in currently clocking or today's entry."
@@ -291,10 +315,12 @@ go to today's entry in record file."
          "* %i :drill:fd_en:\n[%^C%?]\n- %a")
         ("E" "Web site for deferred checking (episode)"
          entry (id "68d74115-1f70-448d-a76e-738e32b272d8")
-         "* DA %a :episode:ac_read:\nDEADLINE: %(org-capture-templates-insert-week-ahead)")
+         ,(format "* %s %%a :episode:ac_read:\nDEADLINE: %%(org-capture-templates-insert-week-ahead)"
+                  org-todo-keyword-3))
         ("$" "deferred checking with immediate finish"
          entry (id "68d74115-1f70-448d-a76e-738e32b272d8")
-         "* DA %a :episode:ac_read:\nDEADLINE: %(org-capture-templates-insert-week-ahead)"
+         ,(format "* %s %%a :episode:ac_read:\nDEADLINE: %%(org-capture-templates-insert-week-ahead)"
+                  org-todo-keyword-3)
          :immediate-finish t)
         ("M" "Memo to the clocked"
          item (clock)
@@ -337,7 +363,11 @@ go to today's entry in record file."
       (unwind-protect
           (org-capture-string
            (buffer-string)
-           (if (string-match (concat org-ts-regexp "\\|\\* \\(UG\\|IP\\|WD\\|TD\\)")
+           (if (string-match (concat org-ts-regexp (format "\\|\\* \\(%1$s\\|%2$s\\|%3$s\\|%4$s\\)"
+                                                           org-warning-keyword-0
+                                                           org-todo-keyword-0
+                                                           org-todo-keyword-1
+                                                           org-todo-keyword-2))
                              (buffer-string))
                "i" "n"))
         (set-buffer-modified-p nil)
@@ -460,8 +490,8 @@ which has any one of `org-reference-parent-tag-list'."
           (lambda ()
             (when (org-clocking-p)
               (if (string= org-clock-current-task-alert "alarm")
-                  (alert "Timer DN!" :style 'alarm)
-                (alert "Timer DN!" :style 'fringe :mode 'org-mode :buffer (org-clocking-buffer) :severity 'trivial)))))
+                  (alert "Timer Done!" :style 'alarm)
+                (alert "Timer Done!" :style 'fringe :mode 'org-mode :buffer (org-clocking-buffer) :severity 'trivial)))))
 
 (defun org-capture-phrase (phrase &optional selective)
   "Search or capture PHRASE.
@@ -495,7 +525,7 @@ With `C-uC-u' prefix, search PHRASE forcibly."
   "List candidate entries for archiving in weekly review ends with DUE-DATE."
   (interactive (list (org-read-date nil nil nil "Due date: ")))
   (let ((files (org-agenda-files)))
-    (org-ql-search files `(or (todo "SD")
+    (org-ql-search files `(or (todo ,org-todo-keyword-4)
                               (and (not (habit))
                                    (not (tags "project"))
                                    (planning :to ,due-date))

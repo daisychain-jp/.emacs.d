@@ -165,7 +165,7 @@ If 'ARG' is passed, shred afile instead delete."
           (if (file-exists-p ex-lstr)
               (when (string= (downcase (read-string (format "%s? y/n: " do-str))) "y")
                 (call-process-shell-command (format "orgafile delete %s %s" cmd-opt ex-lstr))
-                (minibuffer-message (format "%s DN!" do-str)))
+                (minibuffer-message (format "%s %s!" do-str org-done-keyword-0)))
             (minibuffer-message "NOT EXIST"))))))
 
   ;; speed command
@@ -224,21 +224,45 @@ If 'ARG' is passed, shred afile instead delete."
   (setq org-id-link-to-org-use-id 'create-if-interactive)
 
   ;; todo
+  (defvar org-warning-keyword-0 "UG" "TODO keyword acronym standing for 'UrGent'")
+  (defvar org-todo-keyword-0 "TD" "TODO keyword acronym standing for 'To Do'")
+  (defvar org-todo-keyword-1 "GO" "TODO keyword acronym standing for 'Get On'")
+  (defvar org-todo-keyword-2 "IP" "TODO keyword acronym standing for 'In Progressn'")
+  (defvar org-todo-keyword-3 "AB" "TODO keyword acronym standing for 'doABle'")
+  (defvar org-todo-keyword-4 "SD" "TODO keyword acronym standing for 'SomeDay'")
+  (defvar org-done-keyword-0 "DN" "TODO keyword acronym standing for 'DoNe'")
+  (defvar org-done-keyword-1 "CX" "TODO keyword acronym standing for 'Cancel'")
+  (defvar org-done-keyword-2 "PD" "TODO keyword acronym standing for 'PenDing'")
   (setq org-enforce-todo-dependencies t)
   (setq org-todo-keywords
-        '((sequence "TD(t/!)" "UG(u/!)" "IP(i/!)" "WD(w/!)" "|" "DN(d/@)" "CX(x@/@)" "PD(p@/@)")
-          (sequence "DA(a/!)" "|" "DN(d/@)" "CX(x@/@)" "PD(p@/@)")
-          (sequence "TD(t/!)" "SD(s/!)" "|" "CX(x@/@)" "PD(p@/@)")))
+        `((sequence ,(format "%s(t/!)" org-todo-keyword-0)
+                    ,(format "%s(u/!)" org-warning-keyword-0)
+                    ,(format "%s(g/!)" org-todo-keyword-1)
+                    ,(format "%s(i/!)" org-todo-keyword-2)
+                    "|"
+                    ,(format "%s(d/@)" org-done-keyword-0)
+                    ,(format "%s(x/@)" org-done-keyword-1)
+                    ,(format "%s(p/@)" org-done-keyword-2))
+          (sequence ,(format "%s(a/!)" org-todo-keyword-3)
+                    "|"
+                    ,(format "%s(d/@)" org-done-keyword-0)
+                    ,(format "%s(x/@)" org-done-keyword-1)
+                    ,(format "%s(p/@)" org-done-keyword-2))
+          (sequence ,(format "%s(t/!)" org-todo-keyword-0)
+                    ,(format "%s(s/!)" org-todo-keyword-4)
+                    "|"
+                    ,(format "%s(x/@)" org-done-keyword-1)
+                    ,(format "%s(p/@)" org-done-keyword-2))))
   (setq org-todo-keyword-faces
-        '(("UG" . ((org-warning (:foreground "red1"))))
-          ("IP" . ((org-todo    (:foreground "DodgerBlue1"))))
-          ("WD" . ((org-todo    (:foreground "DeepPink1"))))
-          ("TD" . ((org-todo    (:foreground "green1"))))
-          ("DA" . ((org-todo    (:foreground "chocolate"))))
-          ("SD" . ((org-todo    (:foreground "SpringGreen"))))
-          ("DN" . ((org-done    (:foreground "gray30"))))
-          ("CX" . ((org-done    (:foreground "dark gray"))))
-          ("PD" . ((org-todo    (:foreground "sea green"))))))
+        `((,org-warning-keyword-0 . ((org-warning (:foreground "red1"))))
+          (,org-todo-keyword-0    . ((org-todo    (:foreground "green1"))))
+          (,org-todo-keyword-1    . ((org-todo    (:foreground "DeepPink1"))))
+          (,org-todo-keyword-2    . ((org-todo    (:foreground "DodgerBlue1"))))
+          (,org-todo-keyword-3    . ((org-todo    (:foreground "chocolate"))))
+          (,org-todo-keyword-4    . ((org-todo    (:foreground "SpringGreen"))))
+          (,org-done-keyword-0    . ((org-done    (:foreground "gray30"))))
+          (,org-done-keyword-1    . ((org-done    (:foreground "dark gray"))))
+          (,org-done-keyword-2    . ((org-todo    (:foreground "sea green"))))))
   (add-hook  'org-after-todo-state-change-hook
              (lambda ()
                (save-excursion
@@ -251,12 +275,16 @@ If 'ARG' is passed, shred afile instead delete."
                         (style (org-entry-get (point) "STYLE")))
                    ;; remove priority level when the to-do state is changed to DN|CX|PD
                    (when (and
-                          (s-matches? "DN\\|CX\\|PD" todo-state)
+                          (s-matches? (format "%1$s\\|%2$s\\|%3$s"
+                                              org-done-keyword-0
+                                              org-done-keyword-1
+                                              org-done-keyword-2)
+                                      todo-state)
                           (bound-and-true-p priority))
                      (org-priority ? ))
                    ;; remove DN state if CATEGORY of the entry is "Repeated"
                    (when (and (string= category "Repeated")
-                              (string= todo-state "DN")
+                              (string= todo-state org-done-keyword-0)
                               (not (member "episode" tags))
                               (not (string= style "habit")))
                      (org-todo ""))))))
@@ -265,7 +293,7 @@ If 'ARG' is passed, shred afile instead delete."
               "Switch project entry to DONE when all subentries are done, to empty otherwise."
               (when (member "project" (org-get-tags))
                 (org-todo (if (= n-not-done 0)
-                              (prog1 "DN"
+                              (prog1 org-done-keyword-0
                                 (org-add-planning-info 'closed "now"))
                             "")))))
 
