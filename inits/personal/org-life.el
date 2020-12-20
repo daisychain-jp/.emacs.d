@@ -200,7 +200,7 @@
                                ((org-ql-block-header "One year ago"))))
          ((org-agenda-files `,(org-record-files))))
         ("t" "All tasks"
-         ((org-ql-search-block `(todo org-warning-keyword-0)
+         ((org-ql-search-block `(todo ,org-warning-keyword-0)
                                ((org-ql-block-header "Urgent task")))
           (org-ql-search-block `(todo ,org-todo-keyword-2)
                                ((org-ql-block-header "Today's task")))
