@@ -23,6 +23,12 @@
               (setq-local truncate-lines t)
               (whitespace-mode 1))))
 
+(use-package dired-rsync
+  :straight t
+  :bind
+  (:map dired-mode-map
+        ("C-c C-r" . dired-rsync)))
+
 (use-package dired-single
   :straight t
   :bind (:map dired-mode-map
