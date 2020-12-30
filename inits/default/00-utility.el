@@ -205,8 +205,7 @@ play it in media player."
       "bestvideo[height<=?240]+worstaudio/best")
      ;; using wired network or broad wifi
      ((or (string= ipv4-addr "192.168.100.126")
-          (member wifi-ssid
-                  '("saint_laurent_ap")))
+          (member wifi-ssid user-wifi-ap-broad-list))
       "bestvideo[height<=?720]+bestaudio/best")
      ;; usin unknown network
      (t
