@@ -7,10 +7,6 @@
   ;; $ make clean all
   :straight t
   :defer t
-  :delight
-  (org-mode         " OG")
-  (org-agenda-mode  " OG")
-  (org-capture-mode " OG")
   :diminish ((org-src-mode . "os"))
   :mode (("\\.org$" . org-mode))
   :interpreter (("org" . org-mode))

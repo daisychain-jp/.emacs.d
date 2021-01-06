@@ -1,5 +1,4 @@
 (use-package dired
-  :delight " DR"
   :bind (:map dired-mode-map
               ("(" . dired-hide-details-mode)
               (")" . dired-hide-details-mode)
