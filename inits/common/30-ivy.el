@@ -64,7 +64,10 @@
    ("TAB" . counsel-down-directory)
    ("M-y" . yank-pop))
   :config
-  (add-to-list 'counsel-linux-apps-directories "~/Desktop")
+  (setq counsel-linux-apps-directories
+        (append counsel-linux-apps-directories
+                '("~/Desktop"
+                  "~/usr/share/applications")))
   (require 'avy-migemo-e.g.counsel)
   (bind-keys :map hydra-base-map
              ("C-d" . counsel-hydra-heads))
