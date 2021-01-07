@@ -212,26 +212,33 @@ play it in media player."
       "worstvideo+worstaudio"))))
 
 (defvar download-video-dir "~/Videos" "Directory where downloaded video locate.")
-(defun download-video (url &optional filename)
+(defun download-video (url &optional filename playlistp)
   "Download video from `URL'.
 
-If optional argument `FILENAME' is given use this as a filename."
+If optional argument `FILENAME' is passed, try to use this as filename.
+If optional argument `PLAYLISTP' is passed, try to download all videos in playlist
+instead of single video."
   (when (string-match "https?://www.youtube.com.+" url)
     (lexical-let* ((url-orig (match-string 0 url))
                    (urlobj-orig (url-generic-parse-url url-orig))
                    (pq-orig (url-path-and-query urlobj-orig))
-                   (q-str (url-build-query-string
-                           (list (assoc "v" (url-parse-query-string (cdr pq-orig))))))
-                   (yt-url (url-recreate-url
-                            (url-parse-make-urlobj (url-type urlobj-orig)
-                                                   (url-user urlobj-orig)
-                                                   (url-password urlobj-orig)
-                                                   (url-host urlobj-orig)
-                                                   (url-portspec urlobj-orig)
-                                                   (concat (car pq-orig) "?" q-str)
-                                                   (url-target urlobj-orig)
-                                                   (url-attributes urlobj-orig)
-                                                   (url-fullness urlobj-orig))))
+                   (yt-url
+                    (if (and (not playlistp)
+                             (string= (car pq-orig) "/watch")
+                             (assoc-string "list" (url-parse-query-string (cdr pq-orig))))
+                        (url-recreate-url
+                         (url-parse-make-urlobj (url-type urlobj-orig)
+                                                (url-user urlobj-orig)
+                                                (url-password urlobj-orig)
+                                                (url-host urlobj-orig)
+                                                (url-portspec urlobj-orig)
+                                                (concat (car pq-orig) "?"
+                                                        (url-build-query-string
+                                                         (list (assoc "v" (url-parse-query-string (cdr pq-orig))))))
+                                                (url-target urlobj-orig)
+                                                (url-attributes urlobj-orig)
+                                                (url-fullness urlobj-orig)))
+                      url))
                    (url-lex url)
                    (canonical-filename (if filename
                                            (replace-regexp-in-string
@@ -242,11 +249,15 @@ If optional argument `FILENAME' is given use this as a filename."
       (set-process-sentinel
        (start-process-shell-command
         "download video" nil
-        (format "cd %1$s && youtube-dl %2$s %3$s"
+        (format "cd %1$s && youtube-dl %2$s \"%3$s\""
                 download-video-dir
                 (mapconcat #'identity
                            (list (format "--format \"%s\"" (youtube-dl-format))
-                                 (when canonical-filename (format "--output %s" (shell-quote-argument canonical-filename))))
+                                 (when (and canonical-filename
+                                            (not playlistp)
+                                            (not (string= (car pq-orig) "/playlist")))
+                                   (format "--output %s" (shell-quote-argument canonical-filename)))
+                                 (when playlistp "--yes-playlist --ignore-errors"))
                            " ")
                 yt-url))
        (lambda (process desc)

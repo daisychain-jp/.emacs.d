@@ -728,13 +728,14 @@ WHICH-TS should be `earliest' or `latest'."
            (when (or line search)
              (goto-pos (or line search))))))))
 
-(defun org-download-video-link-at-point ()
+(defun org-download-video-link-at-point (&optional playlistp)
   "Download video file at point.
+With `C-u' prefix arg, try to download all videos in playlist.
 
 Video file is expected to appear in org-link."
-  (interactive)
+  (interactive "P")
   (org-link-at-point-map (lambda (url title)
-                           (download-video url title))))
+                           (download-video url title playlistp))))
 
 (defun org-download-audio-link-at-point ()
   "Download audio file at point.
@@ -751,25 +752,25 @@ Audio file is expected to appear in org-link."
                            (show-media-duration url))))
 
 (defun org-link-at-point-map (function)
-  ""
-  (if-let* ((context (org-element-lineage
-                      (org-element-context)
-                      '(link)
-                      t))
-            (type (org-element-property :type context))
-            (path (org-element-property :path context))
-            (desc (when-let ((begin (org-element-property :contents-begin context))
-                             (end (org-element-property :contents-end context)))
-                    (buffer-substring begin end))))
-      (cond
-       ((string-match-p "https?" type)
-        (funcall function (org-link-unescape (concat type ":" path)) desc))
-       ((string-match-p "elfeed" type)
-        (save-excursion
-          (org-open-at-point)
-          (when (eq major-mode 'elfeed-show-mode)
-            (when-let ((url (or (caar (elfeed-entry-enclosures elfeed-show-entry))
-                                (elfeed-entry-link elfeed-show-entry)))
-                       (title (elfeed-entry-title elfeed-show-entry)))
-              (funcall function url title))
-            (quit-window)))))))
+  "Call `FUNCTION' with url and title obtained from org-link at point."
+  (let* ((context (org-element-lineage
+                   (org-element-context)
+                   '(link)
+                   t))
+         (type (org-element-property :type context))
+         (path (org-element-property :path context))
+         (desc (when-let ((begin (org-element-property :contents-begin context))
+                          (end (org-element-property :contents-end context)))
+                 (buffer-substring begin end))))
+    (cond
+     ((string-match-p "https?" type)
+      (funcall function (org-link-unescape (concat type ":" path)) desc))
+     ((string-match-p "elfeed" type)
+      (save-excursion
+        (org-open-at-point)
+        (when (eq major-mode 'elfeed-show-mode)
+          (when-let ((url (or (caar (elfeed-entry-enclosures elfeed-show-entry))
+                              (elfeed-entry-link elfeed-show-entry)))
+                     (title (elfeed-entry-title elfeed-show-entry)))
+            (funcall function url title))
+          (quit-window)))))))
