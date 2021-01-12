@@ -2,7 +2,7 @@
   :commands emacs-lisp-mode
   :delight
   (emacs-lisp-mode " ELisp")
-  (lisp-interaction-mode " ListInt")
+  (lisp-interaction-mode " LispInt")
   :hook (emacs-lisp-mode . (lambda ()
                              (setq-local tab-width 4)
                              (setq-local counsel-dash-docsets '("Emacs Lisp" "Common Lisp"))
