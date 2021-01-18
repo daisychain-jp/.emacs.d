@@ -114,6 +114,7 @@
     ("r" org-record-search)
     ("C" org-record-find-date)
     ("m" org-roam)
+    ("SPC" org-reset-checkbox-state-subtree)
     ("q" nil "quit"))
   (unbind-key "M-o")
   (defhydra hydra-launcher (global-map "M-o"
