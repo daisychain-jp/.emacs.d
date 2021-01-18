@@ -257,7 +257,7 @@ instead of single video."
                                             (not playlistp)
                                             (not (string= (car pq-orig) "/playlist")))
                                    (format "--output %s" (shell-quote-argument canonical-filename)))
-                                 (when playlistp "--yes-playlist --ignore-errors"))
+                                 (when playlistp "--yes-playlist --ignore-errors --download-archive downloaded.txt"))
                            " ")
                 yt-url))
        (lambda (process desc)
