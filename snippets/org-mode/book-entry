@@ -1,7 +1,7 @@
 # key: book
 # name: book-entry
 # --
-* ${1:title} :at_book:ac_read:
+* ${1:title}
 :PROPERTIES:
 :BOOK_AUTHOR: ${2:author}
 :END:
