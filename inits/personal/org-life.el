@@ -521,6 +521,12 @@ With `C-uC-u' prefix, search PHRASE forcibly."
                     (tags "fd_en")))
       org-ql-views)
 
+(org-ql--defpred category-inherited (category)
+  "Return non-nil if current heading has CATEGORY.
+Ancestors are looked up If current heading has no CATEGORY."
+  :body (string= (org-entry-get (point) "CATEGORY" t)
+                 category))
+
 (defun org-weekly-review-archive-candidates (due-date)
   "List candidate entries for archiving in weekly review ends with DUE-DATE."
   (interactive (list (org-read-date nil nil nil "Due date: ")))
@@ -530,5 +536,8 @@ With `C-uC-u' prefix, search PHRASE forcibly."
                                    (not (tags "project"))
                                    (planning :to ,due-date))
                               (and (tags "episode")
-                                   (deadline :to ,due-date)))
+                                   (deadline :to ,due-date))
+                              (and (not (todo))
+                                   (ts-active :to ,due-date)
+                                   (not (category-inherited "Repeated"))))
       :sort '(date))))
