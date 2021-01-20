@@ -214,7 +214,6 @@ If 'ARG' is passed, shred afile instead delete."
   (setq org-default-priority ?E)
 
   ;; id
-  (setq org-id-files (file-expand-wildcards (concat env-org-dir "/**/*.org")))
   (setq org-id-locations-file (concat env-org-dir "/.org-id-locations"))
   (setq org-id-track-globally t)
   (setq org-id-link-to-org-use-id 'create-if-interactive)
@@ -348,6 +347,15 @@ If 'ARG' is passed, shred afile instead delete."
           (todo     . " ")
           (tags     . " ")
           (search   . " ")))
+  (dolist (dir '("archive" "library" "wiki"))
+    (mapc (lambda (org-file)
+            (add-to-list 'org-agenda-text-search-extra-files
+                         org-file))
+          (directory-files (expand-file-name dir env-org-dir)
+                           t
+                           (rx (one-or-more not-newline)
+                               (or ".org" ".org.gpg")
+                               line-end))))
   ;; these settings contribute to rapid building of agenda view
   (setq org-agenda-inhibit-startup t)
   (setq org-agenda-dim-blocked-tasks nil)
