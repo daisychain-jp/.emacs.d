@@ -109,7 +109,7 @@
  ("transient" . "95389b31ec45984e3ff0849f4216adbd183d946f")
  ("transpose-mark" . "667327602004794de97214cf336ac61650ef75b7")
  ("ts.el" . "540f6a5adab5d881cc5f50835c0a3fe70e74b992")
- ("twittering-mode" . "114891e8fdb4f06b1326a6cf795e49c205cf9e29")
+ ("twittering-mode" . "bacb67311a4e01d39950ffae8e9291c7e8a37d3b")
  ("undo-tree" . "d54ef13e3c69655e39f977b8bf75399a6d2b5e42")
  ("use-package" . "caa92f1d64fc25480551757d854b4b49981dfa6b")
  ("visual-regexp-steroids.el" . "a6420b25ec0fbba43bf57875827092e1196d8a9e")

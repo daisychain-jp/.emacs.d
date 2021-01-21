@@ -1,5 +1,9 @@
 (use-package twittering-mode
-  :straight t
+  :straight (twittering-mode
+             :host github
+             :repo "hayamiz/twittering-mode"
+             :fork (:host github
+                          :repo "daisychain-jp/twittering-mode"))
   :delight " TW"
   :after (hydra)
   :custom
