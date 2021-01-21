@@ -287,7 +287,7 @@ If optional argument `FILENAME' is given use this as a filename."
       "download audio" nil
       (format "%s; %s; %s"
               (if (string-match "https?://www.youtube.com.+" url)
-                  (format "youtube-dl --extract-audio --audio-format mp3 %1$s -o %2$s.mp3; mv -f %2$s.mp3 %2$s" (match-string 0 url) temp-fname)
+                  (format "youtube-dl --extract-audio --audio-format mp3 \"%1$s\" -o %2$s.mp3; mv -f %2$s.mp3 %2$s" (match-string 0 url) temp-fname)
                 (format "curl -LJs \"%s\" -o %s" url temp-fname))
               (format "cd %s && ffmpeg -n %s %s.mp3"
                       download-audio-dir
