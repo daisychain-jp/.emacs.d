@@ -1,7 +1,6 @@
 (use-package ivy
   :straight t
   :diminish (ivy-mode)
-  :after (avy-migemo)
   :bind (("C-;" . ivy-switch-buffer)
          ("C-M-r" . ivy-resume)
          :map ivy-minibuffer-map
@@ -17,9 +16,9 @@
   (setf ivy-re-builders-alist
         '((counsel-describe-function . ivy--regex-ignore-order)
           (counsel-describe-variable . ivy--regex-ignore-order)
-          (t . ivy--regex-plus)))
-  (map-put ivy-initial-inputs-alist 'counsel-org-capture "")
-  (require 'avy-migemo-e.g.ivy))
+          (counsel-M-x . ivy--regex-plus)
+          (t . ivy-migemo--regex-plus)))
+  (map-put ivy-initial-inputs-alist 'counsel-org-capture ""))
 
 (defun ivy-describe-actions ()
   "Show available actions in current context."
@@ -29,7 +28,7 @@
 
 (use-package swiper
   :straight t
-  :after (ivy avy-migemo)
+  :after ivy
   :bind (("C-s" . (lambda (&optional arg)
                     (interactive "P")
                     (let ((ivy-height 7)
@@ -41,9 +40,7 @@
                                                         (t '(swiper-isearch-thing-at-point)))))
                       (if (use-region-p)
                           (apply swiper-thing-at-point-func)
-                        (apply swiper-func))))))
-  :config
-  (require 'avy-migemo-e.g.swiper))
+                        (apply swiper-func)))))))
 
 (use-package counsel
   :straight t
@@ -68,7 +65,6 @@
         (append counsel-linux-apps-directories
                 '("~/Desktop"
                   "~/usr/share/applications")))
-  (require 'avy-migemo-e.g.counsel)
   (bind-keys :map hydra-base-map
              ("C-d" . counsel-hydra-heads))
   (defhydra hydra-search (global-map "M-s s"

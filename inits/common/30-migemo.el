@@ -16,10 +16,7 @@
   (load-library "migemo")
   (migemo-init))
 
-;; TODO: Pull package if pull request #8 is merged
-;;       Tha PR is temporally merged locally.
-(use-package avy-migemo
-  :straight t
-  :after (avy migemo ivy swiper counsel)
-  :config
-  (avy-migemo-mode 1))
+(use-package ivy-migemo
+  :straight (:host github
+                   :repo "ROCKTAKEY/ivy-migemo"
+                   :branch "master"))
