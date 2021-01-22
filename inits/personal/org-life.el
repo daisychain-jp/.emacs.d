@@ -281,7 +281,7 @@ go to today's entry in record file."
          ,(format "* %s %%?\n  ADDED: %%U\n  %%a"
                   org-todo-keyword-4)
          :tree-type week)
-        ("sr" "read"
+        ("sr" "purchase book"
          entry (file+datetree ,org-record-file)
          ,(format "* %s %%? :ac_purchase:book:\n  ADDED: %%U\n  %%a"
                   org-todo-keyword-4)
