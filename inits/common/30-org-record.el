@@ -50,7 +50,7 @@ If called interactively, it prompt the user to select the date to find."
          (year (ts-year (or ts (ts-now)))))
     (if (and (member "episode" (org-get-local-tags))
              (not (member (org-get-todo-state) '("DN" "PD"))))
-        (let* ((save-file (format "%s/archive/save_%s.org" env-org-dir year))
+        (let* ((save-file (format "%s/archive/unread_%s.org" env-org-dir year))
                (heading "save in 2020")
                (pos (save-excursion
                       (find-file save-file)
