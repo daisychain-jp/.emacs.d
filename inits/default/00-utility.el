@@ -197,19 +197,20 @@ play it in media player."
 
 (defun youtube-dl-format ()
   "Return appropriate format option value for youtube-dl command."
-  (let ((ipv4-addr (shell-command-to-string "hostname -I | cut -f1 -d' ' | tr -d '\n'"))
-        (wifi-ssid (shell-command-to-string "iwgetid -r | tr -d '\n'")))
-    (cond
-     ;; using mobile Wi-Fi
-     ((string-prefix-p "192.168.179." ipv4-addr)
-      "bestvideo[height<=?240]+worstaudio/best")
-     ;; using wired network or broad wifi
-     ((or (string= ipv4-addr "192.168.100.126")
-          (member wifi-ssid user-wifi-ap-broad-list))
-      "bestvideo[height<=?720]+bestaudio/best")
-     ;; usin unknown network
-     (t
-      "worstvideo+worstaudio"))))
+  (let* ((ipv4-addr (shell-command-to-string "hostname -I | cut -f1 -d' ' | tr -d '\n'"))
+         (wifi-ssid (shell-command-to-string "iwgetid -r | tr -d '\n'"))
+         (fmt-quality (cond
+                       ;; using mobile Wi-Fi
+                       ((string-prefix-p "192.168.179." ipv4-addr)
+                        "bestvideo[height<=?240]+worstaudio/best")
+                       ;; using wired network or broad wifi
+                       ((or (string= ipv4-addr "192.168.100.126")
+                            (member wifi-ssid user-wifi-ap-broad-list))
+                        "bestvideo[height<=?720]+bestaudio/best")
+                       ;; usin unknown network
+                       (t
+                        "worstvideo+worstaudio"))))
+    (format "mp4 %s" fmt-quality)))
 
 (defvar download-video-dir "~/Videos" "Directory where downloaded video locate.")
 (defun download-video (url &optional filename playlistp)
