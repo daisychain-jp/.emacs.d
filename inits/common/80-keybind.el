@@ -96,7 +96,7 @@
     ("F" toggle-frame-fullscreen)
     ("SPC" pangu-spacing-mode)
     ("q" nil "quit"))
-  (defhydra hydra-org (global-map "C-c o"
+  (defhydra hydra-org (global-map "C-o"
                                   :color teal)
     "Org Search"
     ("a" counsel-org-agenda-headlines)
