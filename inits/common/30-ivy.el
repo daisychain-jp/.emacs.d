@@ -17,8 +17,10 @@
         '((counsel-describe-function . ivy--regex-ignore-order)
           (counsel-describe-variable . ivy--regex-ignore-order)
           (counsel-M-x . ivy--regex-plus)
-          (t . ivy-migemo--regex-plus)))
-  (map-put ivy-initial-inputs-alist 'counsel-org-capture ""))
+          (counsel-org-capture . ivy--regex-ignore-order)
+          (org-refile . ivy--regex-ignore-order)
+          (woman . ivy--regex-plus)
+          (t . ivy-migemo--regex-plus))))
 
 (defun ivy-describe-actions ()
   "Show available actions in current context."
@@ -61,6 +63,12 @@
    ("TAB" . counsel-down-directory)
    ("M-y" . yank-pop))
   :config
+  ;; user modification of 'ivy-initial-inputs-alist must sit here
+  ;; since counsel does modify it
+  (mapc (lambda (inputs)
+          (map-put ivy-initial-inputs-alist
+                   (car inputs) (cdr inputs)))
+        '((counsel-org-capture . "")))
   (setq counsel-linux-apps-directories
         (append counsel-linux-apps-directories
                 '("~/Desktop"
