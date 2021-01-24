@@ -3,7 +3,7 @@
   :defer t
   :bind (:map Info-mode-map
               ("C-j" . Info-follow-nearest-node)
-              ("C-o" . Info-follow-nearest-node)
+              ("C-c C-o" . Info-follow-nearest-node)
               ("a"   . info-apropos))
   :hook (Info-mode . (lambda ()
                        (buffer-face-set 'recognizable)

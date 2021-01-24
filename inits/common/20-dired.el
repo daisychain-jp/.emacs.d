@@ -5,7 +5,9 @@
               ("E" . dired-create-empty-file)
               ("o" . dired-omit-mode)
               ("r" . wdired-change-to-wdired-mode)
-              ("C-o" . dired-open))
+              ("C-o" . nil)
+              ("o" . dired-open)
+              ("C-c C-o" . dired-open))
   :custom
   (dired-recursive-copies 'always)
   (dired-recursive-deletes 'top)
