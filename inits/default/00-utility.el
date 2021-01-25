@@ -210,7 +210,7 @@ play it in media player."
                        ;; usin unknown network
                        (t
                         "worstvideo+worstaudio"))))
-    (format "mp4 %s" fmt-quality)))
+    (format "%s mp4" fmt-quality)))
 
 (defvar download-video-dir "~/Videos" "Directory where downloaded video locate.")
 (defun download-video (url &optional filename playlistp)
