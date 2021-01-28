@@ -41,6 +41,7 @@
     "Remove the `checked' tag from all selected entries.")
   (bind-keys :map elfeed-search-mode-map
              ("C-j" . elfeed-search-show-entry)
+             ("o" . elfeed-search-open-url)
              ("C-c C-o" . elfeed-search-open-url)
              ("f" . scroll-up-line)
              ("e" . scroll-down-line)

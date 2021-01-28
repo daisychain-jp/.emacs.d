@@ -383,7 +383,6 @@ go to today's entry in record file."
               (goto-char (point-max))
               (insert "\n"))))
 (add-hook 'org-capture-after-finalize-hook 'auto-org-capture-auto-refile)
-(bind-keys ("C-c C" . counsel-org-capture))
 
 (setq org-refile-targets
       `((org-agenda-files :tag . "project")

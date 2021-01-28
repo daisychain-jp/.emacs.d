@@ -30,7 +30,8 @@
         ("C-h" . vterm-send-backspace)
         ("M-h" . vterm-send-meta-backspace)
         ("C-y" . vterm-yank)
-        ("M-y" . vterm-yank-pop))
+        ("M-y" . vterm-yank-pop)
+        ("C-o" . nil))
   (:map vterm-copy-mode-map
         ("C-j" . vterm-copy-mode-done))
   :custom
