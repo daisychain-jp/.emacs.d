@@ -59,55 +59,35 @@
              deadline-up
              todo-state-up
              priority-down))))
+        ;; KEEP IN MIND
+        ;; invoking `org-clock-sum-all' is required before showing effort table
         ("e" . "Effort table")
-        ("ei" "of doing task"
-         tags ,(format "+Effort=>\"0\"/%1$s|%2$s"
-                       org-warning-keyword-0
-                       org-todo-keyword-2)
+        ("ei" "today"
+         ((org-ql-search-block `(or (todo ,org-warning-keyword-0)
+                                    (todo ,org-todo-keyword-2))
+                               ((org-ql-block-header "Today's task"))))
          ((org-agenda-overriding-header "Today's Task")
-          (org-local-columns-format "%26ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM(Time){:}")
+          (org-overriding-columns-format "%26ITEM(Task) %Effort(Effort){:} %CLOCKSUM_T(Today){:} %CLOCKSUM(Total)")
           (org-agenda-view-columns-initially t)
           (org-agenda-sorting-strategy '(todo-state-up priority-down deadline-up))))
-        ("ew" "of will-do task"
-         tags ,(format "+Effort=>\"0\"/%1$s|%2$s|%3$s"
-                       org-warning-keyword-0
-                       org-todo-keyword-1
-                       org-todo-keyword-2)
+        ("eg" "this week"
+         ((org-ql-search-block `(or (todo ,org-warning-keyword-0)
+                                    (todo ,org-todo-keyword-1)
+                                    (todo ,org-todo-keyword-2))
+                               ((org-ql-block-header "This Week's task"))))
          ((org-agenda-overriding-header "This Week's Task")
-          (org-local-columns-format "%26ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM(Time){:}")
+          (org-overriding-columns-format "%26ITEM(Task) %Effort(Effort){:} %CLOCKSUM_T(Today){:} %CLOCKSUM(Total)")
           (org-agenda-view-columns-initially t)
           (org-agenda-sorting-strategy '(todo-state-up priority-down deadline-up))))
-        ("ea" "of all task"
-         tags ,(format "+Effort=>\"0\"/%1$s|%2$s|%3$s|%4$s"
-                       org-warning-keyword-0
-                       org-todo-keyword-0
-                       org-todo-keyword-1
-                       org-todo-keyword-2)
-         ((org-agenda-overriding-header "This Week's Task")
-          (org-local-columns-format "%26ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM(Time){:}")
+        ("ed" "done task"
+         ((org-ql-search-block `(or (todo ,org-done-keyword-0)
+                                    (todo ,org-done-keyword-1)
+                                    (todo ,org-done-keyword-2))
+                               ((org-ql-block-header "Done task"))))
+         ((org-agenda-overriding-header "Done Task")
+          (org-overriding-columns-format "%26ITEM(Task) %Effort(Effort){:} %CLOCKSUM(Total){:}")
           (org-agenda-view-columns-initially t)
           (org-agenda-sorting-strategy '(todo-state-up priority-down deadline-up))))
-        ("ed" "of done task"
-         tags ,(format "+Effort=>\"0\"/%1$s|%2$s"
-                       org-done-keyword-0
-                       org-done-keyword-1)
-         ((org-agenda-overriding-header "Done task")
-          (org-local-columns-format "%26ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM(Time){:}")
-          (org-agenda-view-columns-initially t)
-          (org-agenda-sorting-strategy '(todo-state-up priority-down deadline-up))))
-        ("E" . "tasks without Effort")
-        ("Ei" "doing task" tags ,(format "+Effort<\"0:01\"/%1$s|%2$s"
-                                         org-warning-keyword-0
-                                         org-todo-keyword-2))
-        ("Ew" "will-do task" tags ,(format "+Effort<\"0:01\"/%1$s|%2$s|%3$s"
-                                           org-warning-keyword-0
-                                           org-todo-keyword-1
-                                           org-todo-keyword-2))
-        ("Ea" "all task" tags ,(format "+Effort<\"0:01\"/%1$s|%2$s|%3$s|%4$s"
-                                       org-warning-keyword-0
-                                       org-todo-keyword-0
-                                       org-todo-keyword-1
-                                       org-todo-keyword-2))
         ("i" "Today's agenda"
          ((todo "Today's agenda"
                 ((org-agenda-sorting-strategy '(priority-up))))
@@ -491,6 +471,17 @@ which has any one of `org-reference-parent-tag-list'."
               (if (string= org-clock-current-task-alert "alarm")
                   (alert "Timer Done!" :style 'alarm)
                 (alert "Timer Done!" :style 'fringe :mode 'org-mode :buffer (org-clocking-buffer) :severity 'trivial)))))
+
+(defun org-clock-sum-all ()
+  "Sum the times for all agenda files."
+  (interactive)
+  (save-excursion
+    (mapc (lambda (file)
+            (with-current-buffer (or (org-find-base-buffer-visiting file)
+                                     (find-file-noselect file))
+              (org-clock-sum)
+              (org-clock-sum-today)))
+          (org-agenda-files))))
 
 (defun org-capture-phrase (phrase &optional selective)
   "Search or capture PHRASE.
