@@ -45,12 +45,14 @@
              ("C-x C-o" . org-mu4e-compose-org-mode))
   (add-to-list 'mu4e-view-actions
                '("external browser" . mu4e-action-view-in-browser) t)
+  (add-to-list 'mu4e-view-actions
+               '("XWidget View" . mu4e-action-view-with-xwidget) t)
   ;; integrate with org-contacts
   (setq mu4e-org-contacts-file env-contacts-file)
   (add-to-list 'mu4e-headers-actions
-               '("org-contact-add" . mu4e-action-add-org-contact) t)
+               '("Contact to add" . mu4e-action-add-org-contact) t)
   (add-to-list 'mu4e-view-actions
-               '("org-contact-add" . mu4e-action-add-org-contact) t)
+               '("Contact to add" . mu4e-action-add-org-contact) t)
   (require 'gnus-dired)
   ;; make the `gnus-dired-mail-buffers' function also work on
   ;; message-mode derived modes, such as mu4e-compose-mode
