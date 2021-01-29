@@ -288,7 +288,6 @@ If 'ARG' is passed, shred afile instead delete."
                             "")))))
 
   ;; clock
-  (setq org-clock-into-drawer "CLOCKLOG")
   (setq org-clock-persist t)
   (setq org-clock-persist-query-resume nil)
   (org-clock-persistence-insinuate)
