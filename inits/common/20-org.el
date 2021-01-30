@@ -256,7 +256,6 @@ If 'ARG' is passed, shred afile instead delete."
   (add-hook  'org-after-todo-state-change-hook
              (lambda ()
                (save-excursion
-                 (org-back-to-heading t)
                  (let* ((element (org-element-at-point))
                         (todo-state (org-get-todo-state))
                         (tags (org-get-tags))
