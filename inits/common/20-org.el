@@ -14,7 +14,6 @@
   (defvar org-agenda-files-default
     (file-expand-wildcards (concat env-org-dir "/agenda/*.org"))
     "Default org-agenda-files.")
-  :init
   (add-to-list 'load-path (concat (file-name-as-directory user-emacs-directory) "straight/repos/org/lisp"))
   (add-to-list 'load-path (concat (file-name-as-directory user-emacs-directory) "straight/repos/org/contrib/lisp"))
   :custom
