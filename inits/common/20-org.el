@@ -364,11 +364,6 @@ If 'ARG' is passed, shred afile instead delete."
   ;; image
   (setq org-image-actual-width 100)
 
-  ;; export
-  (setq org-export-with-sub-superscripts nil)
-  (setq org-export-dispatch-use-expert-ui nil)
-  (setq org-export-with-creator nil)
-
   ;; org-babel
   (org-babel-do-load-languages
    'org-babel-load-languages
@@ -391,14 +386,70 @@ If 'ARG' is passed, shred afile instead delete."
    ((string= system-type "darwin")
     (custom-set-variables '(org-plantuml-jar-path "/usr/local/Cellar/plantuml/8041/plantuml.8041.jar"))))
 
-  ;; latex
-  (require 'ox-latex)
-  (setq org-latex-pdf-process '("platex %f"
-                                "platex %f"
-                                "bibtex %b"
-                                "platex %f"
-                                "platex %f"
-                                "dvipdfmx %b.dvi"))
+  ;; src
+  (setq org-src-window-setup 'current-window))
+
+(use-package ox
+  :defer t
+  :after org
+  :custom
+  (org-export-with-smart-quotes t)
+  (org-export-with-emphasize t)
+  (org-export-with-special-strings t)
+  (org-export-with-fixed-width t)
+  (org-export-with-timestamps t)
+  (org-export-preserve-breaks nil)
+  (org-export-with-sub-superscripts nil)
+  (org-export-with-archived-trees 'headline)
+  (org-export-with-author nil)
+  (org-export-with-broken-links 'mark)
+  (org-export-with-clocks nil)
+  (org-export-with-creator nil)
+  (org-export-with-drawers '(not "LOGBOOK"))
+  (org-export-with-date nil)
+  (org-export-with-entities t)
+  (org-export-with-email nil)
+  (org-export-with-footnotes t)
+  (org-export-headline-levels 5)
+  (org-export-with-inlinetasks t)
+  (org-export-with-section-numbers nil)
+  (org-export-with-planning nil)
+  (org-export-with-priority nil)
+  (org-export-with-properties nil)
+  (org-export-with-statistics-cookies t)
+  (org-export-with-tags nil)
+  (org-export-with-tasks t)
+  (org-export-with-latex t)
+  (org-export-time-stamp-file nil)
+  (org-export-with-title t)
+  (org-export-with-toc nil)
+  (org-export-with-todo-keywords nil)
+  (org-export-with-tables t)
+  (org-export-default-language "ja")
+  (org-export-dispatch-use-expert-ui nil))
+
+(use-package ox-html
+  :defer t
+  :after ox
+  :custom
+  (org-html-preamble t)
+  (org-html-postamble 'auto)
+  (org-html-with-latex t)
+  (org-html-container-element "div")
+  (org-html-doctype "xhtml-strict"))
+
+(use-package ox-latex
+  :defer t
+  :after ox
+  :custom
+  (org-latex-pdf-process '("platex %f"
+                           "platex %f"
+                           "bibtex %b"
+                           "platex %f"
+                           "platex %f"
+                           "dvipdfmx %b.dvi"))
+  (org-latex-default-class "jsarticle")
+  :config
   (add-to-list 'org-latex-classes
                '("jsarticle"
                  "\\documentclass[dvipdfmx,12pt]{jsarticle}"
@@ -412,14 +463,10 @@ If 'ARG' is passed, shred afile instead delete."
                  "\\documentclass[presentation,dvipdfmx,18pt]{beamer}\n"
                  ("\\section{%s}" . "\\section*{%s}")
                  ("\\subsection{%s}" . "\\subsection*{%s}")
-                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")))
-  (setq org-latex-default-class "jsarticle")
-
-  ;; src
-  (setq org-src-window-setup 'current-window))
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))))
 
 (use-package org-archive
-  :after (org)
+  :after org
   :custom
   (org-archive-default-command 'org-archive-set-tag))
 
@@ -458,10 +505,7 @@ If 'ARG' is passed, shred afile instead delete."
   (let* ((heading (org-get-heading t t t t))
          (org-export-show-temporary-export-buffer nil)
          (export-buf-name "*Org HTML Export*")
-         (org-export-with-toc nil)
-         (org-export-with-author nil)
          (org-export-with-broken-links 'mark)
-         (org-export-preserve-breaks nil)
          (id (org-id-get))
          (uuid (downcase (if id id (org-id-uuid))))
          (org-readable-file (format "%s/%s.html" org-readable-directory uuid)))
