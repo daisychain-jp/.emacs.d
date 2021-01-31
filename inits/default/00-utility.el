@@ -250,8 +250,8 @@ instead of single video."
       (set-process-sentinel
        (start-process-shell-command
         "download video" nil
-        (format "cd %1$s && youtube-dl %2$s \"%3$s\""
-                download-video-dir
+        (format "cd \"%1$s\" && youtube-dl %2$s \"%3$s\""
+                (expand-file-name download-video-dir)
                 (mapconcat #'identity
                            (list (format "--format \"%s\"" (youtube-dl-format))
                                  (when (and canonical-filename
