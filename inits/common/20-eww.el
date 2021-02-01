@@ -37,7 +37,8 @@ Plus `SEARCH-WORDS' is saved in `KILL-RING' for later use."
                          (buffer-substring (region-beginning) (region-end))
                        (read-string "Enter URL or keywords: "))))
   (let ((current-prefix-arg '(4))
-        (eww-launch-in-new-buffer t))
+        (eww-launch-in-new-buffer t)
+        (eww-search-prefix "https://www.google.co.jp/search?q="))
     (kill-new search-words)
     (eww search-words)))
 
