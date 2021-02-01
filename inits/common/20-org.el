@@ -201,7 +201,7 @@ If 'ARG' is passed, shred afile instead delete."
   (setq org-use-tag-inheritance "ARCHIVE")
   (setq org-tags-column -48)
   (setq org-global-properties
-        '(("Effort_ALL". "0 0:10 0:30 1:00 1:30 2:00 3:00 4:00 6:00 8:00")))
+        '(("Effort_ALL". "0 0:10 0:20 0:30 1:00 1:30 2:00 3:00 4:00 6:00 8:00")))
   (setq org-use-property-inheritance "TIMELIMIT.*")
   (setq org-highest-priority ?A)
   (setq org-lowest-priority ?Z)
