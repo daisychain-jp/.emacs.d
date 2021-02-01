@@ -29,6 +29,18 @@
   (add-hook 'eww-after-render-hook #'eww-rename-buffer)
   (setq eww-header-line-format nil))
 
+(defun eww-search-words-in-new-buffer (search-words)
+  "Like `eww-search-words' it invoke EWW in new buffer with `SEARCH-WORDS'.
+
+Plus `SEARCH-WORDS' is saved in `KILL-RING' for later use."
+  (interactive (list (if (use-region-p)
+                         (buffer-substring (region-beginning) (region-end))
+                       (read-string "Enter URL or keywords: "))))
+  (let ((current-prefix-arg '(4))
+        (eww-launch-in-new-buffer t))
+    (kill-new search-words)
+    (eww search-words)))
+
 (defun eww-goto-contents ()
   (let ((url (eww-current-url)))
     (when (string-match (concat (regexp-quote
