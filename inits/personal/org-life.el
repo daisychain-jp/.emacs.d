@@ -108,6 +108,7 @@
           (org-ql-search-block `(and (habit)
                                      (todo ,org-todo-keyword-0)
                                      (scheduled :to today)
+                                     (not (tags "ac_impulse"))
                                      (not (tags-inherited "ARCHIVE")))
                                ((org-ql-block-header "Habits to take")))
           (org-ql-search-block `(and (ts-active :on today)
