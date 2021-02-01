@@ -216,7 +216,11 @@
            (lambda ()
              (and (save-excursion
                     (not (org-is-habit-p)))
-                  (progn (outline-next-heading) (point)))))))))
+                  (progn (outline-next-heading) (point)))))))
+        ("H" "show all habits"
+         ((org-ql-search-block '(habit)
+                               ((org-ql-block-header "All Habits"))))
+         ((org-agenda-sorting-strategy '(scheduled-up))))))
 
 (defvar auto-org-capture-file (make-temp-file "auto-org-capture" nil ".org"))
 (defvar org-capture-todo-file (concat env-org-dir "/priv_a/life.org"))

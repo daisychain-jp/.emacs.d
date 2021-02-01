@@ -3,8 +3,8 @@
 # key: habit
 # key: hbt
 # --
-* HB ${1:title}
-SCHEDULED: <2017-01-01 Sun +1d>
+* TD ${1:title}
+SCHEDULED: <2017-01-01 Sun +1d> ${2:DEADLINE: <2017-01-01 Sun +1d -1d>}
 :PROPERTIES:
 :STYLE:    habit
 :END:
