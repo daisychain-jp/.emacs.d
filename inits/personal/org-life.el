@@ -187,6 +187,8 @@
                                ((org-ql-block-header "Today's task")))
           (org-ql-search-block `(todo ,org-todo-keyword-1)
                                ((org-ql-block-header "This week's task")))
+          (org-ql-search-block `(todo ,org-todo-keyword-4)
+                               ((org-ql-block-header "Someday's entries on agenda files")))
           (org-ql-search-block `(and (todo ,org-todo-keyword-0)
                                      (not (habit)))
                                ((org-ql-block-header "Remaining task")))))
