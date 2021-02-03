@@ -64,7 +64,11 @@
         ("e" . "Effort table")
         ("ei" "today"
          ((org-ql-search-block `(or (todo ,org-warning-keyword-0)
-                                    (todo ,org-todo-keyword-2))
+                                    (todo ,org-todo-keyword-2)
+                                    (and (clocked :on today)
+                                         (or (todo) (done))
+                                         (not (habit))
+                                         (not (tags "episode"))))
                                ((org-ql-block-header "Today's task"))))
          ((org-agenda-overriding-header "Today's Task")
           (org-overriding-columns-format "%26ITEM(Task) %Effort(Effort){:} %CLOCKSUM_T(Today){:} %CLOCKSUM(Total)")
