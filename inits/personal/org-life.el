@@ -473,12 +473,13 @@ which has any one of `org-reference-parent-tag-list'."
                    (time-default (decode-time (current-time))))
               (when (or
                      ;; if "Effort" is less than 1:40 it's useless as timer value
-                     (apply #'time-less-p
-                            (mapcar (lambda (time)
-                                      (apply 'encode-time (mapcar* (lambda (x y) (or x y))
-                                                                   (parse-time-string time)
-                                                                   time-default)))
-                                    `(,effort "1:40")))
+                     (and (stringp effort)
+                          (apply #'time-less-p
+                                 (mapcar (lambda (time)
+                                           (apply 'encode-time (mapcar* (lambda (x y) (or x y))
+                                                                        (parse-time-string time)
+                                                                        time-default)))
+                                         `(,effort "1:40"))))
                      attention-span)
                 (org-timer-set-timer opt)))))
 (defun org-clock-cleanup ()
