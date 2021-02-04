@@ -84,7 +84,7 @@
   :straight t
   :after (elfeed)
   :custom
-  (rmh-elfeed-org-files (list (format "%s/library/feed.org" env-org-dir)))
+  (rmh-elfeed-org-files (list (format "%s/index/feed.org" env-org-dir)))
   (rmh-elfeed-org-ignore-tag "ignore")
   (rmh-elfeed-org-auto-ignore-invalid-feeds t)
   :config

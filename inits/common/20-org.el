@@ -339,7 +339,7 @@ If 'ARG' is passed, shred afile instead delete."
           (todo     . " ")
           (tags     . " ")
           (search   . " ")))
-  (dolist (dir '("archive" "library" "wiki"))
+  (dolist (dir '("archive" "index" "wiki"))
     (mapc (lambda (org-file)
             (add-to-list 'org-agenda-text-search-extra-files
                          org-file))

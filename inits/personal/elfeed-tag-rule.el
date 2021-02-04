@@ -53,7 +53,7 @@
   (add-hook 'elfeed-new-entry-hook
             (elfeed-make-tagger :feed-title (rx "Jリーグ ニュース")
                                 :entry-title
-                                (rx "子が誕生")
+                                (rx (or "入籍" "子が誕生"))
                                 :remove 'unread))
   (add-hook 'elfeed-new-entry-hook
             (elfeed-make-tagger :feed-title (rx "BSAsahi")
