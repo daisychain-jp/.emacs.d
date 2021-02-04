@@ -460,14 +460,18 @@ which has any one of `org-reference-parent-tag-list'."
 (defvar org-clock-current-task-alert nil "ALERT property's value of currently clocked entry")
 (add-hook 'org-clock-in-hook
           (lambda ()
-            (let* ((attention-span (org-entry-get (point) "ATTENTION_SPAN" 'selective))
-                   (opt '(4))
+            (let* ((opt '(4))
+                   (attention-span (org-entry-get (point) "ATTENTION_SPAN" 'selective))
+                   (effort (org-entry-get (point) "Effort" 'selective))
                    (org-timer-default-timer
-                    (when (and (stringp attention-span)
-                               (< 0 (length attention-span)))
-                      (setq opt '(64))
-                      attention-span)))
-              (org-timer-set-timer opt))))
+                    (if (and (stringp attention-span)
+                             (< 0 (length attention-span)))
+                        (progn
+                          (setq opt '(64))
+                          attention-span)
+                      (default-value 'org-timer-default-timer))))
+              (when (or effort attention-span)
+                (org-timer-set-timer opt)))))
 (defun org-clock-cleanup ()
   "Post process after org-clock is done."
   (when (and (boundp 'org-timer-countdown-timer)

@@ -465,6 +465,9 @@ If 'ARG' is passed, shred afile instead delete."
                  ("\\subsection{%s}" . "\\subsection*{%s}")
                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))))
 
+(use-package org-timer
+  :after org)
+
 (use-package org-archive
   :after org
   :custom
