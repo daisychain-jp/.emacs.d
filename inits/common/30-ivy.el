@@ -88,15 +88,14 @@
     "Hint"
     ("a" counsel-apropos)
     ("f" counsel-describe-function)
-    ("F" counsel-faces)
+    ("c" counsel-faces)
     ("v" counsel-describe-variable)
     ("m" counsel-descbinds)
     ("i" info)
     ("n" view-emacs-news)
-    ("I" counsel-info-lookup-symbol)
+    ("o" counsel-info-lookup-symbol)
     ("l" counsel-find-library)
-    ("s" counsel-info-lookup-symbol)
-    ("P" describe-package)
+    ("p" describe-package)
     ("q" nil "quit"))
   (defhydra hydra-git (global-map "C-c g"
                                   :color teal)
