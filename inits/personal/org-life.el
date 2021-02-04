@@ -469,8 +469,17 @@ which has any one of `org-reference-parent-tag-list'."
                         (progn
                           (setq opt '(64))
                           attention-span)
-                      (default-value 'org-timer-default-timer))))
-              (when (or effort attention-span)
+                      (default-value 'org-timer-default-timer)))
+                   (time-default (decode-time (current-time))))
+              (when (or
+                     ;; if "Effort" is less than 1:40 it's useless as timer value
+                     (apply #'time-less-p
+                            (mapcar (lambda (time)
+                                      (apply 'encode-time (mapcar* (lambda (x y) (or x y))
+                                                                   (parse-time-string time)
+                                                                   time-default)))
+                                    `(,effort "1:40")))
+                     attention-span)
                 (org-timer-set-timer opt)))))
 (defun org-clock-cleanup ()
   "Post process after org-clock is done."
