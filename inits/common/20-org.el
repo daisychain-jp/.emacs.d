@@ -207,11 +207,6 @@ If 'ARG' is passed, shred afile instead delete."
   (setq org-lowest-priority ?Z)
   (setq org-default-priority ?E)
 
-  ;; id
-  (setq org-id-locations-file (concat env-org-dir "/.org-id-locations"))
-  (setq org-id-track-globally t)
-  (setq org-id-link-to-org-use-id 'create-if-interactive)
-
   ;; todo
   (defvar org-warning-keyword-0 "UG" "TODO keyword acronym standing for 'UrGent'")
   (defvar org-todo-keyword-0 "TD" "TODO keyword acronym standing for 'To Do'")
@@ -464,6 +459,16 @@ If 'ARG' is passed, shred afile instead delete."
                  ("\\section{%s}" . "\\section*{%s}")
                  ("\\subsection{%s}" . "\\subsection*{%s}")
                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))))
+
+(use-package org-id
+  :after org
+  :custom
+  (org-id-locations-file
+   (expand-file-name ".org-id-locations" env-org-dir))
+  (org-id-track-globally t)
+  (org-id-extra-files
+   (append org-agenda-text-search-extra-files))
+  (org-id-link-to-org-use-id 'create-if-interactive))
 
 (use-package org-timer
   :after org)
