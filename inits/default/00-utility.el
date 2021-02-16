@@ -94,7 +94,9 @@
      ((string-match-p "\\.midi?$" ex-file)
       (call-process-shell-command (format "xdg-open %s" (shell-quote-argument ex-file))))
      ((or (= (call-process-shell-command (format "filetype-cli check --type playable %s" (shell-quote-argument ex-file))) 0)
-          (string-suffix-p ".m3u" ex-file))
+          (seq-some (lambda (suffix)
+                      (string-suffix-p suffix ex-file))
+                    '(".m3u" ".m2ts")))
       (start-process-shell-command "mpv" nil
                                    (concat (format "nohup mpv --force-window %s >/dev/null 2>&1;" (shell-quote-argument ex-file))
                                            (if rm-file (format "rm -rf %s" (shell-quote-argument rm-file)) nil))))
