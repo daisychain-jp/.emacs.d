@@ -24,7 +24,7 @@
  ("dired-single" . "b0ccca83df0542c5525c047ae283c0eadf500f5c")
  ("dumb-jump" . "0319569f1332641057c3e23d1e3bffb2404435a8")
  ("easy-kill" . "e2b667f651a3531164d24ea4cbcd8c34fba0e17f")
- ("elfeed" . "8fb09ad75f2ff7d6f7d8b8d1ac65b9be873cc31d")
+ ("elfeed" . "0b44362cb93ce49c36a94289d5fa5da8279c5f52")
  ("elfeed-org" . "77b6bbf222487809813de260447d31c4c59902c9")
  ("elisp-refs" . "b3634a4567c655a1cda51b217629849cba0ac6a7")
  ("elpy" . "c98e52b7c82a4d48acf57ba7fc4808588299bfe9")
