@@ -20,7 +20,26 @@
          tags ""
          ((org-agenda-files org-record-files)
           (org-agenda-sorting-strategy '(time-down))))
-        ("o" "Someday entries"
+        ("o" . "someday list")
+        ("om" "someday to make"
+         ((org-ql-search-block `(and (todo ,org-todo-keyword-4)
+                                     (tags "ac_make"))
+                               ((org-ql-block-header "Someday to make"))))
+         ((org-agenda-files org-record-files)
+          (org-agenda-sorting-strategy '(priority-down))))
+        ("op" "someday to purchase"
+         ((org-ql-search-block `(and (todo ,org-todo-keyword-4)
+                                     (tags "ac_purchase"))
+                               ((org-ql-block-header "Someday to purchase"))))
+         ((org-agenda-files org-record-files)
+          (org-agenda-sorting-strategy '(priority-down))))
+        ("oc" "someday to cook"
+         ((org-ql-search-block `(and (todo ,org-todo-keyword-4)
+                                     (tags "ac_cook"))
+                               ((org-ql-block-header "Someday to cook"))))
+         ((org-agenda-files org-record-files)
+          (org-agenda-sorting-strategy '(priority-down))))
+        ("O" "all someday entries"
          ((org-ql-search-block `(and (todo ,org-todo-keyword-4)
                                      (tags "ac_make"))
                                ((org-ql-block-header "Someday to make")))
