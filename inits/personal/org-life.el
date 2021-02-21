@@ -119,11 +119,8 @@
                                      (not (or (todo ,org-todo-keyword-2)
                                               (habit) (done))))
                                ((org-ql-block-header "Today's common event")))
-          (org-ql-search-block '(or (and (done)
-                                         (closed :on today))
-                                    (and (habit)
-                                         (clocked :on today)
-                                         (planning :from 1)))
+          (org-ql-search-block '(and (done)
+                                     (closed :on today))
                                ((org-ql-block-header "Completed tasks on today")))))
         ("g" "This Week's agenda"
          ((org-ql-search-block `(heading ,(format-time-string "%G-W%V"))
