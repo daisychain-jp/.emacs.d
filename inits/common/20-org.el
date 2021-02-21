@@ -16,6 +16,13 @@
     "Default org-agenda-files.")
   (add-to-list 'load-path (concat (file-name-as-directory user-emacs-directory) "straight/repos/org/lisp"))
   (add-to-list 'load-path (concat (file-name-as-directory user-emacs-directory) "straight/repos/org/contrib/lisp"))
+  :hook
+  (org-load . (lambda ()
+                (mapc (lambda (dir)
+                        (dolist (f (file-expand-wildcards
+                                    (concat (expand-file-name dir env-org-dir) "/*.org")))
+                          (org-babel-lob-ingest f)))
+                      '("agenda" "index"))))
   :custom
   (org-directory env-org-dir)
   (org-special-ctrl-a/e t)
