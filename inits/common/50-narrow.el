@@ -10,7 +10,7 @@ Plus text size in the buffer becomes a little bit larger."
               (string-match-p (rx (seq line-start "CAPTURE-" (one-or-more ascii) line-end))
                               (buffer-name)))
     (let ((hl-fringe-color "DeepPink")
-          (hl-text-scale (exp 1)))
+          (hl-text-scale (sqrt 2)))
       (set-face-attribute
        'fringe nil :background (if (buffer-narrowed-p)
                                    (progn
