@@ -5,7 +5,11 @@
               ("E" . dired-create-empty-file)
               ("o" . dired-omit-mode)
               ("r" . wdired-change-to-wdired-mode)
-              ("C-o" . nil)
+              ("x" . (lambda (arg) (interactive "P")
+                       (let ((delete-by-moving-to-trash
+                              (if (equal arg '(4))
+                                  nil t)))
+                         (dired-do-flagged-delete))))
               ("o" . dired-open)
               ("C-c C-o" . dired-open))
   :custom
