@@ -287,22 +287,6 @@ If 'ARG' is passed, shred afile instead delete."
                                 (org-add-planning-info 'closed "now"))
                             "")))))
 
-  ;; clock
-  (setq org-clock-persist t)
-  (setq org-clock-persist-query-resume nil)
-  (org-clock-persistence-insinuate)
-  (setq org-clock-string-limit 20)
-  (setq org-clock-continuously t)
-  (add-hook 'org-clock-in-hook
-            (lambda () (save-buffer)))
-  (add-hook 'org-clock-out-hook
-            (lambda () (save-buffer)))
-  (add-hook 'org-clock-cancel-hook
-            (lambda () (save-buffer)))
-  (defconst org-clock-ts-line-re
-    (concat "^[ \t]*" org-clock-string "[ \t]*" org-tsr-regexp-both)
-    "Matches a line with clock time stamp.")
-
   ;; time
   (setq org-duration-format
         '(("d" . nil)
@@ -478,7 +462,68 @@ If 'ARG' is passed, shred afile instead delete."
   (org-id-link-to-org-use-id 'create-if-interactive))
 
 (use-package org-timer
-  :after org)
+  :after org
+  :hook
+  (org-timer-done . (lambda ()
+                      (when (and (org-clocking-p)
+                                 org-clock-marker)
+                        (let ((alert (org-entry-get org-clock-marker
+                                                    "ALERT")))
+                          (if (and (stringp alert)
+                                   (string= alert "alarm"))
+                              (alert "Timer Done!" :style 'alarm)
+                            (alert "Timer Done!" :style 'fringe :mode 'org-mode :buffer (org-clocking-buffer) :severity 'trivial)))))))
+
+(use-package org-clock
+  :after org
+  :hook
+  ((org-clock-out org-clock-cancel) . org-timer-stop)
+  ((org-clock-in org-clock-out org-clock-cancel) . save-buffer)
+  (org-clock-in . (lambda ()
+                    (let* ((opt '(4))
+                           (attention-span (org-entry-get (point) "ATTENTION_SPAN" 'selective))
+                           (effort (org-entry-get (point) "Effort" 'selective))
+                           (org-timer-default-timer
+                            (if (and (stringp attention-span)
+                                     (< 0 (length attention-span)))
+                                (progn
+                                  (setq opt '(64))
+                                  attention-span)
+                              (default-value 'org-timer-default-timer)))
+                           (time-default (decode-time (current-time))))
+                      (when (or
+                             ;; if "Effort" is less than 1:40 it's useless as timer value
+                             (and (stringp effort)
+                                  (apply #'time-less-p
+                                         (mapcar (lambda (time)
+                                                   (apply 'encode-time (mapcar* (lambda (x y) (or x y))
+                                                                                (parse-time-string time)
+                                                                                time-default)))
+                                                 `(,effort "1:40"))))
+                             attention-span)
+                        (org-timer-set-timer opt)))))
+  :custom
+  (org-clock-out-when-done t)
+  (org-clock-persist t)
+  (org-clock-persist-query-resume nil)
+  (org-clock-string-limit 20)
+  (org-clock-continuously t)
+  :config
+  (org-clock-persistence-insinuate)
+  (defconst org-clock-ts-line-re
+    (concat "^[ \t]*" org-clock-string "[ \t]*" org-tsr-regexp-both)
+    "Matches a line with clock time stamp."))
+
+(defun org-clock-sum-all ()
+  "Sum the times for all agenda files."
+  (interactive)
+  (save-excursion
+    (mapc (lambda (file)
+            (with-current-buffer (or (org-find-base-buffer-visiting file)
+                                     (find-file-noselect file))
+              (org-clock-sum)
+              (org-clock-sum-today)))
+          (org-agenda-files))))
 
 (use-package org-archive
   :after org

@@ -472,58 +472,6 @@ which has any one of `org-reference-parent-tag-list'."
         (end-of-line 1)
         (setq newhead (org-get-heading))))))
 
-;; clock-timer collaboration for fixed time tasks
-(defvar org-clock-current-task-alert nil "ALERT property's value of currently clocked entry")
-(add-hook 'org-clock-in-hook
-          (lambda ()
-            (let* ((opt '(4))
-                   (attention-span (org-entry-get (point) "ATTENTION_SPAN" 'selective))
-                   (effort (org-entry-get (point) "Effort" 'selective))
-                   (org-timer-default-timer
-                    (if (and (stringp attention-span)
-                             (< 0 (length attention-span)))
-                        (progn
-                          (setq opt '(64))
-                          attention-span)
-                      (default-value 'org-timer-default-timer)))
-                   (time-default (decode-time (current-time))))
-              (when (or
-                     ;; if "Effort" is less than 1:40 it's useless as timer value
-                     (and (stringp effort)
-                          (apply #'time-less-p
-                                 (mapcar (lambda (time)
-                                           (apply 'encode-time (mapcar* (lambda (x y) (or x y))
-                                                                        (parse-time-string time)
-                                                                        time-default)))
-                                         `(,effort "1:40"))))
-                     attention-span)
-                (org-timer-set-timer opt)))))
-(defun org-clock-cleanup ()
-  "Post process after org-clock is done."
-  (when (and (boundp 'org-timer-countdown-timer)
-             org-timer-countdown-timer)
-    (org-timer-stop)
-    (setq org-clock-current-task-alert nil)))
-(add-hook 'org-clock-out-hook #'org-clock-cleanup)
-(add-hook 'org-clock-cancel-hook #'org-clock-cleanup)
-(add-hook 'org-timer-done-hook
-          (lambda ()
-            (when (org-clocking-p)
-              (if (string= org-clock-current-task-alert "alarm")
-                  (alert "Timer Done!" :style 'alarm)
-                (alert "Timer Done!" :style 'fringe :mode 'org-mode :buffer (org-clocking-buffer) :severity 'trivial)))))
-
-(defun org-clock-sum-all ()
-  "Sum the times for all agenda files."
-  (interactive)
-  (save-excursion
-    (mapc (lambda (file)
-            (with-current-buffer (or (org-find-base-buffer-visiting file)
-                                     (find-file-noselect file))
-              (org-clock-sum)
-              (org-clock-sum-today)))
-          (org-agenda-files))))
-
 (defun org-capture-phrase (phrase &optional selective)
   "Search or capture PHRASE.
 If there is an org entry whose heading is PHRASE, show it.
