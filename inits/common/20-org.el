@@ -477,7 +477,10 @@ If 'ARG' is passed, shred afile instead delete."
 (use-package org-clock
   :after org
   :hook
-  ((org-clock-out org-clock-cancel) . org-timer-stop)
+  ((org-clock-out org-clock-cancel) .
+   (lambda () (and (boundp 'org-timer-countdown-timer)
+                   org-timer-countdown-timer
+                   (org-timer-stop))))
   ((org-clock-in org-clock-out org-clock-cancel) . save-buffer)
   (org-clock-in . (lambda ()
                     (let* ((opt '(4))
