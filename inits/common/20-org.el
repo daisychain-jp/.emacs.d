@@ -350,7 +350,14 @@ If 'ARG' is passed, shred afile instead delete."
   ;; image
   (setq org-image-actual-width 100)
 
-  ;; org-babel
+  ;; src
+  (setq org-src-window-setup 'current-window))
+
+(use-package ob-core
+  :after org
+  :custom
+  (org-confirm-babel-evaluate nil)
+  :config
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((C        . t)
@@ -364,16 +371,16 @@ If 'ARG' is passed, shred afile instead delete."
      (dot      . t)
      (plantuml . t)
      (lilypond . t)))
-  (setq org-confirm-babel-evaluate nil)
   (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
   (cond
    ((string= system-type "gnu/linux")
     (custom-set-variables '(org-plantuml-jar-path (format "%s/lib/plantuml/plantuml.jar" env-var-dir))))
    ((string= system-type "darwin")
-    (custom-set-variables '(org-plantuml-jar-path "/usr/local/Cellar/plantuml/8041/plantuml.8041.jar"))))
+    (custom-set-variables '(org-plantuml-jar-path "/usr/local/Cellar/plantuml/8041/plantuml.8041.jar")))))
 
-  ;; src
-  (setq org-src-window-setup 'current-window))
+(use-package ob-async
+  :straight t
+  :after ob-core)
 
 (use-package ox
   :defer t

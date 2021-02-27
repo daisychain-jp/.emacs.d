@@ -70,6 +70,7 @@
  ("migemo" . "e4744efae1b2fdea2bbd2ceaff0f6ea0bb739f5a")
  ("mu4e-alert" . "96a293b28646f4620e257f24748becc4a06843cd")
  ("nov.el" . "fa3887970ebde430aaf8a39dbf801566238c0973")
+ ("ob-async" . "de1cd6c93242a4cb8773bbe115b7be3d4dd6b97e")
  ("open-junk-file" . "558bec7372b0fed4c4cb6074ab906535fae615bd")
  ("org" . "855f5fda76b3c9d7ab78ab536a80adfed07d5a79")
  ("org-clock-convenience" . "7d14699a15ad6c5b9a63246a11188c77f8800e94")
