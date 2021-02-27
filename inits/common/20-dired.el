@@ -10,6 +10,7 @@
                               (if (equal arg '(4))
                                   nil t)))
                          (dired-do-flagged-delete))))
+              ("C-o" . nil)
               ("o" . dired-open)
               ("C-c C-o" . dired-open))
   :custom
