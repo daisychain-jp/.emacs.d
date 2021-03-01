@@ -1,0 +1,7 @@
+# key: pl
+# name: playlist
+# --
+* [[src:play-list(search-entity="#$1")][${2:playlist-name}]]
+:PROPERTIES:
+:CUSTOM_ID: ${1:_$$(org-id-uuid)}
+:END:
