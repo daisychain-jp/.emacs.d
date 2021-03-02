@@ -540,6 +540,10 @@ If 'ARG' is passed, shred afile instead delete."
   :custom
   (org-archive-default-command 'org-archive-set-tag))
 
+(use-package org-ml
+  :straight t
+  :after org)
+
 (use-package org-contacts
   :after org
   :custom
@@ -636,38 +640,6 @@ If property's value matches $(...) format, ... is interpreted as shell command a
             nil))
       nil)))
 
-(defun org-clock-remove-old-timestamps (old-time)
-  "Remove old clock timestamps earlier than 'OLD-TIME' in the current subtree."
-  ;; TODO: This function could be refactored with
-  ;;       org-clock-ts-line-re and marker feature
-  (save-excursion
-    (org-back-to-heading t)
-    (org-show-all)
-    (org-map-entries
-     (lambda ()
-       (let ((drawer (org-clock-drawer-name))
-             (case-fold-search t))
-         (when drawer
-           (let* ((re (format "^[ \t]*:%s:[ \t]*$" (regexp-quote drawer)))
-                  (tree-end (save-excursion
-                              (org-end-of-subtree)))
-                  (drawer-start (save-excursion
-                                  (re-search-forward re tree-end t)))
-                  (drawer-end (save-excursion
-                                (re-search-forward re tree-end t)
-                                (re-search-forward "^[ \t]*:END:[ \t]*$" tree-end t))))
-             (when (and drawer-start drawer-end)
-               (goto-char drawer-start)
-               (while (re-search-forward org-tsr-regexp-both drawer-end t)
-                 (when (time-less-p (apply 'encode-time (parse-time-string (match-string 3)))
-                                    old-time)
-                   (kill-whole-line)
-                   (setq drawer-end (save-excursion
-                                      (re-search-forward "^[ \t]*:END:[ \t]*$" tree-end t)))))
-               (org-remove-empty-drawer-at (point)))
-             (setq org-map-continue-from (org-entry-end-position))))))
-     nil 'tree)))
-
 (defun org-get-latest-clock-log-time (pom)
   "Get the latest clock log time stamp in org entry at POM as a time object.
 
@@ -702,17 +674,47 @@ This function can be used as `org-agenda-cmp-user-defined' in `org-agenda-sortin
          (time-b (org-get-latest-clock-log-time marker-b)))
     (if (time-less-p time-a time-b) -1 +1)))
 
-(defun org-gc-subtree ()
-  "Do garbage collection for the current subtree."
+;; WARN: This function does not work correctly
+;;       Wait until library org-ml get mature
+(defun org-gc-drawer-subtree ()
+  "Remove all clocks and items in drawer of subtrees older than a month before."
   (interactive)
-  (let* ((current (decode-time (current-time)))
-         (month-ago (encode-time (nth 0 current)
-                                 (nth 1 current)
-                                 (nth 2 current)
-                                 (nth 3 current)
-                                 (- (nth 4 current) 1)
-                                 (nth 5 current))))
-    (org-clock-remove-old-timestamps month-ago)))
+  (let* ((month-before (->> (decode-time (current-time))
+                            (--map-indexed (if (= it-index 4)
+                                               (- it 1) it))
+                            (encode-time)))
+         (config (list :log-into-drawer t
+                       :clock-into-drawer t))
+         (gc-clock-fun (lambda (headline)
+                         (org-ml-update*
+                           (org-ml-headline-map-logbook-clocks* config
+                             (--filter
+                              (time-less-p month-before
+                                           (org-ml-time-to-unixtime
+                                            (org-ml-timestamp-get-end-time
+                                             (org-ml-get-property :value it))))
+                              it)
+                             it)
+                           headline)))
+         (gc-item-fun (lambda (headline)
+                        (org-ml-update*
+                          (org-ml-headline-map-logbook-items* config
+                            (--filter
+                             (time-less-p month-before
+                                          (org-ml-logbook-item-get-timestamp it))
+                             it)
+                            it)
+                          headline))))
+    (->> (org-ml-parse-this-headline)
+         (funcall gc-clock-fun))
+    (->> (org-ml-parse-this-headline)
+         (funcall gc-item-fun))
+    (->> (org-ml-parse-this-subtree)
+         (org-ml-headline-get-subheadlines)
+         (-map gc-clock-fun))
+    (->> (org-ml-parse-this-subtree)
+         (org-ml-headline-get-subheadlines)
+         (-map gc-item-fun))))
 
 (add-hook 'org-cycle-hook #'org-cycle-hide-drawers t)
 (add-hook 'org-cycle-hook #'org-cycle-hide-archived-subtrees t)

@@ -77,6 +77,7 @@
  ("org-clock-split" . "b2f1497b62e7f4a767be02e249e4ac95d4f8f21c")
  ("org-drill" . "35c1ce349949cc213f3076799211210f49431850")
  ("org-mime" . "9bb6351b25c62835c7881fc64096028eb8ef83ef")
+ ("org-ml" . "1b02583a5cdb8f6b7cd82b31ec80b53753cb7729")
  ("org-ql" . "208e103ecc146db71d878df3bd09c6eb60c2797d")
  ("org-reveal" . "1cdd088ec5fab631c564dca7f9f74fd3e9b7d4d4")
  ("org-roam" . "be95b42d32d9707309ab373f1d8182c84db41c5c")
