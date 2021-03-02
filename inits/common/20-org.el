@@ -810,6 +810,7 @@ WHICH-TS should be `earliest' or `latest'."
 
 (use-package org-web-tools
   :straight t
+  :demand t
   :bind (("C-c C-;" . org-web-tools-insert-link-for-url)))
 
 (use-package org-clock-convenience
