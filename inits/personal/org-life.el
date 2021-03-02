@@ -518,5 +518,6 @@ Ancestors are looked up If current heading has no CATEGORY."
                                    (deadline :to ,due-date))
                               (and (not (todo))
                                    (ts-active :to ,due-date)
-                                   (not (category-inherited "Repeated"))))
+                                   (not (or (category-inherited "Repeated")
+                                            (category-inherited "Event")))))
       :sort '(date))))
