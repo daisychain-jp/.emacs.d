@@ -251,7 +251,7 @@
 (defun org-goto-clocking-or-today ()
   "Go to currently clocking entry.
 
-If no entry is clocked or CATEGORY on clocking entry is \"Repeated\",
+If no entry is clocked or CATEGORY on clocking entry is \"Cyclic\",
 go to today's entry in record file."
   (if (and (org-clocking-p)
            (save-excursion
@@ -260,7 +260,7 @@ go to today's entry in record file."
                (org-back-to-heading)
                (not (string=
                      (org-entry-get (point) "CATEGORY" t)
-                     "Repeated")))))
+                     "Cyclic")))))
       (org-clock-goto)
     (let* ((now (decode-time (current-time)))
            (day (nth 3 now))
@@ -518,6 +518,6 @@ Ancestors are looked up If current heading has no CATEGORY."
                                    (deadline :to ,due-date))
                               (and (not (todo))
                                    (ts-active :to ,due-date)
-                                   (not (or (category-inherited "Repeated")
+                                   (not (or (category-inherited "Cyclic")
                                             (category-inherited "Event")))))
       :sort '(date))))

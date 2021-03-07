@@ -272,8 +272,8 @@ If 'ARG' is passed, shred afile instead delete."
                                       todo-state)
                           (bound-and-true-p priority))
                      (org-priority ? ))
-                   ;; remove DN state if CATEGORY of the entry is "Repeated"
-                   (when (and (string= category "Repeated")
+                   ;; remove DN state if CATEGORY of the entry is "Cyclic"
+                   (when (and (string= category "Cyclic")
                               (string= todo-state org-done-keyword-0)
                               (not (member "episode" tags))
                               (not (string= style "habit")))
