@@ -64,4 +64,17 @@
   (add-hook 'elfeed-new-entry-hook
             (elfeed-make-tagger :feed-title (rx "BSAsahi")
                                 :remove 'unread)
+            10)
+  (add-hook 'elfeed-new-entry-hook
+            (elfeed-make-tagger :feed-title (rx "DAZN Japan")
+                                :entry-title
+                                (rx (and "ハイライト"
+                                         (or "明治安田生命J1リーグ"
+                                             "藤枝"
+                                             "磐田")))
+                                :add 'valuable)
+            20)
+  (add-hook 'elfeed-new-entry-hook
+            (elfeed-make-tagger :feed-title (rx "DAZN Japan")
+                                :remove 'unread)
             10))
