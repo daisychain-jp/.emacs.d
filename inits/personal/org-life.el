@@ -273,19 +273,19 @@ go to today's entry in record file."
 (setq org-capture-templates
       `(("t" "Task"
          entry (id "adcd63ea-f81a-4909-b659-6e5794052fcc")
-         ,(format "* %s %%?\n  ADDED: %%U\n"
+         ,(format "* %s %%?\nADDED: %%U\n"
                   org-todo-keyword-0))
         ("p" "Project"
          entry (id "adcd63ea-f81a-4909-b659-6e5794052fcc")
-         "* %? [/] :project:\n  ADDED: %U\n  - [ ] insert ID property if necessary"
+         "* %? [/] :project:\nADDED: %U\n  - [ ] insert ID property if necessary"
          :prepend t :jump-to-captured t)
         ("m" "Memo"
          entry (file+datetree ,org-record-file)
-         "* %? %^g\n  ADDED: %U\n" :tree-type week)
+         "* %? %^g\nADDED: %U\n" :tree-type week)
         ("s" "Someday memo")
         ("ss" "any"
          entry (file+datetree ,org-record-file)
-         ,(format "* %s %%?\n  ADDED: %%U\n  %%a"
+         ,(format "* %s %%?\nADDED: %%U\n  %%a"
                   org-todo-keyword-4)
          :tree-type week)
         ("sr" "purchase book"
@@ -316,7 +316,7 @@ go to today's entry in record file."
         ("D" "Drill")
         ("Dd" "Drill entry in currently clocking or today's entry."
          entry (function org-goto-clocking-or-today)
-         "* %i :drill:\n  [%?]")
+         "* %i :drill:\n[%?]")
         ("De" "English drill entry in currently clocking or today's entry."
          entry (function org-goto-clocking-or-today)
          "* %i :drill:fd_en:\n[%^C%?]\n- %a")
