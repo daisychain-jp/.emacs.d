@@ -51,69 +51,18 @@
                        (match-string 0 region-thing))
                    (thing-at-point 'filename t)))
            (file-exists-p thing))
-      (let ((url-pos (split-location-uri thing)))
-        (cl-case (prefix-numeric-value current-prefix-arg)
-          (16 (open-file-external (car url-pos)))
-          (4 (find-file (car url-pos)))
-          (t (open-file (car url-pos))
-             (goto-pos (cadr url-pos))))
+      (let ((url-pos (split-location-uri thing))
+            (prefix-arg current-prefix-arg))
+        (if (equal prefix-arg '(4))
+            (find-file (car url-pos))
+          (my/view-file (car url-pos) prefix-arg)
+          (unless prefix-arg
+            (goto-pos (cadr url-pos))))
         t))
      ;; this clause must be last in cond
      ((setq thing (button-at (point)))
       (push-button)
       t))))
-
-(defvar open-file-work-dir "~/var/tmp/exfile")
-
-(defun open-file (file)
-  "Open file `FILE' with appropriate application."
-  (let ((ex-file (expand-file-name file))
-        (rm-file nil))
-    (let ((is-tar (string-suffix-p ".tar.gpg" ex-file))
-          (is-gzip (string-match-p "\\.t\\(ar\\.\\)?gz\\.gpg$" ex-file)))
-      (when (or is-tar is-gzip)
-        (call-process-shell-command
-         (format "mkdir -p %s; gpg -d %s | tar -x %s -C %s"
-                 (setf rm-file (shell-quote-argument
-                                (expand-file-name (make-temp-name
-                                                   (file-name-as-directory open-file-work-dir)))))
-                 ex-file
-                 (cond (is-gzip "-z")
-                       (t ""))
-                 rm-file))
-        (setf ex-file rm-file)))
-    (when (string-suffix-p ".mp4.gpg" ex-file)
-      (call-process-shell-command
-       (format "gpg -o %s -d %s"
-               (setf rm-file (expand-file-name (concat (make-temp-name
-                                                        (file-name-as-directory open-file-work-dir))
-                                                       ".mp4")))
-               (shell-quote-argument ex-file)))
-      (setf ex-file rm-file))
-    (cond
-     ((string-match-p "\\.midi?$" ex-file)
-      (call-process-shell-command (format "xdg-open %s" (shell-quote-argument ex-file))))
-     ((or (= (call-process-shell-command (format "filetype-cli check --type playable %s" (shell-quote-argument ex-file))) 0)
-          (seq-some (lambda (suffix)
-                      (string-suffix-p suffix ex-file))
-                    '(".m3u" ".m2ts")))
-      (start-process-shell-command "mpv" nil
-                                   (concat (format "nohup mpv --force-window %s >/dev/null 2>&1;" (shell-quote-argument ex-file))
-                                           (if rm-file (format "rm -rf %s" (shell-quote-argument rm-file)) nil))))
-     ((= (call-process-shell-command (format "filetype-cli check --type html %s" (shell-quote-argument ex-file))) 0)
-      (eww-open-file ex-file))
-     ((or (= (call-process-shell-command (format "filetype-cli check --type pdf %s" (shell-quote-argument ex-file))) 0)
-          (= (call-process-shell-command (format "filetype-cli check --type epub %s" (shell-quote-argument ex-file))) 0))
-      (open-uri-htmlize ex-file))
-     ((file-directory-p ex-file) (dired ex-file))
-     (t (find-file ex-file)))))
-
-(defun open-file-external (file)
-  "Open file `FILE' in external application.
-Generally preferance application is used."
-  (let ((ex-file (expand-file-name file))
-        (process-connection-type nil))
-    (start-process-shell-command "xdg-open" nil (format "xdg-open %s" (shell-quote-argument ex-file)))))
 
 (defun split-location-uri (location-uri)
   "Split LOCATION-URI into normal uri and location specifier.

@@ -73,10 +73,11 @@
   "Open file in Dired.
 
 File is either on current line or marked targets.
-Optional argument `ARG' is passed to `open-file'."
-  (interactive "p")
+Optional argument `ARG' is passed to `my/view-file'."
+  (interactive "P")
   (let ((files (dired-get-marked-files nil nil)))
-    (case arg
-      (16 (mapc (lambda (file) (open-file-external file)) files))
-      (4 (mapc (lambda (file) (find-file file)) files))
-      (t (mapc (lambda (file) (open-file file)) files)))))
+    (mapc (lambda (file)
+            (if (equal arg '(4))
+                (find-file file)
+              (my/view-file file arg)))
+          files)))

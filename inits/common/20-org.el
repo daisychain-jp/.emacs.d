@@ -121,7 +121,7 @@
         (open-uri-orgnize path)))))
   (setq org-file-apps
         '((t . (lambda (file-path link-string)
-                 (open-file file-path)))))
+                 (my/view-file file-path)))))
   (org-add-link-type
    "sudo"
    (lambda (cmd)
@@ -834,14 +834,14 @@ WHICH-TS should be `earliest' or `latest'."
 (defun my/org-open-file (path &optional in-emacs line search)
   "docstring"
   (case (prefix-numeric-value current-prefix-arg)
-    (16 (open-file-external path))
+    (16 (my/view-file path t))
     (4 (org-open-file path t line search))
     (t (cond
         ((member in-emacs '((16) system))
-         (open-file-external path))
+         (my/view-file path t))
         ((member in-emacs '((4) emacs))
          (org-open-file path t line search))
-        (t (open-file path)
+        (t (my/view-file path)
            (when (or line search)
              (goto-pos (or line search))))))))
 
