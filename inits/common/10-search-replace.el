@@ -66,6 +66,12 @@
 (use-package wgrep
   :straight t)
 
+(use-package wgrep-ag
+  :straight t)
+
+(use-package ripgrep
+  :straight t)
+
 ;; replace
 
 (use-package visual-regexp

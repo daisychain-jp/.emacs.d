@@ -98,6 +98,7 @@
  ("rainbow-mode" . "8059f1cb756d2b211af962f07c5e6aff958094d7")
  ("redo-plus" . "1fff40b67aeab1cedcc89c98a7d92a5b5db6f7ae")
  ("restart-emacs" . "9aa90d3df9e08bc420e1c9845ee3ff568e911bd9")
+ ("ripgrep.el" . "40e871dcc4519a70981e9f28acea304692a60978")
  ("s.el" . "03410e6a7a2b11e47e1fea3b7d9899c7df26435e")
  ("selected.el" . "03edaeac90bc6000d263f03be3d889b4685e1bf7")
  ("seq" . "095fb15a3baa082079799dd36b6caccdb062cb90")
