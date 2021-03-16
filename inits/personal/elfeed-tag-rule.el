@@ -39,6 +39,13 @@
                                         "sports/article/golf"
                                         "sports/article/baseball"))
                                 :remove 'unread))
+  ;; workaround for bug
+  (add-hook 'elfeed-new-entry-hook
+            (elfeed-make-tagger :feed-url (rx "www.city.shimada.shizuoka.jp")
+                                :remove 'checked))
+  (add-hook 'elfeed-new-entry-hook
+            (elfeed-make-tagger :feed-url (rx "www.city.shimada.shizuoka.jp")
+                                :add 'unread))
   ;; for favorite entries
   (add-hook 'elfeed-new-entry-hook
             (elfeed-make-tagger :feed-url (rx "pc.watch.impress.co.jp")
@@ -68,11 +75,10 @@
   (add-hook 'elfeed-new-entry-hook
             (elfeed-make-tagger :feed-title (rx "DAZN Japan")
                                 :entry-title
-                                (rx (and "ハイライト"
-                                         (or "明治安田生命J1リーグ"
-                                             "藤枝"
-                                             "磐田")))
-                                :add 'valuable)
+                                (rx (or "明治安田生命J1リーグ"
+                                        "藤枝"
+                                        "磐田"))
+                                :add 'unread)
             20)
   (add-hook 'elfeed-new-entry-hook
             (elfeed-make-tagger :feed-title (rx "DAZN Japan")
