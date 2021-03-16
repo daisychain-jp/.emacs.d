@@ -52,8 +52,6 @@
              ("C-,"     . nil)
              ("M-h"     . nil)
              ("C-M-m"   . hydra-lazy-control/body)
-             ("C-x C-a s" . org-afile-store)
-             ("C-x C-a d" . org-afile-delete)
              :map org-agenda-mode-map
              ("C-j" . org-agenda-switch-to)
              ("T" . counsel-org-tag-agenda)
@@ -106,19 +104,6 @@
             t))
         (open-thing-at-point))))
   (add-to-list 'org-open-at-point-functions 'org-open-at-point-link)
-  (defun org-orgnize-open-at-point ()
-    "Open org-mode link as org file."
-    (interactive)
-    (let* ((context (org-element-lineage
-                     (org-element-context) '(link) t))
-           (type (org-element-type context))
-           (link-protocol (org-element-property :type context))
-           (path (org-element-property :path context)))
-      (cond
-       ((and (string= type "link")
-             (string= link-protocol "file")
-             (string-suffix-p ".epub" path))
-        (open-uri-orgnize path)))))
   (setq org-file-apps
         '((t . (lambda (file-path link-string)
                  (my/view-file file-path)))))
@@ -129,41 +114,6 @@
      (shell-command
       (concat "echo " (shell-quote-argument (read-passwd "Password? "))
               " | sudo -S " cmd))))
-
-  ;; afile
-  (defun org-afile-expand (tag)
-    "expands 'tag' to absolute path corresponds with rfile root directory."
-    (let ((loc (shell-command-to-string "orgafile location")))
-      (format "%s/%s" loc tag)))
-  (defun org-afile-store (arg)
-    "Stores file to the specified directory.
-
-If a single prefix 'ARG' is passed, it encrypts rfile with .tar.gpg extension."
-    (interactive "P")
-    (let* ((file (read-file-name "File: " "~/"))
-           (base (shell-command-to-string "orgafile location"))
-           (dest-dir (read-directory-name "Dir: " base))
-           (opt (if (equal arg '(4)) "--encrypt" ""))
-           (store-loc (shell-command-to-string (format "orgafile store %s %s %s" opt (shell-quote-argument file) (shell-quote-argument dest-dir)))))
-      (minibuffer-message "Stored to %s" store-loc)
-      (kill-new store-loc)))
-  (defun org-afile-delete (arg)
-    "Delete afile currently pointed.
-
-If 'ARG' is passed, shred afile instead delete."
-    (interactive "P")
-    (let* ((alink (org-link-at-point))
-           (lstr (car alink))
-           (cmd-opt (if (equal arg '(4)) "--shred" ""))
-           (do-str (if (equal arg '(4)) "Shred" "Delete")))
-      (when (and (stringp lstr)
-                 (string-match "^afile:\\(.+\\)$" lstr))
-        (let* ((ex-lstr (org-afile-expand (match-string 1 lstr))))
-          (if (file-exists-p ex-lstr)
-              (when (string= (downcase (read-string (format "%s? y/n: " do-str))) "y")
-                (call-process-shell-command (format "orgafile delete %s %s" cmd-opt ex-lstr))
-                (minibuffer-message (format "%s %s!" do-str org-done-keyword-0)))
-            (minibuffer-message "NOT EXIST"))))))
 
   ;; speed command
   (setq org-use-speed-commands

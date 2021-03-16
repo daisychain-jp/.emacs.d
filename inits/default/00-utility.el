@@ -138,14 +138,6 @@ play it in media player."
                           " "))))
     (eww-open-file html)))
 
-(defun open-uri-orgnize (uri)
-  "Open contents on URI as a org file."
-  (let ((org (shell-command-to-string
-              (mapconcat #'identity
-                         (list "orgafile" "orgnize" uri)
-                         " "))))
-    (find-file org)))
-
 (defun youtube-dl-format ()
   "Return appropriate format option value for youtube-dl command."
   (let* ((ipv4-addr (shell-command-to-string "hostname -I | cut -f1 -d' ' | tr -d '\n'"))
