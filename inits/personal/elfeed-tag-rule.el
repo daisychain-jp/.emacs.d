@@ -5,7 +5,8 @@
   (add-hook 'elfeed-new-entry-hook
             (elfeed-make-tagger :feed-url (rx "www.at-s.com")
                                 :entry-link
-                                (rx (or "news/article/social/shizuoka"
+                                (rx (or "news/article/shizuoka"
+                                        "news/article/social/shizuoka"
                                         "news/article/politics/shizuoka"
                                         "news/article/topics/shizuoka"
                                         "news/article/culture/shizuoka"
