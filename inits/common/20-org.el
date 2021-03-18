@@ -22,7 +22,7 @@
                         (dolist (f (file-expand-wildcards
                                     (concat (expand-file-name dir env-org-dir) "/*.org")))
                           (org-babel-lob-ingest f)))
-                      '("agenda" "index"))))
+                      '("agenda" "index" "wiki"))))
   :custom
   (org-directory env-org-dir)
   (org-special-ctrl-a/e t)
