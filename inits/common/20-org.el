@@ -27,6 +27,8 @@
   (org-directory env-org-dir)
   (org-special-ctrl-a/e t)
   (org-adapt-indentation nil)
+  ;; do not split line at point
+  (org-M-RET-may-split-line '((default . nil)))
   :config
   (require 'org-agenda)
   (require 'org-capture)
