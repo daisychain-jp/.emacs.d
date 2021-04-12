@@ -3,6 +3,7 @@
               ("(" . dired-hide-details-mode)
               (")" . dired-hide-details-mode)
               ("E" . dired-create-empty-file)
+              ("Y" . dired-do-relsymlink)
               ("o" . dired-omit-mode)
               ("r" . wdired-change-to-wdired-mode)
               ("x" . (lambda (arg) (interactive "P")
