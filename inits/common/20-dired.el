@@ -34,7 +34,9 @@
   :straight t
   :bind
   (:map dired-mode-map
-        ("C-c C-r" . dired-rsync)))
+        ("C-c C-r" . dired-rsync))
+  :custom
+  (dired-rsync-options "-auz --info=progress2"))
 
 (use-package dired-single
   :straight t
