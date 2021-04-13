@@ -133,6 +133,7 @@
     ("v" magit-status)
     ("a" counsel-linux-app)
     ("w" eww-search-words-in-new-buffer)
+    ("W" eww-switch-to-buffer)
     ("m" mu4e)
     ("M" mu4e-alert-view-unread-mails)
     ("j" open-junk-file)
