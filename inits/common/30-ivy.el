@@ -1,7 +1,7 @@
 (use-package ivy
   :straight t
   :diminish (ivy-mode)
-  :bind (("C-;" . ivy-switch-buffer)
+  :bind (("C-;" . counsel-switch-buffer)
          ("C-M-r" . ivy-resume)
          :map ivy-minibuffer-map
          ("M-=" . ivy-minibuffer-grow)
