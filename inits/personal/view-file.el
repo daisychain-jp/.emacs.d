@@ -97,8 +97,8 @@ if SYSTEM is non-nii open FILE using preferable application in system."
       (funcall 'my/view-file--finalize-function)))
    ((or (= (call-process-shell-command (format "filetype-cli check --type playable %s" (shell-quote-argument my/view-file--open-file))) 0)
         (seq-some (lambda (suffix)
-                    (string-suffix-p suffix my/view-file--open-file))
-                  '(".m3u" ".m2ts")))
+                    (string-suffix-p suffix my/view-file--open-file t))
+                  '(".m3u" ".mts" ".m2ts")))
     (when-let ((mpv-proc (start-process-shell-command
                           "mpv" nil
                           (format "nohup mpv --force-window %s >/dev/null 2>&1" (shell-quote-argument my/view-file--open-file)))))
