@@ -52,12 +52,12 @@
             (elfeed-make-tagger :feed-url (rx "pc.watch.impress.co.jp")
                                 :entry-title
                                 (rx "【山田祥平のRe:config.sys】")
-                                :add 'valuable))
+                                :add 'prime))
   (add-hook 'elfeed-new-entry-hook
             (elfeed-make-tagger :feed-title (rx "デモクラシータイムス.")
                                 :entry-title
                                 (rx "WeN")
-                                :add 'valuable))
+                                :add 'prime))
   (add-hook 'elfeed-new-entry-hook
             (elfeed-make-tagger :feed-title (rx "Jリーグ ニュース")
                                 :entry-title
@@ -76,12 +76,24 @@
   (add-hook 'elfeed-new-entry-hook
             (elfeed-make-tagger :feed-title (rx "DAZN Japan")
                                 :entry-title
-                                (rx (or "明治安田生命J1リーグ"
-                                        "藤枝"
-                                        "磐田"))
+                                (rx (and "ハイライト"
+                                         (0+ anychar)
+                                         "明治安田生命J1リーグ"))
                                 :add 'unread)
             20)
   (add-hook 'elfeed-new-entry-hook
             (elfeed-make-tagger :feed-title (rx "DAZN Japan")
+                                :remove 'unread)
+            10)
+  (add-hook 'elfeed-new-entry-hook
+            (elfeed-make-tagger :feed-title (rx "Jリーグ公式チャンネル")
+                                :entry-title
+                                (rx (and "ハイライト"
+                                         (0+ anychar)
+                                         "ジュビロ磐田"))
+                                :add 'unread)
+            20)
+  (add-hook 'elfeed-new-entry-hook
+            (elfeed-make-tagger :feed-title (rx "Jリーグ公式チャンネル")
                                 :remove 'unread)
             10))
