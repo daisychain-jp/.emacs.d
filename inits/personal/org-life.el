@@ -510,14 +510,17 @@ Ancestors are looked up If current heading has no CATEGORY."
   "List candidate entries for archiving in weekly review ends with DUE-DATE."
   (interactive (list (org-read-date nil nil nil "Due date: ")))
   (let ((files (org-agenda-files)))
-    (org-ql-search files `(or (todo ,org-todo-keyword-4)
-                              (and (not (habit))
-                                   (not (tags "project"))
-                                   (planning :to ,due-date))
-                              (and (tags "episode")
-                                   (deadline :to ,due-date))
-                              (and (not (todo))
-                                   (ts-active :to ,due-date)
-                                   (not (or (category-inherited "Cyclic")
-                                            (category-inherited "Event")))))
+    (org-ql-search files `(or
+                           ;; DONE tasks
+                           (todo ,org-todo-keyword-4)
+                           (and (not (habit))
+                                (not (tags "project"))
+                                (planning :to ,due-date))
+                           ;; outdated episodes
+                           (and (tags "episode")
+                                (deadline :to ,due-date))
+                           ;; past events
+                           (and (not (todo))
+                                (ts-active :to ,due-date)
+                                (category-inherited "Event")))
       :sort '(date))))
