@@ -78,11 +78,6 @@
 (buffer-face-mode 1)
 (diminish 'buffer-face-mode)
 
-;; use onyx theme (original)
-(setq custom-theme-directory
-      (locate-user-emacs-file "themes"))
-(load-theme 'onyx t)
-
 ;; frame
 ;; fit the frame to full screen if Emacs has GUI
 (when window-system

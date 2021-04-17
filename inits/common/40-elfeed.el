@@ -4,6 +4,15 @@
   (elfeed-show-mode   " EF")
   (elfeed-search-mode " EF")
   :commands (elfeed)
+  :init
+  (defface elfeed-search-unchecked-title-face
+    nil
+    "Face used in search mode for unchecked entry titles."
+    :group 'elfeed)
+  (defface elfeed-search-checked-title-face
+    nil
+    "Face used in search mode for checked entry titles."
+    :group 'elfeed)
   :hook
   (elfeed-search-update . (lambda ()
                             (buffer-face-set 'visible)
@@ -69,15 +78,7 @@
              ("E" . elfeed-search-make-episode-entry)
              :map elfeed-show-mode-map
              ("C-i" . shr-next-link))
-  (defface elfeed-search-unchecked-title-face
-    '((t :weight bold))
-    "Face used in search mode for unchecked entry titles."
-    :group 'elfeed)
   (add-to-list 'elfeed-search-face-alist '(unchecked elfeed-search-unchecked-title-face))
-  (defface elfeed-search-checked-title-face
-    '((t :weight bold))
-    "Face used in search mode for checked entry titles."
-    :group 'elfeed)
   (add-to-list 'elfeed-search-face-alist '(checked elfeed-search-checked-title-face)))
 
 (use-package elfeed-org

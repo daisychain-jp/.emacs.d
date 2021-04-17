@@ -5,10 +5,6 @@
 (setq display-time-default-load-average nil)
 (display-time-mode t)
 
-(defface mode-line-modified nil nil)
-(defface mode-line-read-only nil nil)
-(defface mode-line-read-only-modified nil nil)
-
 (defun truncate-buffer-name (buf-name max-display-len)
   ""
   (let ((base-name (file-name-base buf-name))
@@ -35,12 +31,10 @@
                  (let* ((raw-str (truncate-buffer-name (buffer-name) 24))
                         (str (s-replace "%" "%%" raw-str)))
                    (cond
-                    ((and buffer-read-only (buffer-modified-p))
-                     (propertize str 'face 'mode-line-read-only-modified))
                     (buffer-read-only
-                     (propertize str 'face 'mode-line-read-only))
+                     (propertize str 'face 'underline))
                     ((buffer-modified-p)
-                     (propertize str 'face 'mode-line-modified))
+                     (propertize str 'face 'ivy-modified-buffer))
                     (t str))))
                 (:eval
                  (let ((str (if line-number-mode

@@ -68,6 +68,7 @@
  ("map" . "224054737dcafdb291862d5eda57c6ee7f585e95")
  ("melpa" . "9b79d06c02a7fa4d7d7255b07a3bf0d080b512d1")
  ("migemo" . "e4744efae1b2fdea2bbd2ceaff0f6ea0bb739f5a")
+ ("modus-themes" . "eba0ca9ce2bc2014669a55231136a01e015098da")
  ("mu4e-alert" . "96a293b28646f4620e257f24748becc4a06843cd")
  ("nov.el" . "fa3887970ebde430aaf8a39dbf801566238c0973")
  ("ob-async" . "de1cd6c93242a4cb8773bbe115b7be3d4dd6b97e")
