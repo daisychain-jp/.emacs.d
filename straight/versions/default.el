@@ -123,5 +123,5 @@
  ("with-editor" . "3e6424764ee06fb50c580283baea3851c6f9ea66")
  ("yaml-mode" . "40067a10ac1360f0b9533f0bbbb2eea128e2574d")
  ("yasnippet" . "3bf9a3b1af37174a004798b7195826af0123fa6a")
- ("yasnippet-snippets" . "d5ef8ed2b34798c1576f2fbfed858ee5486d1792"))
+ ("yasnippet-snippets" . "be823d7e1a1a46454d60a9f3dabb16b68b5dd853"))
 :pluto
