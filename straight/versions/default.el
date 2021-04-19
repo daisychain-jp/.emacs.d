@@ -83,7 +83,7 @@
  ("org-roam" . "be95b42d32d9707309ab373f1d8182c84db41c5c")
  ("org-super-agenda" . "cd0d78cdd5cbdd678f002e2367c4b02b644f700e")
  ("org-web-tools" . "65c118a3614e75a4fda47248f44f120a20c15738")
- ("orgit" . "ac9b1a42863a864fde9d225890ef5464bffdc646")
+ ("orgit" . "609fd0ccfb5268704b5bc7d7ac1014d4960b9707")
  ("ov" . "d1ae4d2a488e8ed99ab395e567bc00d21dd6c478")
  ("pangu-spacing" . "a4463dbb74abdeddb6c1c132a1f8fcf67ed87498")
  ("pdf-tools" . "66dd313dbb1d078fa847805b0d7cf9797bec9e4c")
