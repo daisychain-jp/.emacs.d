@@ -32,6 +32,7 @@
 
 (use-package dired-rsync
   :straight t
+  :after dired
   :bind
   (:map dired-mode-map
         ("C-c C-r" . dired-rsync))
@@ -40,17 +41,20 @@
 
 (use-package dired-single
   :straight t
+  :after dired
   :bind (:map dired-mode-map
               ("C-j" . dired-single-buffer)
               ("^" . dired-single-up-directory)))
 
 (use-package dired-subtree
   :straight t
+  :after dired
   :bind (:map dired-mode-map
               ("TAB" . dired-subtree-cycle)))
 
 (use-package dired-narrow
   :straight t
+  :after dired
   :bind
   (:map dired-mode-map
         ("z" . dired-narrow))
@@ -59,6 +63,7 @@
 
 (use-package dired-hide-dotfiles
   :straight t
+  :after dired
   :bind (:map dired-mode-map
               ("." . dired-hide-dotfiles-mode))
   :config
@@ -66,12 +71,14 @@
 
 (use-package dired-du
   :straight t
+  :after dired
   :diminish ((dired-du-mode . "du"))
   :bind (:map dired-mode-map
               ("C-M-S-u" . dired-du-mode))
   :custom
   (dired-du-size-format 'comma))
 
+;;;###autoload
 (defun dired-open (&optional arg)
   "Open file in Dired.
 
