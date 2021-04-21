@@ -501,6 +501,15 @@
   :custom
   (org-contacts-files `(,env-contacts-file)))
 
+(use-package org-crypt
+  :after org
+  :custom
+  (org-crypt-key "t.inamori@daisychain.jp")
+  (org-tags-exclude-from-inheritance '("crypt"))
+  (auto-save-default nil)
+  :config
+  (org-crypt-use-before-save-magic))
+
 (use-package persist
   :straight t)
 (use-package org-drill
