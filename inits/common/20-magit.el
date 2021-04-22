@@ -17,3 +17,6 @@
   :after (magit org)
   :custom
   (orgit-remote "github"))
+
+(use-package git-modes
+  :straight t)

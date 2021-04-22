@@ -48,6 +48,7 @@
  ("flycheck" . "1555b185ab2b5f1ec99536a641fff545fd8aa6bf")
  ("free-keys" . "edfd69dc369b2647447b7c28c7c1163b1ddf45b4")
  ("ggtags" . "669676461c74ffd30b81dce60cf4f081270f2858")
+ ("git-modes" . "14adca24eb6b0b4e311ad144c5d41972c6b044b2")
  ("gntp.el" . "767571135e2c0985944017dc59b0be79af222ef5")
  ("gnu-elpa-mirror" . "01001b660cd3677228e25a6f544d579b56845c37")
  ("google-translate" . "6fa8f569fcab5372791b22fbca598359f2599c70")
