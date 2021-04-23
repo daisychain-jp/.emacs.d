@@ -1,10 +1,4 @@
-(let ((straight-current-profile 'pinned))
-  (straight-use-package 'org)
-  (add-to-list 'straight-x-pinned-packages
-               '("org" . "d70db54dbc32feb2034f5a07a346fb8bb75160d1")))
 (use-package org
-  ;; you need to make in org directory in advance
-  ;; $ make clean all
   :straight t
   :defer t
   :diminish ((org-src-mode . "os"))
