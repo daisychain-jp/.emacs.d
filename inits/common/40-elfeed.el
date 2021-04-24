@@ -5,6 +5,14 @@
   (elfeed-search-mode " EF")
   :commands (elfeed)
   :init
+  (defface elfeed-search-buffer `((t . (:font "fontset-default"
+                                              :height ,(my-adjust-font-size 800))))
+    "Default face for elfeed search buffer."
+    :group 'elfeed)
+  (defface elfeed-show-buffer `((t . (:font "fontset-variable"
+                                            :height ,(my-adjust-font-size 835))))
+    "Default face for elfeed show buffer."
+    :group 'elfeed)
   (defface elfeed-search-unchecked-title-face
     nil
     "Face used in search mode for unchecked entry titles."
@@ -15,20 +23,20 @@
     :group 'elfeed)
   :hook
   (elfeed-search-update . (lambda ()
-                            (buffer-face-set 'visible)
+                            (buffer-face-set 'elfeed-search-buffer)
                             (setq-local line-spacing 0.1)))
   :custom
   (elfeed-use-curl t)
-  (elfeed-curl-program-name (concat env-local-usr-bin-dir "/curl"))
+  (elfeed-curl-program-name (expand-file-name "curl" "~/usr/bin"))
   (elfeed-db-directory (concat env-var-dir "/lib/elfeed/db"))
-  (elfeed-search-date-format '("%y%m%d" 6 :left))
+  (elfeed-search-date-format '("%Y%m%d" 8 :left))
   (elfeed-search-title-min-width 100)
   (elfeed-search-title-max-width 120)
   (elfeed-search-trailing-width 160)
   (elfeed-show-refresh-function
    (lambda ()
      (interactive)
-     (buffer-face-set 'variable-pitch)
+     (buffer-face-set 'elfeed-show-buffer)
      (elfeed-show-refresh--mail-style)))
   (elfeed-sort-order 'ascending)
   (elfeed-enclosure-default-dir "~/Downloads/")
@@ -112,7 +120,7 @@
                                elfeed-search-title-max-width)
                         :left)))
     (when feed-title
-      (insert (propertize (elfeed-format-column feed-title 4 :left)
+      (insert (propertize (elfeed-format-column feed-title 6 :left)
                           'face 'elfeed-search-feed-face) " "))
     (insert (propertize title-column 'face title-faces 'kbd-help title) " ")
     (insert (propertize date 'face 'elfeed-search-date-face) " ")

@@ -1,3 +1,22 @@
+
+(create-fontset-from-ascii-font "TakaoGothic" nil "default")
+(create-fontset-from-ascii-font "TakaoExGothic" nil "variable")
+(create-fontset-from-ascii-font "Gen Shin Gothic Monospace Light" nil "dense")
+
+(set-face-attribute 'default
+                    nil
+                    :font "fontset-default"
+                    :height (my-adjust-font-size 660))
+(set-face-attribute 'variable-pitch
+                    nil
+                    :font "fontset-variable"
+                    :height (my-adjust-font-size 660))
+
+(use-package face-remap
+  :diminish buffer-face-mode
+  :config
+  (buffer-face-mode 1))
+
 (use-package modus-themes
   :straight (modus-themes
              :host github

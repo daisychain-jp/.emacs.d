@@ -1,3 +1,7 @@
+(defface term-buffer `((t . (:font "fontset-default"
+                                   :height ,(my-adjust-font-size 570))))
+  "Default face in terminals.")
+
 (use-package shell
   :delight " SM"
   :commands (shell)
@@ -6,7 +10,7 @@
              ("C-j" . comint-send-input))
   (add-hook 'shell-mode-hook
             (lambda ()
-              (buffer-face-set 'selecting)
+              (buffer-face-set 'term-buffer)
               (setq-local counsel-dash-docsets '("Linux" "Pandoc")))))
 
 ;; term (ansi-term)
@@ -18,7 +22,7 @@
              ("C-j" . term-send-input))
   (add-hook 'term-mode-hook
             (lambda ()
-              (buffer-face-set 'selecting)
+              (buffer-face-set 'term-buffer)
               (setq-local counsel-dash-docsets '("Linux" "Pandoc")))))
 
 (use-package vterm
@@ -34,6 +38,8 @@
         ("C-o" . nil))
   (:map vterm-copy-mode-map
         ("C-j" . vterm-copy-mode-done))
+  :hook (vterm-mode . (lambda ()
+                        (buffer-face-set 'term-buffer)))
   :custom
   (vterm-min-window-width 55)
   (vterm-buffer-name-string "vterm %s")
@@ -53,7 +59,7 @@
   :delight " ES"
   :hook
   (eshell-mode . (lambda ()
-                   (buffer-face-set 'selecting)
+                   (buffer-face-set 'term-buffer)
                    (setq-local counsel-dash-docsets '("Linux" "Pandoc"))
                    (bind-keys :map eshell-mode-map
                               ("C-j"    . eshell-send-input)

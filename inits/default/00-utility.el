@@ -148,7 +148,7 @@ play it in media player."
                         "bestvideo[height<=?240]+worstaudio/best")
                        ;; using wired network or broad wifi
                        ((or (string= ipv4-addr "192.168.100.126")
-                            (member wifi-ssid user-wifi-ap-broad-list))
+                            (member wifi-ssid '("saint_laurent_ap" "obilia-02g")))
                         "bestvideo[height<=?720]+bestaudio/best")
                        ;; usin unknown network
                        (t
@@ -340,10 +340,10 @@ The name of created fontset, specified FONTSET-NAME with prefix 'fontset-' will 
     (set-fontset-font fontset-name-str 'unicode unicode-fontspec)
     (concat fontset-prefix fontset-name)))
 
-(defvar utl-x-display-default-pixel-width 1920.0 "Default display width in pixel.")
-(defmacro utl-x-display-adjust-font-size (original)
+(defvar my-default-pixel-width 2560 "Default display width in pixel.")
+(defmacro my-adjust-font-size (original)
   "Adjust original font size to fit in display."
-  `(truncate (* ,original (/ (x-display-pixel-width) ,utl-x-display-default-pixel-width))))
+  `(truncate (* ,original (/ (x-display-pixel-width) ,my-default-pixel-width))))
 
 (defun utl-say ()
   "read out using open-jtalk"

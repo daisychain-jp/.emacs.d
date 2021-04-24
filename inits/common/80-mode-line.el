@@ -47,3 +47,8 @@
                 ;; disable showing minor modes
                 ;; minor-mode-alist
                 (projectile-mode (:eval (projectile-short-mode-line)))))
+
+(set-face-attribute 'mode-line
+                    nil
+                    :font "fontset-dense"
+                    :height (my-adjust-font-size 580))

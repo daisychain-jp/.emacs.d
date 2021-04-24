@@ -1,8 +1,13 @@
 (use-package calendar
   :bind (:map calendar-mode-map
               ("v" . calendar-org-archive-show-summary-day))
+  :init
+  (defface calendar-buffer `((t . (:font "fontset-default"
+                                         :height ,(my-adjust-font-size 400))))
+    "Default face for calendar mode."
+    :group 'calendar-faces)
   :hook (calendar-mode . (lambda ()
-                           (buffer-face-set 'calendar))))
+                           (buffer-face-set 'calendar-buffer))))
 
 (defun calendar-org-archive-show-summary-day ()
   "Open a new window attached to the calendar view \

@@ -1,8 +1,12 @@
 (use-package text-mode
   :mode ("\\.txt$" . text-mode)
   :delight " TX"
+  :init
+  (defface text-buffer `((t . (:font "fontset-default"
+                                     :height ,(my-adjust-font-size 720))))
+    "Default face for editing text.")
   :hook (text-mode . (lambda ()
-                       (buffer-face-set 'visible)
+                       (buffer-face-set 'text-buffer)
                        (setq-local truncate-lines nil)))
   :bind (:map text-mode-map
               ("C-M-m" . text-lazy-control)))

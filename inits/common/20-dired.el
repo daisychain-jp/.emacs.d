@@ -25,7 +25,6 @@
   (setq dired-isearch-filenames t)
   (add-hook 'dired-mode-hook
             (lambda ()
-              (buffer-face-set 'selecting)
               (dired-hide-details-mode 1)
               (setq-local truncate-lines t)
               (whitespace-mode 1))))

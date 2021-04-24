@@ -7,4 +7,4 @@
   (add-hook 'pdf-view-mode-hook
             (lambda ()
               (pdf-view-midnight-minor-mode t)))
-  (setq pdf-info-epdfinfo-program env-epdfinfo-prog))
+  (setq pdf-info-epdfinfo-program "/usr/bin/epdfinfo"))

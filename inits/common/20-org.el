@@ -10,6 +10,11 @@
     "Default org-agenda-files.")
   (add-to-list 'load-path (concat (file-name-as-directory user-emacs-directory) "straight/repos/org/lisp"))
   (add-to-list 'load-path (concat (file-name-as-directory user-emacs-directory) "straight/repos/org/contrib/lisp"))
+  (defface org-buffer `((t . (:font "fontset-default"
+                                    :height ,(my-adjust-font-size 655))))
+    "Default face in org mode."
+    :group 'org-faces)
+  (defvar org-contacts-file (expand-file-name "index/contacts.org.gpg" env-org-dir))
   :hook
   (org-load . (lambda ()
                 (mapc (lambda (dir)
@@ -140,19 +145,17 @@
   (add-hook 'org-mode-hook
             (lambda ()
               (whitespace-mode 1)
-              (buffer-face-set 'outline)
-              (setq-local line-spacing 0.1)
+              (buffer-face-set 'org-buffer)
               (setq-local truncate-lines t)))
   (add-hook 'org-agenda-mode-hook
             (lambda ()
-              (buffer-face-set 'outline)
-              (setq-local line-spacing 0.1)
+              (buffer-face-set 'org-buffer)
               (delete-other-windows)
               (org-agenda-to-appt t '((category "appt")))))
 
   ;; tag/property
   (setq org-use-tag-inheritance "ARCHIVE")
-  (setq org-tags-column -48)
+  (setq org-tags-column -57)
   (setq org-global-properties
         '(("Effort_ALL". "0 0:10 0:20 0:30 1:00 1:30 2:00 3:00 4:00 6:00 8:00")))
   (setq org-use-property-inheritance "TIMELIMIT.*")
@@ -493,12 +496,12 @@
 (use-package org-contacts
   :after org
   :custom
-  (org-contacts-files `(,env-contacts-file)))
+  (org-contacts-files `(,org-contacts-file)))
 
 (use-package org-crypt
   :after org
   :custom
-  (org-crypt-key "t.inamori@daisychain.jp")
+  (org-crypt-key user-mail-address)
   (org-tags-exclude-from-inheritance '("crypt"))
   (auto-save-default nil)
   :config

@@ -2,6 +2,11 @@
   :delight " EW"
   :bind (:map eww-mode-map
               ("C-M-m" . hydra-lazy-control/body))
+  :init
+  (defface eww-buffer `((t . (:font "fontset-default"
+                                    :height ,(my-adjust-font-size 1020))))
+    "Default face for EWW."
+    :group 'eww)
   :custom
   ;; set enough large column number to prevent from inserting line break
   (shr-width 10000)
@@ -19,7 +24,7 @@
   (setq shr-image-animate nil)
   (add-hook 'eww-mode-hook
             (lambda ()
-              (buffer-face-set 'readable)
+              (buffer-face-set 'eww-buffer)
               (whitespace-mode -1)
               (eww-lazy-control)))
   (add-hook 'eww-after-render-hook

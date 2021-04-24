@@ -64,8 +64,4 @@
                      (or ".el" ".el.gpg")
                      line-end)
                  nil)))
-        `("default"
-          ,(cond
-            ((string= system-type "gnu/linux") "linux")
-            ((string= system-type "darwin") "darwin"))
-          "common" "personal")))
+        `("default" "common" "personal")))

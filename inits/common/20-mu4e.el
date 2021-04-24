@@ -6,8 +6,17 @@
   (mu4e-view-mode    " MU")
   (mu4e-compose-mode " MU")
   :hook (after-init . (lambda () (mu4e t)))
+  :init
+  (defface mu4e-compose-buffer `((t . (:font "fontset-default"
+                                             :height ,(my-adjust-font-size 630))))
+    "Default face for mu4e compose buffer."
+    :group 'mu4e-faces)
+  (defface mu4e-view-buffer `((t . (:font "fontset-variable"
+                                          :height ,(my-adjust-font-size 835))))
+    "Default face for mu4e view buffer."
+    :group 'mu4e-faces)
   :custom
-  (mu4e-mu-binary env-mu4e-mu-binary)
+  (mu4e-mu-binary (expand-file-name "mu" "~/usr/bin"))
   (mail-user-agent 'mu4e-user-agent)
   (mu4e-hide-index-messages t)
   (mu4e-context-policy 'pick-first)
@@ -48,7 +57,7 @@
   (add-to-list 'mu4e-view-actions
                '("XWidget View" . mu4e-action-view-with-xwidget) t)
   ;; integrate with org-contacts
-  (setq mu4e-org-contacts-file env-contacts-file)
+  (setq mu4e-org-contacts-file org-contacts-file)
   (add-to-list 'mu4e-headers-actions
                '("Contact to add" . mu4e-action-add-org-contact) t)
   (add-to-list 'mu4e-view-actions
@@ -68,12 +77,9 @@
       (nreverse buffers)))
   (setq gnus-dired-mail-mode 'mu4e-user-agent)
   (add-hook 'dired-mode-hook 'turn-on-gnus-dired-mode)
-  (add-hook 'mu4e-headers-mode-hook
-            (lambda ()
-              (buffer-face-set 'selecting)))
   (add-hook 'mu4e-view-mode-hook
             (lambda ()
-              (buffer-face-set 'variable-pitch)
+              (buffer-face-set 'mu4e-view-buffer)
               (setq-local hlc/forward-paragraph-func
                           (lambda ()
                             (interactive)
@@ -96,7 +102,7 @@
               (hydra-lazy-control/body)))
   (add-hook 'mu4e-compose-mode-hook
             (lambda ()
-              (buffer-face-set 'visible)))
+              (buffer-face-set 'mu4e-compose-buffer)))
   (when (fboundp 'imagemagick-register-types)
     (imagemagick-register-types)))
 

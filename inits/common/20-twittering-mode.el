@@ -6,6 +6,10 @@
                           :repo "daisychain-jp/twittering-mode"))
   :delight " TW"
   :after (hydra)
+  :init
+  (defface twit-buffer `((t . (:font "fontset-default"
+                                     :height ,(my-adjust-font-size 1020))))
+    "Default face for twittering-mode.")
   :custom
   (twittering-private-info-file
    (expand-file-name ".twittering-mode.gpg" user-emacs-directory))
@@ -20,7 +24,7 @@
   (twittering-icon-mode -1)
   (add-hook 'twittering-mode-hook
             (lambda ()
-              (buffer-face-set 'readable)
+              (buffer-face-set 'twit-buffer)
               (twittering-lazy-control)))
   (bind-keys :map twittering-mode-map
              ("C-M-m" . twittering-lazy-control)))

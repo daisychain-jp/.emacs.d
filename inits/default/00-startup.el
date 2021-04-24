@@ -57,27 +57,6 @@
 (setq shell-command-switch "-c")
 (setq undo-outer-limit 64000000)
 
-;; for buffer-face-mode
-(defface readable nil nil)
-(defface recognizable nil nil)
-(defface visible nil nil)
-(defface outline nil nil)
-(defface coding nil nil)
-(defface selecting nil nil)
-(defface calendar nil nil)
-(defvar buffer-face-list '(default readable recognizable visible outline coding selecting))
-(defun buffer-face-cycle ()
-  "docstring"
-  (interactive)
-  (let* ((current-face (if buffer-face-mode-face buffer-face-mode-face (car buffer-face-list)))
-         (current-face-index (cl-position current-face buffer-face-list))
-         (next-face (nth (% (+ current-face-index 1) (length buffer-face-list))
-                         buffer-face-list)))
-    (buffer-face-set next-face)
-    (message "%s" next-face)))
-(buffer-face-mode 1)
-(diminish 'buffer-face-mode)
-
 ;; frame
 ;; fit the frame to full screen if Emacs has GUI
 (when window-system

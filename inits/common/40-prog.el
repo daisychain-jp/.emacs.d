@@ -1,9 +1,13 @@
 ;; prog-mode is all programming modes should be derived
 (use-package prog-mode
+  :init
+  (defface prog-buffer `((t . (:font "fontset-default"
+                                     :height ,(my-adjust-font-size 570))))
+    "Default face for coding.")
   :config
   (add-hook 'prog-mode-hook
             (lambda ()
-              (buffer-face-set 'coding)
+              (buffer-face-set 'prog-buffer)
               (whitespace-mode 1)
               (hl-line-mode 1)
               (hs-minor-mode 1)

@@ -92,7 +92,6 @@
     ("v" view-mode)
     ("r" rainbow-mode)
     ("\\" toggle-input-method)
-    ("f" buffer-face-cycle)
     ("F" toggle-frame-fullscreen)
     ("SPC" pangu-spacing-mode)
     ("q" nil "quit"))

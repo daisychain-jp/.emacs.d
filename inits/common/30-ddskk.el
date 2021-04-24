@@ -1,9 +1,15 @@
+(defvar skk-data-dir (expand-file-name "lib/skk" env-var-dir))
 (use-package ddskk
   :straight t
   :defer t
   :bind (("C-x C-j" . skk-mode)
          ("C-x j" . skk-mode)
          ("C-c j" . skk-mode))
+  :init
+  (defface skk-candidate `((t . (:font "fontset-default"
+                                       :height ,(my-adjust-font-size 860))))
+    "Default face for ddskk candidates."
+    :group 'skk-dcomp)
   :custom
   (default-input-method "japanese-skk")
   (skk-kakutei-key (kbd "C-m"))
@@ -33,23 +39,23 @@
   (skk-show-annotation nil)
   ;; how candidates behave
   (skk-show-candidates-always-pop-to-buffer t)
-  (skk-henkan-number-to-display-candidates 7)
+  (skk-henkan-number-to-display-candidates 10)
   (skk-show-candidates-nth-henkan-char 3)
   (skk-henkan-show-candidates-keys
-   '(?1 ?2 ?3 ?4 ?5 ?6 ?7))
+   '(?1 ?2 ?3 ?4 ?5 ?6 ?7 ?8 ?9 ?0))
   ;; set face for candidates list
   (skk-treat-candidate-appearance-function
    (lambda (candidate listing-p)
      (cond
       ((string-match ";" candidate)
        (put-text-property 0 (match-beginning 0)
-                          'face 'recognizable
+                          'face 'skk-candidate
                           candidate)
        (put-text-property (match-beginning 0)
                           (length candidate) 'face 'shadow candidate))
       (t
        (put-text-property 0 (length candidate)
-                          'face 'recognizable
+                          'face 'skk-candidate
                           candidate)))
      candidate))
   ;; C-q for hankaku-kana input mode
