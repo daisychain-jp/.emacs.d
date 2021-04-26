@@ -26,6 +26,9 @@
   (org-directory env-org-dir)
   (org-special-ctrl-a/e t)
   (org-adapt-indentation nil)
+  ;; inline image
+  (org-startup-with-inline-images t)
+  (org-display-remote-inline-images 'cache)
   ;; do not split line at point
   (org-M-RET-may-split-line '((default . nil)))
   :config
