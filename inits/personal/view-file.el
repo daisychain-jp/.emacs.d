@@ -12,8 +12,7 @@ User should not change this value.")
   "Open FILE in my preferable way.
 
 if SYSTEM is non-nii open FILE using preferable application in system."
-  (setq my/view-file--open-file (expand-file-name file)
-        my/view-file--remove-files nil)
+  (setq my/view-file--open-file (expand-file-name file))
   (make-directory my/view-file--temp-dir t)
 
   ;; decrypt file if it is encrypted
