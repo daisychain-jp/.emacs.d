@@ -470,6 +470,7 @@
   (org-clock-persist-query-resume nil)
   (org-clock-string-limit 20)
   (org-clock-continuously t)
+  (org-clock-ask-before-exiting nil)
   :config
   (org-clock-persistence-insinuate)
   (defconst org-clock-ts-line-re
