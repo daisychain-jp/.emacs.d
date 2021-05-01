@@ -1,1 +1,1 @@
-("~/git/new_dotfiles/" "~/git/dotfiles/" "~/org/" "~/bin/" "~/.emacs.d/")
+("~/git/new_dotfiles/.files/" "~/git/new_dotfiles/" "~/git/dotfiles/" "~/org/" "~/bin/" "~/.emacs.d/")
