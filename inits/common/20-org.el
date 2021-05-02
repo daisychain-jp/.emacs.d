@@ -302,6 +302,11 @@
   ;; image
   (setq org-image-actual-width 100)
 
+  ;; structure template
+  (add-to-list 'org-structure-template-alist (cons "sh" "src shell"))
+  (add-to-list 'org-structure-template-alist (cons "el" "src emacs-lisp"))
+  (add-to-list 'org-structure-template-alist (cons "py" "src python"))
+
   ;; src
   (setq org-src-window-setup 'current-window))
 
@@ -409,6 +414,10 @@
                  ("\\section{%s}" . "\\section*{%s}")
                  ("\\subsection{%s}" . "\\subsection*{%s}")
                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))))
+
+(use-package ox-reveal
+  :straight t
+  :after ox)
 
 (use-package org-id
   :after org
