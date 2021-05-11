@@ -117,7 +117,7 @@
  ("undo-tree" . "d54ef13e3c69655e39f977b8bf75399a6d2b5e42")
  ("use-package" . "caa92f1d64fc25480551757d854b4b49981dfa6b")
  ("visual-regexp-steroids.el" . "a6420b25ec0fbba43bf57875827092e1196d8a9e")
- ("visual-regexp.el" . "3e3ed81a3cbadef1f1f4cb16f9112a58641d70ca")
+ ("visual-regexp.el" . "48457d42a5e0fe10fa3a9c15854f1f127ade09b5")
  ("volatile-highlights.el" . "9a20091f0ce7fc0a6b3e641a6a46d5f3ac4d8392")
  ("web-mode" . "e31d1dd4ee436db8aaca3f35223af5a05fb47dec")
  ("with-editor" . "3e6424764ee06fb50c580283baea3851c6f9ea66")

@@ -72,7 +72,11 @@
 (use-package ripgrep
   :straight t)
 
-;; replace
+;; regexp and query-replace
+
+(use-package re-builder
+  :custom
+  (reb-re-syntax 'string))
 
 (use-package visual-regexp
   :straight t

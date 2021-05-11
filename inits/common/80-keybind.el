@@ -130,6 +130,7 @@
     ("=" ediff)
     ("@" twit)
     ("v" magit-status)
+    ("r" re-builder)
     ("a" counsel-linux-app)
     ("w" eww-search-words-in-new-buffer)
     ("W" eww-switch-to-buffer)
