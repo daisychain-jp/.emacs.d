@@ -26,6 +26,7 @@
   (org-directory env-org-dir)
   (org-special-ctrl-a/e t)
   (org-adapt-indentation nil)
+  (org-hide-emphasis-markers t)
   ;; inline image
   (org-startup-with-inline-images t)
   (org-display-remote-inline-images 'cache)
