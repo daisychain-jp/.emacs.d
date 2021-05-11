@@ -168,7 +168,7 @@
                                ((org-ql-block-header "This week's common event"))))
          ((org-agenda-sorting-strategy
            '(todo-state-up priority-down deadline-up))))
-        ("A" "Doable thing list"
+        ("c" "actionable thing list"
          ((org-ql-search-block `(and (todo ,org-todo-keyword-3)
                                      (not (deadline :to -1)))
                                ((org-ql-block-header "Doable things"))))
