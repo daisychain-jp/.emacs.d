@@ -500,7 +500,7 @@ With `C-uC-u' prefix, search PHRASE forcibly."
                     (tags "fd_en")))
       org-ql-views)
 
-(org-ql--defpred category-inherited (category)
+(org-ql-defpred category-inherited (category)
   "Return non-nil if current heading has CATEGORY.
 Ancestors are looked up If current heading has no CATEGORY."
   :body (string= (org-entry-get (point) "CATEGORY" t)
