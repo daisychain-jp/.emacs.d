@@ -343,7 +343,8 @@ The name of created fontset, specified FONTSET-NAME with prefix 'fontset-' will 
 (defvar my-default-pixel-width 2560 "Default display width in pixel.")
 (defmacro my-adjust-font-size (original)
   "Adjust original font size to fit in display."
-  `(truncate (* ,original (/ (x-display-pixel-width) ,my-default-pixel-width))))
+  `(truncate (* ,original (/ (float (x-display-pixel-width))
+                             ,my-default-pixel-width))))
 
 (defun utl-say ()
   "read out using open-jtalk"
