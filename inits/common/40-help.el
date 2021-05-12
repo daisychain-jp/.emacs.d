@@ -20,7 +20,17 @@
                           (visual-line-mode 1)
                           (adaptive-wrap-prefix-mode 1)
                           (buffer-face-set 'help-buffer)))
+  :bind (:map helpful-mode-map
+              ("u" . helpful-push-symbol-onto-kill-ring))
   :custom
   (counsel-describe-function-function #'helpful-callable)
   (counsel-describe-variable-function #'helpful-variable)
+  (counsel-describe-symbol-function #'helpful-symbol)
   (counsel-descbinds-function #'helpful-key))
+
+(defun helpful-push-symbol-onto-kill-ring ()
+  "Push symbol name to kill ring."
+  (interactive)
+  (let ((symbol (symbol-name helpful--sym)))
+    (kill-new (symbol-name helpful--sym))
+    (message "Push to kill ring: %s" symbol)))
