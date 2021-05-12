@@ -62,12 +62,6 @@
              ("T" . counsel-org-tag-agenda)
              ("M" . org-agenda-month-view))
 
-  ;; list
-  (setq org-list-demote-modify-bullet
-        '(("-" . "+") ("+" . "-") ("*" . "-")
-          ("1." . "1)") ("1)" . "1.") ("*" . "1.")))
-  (setq org-cycle-include-plain-lists 'integrate)
-
   ;; attach
   (setq org-attach-preferred-new-method nil)
 
@@ -310,6 +304,16 @@
 
   ;; src
   (setq org-src-window-setup 'current-window))
+
+(use-package org-list
+  :after org
+  :custom
+  (org-list-demote-modify-bullet '(("-" . "+") ("+" . "-") ("*" . "-")
+                                   ("1." . "1)") ("1)" . "1.") ("*" . "1.")))
+  (org-cycle-include-plain-lists 'integrate)
+  (org-list-use-circular-motion t)
+  (org-list-allow-alphabetical t)
+  (org-list-indent-offset -1))
 
 (use-package ob-core
   :after org
