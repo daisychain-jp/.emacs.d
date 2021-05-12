@@ -31,18 +31,12 @@
 (use-package swiper
   :straight t
   :after ivy
-  :bind (("C-s" . (lambda (&optional arg)
-                    (interactive "P")
-                    (let ((ivy-height 7)
-                          (swiper-func (cl-case (prefix-numeric-value arg)
-                                         (4 '(swiper-all))
-                                         (t '(swiper-isearch))))
-                          (swiper-thing-at-point-func (cl-case (prefix-numeric-value arg)
-                                                        (4 '(swiper-all-thing-at-point))
-                                                        (t '(swiper-isearch-thing-at-point)))))
-                      (if (use-region-p)
-                          (apply swiper-thing-at-point-func)
-                        (apply swiper-func)))))))
+  :bind (:map global-map
+              ("C-s" . swiper-thing-at-point)
+              :map swiper-map
+              ("C-i" . swiper-isearch-toggle)
+              :map swiper-isearch-map
+              ("C-i" . swiper-isearch-toggle)))
 
 (use-package counsel
   :straight t
