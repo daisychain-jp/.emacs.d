@@ -10,7 +10,7 @@
  ("comment-dwim-2" . "3dfdd58495c46a37708344a57c5c52beca6b2c1c")
  ("company-mode" . "6116c4617a7934acfe84cb82a058e9b198f0f480")
  ("counsel-dash" . "370d5f6f14b5294d0eb717f7b2a6a8e93df1ed24")
- ("counsel-projectile" . "77392cbbc42e98fc137b43f1db1b111ba6e2dd75")
+ ("counsel-projectile" . "06b03c1080d3ccc3fa9b9c41b1ccbcf13f058e4b")
  ("dash-docs" . "111fd9b97001f1ad887b45e5308a14ddd68ce70a")
  ("dash.el" . "ea7adeb09c13de58336caa16243e192ea6ee88fb")
  ("ddskk" . "81410b925afd4cfd1ca5ab6c1257e221e1cc664f")

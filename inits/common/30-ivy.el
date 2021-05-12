@@ -14,7 +14,10 @@
   :config
   (ivy-mode 1)
   (setf ivy-re-builders-alist
-        '((counsel-describe-function . ivy--regex-ignore-order)
+        '((swiper . ivy-migemo--regex-plus)
+          (counsel-ag . ivy--regex-plus)
+          (counsel-rg . ivy--regex-plus)
+          (counsel-describe-function . ivy--regex-ignore-order)
           (counsel-describe-variable . ivy--regex-ignore-order)
           (counsel-M-x . ivy--regex-plus)
           (counsel-org-capture . ivy--regex-ignore-order)
