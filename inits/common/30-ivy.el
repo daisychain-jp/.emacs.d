@@ -35,11 +35,18 @@
   :straight t
   :after ivy
   :bind (:map global-map
-              ("C-s" . swiper-thing-at-point)
+              ("C-s" . my-swiper)
               :map swiper-map
               ("C-i" . swiper-isearch-toggle)
               :map swiper-isearch-map
               ("C-i" . swiper-isearch-toggle)))
+
+(defun my-swiper (&optional Initial-Input)
+  "Exec swiper in my way with `INITIAL-INPUT'."
+  (interactive)
+  (if (region-active-p)
+      (swiper-thing-at-point)
+    (swiper)))
 
 (use-package counsel
   :straight t
