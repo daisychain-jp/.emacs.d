@@ -33,4 +33,4 @@
   (interactive)
   (let ((symbol (symbol-name helpful--sym)))
     (kill-new (symbol-name helpful--sym))
-    (message "Push to kill ring: %s" symbol)))
+    (message "KILL: %s" symbol)))
