@@ -313,7 +313,6 @@
   (org-cycle-include-plain-lists 'integrate)
   (org-list-use-circular-motion t)
   (org-list-allow-alphabetical t)
-  (org-list-indent-offset -1)
   :config
   (setf org-list-forbidden-blocks nil))
 
