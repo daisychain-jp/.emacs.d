@@ -115,7 +115,6 @@
     ("r" org-record-search)
     ("C" org-record-find-date)
     ("=" org-clock-sum-all)
-    ("m" org-roam)
     ("SPC" org-reset-checkbox-state-subtree)
     ("q" nil "quit"))
   (unbind-key "M-o")
