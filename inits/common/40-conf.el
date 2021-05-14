@@ -20,8 +20,8 @@
   (apache-conf-generic-mode " GE")
   (alias-generic-mode       " GE")
   :config
-  (toggle-truncate-lines 1)
   (add-hook 'after-change-major-mode-hook
             (lambda ()
               (when (eq major-mode 'apache-conf-generic-mode)
+                (setq-local truncate-lines t)
                 (setq-local counsel-dash-docsets '("Apache_HTTP_Server"))))))

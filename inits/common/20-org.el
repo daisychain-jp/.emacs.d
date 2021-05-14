@@ -330,6 +330,7 @@
      (ruby     . t)
      (python   . t)
      (org      . t)
+     (lua      . t)
      (gnuplot  . t)
      (dot      . t)
      (plantuml . t)
