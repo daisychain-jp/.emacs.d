@@ -82,7 +82,7 @@
  ("org-ql" . "208e103ecc146db71d878df3bd09c6eb60c2797d")
  ("org-reveal" . "58540c7dde7dbf4e922209d7fb3e6739570f49b5")
  ("org-roam" . "be95b42d32d9707309ab373f1d8182c84db41c5c")
- ("org-super-agenda" . "cd0d78cdd5cbdd678f002e2367c4b02b644f700e")
+ ("org-super-agenda" . "f5e80e4d0da6b2eeda9ba21e021838fa6a495376")
  ("org-web-tools" . "65c118a3614e75a4fda47248f44f120a20c15738")
  ("orgit" . "609fd0ccfb5268704b5bc7d7ac1014d4960b9707")
  ("ov" . "d1ae4d2a488e8ed99ab395e567bc00d21dd6c478")
