@@ -64,6 +64,7 @@
  ("let-alist" . "4a7693b678c59a148660c736cc0bb26a5032ee9a")
  ("log4e" . "c69424e407be0d9d0e54b427d8b18b1ac5a607e2")
  ("lookup-word-on-internet" . "e3132ff21c3d0160e5bd5b7222c50dc9840727d4")
+ ("lua-mode" . "2d9a468b94acd8480299d47449b53136060b7b23")
  ("magit" . "f6307724251b1632efb7607d187dd8ccc602ae55")
  ("map" . "224054737dcafdb291862d5eda57c6ee7f585e95")
  ("melpa" . "9b79d06c02a7fa4d7d7255b07a3bf0d080b512d1")
