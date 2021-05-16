@@ -75,11 +75,9 @@ If called interactively, it prompt the user to select the date to find."
     (org-ql-search files query)))
 (bind-keys :map org-agenda-mode-map
            ("$" . org-agenda-record-subtree)
-           ("&" . org-agenda-reference-refer-parent)
            ("C" . org-record-find-date)
            :map org-ql-view-map
            ("$" . org-ql-view-record-subtree)
-           ("&" . org-agenda-reference-refer-parent)
            :map calendar-mode-map
            ("C" . org-record-find-date))
 (push '("Record entries" . org-record-search)

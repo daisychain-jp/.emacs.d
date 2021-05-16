@@ -411,67 +411,6 @@ If region is active, use the word in region for matching instead."
                       match)))
     (org-tags-view todo-only match-exp)))
 
-;; org-reference
-
-(defconst org-reference-property-name "REFERENCE"
-  "Property name for the entry which refer to the other.")
-(defcustom org-reference-parent-tag-list
-  '("project" "refile")
-  "A list of tag names which all parents in org-project feature must have.")
-
-(defun org-reference-find-referrers ()
-  "Show all referring entries.
-
-If entry at point refer to another, show all refering to that entry.
-If entry at point is referred from another, show all referring to one at point."
-  (interactive)
-  (when-let (ref-link (cond
-                       ((and (org-id-get)
-                             (format "[[id:%s]]" (org-id-get))))
-                       ((org-entry-get (point) org-reference-property-name))))
-    (org-ql-search
-      (file-expand-wildcards (concat env-org-dir "/**/*.org"))
-      `(property ,org-reference-property-name ,ref-link))))
-(defun org-reference-refer-parent ()
-  "Make parent-child relationship.
-Children's `org-reference-property-name' will be parent's ID.
-
-This function must be called in parent entry
-which has any one of `org-reference-parent-tag-list'."
-  (interactive)
-  (save-excursion
-    (org-back-to-heading)
-    (if (some (lambda (parent-tag)
-                (member parent-tag (org-get-tags)))
-              org-reference-parent-tag-list)
-        (let ((ref-id (org-id-get-create)))
-          (and (org-goto-first-child)
-               (cl-labels ((set-ref-id-to-siblings
-                            (ref-link)
-                            (org-set-property org-reference-property-name ref-link)
-                            (and (org-goto-sibling)
-                                 (set-ref-id-to-siblings ref-link))))
-                 (set-ref-id-to-siblings (format "[[id:%s]]" ref-id)))))
-      (message "This entry does not compliant with 'org-reference-parent-tag-list"))))
-(defun org-agenda-reference-refer-parent ()
-  "Tie up subtree by setting property."
-  (interactive)
-  (org-agenda-check-no-diary)
-  (let* ((hdmarker (or (org-get-at-bol 'org-hd-marker)
-                       (org-agenda-error)))
-         (buffer (marker-buffer hdmarker))
-         (pos (marker-position hdmarker))
-         (inhibit-read-only t)
-         newhead)
-    (org-with-remote-undo buffer
-      (with-current-buffer buffer
-        (widen)
-        (goto-char pos)
-        (org-show-context 'agenda)
-        (call-interactively 'org-reference-refer-parent)
-        (end-of-line 1)
-        (setq newhead (org-get-heading))))))
-
 (defun org-capture-phrase (phrase &optional selective)
   "Search or capture PHRASE.
 If there is an org entry whose heading is PHRASE, show it.

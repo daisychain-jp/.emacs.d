@@ -114,25 +114,6 @@
       (concat "echo " (shell-quote-argument (read-passwd "Password? "))
               " | sudo -S " cmd))))
 
-  ;; speed command
-  (setq org-use-speed-commands
-        (lambda () (and (looking-at org-outline-regexp) (looking-back "^\**"))))
-  (setq org-speed-commands-user
-        '(("$" org-record-subtree)
-          ("W" org-copy)
-          ("Q" org-clock-cancel)
-          ("!" org-readable)
-          ("k" nil)
-          ("c" org-property-copy-as-kill)
-          ("%" org-reference-find-referrers)
-          ("&" org-reference-refer-parent)
-          ("N" org-add-note)
-          ("T" counsel-org-tag)
-          ("P" call-interactively 'org-set-property)
-          ("s" call-interactively 'org-schedule)
-          ("z" org-toggle-narrow-to-subtree)
-          ("d" call-interactively 'org-deadline)))
-
   ;; basic
   (setq org-hide-leading-stars t)
   (setq org-comment-string "####")
@@ -315,6 +296,25 @@
   (org-list-allow-alphabetical t)
   :config
   (setf org-list-forbidden-blocks nil))
+
+(use-package org-keys
+  :after org
+  :custom
+  (org-use-speed-commands
+   (lambda () (and (looking-at org-outline-regexp) (looking-back "^\**"))))
+  (org-speed-commands-user
+   '(("$" org-record-subtree)
+     ("W" org-copy)
+     ("Q" org-clock-cancel)
+     ("!" org-readable)
+     ("k" nil)
+     ("c" org-property-copy-as-kill)
+     ("N" org-add-note)
+     ("T" counsel-org-tag)
+     ("P" call-interactively 'org-set-property)
+     ("s" call-interactively 'org-schedule)
+     ("z" org-toggle-narrow-to-subtree)
+     ("d" call-interactively 'org-deadline))))
 
 (use-package ob-core
   :after org
