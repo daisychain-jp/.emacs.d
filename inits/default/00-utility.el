@@ -162,6 +162,7 @@ play it in media player."
 If optional argument `FILENAME' is passed, try to use this as filename.
 If optional argument `PLAYLISTP' is passed, try to download all videos in playlist
 instead of single video."
+  (interactive (list (read-string "URL: ")))
   (when (string-match "https?://www.youtube.com.+" url)
     (lexical-let* ((url-orig (match-string 0 url))
                    (urlobj-orig (url-generic-parse-url url-orig))
@@ -216,6 +217,7 @@ instead of single video."
   "Download audio from `URL'.
 
 If optional argument `FILENAME' is given use this as a filename."
+  (interactive (list (read-string "URL: ")))
   (lexical-let* ((temp-fname (make-temp-name (if (directory-name-p download-audio-dir)
                                                  download-audio-dir
                                                (concat download-audio-dir "/"))))
