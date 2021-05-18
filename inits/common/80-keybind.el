@@ -109,6 +109,7 @@
     ("p" org-capture-phrase)
     ("s" org-store-link)
     ("C-s" org-save-all-org-buffers)
+    ("X" org-capture-derived)
     ("i" org-info-find-node)
     ("&" org-mark-ring-goto)
     ("O" org-clock-out)
