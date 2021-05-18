@@ -33,4 +33,4 @@
   (interactive)
   (let ((symbol (symbol-name helpful--sym)))
     (kill-new (symbol-name helpful--sym))
-    (message "KILL: %s" symbol)))
+    (message "COPY: %s" symbol)))
