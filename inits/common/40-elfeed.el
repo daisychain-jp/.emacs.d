@@ -80,10 +80,10 @@
                       (elfeed-search-tag-all (intern (format-time-string "%Y%m%d")))))
              ("R" . elfeed-search-untag-all-checked)
              ("d" . elfeed-search-untag-all-unread)
-             ("V" . elfeed-search-download-video)
-             ("A" . elfeed-search-download-audio)
-             ("D" . elfeed-search-show-media-duration)
-             ("E" . elfeed-search-make-episode-entry)
+             ("Dv" . elfeed-search-download-video)
+             ("Da" . elfeed-search-download-audio)
+             ("=" . elfeed-search-show-media-duration)
+             ("X" . elfeed-search-org-capture-derived)
              :map elfeed-show-mode-map
              ("C-i" . shr-next-link))
   (add-to-list 'elfeed-search-face-alist '(unchecked elfeed-search-unchecked-title-face))
@@ -173,15 +173,27 @@
                   (elfeed-entry-link entry))))
     (show-media-duration url)))
 
-(defun elfeed-search-make-episode-entry ()
-  "Store elfeed entry as a episode org entry."
-  (interactive)
+(defun elfeed-search-org-capture-derived (&optional arg)
+  "Create actionable org task derived from current elfeed entry.
+
+If called with C-u prefix, ask user to specify tags and target."
+  (interactive "P")
   (let ((entries (elfeed-search-selected)))
-    (cl-loop for entry in entries
-             do (progn
-                  (elfeed-show-entry entry)
-                  (org-capture nil "$")
-                  (elfeed-kill-buffer)))
+    (save-window-excursion
+      (cl-loop for entry in entries
+               do (progn
+                    (elfeed-show-entry entry)
+                    (let ((org-capture-derived-todo org-todo-keyword-3)
+                          (org-capture-derived-tags (format ":web:%s"
+                                                            (cond
+                                                             ((or (member 'video (elfeed-entry-tags entry))
+                                                                  (member 'audio (elfeed-entry-tags entry)))
+                                                              "ac_watch:")
+                                                             (t "ac_read:"))))
+                          (org-capture-derived-target "68d74115-1f70-448d-a76e-738e32b272d8")
+                          (org-capture-derived-deadline-in-day 7))
+                      (call-interactively #'org-capture-derived))
+                    (elfeed-kill-buffer))))
     (elfeed-search-untag-all-unchecked)
     (unless (use-region-p) (forward-line -1))
     (elfeed-search-tag-all-checked)

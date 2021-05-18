@@ -27,7 +27,7 @@ and show summary of the day which the cursor is pointing to in the calendar view
                                (or (tags "journal")
                                    (tags "ac_make")
                                    (and (tags "ac_read")
-                                        (not (tags "episode")))
+                                        (not (tags "web")))
                                    (tags "ac_cook")
                                    (tags "ac_purchase")
                                    (tags "ac_solve"))))

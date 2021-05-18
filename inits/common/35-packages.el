@@ -47,7 +47,6 @@
               ("C-l l" . lookup-weblio)
               ("C-'" . utl-say)
               ("C-=" . count-words-region)
-              ("C-m" . org-tags-view-in-records)
               ("C-g" . selected-off)))
 
 (use-package expand-region

@@ -6,10 +6,10 @@
          agenda ""
          ((org-agenda-skip-function
            (lambda ()
-             ;; skip entry which has 'episode' tag even if it has deadline
+             ;; skip entry which has 'web' tag even if it has deadline
              (and (save-excursion
                     (let ((tags (org-get-tags)))
-                      (member "episode" tags)))
+                      (member "web" tags)))
                   (progn (outline-next-heading) (point)))))))
         ("r" . "Search for all record files")
         ("rs" "Entries containing search words entry or headline."
@@ -87,7 +87,7 @@
                                     (and (clocked :on today)
                                          (or (todo) (done))
                                          (not (habit))
-                                         (not (tags "episode"))))
+                                         (not (tags "web"))))
                                ((org-ql-block-header "Today's task"))))
          ((org-agenda-overriding-header "Today's Task")
           (org-overriding-columns-format "%26ITEM(Task) %Effort(Effort){:} %CLOCKSUM_T(Today){:} %CLOCKSUM(Total)")
@@ -125,7 +125,7 @@
                                                 ,org-done-keyword-0
                                                 ,org-done-keyword-1
                                                 ,org-done-keyword-2))
-                                     (not (tags "episode"))
+                                     (not (tags "web"))
                                      (not (habit)))
                                ((org-ql-block-header "Scheduled/Deadlined on today")))
           (org-ql-search-block `(and (habit)
@@ -155,7 +155,7 @@
                                                 ,org-done-keyword-0
                                                 ,org-done-keyword-1
                                                 ,org-done-keyword-2))
-                                     (not (tags "episode"))
+                                     (not (tags "web"))
                                      (not (habit)))
                                ((org-ql-block-header "Scheduled/Deadlined this week")))
           (org-ql-search-block `(and (and (ts-active :from 0 :to 6)
@@ -245,7 +245,6 @@
                                ((org-ql-block-header "All Habits"))))
          ((org-agenda-sorting-strategy '(scheduled-up))))))
 
-(defvar auto-org-capture-file (make-temp-file "auto-org-capture" nil ".org"))
 (defvar org-capture-todo-file (concat env-org-dir "/priv_a/life.org"))
 
 (defun org-goto-clocking-or-today ()
@@ -270,146 +269,73 @@ go to today's entry in record file."
             `((,org-record-file :regexp . ,(format "%04d-%02d-%02d" year month day)))))
       (find-file org-record-file)
       (org-datetree-find-iso-week-create `(,month ,day ,year) nil))))
-(setq org-capture-templates
-      `(("t" "Task"
-         entry (id "adcd63ea-f81a-4909-b659-6e5794052fcc")
-         ,(format "* %s %%?\nADDED: %%U\n"
-                  org-todo-keyword-0))
-        ("p" "Project"
-         entry (id "adcd63ea-f81a-4909-b659-6e5794052fcc")
-         "* %? [/] :project:\nADDED: %U\n  - [ ] insert ID property if necessary"
-         :prepend t :jump-to-captured t)
-        ("m" "Memo"
-         entry (file+datetree ,org-record-file)
-         "* %? %^g\nADDED: %U\n" :tree-type week)
-        ("s" "Someday memo")
-        ("ss" "any"
-         entry (file+datetree ,org-record-file)
-         ,(format "* %s %%?\nADDED: %%U\n  %%a"
-                  org-todo-keyword-4)
-         :tree-type week)
-        ("sr" "purchase book"
-         entry (file+datetree ,org-record-file)
-         ,(format "* %s %%? :ac_purchase:book:\n  ADDED: %%U\n  %%a"
-                  org-todo-keyword-4)
-         :tree-type week)
-        ("sR" "read (register to whisper as kindle)"
-         entry (file+datetree ,org-record-file)
-         ,(format "* %s %%? :ac_purchase:book:ap_whisper:%%^{WP_URL1_FORMAT}p%%^{WP_URL1}p%%^{WP_ALERT}p\n  ADDED: %%U\n  - [ ] insert ID property\n  %%a"
-                  org-todo-keyword-4)
-         :tree-type week)
-        ("sc" "cook"
-         entry (file+datetree ,org-record-file)
-         ,(format "* %s %%? :ac_cook:\n  ADDED: %%U\n  %%a"
-                  org-todo-keyword-4)
-         :tree-type week)
-        ("sp" "purchase"
-         entry (file+datetree ,org-record-file)
-         ,(format "* %s %%? :ac_purchase:\n  ADDED: %%U\n  %%a"
-                  org-todo-keyword-4)
-         :tree-type week)
-        ("sm" "make"
-         entry (file+datetree ,org-record-file)
-         ,(format "* %s %%? :ac_make:\n  ADDED: %%U\n  %%a"
-                  org-todo-keyword-4)
-         :tree-type week)
-        ("D" "Drill")
-        ("Dd" "Drill entry in currently clocking or today's entry."
-         entry (function org-goto-clocking-or-today)
-         "* %i :drill:\n[%?]")
-        ("De" "English drill entry in currently clocking or today's entry."
-         entry (function org-goto-clocking-or-today)
-         "* %i :drill:fd_en:\n[%^C%?]\n- %a")
-        ("E" "Web site for deferred checking (episode)"
-         entry (id "68d74115-1f70-448d-a76e-738e32b272d8")
-         ,(format "* %s %%a :episode:ac_read:\nDEADLINE: %%(org-capture-templates-insert-week-ahead)"
-                  org-todo-keyword-3))
-        ("$" "deferred checking with immediate finish"
-         entry (id "68d74115-1f70-448d-a76e-738e32b272d8")
-         ,(format "* %s %%a :episode:ac_read:\nDEADLINE: %%(org-capture-templates-insert-week-ahead)"
-                  org-todo-keyword-3)
-         :immediate-finish t)
-        ("M" "Memo to the clocked"
-         item (clock)
-         "- %i%?")
-        ;; for auto refiling
-        ("r" "note from region"
-         entry (file+datetree ,org-record-file)
-         "* %i\n  %U\n" :immediate-finish t :tree-type week)
-        ("0" "note"
-         entry (file ,auto-org-capture-file)
-         "* %?\n  ADDED: %U")
-        ("i" "TODO for auto refiling"
-         entry (id "e6ee5322-dfb3-407b-846f-87a6ddd4705c")
-         "%i" :immediate-finish t :prepend t)
-        ("n" "memo for auto refiling"
-         entry (file+datetree ,org-record-file)
-         "%i" :immediate-finish t :prepend t :tree-type week)))
-(defun org-capture-templates-insert-week-ahead ()
-  "Insert timestamp of a week ahead."
-  (let* ((current (decode-time (current-time)))
-         (week-ahead (encode-time (nth 0 current)
-                                  (nth 1 current)
-                                  (nth 2 current)
-                                  (+ (nth 3 current) 7)
-                                  (nth 4 current)
-                                  (nth 5 current))))
-    (format-time-string "<%Y-%m-%d %a>" week-ahead)))
-;; for auto refiling capture
-(defun auto-org-capture (arg)
-  (interactive "p")
-  (cl-case arg
-    (16 (find-file org-record-file)
-        (goto-char (point-min)))
-    (4  (find-file org-capture-todo-file)
-        (goto-char (point-min)))
-    (t  (org-capture nil (if (region-active-p) "r" "0")))))
-(defun auto-org-capture-auto-refile ()
-  (when (equal (org-capture-get :key) "0")
-    (with-current-buffer (find-file-noselect auto-org-capture-file)
-      (unwind-protect
-          (org-capture-string
-           (buffer-string)
-           (if (string-match (concat org-ts-regexp (format "\\|\\* \\(%1$s\\|%2$s\\|%3$s\\|%4$s\\)"
-                                                           org-warning-keyword-0
-                                                           org-todo-keyword-0
-                                                           org-todo-keyword-1
-                                                           org-todo-keyword-2))
-                             (buffer-string))
-               "i" "n"))
-        (set-buffer-modified-p nil)
-        (kill-this-buffer)
-        (delete-file auto-org-capture-file)))))
-(add-hook 'org-capture-mode-hook
-          (lambda ()
-            (skk-mode 1)
-            (delete-other-windows)))
-(add-hook 'org-capture-prepare-finalize-hook
-          (lambda ()
-            (unless (string-suffix-p "\n" (buffer-string))
-              (goto-char (point-max))
-              (insert "\n"))))
-(add-hook 'org-capture-after-finalize-hook 'auto-org-capture-auto-refile)
+
+(use-package org-capture
+  :after org
+  :init
+  (setq org-capture-templates
+        `(("t" "Task"
+           entry (id "adcd63ea-f81a-4909-b659-6e5794052fcc")
+           ,(format "* %s %%?\nADDED: %%U\n"
+                    org-todo-keyword-0))
+          ("p" "Project"
+           entry (id "adcd63ea-f81a-4909-b659-6e5794052fcc")
+           "* %? [/] :project:\nADDED: %U\n  - [ ] insert ID property if necessary"
+           :prepend t :jump-to-captured t)
+          ("m" "Memo"
+           entry (file+datetree ,org-record-file)
+           "* %? %^g\nADDED: %U\n" :tree-type week)
+          ("s" "Someday memo")
+          ("ss" "any"
+           entry (file+datetree ,org-record-file)
+           ,(format "* %s %%?\nADDED: %%U\n  %%a"
+                    org-todo-keyword-4)
+           :tree-type week)
+          ("sr" "purchase book"
+           entry (file+datetree ,org-record-file)
+           ,(format "* %s %%? :ac_purchase:book:\n  ADDED: %%U\n  %%a"
+                    org-todo-keyword-4)
+           :tree-type week)
+          ("sR" "read (register to whisper as kindle)"
+           entry (file+datetree ,org-record-file)
+           ,(format "* %s %%? :ac_purchase:book:ap_whisper:%%^{WP_URL1_FORMAT}p%%^{WP_URL1}p%%^{WP_ALERT}p\n  ADDED: %%U\n  - [ ] insert ID property\n  %%a"
+                    org-todo-keyword-4)
+           :tree-type week)
+          ("sc" "cook"
+           entry (file+datetree ,org-record-file)
+           ,(format "* %s %%? :ac_cook:\n  ADDED: %%U\n  %%a"
+                    org-todo-keyword-4)
+           :tree-type week)
+          ("sp" "purchase"
+           entry (file+datetree ,org-record-file)
+           ,(format "* %s %%? :ac_purchase:\n  ADDED: %%U\n  %%a"
+                    org-todo-keyword-4)
+           :tree-type week)
+          ("sm" "make"
+           entry (file+datetree ,org-record-file)
+           ,(format "* %s %%? :ac_make:\n  ADDED: %%U\n  %%a"
+                    org-todo-keyword-4)
+           :tree-type week)
+          ("D" "Drill")
+          ("Dd" "Drill entry in currently clocking or today's entry."
+           entry (function org-goto-clocking-or-today)
+           "* %i :drill:\n[%?]")
+          ("De" "English drill entry in currently clocking or today's entry."
+           entry (function org-goto-clocking-or-today)
+           "* %i :drill:fd_en:\n[%^C%?]\n- %a")
+          ("M" "Append memo to clocking task"
+           item (clock)
+           "- %i%?")))
+  :hook
+  (org-capture-mode . (lambda ()
+                        (skk-mode 1)
+                        (delete-other-windows)))
+  :custom
+  (org-capture-bookmark nil))
 
 (setq org-refile-targets
       `((org-agenda-files :tag . "project")
         (,(file-expand-wildcards (concat env-org-dir "/**/*.org")) :tag . "refile")))
-
-
-(defun org-tags-view-in-records (&optional todo-only match)
-  "Invoke `org-tags-view' using predetermined agenda files plus record files.
-The prefix args TODO-ONLY and MATCH are passed to 'org-tags-view.
-
-If region is active, use the word in region for matching instead."
-  (interactive)
-  (let* ((record-cands (file-expand-wildcards (format "%s/archive/archive_*.org" env-org-dir)))
-         (record-files (last record-cands (safe-length record-cands)))
-         (org-agenda-files (append org-agenda-files-default
-                                   (sort record-files 'string<)))
-         (match-exp (if (region-active-p)
-                        (buffer-substring (region-beginning) (region-end))
-                      match)))
-    (org-tags-view todo-only match-exp)))
 
 (defun org-capture-phrase (phrase &optional selective)
   "Search or capture PHRASE.
@@ -455,8 +381,8 @@ Ancestors are looked up If current heading has no CATEGORY."
                            (and (not (habit))
                                 (not (tags "project"))
                                 (planning :to ,due-date))
-                           ;; outdated episodes
-                           (and (tags "episode")
+                           ;; outdated web actionable
+                           (and (tags "web")
                                 (deadline :to ,due-date))
                            ;; past events
                            (and (not (todo))

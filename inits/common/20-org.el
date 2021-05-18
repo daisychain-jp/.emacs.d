@@ -27,6 +27,7 @@
   (org-special-ctrl-a/e t)
   (org-adapt-indentation nil)
   (org-hide-emphasis-markers t)
+  (org-bookmark-names-plist nil)
   ;; inline image
   (org-startup-with-inline-images t)
   (org-display-remote-inline-images 'cache)
@@ -34,7 +35,6 @@
   (org-M-RET-may-split-line '((default . nil)))
   :config
   (require 'org-agenda)
-  (require 'org-capture)
   (require 'org-habit)
   (require 'org-mu4e)
 
@@ -147,7 +147,7 @@
   (defvar org-todo-keyword-0 "TD" "TODO keyword acronym standing for 'To Do'")
   (defvar org-todo-keyword-1 "GO" "TODO keyword acronym standing for 'Get On'")
   (defvar org-todo-keyword-2 "IP" "TODO keyword acronym standing for 'In Progressn'")
-  (defvar org-todo-keyword-3 "AB" "TODO keyword acronym standing for 'doABle'")
+  (defvar org-todo-keyword-3 "AC" "TODO keyword acronym standing for 'doABle'")
   (defvar org-todo-keyword-4 "SD" "TODO keyword acronym standing for 'SomeDay'")
   (defvar org-done-keyword-0 "DN" "TODO keyword acronym standing for 'DoNe'")
   (defvar org-done-keyword-1 "CX" "TODO keyword acronym standing for 'Cancel'")
@@ -203,7 +203,7 @@
                    ;; remove DN state if CATEGORY of the entry is "Cyclic"
                    (when (and (string= category "Cyclic")
                               (string= todo-state org-done-keyword-0)
-                              (not (member "episode" tags))
+                              (not (member "web" tags))
                               (not (string= style "habit")))
                      (org-todo ""))))))
   (add-hook 'org-after-todo-statistics-hook
@@ -267,10 +267,6 @@
   (setq org-agenda-dim-blocked-tasks nil)
   (setq org-agenda-use-tag-inheritance nil)
 
-  ;; org-capture
-  (setq org-capture-bookmark nil)
-  (setq org-bookmark-names-plist nil)
-
   ;; clock table
   ;;; work around for the bug in emacs 25
   (defalias 'calendar-absolute-from-iso 'calendar-iso-to-absolute)
@@ -313,6 +309,7 @@
      ("T" counsel-org-tag)
      ("P" call-interactively 'org-set-property)
      ("s" call-interactively 'org-schedule)
+     ("X" org-capture-derived)
      ("z" org-toggle-narrow-to-subtree)
      ("d" call-interactively 'org-deadline))))
 
