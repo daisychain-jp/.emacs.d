@@ -1,6 +1,0 @@
-# key: sc
-# name: episode
-# --
-* AC ${1:Heading} :web:ac_read:
-`(org-capture-derived-insert-deadline)`
-$0
