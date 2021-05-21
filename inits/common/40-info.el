@@ -15,3 +15,8 @@
                        (adaptive-wrap-prefix-mode 1)))
   :custom
   (Info-use-header-line nil))
+
+(use-package info-look
+  :defer t
+  :init
+  (autoload 'info-lookup-add-help "info-look"))

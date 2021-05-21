@@ -72,7 +72,11 @@
 
 (use-package company
   :straight t
+  :hook ((prog-mode) . company-mode)
   :bind (:map company-active-map
               ("C-j" . company-complete-selection)
+              ("C-i" . counsel-company)
+              ("C-h" . backward-delete-char-untabify)
+              ("C-M-h" . company-show-doc-buffer)
               ("C-n" . company-select-next)
               ("C-p" . company-select-previous)))

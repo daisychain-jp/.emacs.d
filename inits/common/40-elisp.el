@@ -6,7 +6,6 @@
   :hook (emacs-lisp-mode . (lambda ()
                              (setq-local tab-width 4)
                              (setq-local counsel-dash-docsets '("Emacs Lisp" "Common Lisp"))
-                             (eldoc-mode 1)
-                             (company-mode 1))))
+                             (eldoc-mode 1))))
 
 (use-package eldoc)

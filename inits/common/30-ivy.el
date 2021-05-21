@@ -96,9 +96,11 @@
     ("v" counsel-describe-variable)
     ("m" counsel-descbinds)
     ("i" info)
+    ("S" info-lookup-symbol)
     ("n" view-emacs-news)
     ("o" counsel-info-lookup-symbol)
     ("l" counsel-find-library)
+    ("d" counsel-dash)
     ("p" describe-package)
     ("q" nil "quit"))
   (defhydra hydra-git (global-map "C-c g"
