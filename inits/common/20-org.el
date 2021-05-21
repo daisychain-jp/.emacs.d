@@ -15,13 +15,6 @@
     "Default face in org mode."
     :group 'org-faces)
   (defvar org-contacts-file (expand-file-name "index/contacts.org.gpg" env-org-dir))
-  :hook
-  (org-load . (lambda ()
-                (mapc (lambda (dir)
-                        (dolist (f (file-expand-wildcards
-                                    (concat (expand-file-name dir env-org-dir) "/*.org")))
-                          (org-babel-lob-ingest f)))
-                      '("agenda" "index" "wiki"))))
   :custom
   (org-directory env-org-dir)
   (org-special-ctrl-a/e t)
@@ -337,7 +330,14 @@
    ((string= system-type "gnu/linux")
     (custom-set-variables '(org-plantuml-jar-path (format "%s/lib/plantuml/plantuml.jar" env-var-dir))))
    ((string= system-type "darwin")
-    (custom-set-variables '(org-plantuml-jar-path "/usr/local/Cellar/plantuml/8041/plantuml.8041.jar")))))
+    (custom-set-variables '(org-plantuml-jar-path "/usr/local/Cellar/plantuml/8041/plantuml.8041.jar"))))
+  (defun my-org-babel-lob-ingest-in-agenda-files ()
+    (interactive)
+    (mapc (lambda (dir)
+            (dolist (f (file-expand-wildcards
+                        (concat (expand-file-name dir env-org-dir) "/*.org")))
+              (org-babel-lob-ingest f)))
+          '("agenda" "index" "wiki")))  )
 
 (use-package ob-async
   :straight t
