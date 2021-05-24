@@ -82,7 +82,7 @@
              ("d" . elfeed-search-untag-all-unread)
              ("Dv" . elfeed-search-download-video)
              ("Da" . elfeed-search-download-audio)
-             ("=" . elfeed-search-show-media-duration)
+             ("D=" . elfeed-search-show-media-duration)
              ("X" . elfeed-search-org-capture-derived)
              :map elfeed-show-mode-map
              ("C-i" . shr-next-link))
