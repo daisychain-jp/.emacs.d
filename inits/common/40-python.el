@@ -3,7 +3,7 @@
   :interpreter "python"
   :delight " PY"
   :hook
-  (python-mode . my-python-mode-hook)
+  ((python-mode inferior-python-mode) . my-python-mode-hook)
   (lsp-mode . (lambda ()
                 (add-to-list 'lsp-disabled-clients 'jedi)
                 (add-to-list 'lsp-enabled-clients 'pyls)))
@@ -36,6 +36,8 @@
   :straight t
   :after python
   :hook (python-mode . my/python-mode-hook)
+  :custom
+  (jedi:tooltip-method nil)
   :config
   (defun my/python-mode-hook ()
     (add-to-list 'company-backends 'company-jedi)))
