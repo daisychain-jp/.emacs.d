@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: agenda-entry
-# key: ag
+# name: entry-with-timestamp
+# key: ts
 # --
 $2* ${1:Heading}
 ADDED: `(format-time-string "[%Y-%m-%d %a %H:%M]")`
