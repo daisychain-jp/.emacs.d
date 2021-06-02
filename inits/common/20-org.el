@@ -1,5 +1,5 @@
 (use-package org
-  :straight t
+  :ensure t
   :defer t
   :diminish ((org-src-mode . "os"))
   :mode (("\\.org$" . org-mode))
@@ -513,6 +513,7 @@
 
 (use-package org-contacts
   :after org
+  :straight org-contrib
   :custom
   (org-contacts-files `(,org-contacts-file)))
 
