@@ -58,6 +58,7 @@
     ("ct" projectile-test-project)
     ("cC" projectile-configure-project)
     ("&" projectile-run-shell-command-in-root)
+    ("v" magit-status)
     ("g" dumb-jump-go)
     ("e" dumb-jump-go-prefer-external)
     ("i" dumb-jump-go-prompt)
