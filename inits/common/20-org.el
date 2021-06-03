@@ -291,20 +291,62 @@
   :custom
   (org-use-speed-commands
    (lambda () (and (looking-at org-outline-regexp) (looking-back "^\**"))))
-  (org-speed-commands-user
-   '(("$" org-record-subtree)
-     ("W" org-copy)
-     ("Q" org-clock-cancel)
-     ("!" org-readable)
-     ("k" nil)
-     ("c" org-property-copy-as-kill)
-     ("N" org-add-note)
-     ("T" counsel-org-tag)
-     ("P" call-interactively 'org-set-property)
-     ("s" call-interactively 'org-schedule)
-     ("X" org-capture-derived)
-     ("z" org-toggle-narrow-to-subtree)
-     ("d" call-interactively 'org-deadline))))
+  (org-speed-commands
+   '(("Outline Navigation")
+     ("n" . (org-speed-move-safe 'org-next-visible-heading))
+     ("p" . (org-speed-move-safe 'org-previous-visible-heading))
+     ("f" . (org-speed-move-safe 'org-forward-heading-same-level))
+     ("b" . (org-speed-move-safe 'org-backward-heading-same-level))
+     ("F" . org-next-block)
+     ("B" . org-previous-block)
+     ("u" . (org-speed-move-safe 'outline-up-heading))
+     ("j" . org-goto)
+     ("g" . (org-refile t))
+     ("Outline Visibility")
+     ("c" . org-cycle)
+     ("C" . org-shifttab)
+     (" " . org-display-outline-path)
+     ("N" . org-toggle-narrow-to-subtree)
+     ("=" . org-columns)
+     ("/" . org-sparse-tree)
+     ("Outline Structure Editing")
+     ("U" . org-metaup)
+     ("D" . org-metadown)
+     ("r" . org-metaright)
+     ("l" . org-metaleft)
+     ("R" . org-shiftmetaright)
+     ("L" . org-shiftmetaleft)
+     ("i" . (progn (forward-char 1) (call-interactively 'org-insert-heading-respect-content)))
+     ("^" . org-sort)
+     ("w" . org-refile)
+     ("a" . org-archive-subtree-default-with-confirmation)
+     ("@" . org-mark-subtree)
+     ("#" . org-toggle-comment)
+     ("Clock Commands")
+     ("I" . org-clock-in)
+     ("O" . org-clock-out)
+     ("Q" . org-clock-cancel)
+     ("Meta Data Editing")
+     ("t" . org-todo)
+     ("," . (org-priority))
+     ("0" . (org-priority ?\ ))
+     (":" . org-set-tags-command)
+     ("P" . org-set-property)
+     ("e" . org-set-effort)
+     ("E" . org-inc-effort)
+     ("s" . org-schedule)
+     ("d" . org-deadline)
+     ("v" . org-property-copy-as-kill)
+     ("W" . (lambda (m) (interactive "sMinutes before warning: ") (org-entry-put (point) "APPT_WARNTIME" m)))
+     ("Org Capture")
+     ("X" . org-capture-derived)
+     ("Misc")
+     ("$" . org-record-subtree)
+     ("!" . org-readable)
+     ("o" . org-open-at-point)
+     ("?" . org-speed-command-help)
+     ("<" . (org-agenda-set-restriction-lock 'subtree))
+     (">" . (org-agenda-remove-restriction-lock)))))
 
 (use-package ob-core
   :after org
@@ -566,24 +608,6 @@
       (eww-open-file org-readable-file))
     (kill-buffer export-buf-name)))
 
-(defun org-mail-entry ()
-  "Send a mail whose contents converted from current org entry.
-
-Format of mail contents is plain text."
-  (interactive)
-  (let ((heading (org-get-heading t t t t))
-        (org-export-show-temporary-export-buffer nil)
-        (export-buf-name "*Org ASCII Export*")
-        (org-export-with-toc nil)
-        (org-export-with-author nil))
-    (org-ascii-export-as-ascii nil t t t)
-    (mail-simple-send (or (org-entry-get (point) "MAIL_TO" t)
-                          (read-string "MAIL_TO: "))
-                      heading
-                      (with-current-buffer export-buf-name
-                        (buffer-string)))
-    (kill-buffer export-buf-name)))
-
 (defun org-property-copy-as-kill ()
   "Prompt user to select property to append to the kill ring.
 
@@ -773,17 +797,40 @@ WHICH-TS should be `earliest' or `latest'."
 
 (use-package org-mime
   :straight t
-  :after (org)
+  :after org
   :config
-  (map-put org-speed-commands-user "M"
-           (lambda (&optional arg)
-             (interactive "P")
-             (cond
-              ((equal arg '(4))
-               (call-interactively #'org-mail-entry))
-              (t
-               (let ((org-mime-use-property-inheritance t))
-                 (call-interactively #'org-mime-org-subtree-htmlize)))))))
+  (setf (map-elt org-speed-commands "M") #'org-send-email)
+  (push '("Send An Email") org-speed-commands))
+
+(defun org-send-email (&optional arg)
+  "Send a html email extracted from current org entry.
+
+Given a `\\[universal-argument]' prefix `ARG', send an ascii email instead."
+  (interactive "P")
+  (cond
+   ((equal arg '(4))
+    (call-interactively #'org-send-email-ascii))
+   (t
+    (let ((org-mime-use-property-inheritance t))
+      (call-interactively #'org-mime-org-subtree-htmlize)))))
+
+(defun org-send-email-ascii ()
+  "Send a mail whose contents converted from current org entry.
+
+Format of mail contents is plain text."
+  (interactive)
+  (let ((heading (org-get-heading t t t t))
+        (org-export-show-temporary-export-buffer nil)
+        (export-buf-name "*Org ASCII Export*")
+        (org-export-with-toc nil)
+        (org-export-with-author nil))
+    (org-ascii-export-as-ascii nil t t t)
+    (mail-simple-send (or (org-entry-get (point) "MAIL_TO" t)
+                          (read-string "MAIL_TO: "))
+                      heading
+                      (with-current-buffer export-buf-name
+                        (buffer-string)))
+    (kill-buffer export-buf-name)))
 
 (use-package org-web-tools
   :straight t

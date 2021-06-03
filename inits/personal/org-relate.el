@@ -11,10 +11,9 @@
   "A list of target files to search relation nodes.")
 
 (with-eval-after-load 'org-keys
-  (mapc (lambda (speed-command)
-          (push speed-command org-speed-commands-user))
-        '(("%" org-relate-look)
-          ("&" org-relate-interrelate))))
+  (setf (map-elt org-speed-commands "%") #'org-relate-look)
+  (setf (map-elt org-speed-commands "&") #'org-relate-interrelate)
+  (push '("Org-Relate Operation") org-speed-commands))
 
 (with-eval-after-load 'org-agenda
   (bind-keys :map org-agenda-mode-map
