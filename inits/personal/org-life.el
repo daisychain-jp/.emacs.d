@@ -21,10 +21,10 @@
          ((org-agenda-files org-record-files)
           (org-agenda-sorting-strategy '(time-down))))
         ("o" . "someday list")
-        ("om" "someday to make"
+        ("om" "someday to craft"
          ((org-ql-search-block `(and (todo ,org-todo-keyword-4)
-                                     (tags "ac_make"))
-                               ((org-ql-block-header "Someday to make"))))
+                                     (tags-expanded "ac_craft"))
+                               ((org-ql-block-header "Someday to craft"))))
          ((org-agenda-files org-record-files)
           (org-agenda-sorting-strategy '(priority-down))))
         ("op" "someday to purchase"
@@ -41,8 +41,8 @@
           (org-agenda-sorting-strategy '(priority-down))))
         ("O" "all someday entries"
          ((org-ql-search-block `(and (todo ,org-todo-keyword-4)
-                                     (tags "ac_make"))
-                               ((org-ql-block-header "Someday to make")))
+                                     (tags-expanded "ac_craft"))
+                               ((org-ql-block-header "Someday to craft")))
           (org-ql-search-block `(and (todo ,org-todo-keyword-4)
                                      (tags "ac_purchase"))
                                ((org-ql-block-header "Someday to purchase")))
@@ -50,7 +50,7 @@
                                      (tags "ac_cook"))
                                ((org-ql-block-header "Someday to cook")))
           (org-ql-search-block `(and (todo ,org-todo-keyword-4)
-                                     (not (tags "ac_purchase" "ac_cook" "ac_make")))
+                                     (not (tags-expanded "ac_purchase" "ac_cook" "ac_craft")))
                                ((org-ql-block-header "Someday things"))))
          ((org-agenda-files org-record-files)))
         ("l" "Log entries in a week"
@@ -296,11 +296,6 @@ go to today's entry in record file."
            ,(format "* %s %%? :ac_purchase:book:\n  ADDED: %%U\n  %%a"
                     org-todo-keyword-4)
            :tree-type week)
-          ("sR" "read (register to whisper as kindle)"
-           entry (file+datetree ,org-record-file)
-           ,(format "* %s %%? :ac_purchase:book:ap_whisper:%%^{WP_URL1_FORMAT}p%%^{WP_URL1}p%%^{WP_ALERT}p\n  ADDED: %%U\n  - [ ] insert ID property\n  %%a"
-                    org-todo-keyword-4)
-           :tree-type week)
           ("sc" "cook"
            entry (file+datetree ,org-record-file)
            ,(format "* %s %%? :ac_cook:\n  ADDED: %%U\n  %%a"
@@ -309,11 +304,6 @@ go to today's entry in record file."
           ("sp" "purchase"
            entry (file+datetree ,org-record-file)
            ,(format "* %s %%? :ac_purchase:\n  ADDED: %%U\n  %%a"
-                    org-todo-keyword-4)
-           :tree-type week)
-          ("sm" "make"
-           entry (file+datetree ,org-record-file)
-           ,(format "* %s %%? :ac_make:\n  ADDED: %%U\n  %%a"
                     org-todo-keyword-4)
            :tree-type week)
           ("D" "Drill")
@@ -364,28 +354,3 @@ With `C-uC-u' prefix, search PHRASE forcibly."
         :query (and (tags "drill")
                     (tags "fd_en")))
       org-ql-views)
-
-(org-ql-defpred category-inherited (category)
-  "Return non-nil if current heading has CATEGORY.
-Ancestors are looked up If current heading has no CATEGORY."
-  :body (string= (org-entry-get (point) "CATEGORY" t)
-                 category))
-
-(defun org-weekly-review-archive-candidates (due-date)
-  "List candidate entries for archiving in weekly review ends with DUE-DATE."
-  (interactive (list (org-read-date nil nil nil "Due date: ")))
-  (let ((files (org-agenda-files)))
-    (org-ql-search files `(or
-                           ;; DONE tasks
-                           (todo ,org-todo-keyword-4)
-                           (and (not (habit))
-                                (not (tags "project"))
-                                (planning :to ,due-date))
-                           ;; outdated web actionable
-                           (and (tags "web")
-                                (deadline :to ,due-date))
-                           ;; past events
-                           (and (not (todo))
-                                (ts-active :to ,due-date)
-                                (category-inherited "Event")))
-      :sort '(date))))

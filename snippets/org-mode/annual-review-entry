@@ -10,7 +10,7 @@
       (org-tags-view nil (format "%s/DN|CXL|PD" tag)))
   #+END_SRC
   - 製作リスト
-    #+CALL: tasks_in_year(tag="ac_make")
+    #+CALL: tasks_in_year(tag="ac_craft")
     #+begin_example -i
     #+end_example
   - 読書リスト

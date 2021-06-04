@@ -849,13 +849,6 @@ Format of mail contents is plain text."
   :straight t
   :after (org))
 
-(use-package org-ql
-  :straight t
-  :custom
-  (org-ql-search-directories-files-recursive t)
-  :config
-  (require 'org-ql-search))
-
 (defun my/org-open-file (path &optional in-emacs line search)
   "docstring"
   (case (prefix-numeric-value current-prefix-arg)
