@@ -23,7 +23,7 @@
         ("o" . "someday list")
         ("om" "someday to craft"
          ((org-ql-search-block `(and (todo ,org-todo-keyword-4)
-                                     (tags-expanded "ac_craft"))
+                                     (tags-expanded "AC_CRAFT"))
                                ((org-ql-block-header "Someday to craft"))))
          ((org-agenda-files org-record-files)
           (org-agenda-sorting-strategy '(priority-down))))
@@ -41,7 +41,7 @@
           (org-agenda-sorting-strategy '(priority-down))))
         ("O" "all someday entries"
          ((org-ql-search-block `(and (todo ,org-todo-keyword-4)
-                                     (tags-expanded "ac_craft"))
+                                     (tags-expanded "AC_CRAFT"))
                                ((org-ql-block-header "Someday to craft")))
           (org-ql-search-block `(and (todo ,org-todo-keyword-4)
                                      (tags "ac_purchase"))
@@ -50,7 +50,7 @@
                                      (tags "ac_cook"))
                                ((org-ql-block-header "Someday to cook")))
           (org-ql-search-block `(and (todo ,org-todo-keyword-4)
-                                     (not (tags-expanded "ac_purchase" "ac_cook" "ac_craft")))
+                                     (not (tags-expanded "ac_purchase" "ac_cook" "AC_CRAFT")))
                                ((org-ql-block-header "Someday things"))))
          ((org-agenda-files org-record-files)))
         ("l" "Log entries in a week"

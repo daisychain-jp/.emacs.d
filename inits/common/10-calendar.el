@@ -25,7 +25,7 @@ and show summary of the day which the cursor is pointing to in the calendar view
          (files (org-record-file year)))
     (org-ql-search files `(and (parent (heading ,date))
                                (or (tags "journal")
-                                   (tags-expanded "ac_craft")
+                                   (tags-expanded "AC_CRAFT")
                                    (and (tags "ac_read")
                                         (not (tags "web")))
                                    (tags "ac_cook")
