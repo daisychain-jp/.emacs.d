@@ -41,8 +41,9 @@ With prefix ARG, don't widen, just narrow even if buffer is already narrowed."
         ((and (boundp 'org-src-mode) org-src-mode (not arg))
          (org-edit-src-exit))
         ((derived-mode-p 'org-mode)
-         (cond ((org-in-src-block-p)
-                (org-edit-src-code))
+         (cond ((condition-case err
+                    (org-edit-src-code)
+                  (user-error nil)))
                ((org-at-block-p)
                 (org-narrow-to-block))
                ((org-at-heading-p)
