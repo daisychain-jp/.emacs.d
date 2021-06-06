@@ -21,7 +21,7 @@
                           (adaptive-wrap-prefix-mode 1)
                           (buffer-face-set 'help-buffer)))
   :bind (:map helpful-mode-map
-              ("u" . helpful-push-symbol-onto-kill-ring))
+              ("w" . helpful-push-symbol-onto-kill-ring))
   :custom
   (counsel-describe-function-function #'helpful-callable)
   (counsel-describe-variable-function #'helpful-variable)
