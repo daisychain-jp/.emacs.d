@@ -145,7 +145,7 @@
     ("?" woman)
     ("q" quickrun)
     ("C-g" nil "cancel"))
-  (defhydra hydra-straight (global-map "C-c -"
+  (defhydra hydra-straight (global-map "C-x -"
                                        :color blue)
     "Straight"
     ("c" straight-check-package)
