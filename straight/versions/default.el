@@ -41,7 +41,7 @@
  ("epl" . "78ab7a85c08222cd15582a298a364774e3282ce6")
  ("esxml" . "5548ceba17deae0c3c6d0092672edc4de3c75ce3")
  ("exec-path-from-shell" . "d8aa7765a138a0cee1a18ac380019fb3b33d07e6")
- ("expand-region.el" . "ed3292473035dc8f3d2f321e82974ef87327808f")
+ ("expand-region.el" . "4b8322774d9c1d8b64a0049d1dbbc1e7ce80c1a0")
  ("f.el" . "de6d4d40ddc844eee643e92d47b9d6a63fbebb48")
  ("flycheck" . "1555b185ab2b5f1ec99536a641fff545fd8aa6bf")
  ("free-keys" . "edfd69dc369b2647447b7c28c7c1163b1ddf45b4")
