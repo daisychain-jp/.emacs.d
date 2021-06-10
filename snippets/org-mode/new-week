@@ -6,8 +6,8 @@
 - Mission [/]
   - $0
 - Review
-  #+BEGIN_SRC text
-  #+END_SRC
+  #+begin_example
+  #+end_example
 - Tags
   #+BEGIN: clocktable-by-atag :maxlevel 3 :block `(format-time-string "%Y")`-W$1 :wstart 1
   #+END:
