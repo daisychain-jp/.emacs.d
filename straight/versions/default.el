@@ -11,7 +11,7 @@
  ("counsel-dash" . "370d5f6f14b5294d0eb717f7b2a6a8e93df1ed24")
  ("counsel-projectile" . "06b03c1080d3ccc3fa9b9c41b1ccbcf13f058e4b")
  ("dash-docs" . "111fd9b97001f1ad887b45e5308a14ddd68ce70a")
- ("dash.el" . "ea7adeb09c13de58336caa16243e192ea6ee88fb")
+ ("dash.el" . "88d799595e8f1b4154637ce8a3f81b97b0520c1a")
  ("ddskk" . "81410b925afd4cfd1ca5ab6c1257e221e1cc664f")
  ("delight" . "eaff920b9d3ef79d381548476d33e519693e3502")
  ("diminish.el" . "565a983a39d2e2cffab5df13b34f3b6116723208")
