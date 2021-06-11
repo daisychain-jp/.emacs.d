@@ -19,7 +19,7 @@
           (counsel-rg . ivy--regex-plus)
           (counsel-describe-function . ivy--regex-ignore-order)
           (counsel-describe-variable . ivy--regex-ignore-order)
-          (counsel-M-x . ivy--regex-plus)
+          (counsel-M-x . ivy--regex-ignore-order)
           (counsel-org-capture . ivy--regex-ignore-order)
           (org-refile . ivy--regex-ignore-order)
           (woman . ivy--regex-plus)
