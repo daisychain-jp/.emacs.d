@@ -7,16 +7,8 @@
   :custom
   (yas-triggers-in-field t)
   :config
-  (yas-reload-all) ; work around
-  (with-eval-after-load 'hydra
-    (defhydra hydra-yasnippet (yas-minor-mode-map "C-c y"
-                                                  :exit t)
-      "Yasnippet"
-      ("n" yas-new-snippet)
-      ("y" yas-insert-snippet)
-      ("v" yas-visit-snippet-file)
-      ("C-g" nil "quit")
-      ("q" nil "quit"))))
+  ;; work around
+  (yas-reload-all))
 
 (use-package yasnippet-snippets
   :straight t
