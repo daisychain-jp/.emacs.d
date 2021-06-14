@@ -34,7 +34,7 @@
  ("emacs-libvterm" . "01a1332ebb11daca5408f7fcb8a08454b0176e79")
  ("emacs-python-environment" . "401006584e32864a10c69d29f14414828909362e")
  ("emacs-request" . "db88fd21d25399ff9940c208173665b12493992b")
- ("emacs-which-key" . "c938bbf8d4b506d8a16bedf0059703236ce05a50")
+ ("emacs-which-key" . "fc29864395fdaf688e2ef5111831663bad89a020")
  ("emacsmirror-mirror" . "1c24bceb43e0e475656be908133a8eb6df3bf973")
  ("emacsql" . "6d8cd9366284b5a27268ff4b783e2c34573d5b60")
  ("emacsql-sqlite3" . "50aa9bdd76b0d18bf80526cff13a69fe306ee29c")
