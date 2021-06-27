@@ -376,7 +376,7 @@
    ((string= system-type "darwin")
     (custom-set-variables '(org-plantuml-jar-path "/usr/local/Cellar/plantuml/8041/plantuml.8041.jar")))))
 
-(defun my-org-babel-lob-ingest ()
+(defun my/org-babel-lob-ingest-all ()
   (interactive)
   (mapc (lambda (dir)
           (dolist (f (file-expand-wildcards
