@@ -92,7 +92,7 @@
  ("ov" . "d1ae4d2a488e8ed99ab395e567bc00d21dd6c478")
  ("pangu-spacing" . "a4463dbb74abdeddb6c1c132a1f8fcf67ed87498")
  ("pass" . "5651da53137db9adcb125b4897c2fe27eeb4368d")
- ("password-store" . "1078f2514d579178d5df7042c6a790e9c9b731ad")
+ ("password-store" . "3dd14690c7c81ac80e32e942cf5976732faf0fb3")
  ("password-store-otp.el" . "04998c8578a060ab4a4e8f46f2ee0aafad4ab4d5")
  ("pdf-tools" . "66dd313dbb1d078fa847805b0d7cf9797bec9e4c")
  ("peg" . "014927e2130edcc453ca078a4fa06b48be63d834")
