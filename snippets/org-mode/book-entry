@@ -5,5 +5,5 @@
 :PROPERTIES:
 :BOOK_AUTHOR: ${2:author}
 :END:
-ADDED: `(format-time-string "<%Y-%m-%d %a>")`
+ `(format-time-string "<%Y-%m-%d %a>")`
 $0

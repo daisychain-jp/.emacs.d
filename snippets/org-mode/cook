@@ -3,6 +3,6 @@
 # key: cook
 # --
 * IP ${1:Menu} :ac_cook:
-ADDED: `(format-time-string "[%Y-%m-%d %a %H:%M]")`
+ `(format-time-string "[%Y-%m-%d %a %H:%M]")`
 - ${2:Recipe-Entry}
 $0

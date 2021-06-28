@@ -276,34 +276,34 @@ go to today's entry in record file."
   (setq org-capture-templates
         `(("t" "Task"
            entry (id "adcd63ea-f81a-4909-b659-6e5794052fcc")
-           ,(format "* %s %%?\nADDED: %%U\n"
+           ,(format "* %s %%?\n %%U\n"
                     org-todo-keyword-0))
           ("p" "Project"
            entry (id "adcd63ea-f81a-4909-b659-6e5794052fcc")
-           "* %? [/] :project:\nADDED: %U\n  - [ ] insert ID property if necessary"
+           "* %? [/] :project:\n %U\n  - [ ] insert ID property if necessary"
            :prepend t :jump-to-captured t)
           ("m" "Memo"
            entry (file+datetree ,org-record-file)
-           "* %? %^g\nADDED: %U\n" :tree-type week)
+           "* %? %^g\n %U\n" :tree-type week)
           ("s" "Someday memo")
           ("ss" "any"
            entry (file+datetree ,org-record-file)
-           ,(format "* %s %%?\nADDED: %%U\n  %%a"
+           ,(format "* %s %%?\n %%U\n  %%a"
                     org-todo-keyword-4)
            :tree-type week)
           ("sr" "purchase book"
            entry (file+datetree ,org-record-file)
-           ,(format "* %s %%? :ac_purchase:book:\n  ADDED: %%U\n  %%a"
+           ,(format "* %s %%? :ac_purchase:book:\n   %%U\n  %%a"
                     org-todo-keyword-4)
            :tree-type week)
           ("sc" "cook"
            entry (file+datetree ,org-record-file)
-           ,(format "* %s %%? :ac_cook:\n  ADDED: %%U\n  %%a"
+           ,(format "* %s %%? :ac_cook:\n   %%U\n  %%a"
                     org-todo-keyword-4)
            :tree-type week)
           ("sp" "purchase"
            entry (file+datetree ,org-record-file)
-           ,(format "* %s %%? :ac_purchase:\n  ADDED: %%U\n  %%a"
+           ,(format "* %s %%? :ac_purchase:\n   %%U\n  %%a"
                     org-todo-keyword-4)
            :tree-type week)
           ("D" "Drill")

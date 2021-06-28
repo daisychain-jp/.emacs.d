@@ -3,5 +3,5 @@
 # key: ts
 # --
 $2* ${1:Heading}
-ADDED: `(format-time-string "[%Y-%m-%d %a %H:%M]")`
+`(format-time-string "[%Y-%m-%d %a %H:%M]")`
 $0

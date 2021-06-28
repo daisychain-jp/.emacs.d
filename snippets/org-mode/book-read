@@ -3,6 +3,6 @@
 # key: book-read
 # --
 * DA ${1:Heading} :book:ac_read:
-ADDED: `(format-time-string "[%Y-%m-%d %a %H:%M]")`
+ `(format-time-string "[%Y-%m-%d %a %H:%M]")`
 - ${2:Book-Entry}
 $0
