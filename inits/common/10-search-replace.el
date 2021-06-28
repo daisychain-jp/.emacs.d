@@ -69,8 +69,14 @@
 (use-package wgrep-ag
   :straight t)
 
-(use-package ripgrep
-  :straight t)
+(use-package rg
+  :straight t
+  :defer t
+  :bind ("C-c s" . rg-menu)
+  :custom
+  (rg-use-transient-menu t)
+  :config
+  (rg-enable-default-bindings))
 
 ;; regexp and query-replace
 
