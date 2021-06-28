@@ -29,7 +29,6 @@
  ("elisp-refs" . "b3634a4567c655a1cda51b217629849cba0ac6a7")
  ("emacs-async" . "d17c11e6082aa51f421bb037b828bdb15f405618")
  ("emacs-ctable" . "b8830d1ca95abb100a81bc32011bd17d5ecba000")
- ("emacs-deferred" . "2239671d94b38d92e9b28d4e12fd79814cfb9c16")
  ("emacs-epc" . "e1bfa5ca163273859336e3cc89b4b6460f7f8cda")
  ("emacs-jedi" . "d9b53d2ca103c46686f6fb4aa92d8af403107982")
  ("emacs-libvterm" . "01a1332ebb11daca5408f7fcb8a08454b0176e79")

@@ -4,5 +4,3 @@
   :straight t)
 (use-package ht
   :straight t)
-(use-package deferred
-  :straight t)
