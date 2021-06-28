@@ -48,7 +48,7 @@
     ("t" projectile-run-vterm)
     ("&" projectile-run-shell)
     ("&" projectile-run-async-shell-command-in-root)
-    ("S" projectile-save-project-buffers)
+    ("C-s" projectile-save-project-buffers)
     ("f" projectile-find-file)
     ("b" projectile-switch-to-buffer)
     ("r" projectile-recentf)
