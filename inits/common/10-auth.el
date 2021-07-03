@@ -82,11 +82,6 @@ or selected by user."
   (with-password-store-entry-field nil "username"
     (message "%s: %s" field field-value)))
 
-(defun my/password-store-copy ()
-  (interactive)
-  (with-password-store-entry nil
-    (password-store-copy entry)))
-
 (defun my/password-store-create ()
   (interactive)
   (let* ((input (read-string "Entry-name or URL: "))
@@ -116,10 +111,14 @@ or selected by user."
 
 (defun my/password-store-web-login ()
   (interactive)
-  (my/password-store-copy)
-  (my/password-store-show-username)
-  (sleep-for 3)
-  (funcall-interactively #'my/password-store-url '(16)))
+  (with-password-store-entry-field nil "username"
+    (password-store-copy entry)
+    (if field-value
+        (message "%s: %s" field field-value)
+      (when-let ((second (nth 1 (password-store-parse-entry entry))))
+        (message "%s: %s" (car second) (cdr second))))
+    (sleep-for 3)
+    (funcall-interactively #'my/password-store-url '(16))))
 
 (with-eval-after-load 'hydra
   (defhydra hydra-password-store (global-map "C-o *"
@@ -132,6 +131,7 @@ or selected by user."
     ("w" my/password-store-url)
     ("l" my/password-store-web-login)
     ("n" my/password-store-create)
+    ("e" my/password-store-edit)
     ("v" my/password-store-edit)
     ("k" my/password-store-remove)
     ("q" nil "quit")))
