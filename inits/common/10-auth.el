@@ -113,6 +113,7 @@ or selected by user."
   (interactive)
   (with-password-store-entry-field nil "username"
     (password-store-copy entry)
+    (sleep-for 0.2) ; work around for overlapping message
     (if field-value
         (message "%s: %s" field field-value)
       (when-let ((second (nth 1 (password-store-parse-entry entry))))
