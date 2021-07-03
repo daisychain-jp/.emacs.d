@@ -25,9 +25,9 @@
 (defmacro with-password-store-entry (entry &rest body)
   "Eval BODY which can refer password-store ENTRY.."
   (declare (indent defun))
-  `(let* ((entry (or ,entry
-                     (when (derived-mode-p 'org-mode) (org-entry-get (point) my/org-password-store-property))
-                     (password-store--completing-read t))))
+  `(let ((entry (or ,entry
+                    (when (derived-mode-p 'org-mode) (org-entry-get (point) my/org-password-store-property))
+                    (password-store--completing-read t))))
      ,@body))
 
 (defmacro with-password-store-entry-field (entry field &rest body)
@@ -89,10 +89,15 @@ or selected by user."
 
 (defun my/password-store-create ()
   (interactive)
-  (with-password-store-entry nil
-    (when (derived-mode-p 'org-mode)
-      (org-entry-put (point) my/org-password-store-property entry))
-    (password-store-edit entry)))
+  (let* ((input (read-string "Entry-name or URL: "))
+         (domain (when (string-match-p browse-url-button-regexp input)
+                   (string-trim-right
+                    (shell-command-to-string (format "echo %s | awk -F[/:] '{print $4}'"
+                                                     (shell-quote-argument input)))))))
+    (with-password-store-entry (or domain input)
+      (when (derived-mode-p 'org-mode)
+        (org-entry-put (point) my/org-password-store-property entry))
+      (password-store-edit entry))))
 
 (defun my/password-store-edit ()
   (interactive)
