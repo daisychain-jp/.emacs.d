@@ -6,11 +6,6 @@
               ("Y" . dired-do-relsymlink)
               ("o" . dired-omit-mode)
               ("r" . wdired-change-to-wdired-mode)
-              ("x" . (lambda (arg) (interactive "P")
-                       (let ((delete-by-moving-to-trash
-                              (if (equal arg '(4))
-                                  nil t)))
-                         (dired-do-flagged-delete))))
               ("C-o" . nil)
               ("o" . dired-open)
               ("C-c C-o" . dired-open))
@@ -27,7 +22,16 @@
             (lambda ()
               (dired-hide-details-mode 1)
               (setq-local truncate-lines t)
-              (whitespace-mode 1))))
+              (whitespace-mode 1)))
+  (advice-add #'dired-do-delete :around #'my/dired-advice-control-deletion)
+  (advice-add #'dired-do-flagged-delete :around #'my/dired-advice-control-deletion))
+
+(defun my/dired-advice-control-deletion (oldfun &rest r)
+  "Control whether files to delete is goint to move to trash or not by current prefix arg."
+  (let ((delete-by-moving-to-trash
+         (if (equal current-prefix-arg '(4))
+             nil t)))
+    (apply oldfun (cdr r))))
 
 (use-package dired-rsync
   :straight t
