@@ -91,7 +91,7 @@ Otherwise ask user to input WORD."
 (defun my/define-word ()
   "docstring"
   (interactive)
-  (if (thing-at-point 'word)
+  (if (use-region-p)
       (call-interactively #'define-word-at-point)
     (call-interactively #'define-word)))
 
@@ -108,6 +108,7 @@ Otherwise ask user to input WORD."
       (erase-buffer)
       (insert definition)
       (goto-char (point-min))
+      (save-excursion (xml-parse-string))
       (read-only-mode 1))
     (display-buffer buffer)
     (switch-to-buffer-other-window buffer)))
