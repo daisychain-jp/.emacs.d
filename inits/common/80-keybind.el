@@ -143,6 +143,7 @@
     ("b" battery)
     ("c" calendar)
     ("?" woman)
+    (";" my/tldr)
     ("q" quickrun)
     ("C-g" nil "cancel"))
   (defhydra hydra-straight (global-map "C-x -"
