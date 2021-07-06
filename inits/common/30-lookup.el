@@ -86,7 +86,9 @@ Otherwise ask user to input WORD."
         '("http://wordnik.com/words/%s" my/define-word--parse-wordnik-all))
   (push '(weblio "https://ejje.weblio.jp/content/%s"
                  my/define-word--parse-weblio)
-        define-word-services))
+        define-word-services)
+  (push '("<b>\\(.*?\\)</b>" bold)
+        define-word--tag-faces))
 
 (defun my/define-word ()
   "docstring"
@@ -101,17 +103,16 @@ Otherwise ask user to input WORD."
          (buffer (get-buffer-create buf-name))
          (display-buffer-alist
           `((,buf-name
-             (display-buffer-reuse-window display-buffer-below-selected display-buffer-at-bottom)
-             (window-height . 0.75)))))
+             (display-buffer-same-window)))))
     (with-current-buffer buffer
       (read-only-mode -1)
       (erase-buffer)
       (insert definition)
       (goto-char (point-min))
       (save-excursion (xml-parse-string))
-      (read-only-mode 1))
-    (display-buffer buffer)
-    (switch-to-buffer-other-window buffer)))
+      (read-only-mode 1)
+      (buffer-face-set 'woman-buffer))
+    (display-buffer buffer)))
 
 (defun my/define-word--parse-wordnik-example ()
   (save-excursion
@@ -151,9 +152,13 @@ Otherwise ask user to input WORD."
 
 (defun my/define-word--parse-wordnik-all ()
   ""
-  (concat "Definitions:\n" (funcall #'define-word--parse-wordnik) "\n\n"
-          (funcall #'my/define-word--parse-wordnik-related-word) "\n\n"
-          "Examples:\n" (funcall #'my/define-word--parse-wordnik-example)))
+  (let* ((def (funcall #'define-word--parse-wordnik))
+         (rel (funcall #'my/define-word--parse-wordnik-related-word))
+         (exp (funcall #'my/define-word--parse-wordnik-example)))
+    (concat ;; "Definitions:\n" (funcall #'define-word--parse-wordnik) "\n\n"
+     (when def (format "Definitions:\n%s\n\n" def))
+     (when rel (format "%s\n\n" rel))
+     (when exp (format "Examples:\n%s\n" exp)))))
 
 (defun my/define-word--parse-weblio ()
   (save-excursion
