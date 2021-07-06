@@ -155,7 +155,7 @@
     ("R" straight-rebuild-all)
     ("f" straight-fetch-package)
     ("F" straight-fetch-all)
-    ("p" straight-pull-package)
+    ("p" straight-pull-package-and-deps)
     ("P" straight-pull-all)
     ("m" straight-merge-package)
     ("M" straight-merge-all)

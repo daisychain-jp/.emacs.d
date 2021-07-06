@@ -111,7 +111,7 @@
  ("shackle" . "242bacc940c18b6f9c156e1912155d45537fd827")
  ("smartparens" . "14a4d62b18da022bb7a4db4584dd82cda6d2f779")
  ("spinner" . "e19f3cfc0646c0e23c10c22df219fcf427054621")
- ("straight.el" . "5541697ceee7e7ba937eddebba44f1e8e8af6a4f")
+ ("straight.el" . "1e27b0590df77a5d478970ca58fd6606971692f5")
  ("swiper" . "11444e82ad3ec4b718b03ee51fc3ba62cbba81bc")
  ("synosaurus" . "bc26f5c22b4d08dd09d0852435814977433c9521")
  ("system-packages" . "d18b2c0e38ddc1ccfcd7d787112fb3465df51769")
