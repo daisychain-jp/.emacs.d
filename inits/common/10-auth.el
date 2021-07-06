@@ -89,7 +89,9 @@ or selected by user."
                    (string-trim-right
                     (shell-command-to-string (format "echo %s | awk -F[/:] '{print $4}'"
                                                      (shell-quote-argument input)))))))
-    (with-password-store-entry (or domain input)
+    (with-password-store-entry (cond
+                                ((> (length domain) 0) domain)
+                                (input))
       (when (derived-mode-p 'org-mode)
         (org-entry-put (point) my/org-password-store-property entry))
       (password-store-edit entry))))
