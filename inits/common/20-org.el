@@ -309,6 +309,7 @@
      ("C" . org-shifttab)
      (" " . org-display-outline-path)
      ("N" . org-toggle-narrow-to-subtree)
+     ("z" . org-toggle-narrow-to-subtree)
      ("=" . org-columns)
      ("/" . org-sparse-tree)
      ("Outline Structure Editing")
