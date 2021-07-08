@@ -106,6 +106,8 @@
     ("G" counsel-org-goto-all)
     ("q" org-ql-search)
     ("Q" org-ql-view)
+    ("d" org-drill)
+    ("D" org-drill-resume)
     ("p" org-capture-phrase)
     ("s" org-store-link)
     ("C-s" org-save-all-org-buffers)

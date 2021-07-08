@@ -577,8 +577,17 @@
   :after (org persist)
   :straight t
   :custom
-  (org-drill-scope 'tree)
-  (org-drill-cram-hours 0.5))
+  (org-drill-spaced-repetition-algorithm 'sm5)
+  (org-drill-scope '("~/org/archive/archive_2021.org"
+                     "~/org/archive/archive_2020.org"
+                     "~/org/archive/archive_2019.org"))
+  (org-drill-question-tag "drill")
+  (org-drill-days-before-old 20)
+  (org-drill-maximum-items-per-session 20))
+
+(use-package org-plot
+  :straight gnuplot gnuplot-mode
+  :after org)
 
 (use-package org-roam
   :straight (:host github
