@@ -58,7 +58,7 @@ if SYSTEM is non-nii open FILE using preferable application in system."
 
   ;; convert pdf/epub to html
   (let* ((dirname-html
-          (expand-file-name (file-name-base my/view-file--open-file)
+          (expand-file-name (file-relative-name my/view-file--open-file "~")
                             (expand-file-name my/view-file--temp-dir)))
          (filename-html
           (concat (file-name-as-directory dirname-html)
@@ -136,5 +136,21 @@ if SYSTEM is non-nii open FILE using preferable application in system."
   "Finalize function for `EWW'."
   (remove-hook 'eww-after-render-hook 'my/view-file--eww-finalize-function)
   (funcall 'my/view-file--finalize-function))
+
+(defun my/view-file-filter-org-link-store-props (&rest plist-orig)
+  "Filter PLIST-ORIG to original file name if value of `eww-current-url'
+ is in `my/view-file--temp-dir'."
+  (let* ((plist-filtered (car plist-orig)))
+    (plist-put plist-filtered
+               :link
+               (replace-regexp-in-string (format "%s\\(.*\\)/index.html"
+                                                 (expand-file-name my/view-file--temp-dir))
+                                         (format "%s\\1"
+                                                 (expand-file-name "~"))
+                                         (plist-get plist-filtered
+                                                    :link)))))
+
+(advice-add #'org-link-store-props :filter-args
+            #'my/view-file-filter-org-link-store-props)
 
 (provide 'my/view-file)

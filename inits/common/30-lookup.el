@@ -128,6 +128,24 @@ Otherwise ask user to input WORD."
       (when (setq results (nreverse results))
         (define-word--convert-html-tag-to-face (define-word--join-results results))))))
 
+(defvar my/define-word-part-map-alist '(("adjective" "adj.")
+                                        ("adverb" "adv.")
+                                        ("intransitive verb" "v.i.")
+                                        ("transitive verb" "v.t.")))
+
+(defun my/define-word--parse-wordnik ()
+  (let ((str (define-word--parse-wordnik)))
+    (with-temp-buffer
+      (insert str)
+      (mapc (lambda (abbrev-map)
+              (goto-char (point-min))
+              (while (re-search-forward (format "\\(%s\\)" (car abbrev-map)) nil t)
+                (let ((match (match-string 1)))
+                  (replace-match
+                   (propertize (cadr abbrev-map) 'face (text-properties-at (point)))))))
+            my/define-word-part-map-alist)
+      (buffer-string))))
+
 (defun my/define-word--parse-wordnik-related-word ()
   "docstring"
   (save-excursion
@@ -152,7 +170,7 @@ Otherwise ask user to input WORD."
 
 (defun my/define-word--parse-wordnik-all ()
   ""
-  (let* ((def (funcall #'define-word--parse-wordnik))
+  (let* ((def (funcall #'my/define-word--parse-wordnik))
          (rel (funcall #'my/define-word--parse-wordnik-related-word))
          (exp (funcall #'my/define-word--parse-wordnik-example)))
     (concat ;; "Definitions:\n" (funcall #'define-word--parse-wordnik) "\n\n"

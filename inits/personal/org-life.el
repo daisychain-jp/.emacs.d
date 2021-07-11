@@ -326,31 +326,3 @@ go to today's entry in record file."
 (setq org-refile-targets
       `((org-agenda-files :tag . "project")
         (,(file-expand-wildcards (concat env-org-dir "/**/*.org")) :tag . "refile")))
-
-(defun org-capture-phrase (phrase &optional selective)
-  "Search or capture PHRASE.
-If there is an org entry whose heading is PHRASE, show it.
-Otherwise capture it.
-
-If called interactively with `C-u' prefix, namely SELECTIVE is '(4),
- capture PHRASE forcibly.
-With `C-uC-u' prefix, search PHRASE forcibly."
-  (interactive (list (if (use-region-p)
-                         (buffer-substring (region-beginning) (region-end))
-                       (read-string "Phrase: "))
-                     current-prefix-arg))
-  (let ((query-phrase `(and (heading ,phrase)
-                            (tags "drill")))
-        (rec-files (org-record-files)))
-    (cond
-     ((or (equal selective '(4))
-          (and (not selective)
-               (not (org-ql-select rec-files query-phrase))))
-      (org-capture nil "De"))
-     (t
-      (org-ql-search rec-files query-phrase)))))
-(push '("English phrase list"
-        :buffers-files org-record-files
-        :query (and (tags "drill")
-                    (tags "fd_en")))
-      org-ql-views)
