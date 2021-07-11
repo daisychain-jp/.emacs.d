@@ -140,15 +140,17 @@ if SYSTEM is non-nii open FILE using preferable application in system."
 (defun my/view-file-filter-org-link-store-props (&rest plist-orig)
   "Filter PLIST-ORIG to original file name if value of `eww-current-url'
  is in `my/view-file--temp-dir'."
-  (let* ((plist-filtered (car plist-orig)))
-    (plist-put plist-filtered
-               :link
-               (replace-regexp-in-string (format "%s\\(.*\\)/index.html"
-                                                 (expand-file-name my/view-file--temp-dir))
-                                         (format "%s\\1"
-                                                 (expand-file-name "~"))
-                                         (plist-get plist-filtered
-                                                    :link)))))
+  (let ((plist-filtered (car plist-orig)))
+    (if (plist-member plist-filtered :link)
+        (plist-put plist-filtered
+                   :link
+                   (replace-regexp-in-string (format "%s\\(.*\\)/index.html"
+                                                     (expand-file-name my/view-file--temp-dir))
+                                             (format "%s\\1"
+                                                     (expand-file-name "~"))
+                                             (plist-get plist-filtered
+                                                        :link))))
+    (car plist-orig)))
 
 (advice-add #'org-link-store-props :filter-args
             #'my/view-file-filter-org-link-store-props)
