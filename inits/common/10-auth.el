@@ -124,7 +124,7 @@ or selected by user."
     (funcall-interactively #'my/password-store-url '(16))))
 
 (with-eval-after-load 'hydra
-  (defhydra hydra-password-store (global-map "C-o *"
+  (defhydra hydra-password-store (global-map "C-o p"
                                              :color teal)
     "Password store"
     ("cc" my/password-store-copy)
