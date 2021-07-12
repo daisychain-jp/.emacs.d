@@ -632,9 +632,14 @@ If property's value matches $(...) format, ... is interpreted as shell command a
                (t prop-value))))
         (kill-new str-to-copy)))))
 
-(defun org-end-of-subtree ()
+(defun my/org-reset-dwim ()
+  "Do reset procedure in each context."
   (interactive)
-  (org-end-of-subtree))
+  (cond
+   ((org-at-table-p) (org-table-blank-field))
+   ((org-in-subtree-not-table-p)
+    (org-save-outline-visibility t
+      (org-reset-checkbox-state-subtree)))))
 
 (defun org-link-at-point ()
   "Return org link at point as a cons."

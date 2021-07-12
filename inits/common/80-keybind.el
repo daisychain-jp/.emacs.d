@@ -119,7 +119,7 @@
     ("r" org-record-search)
     ("C" org-record-find-date)
     ("=" org-clock-sum-all)
-    ("SPC" org-reset-checkbox-state-subtree)
+    ("SPC" my/org-reset-dwim)
     ("q" nil "quit"))
   (unbind-key "M-o")
   (defhydra hydra-launcher (global-map "M-o"
