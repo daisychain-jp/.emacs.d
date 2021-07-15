@@ -119,6 +119,7 @@
     ("O" org-clock-out)
     ("r" org-record-search)
     ("R" org-record-find-date)
+    ("@" org-mark-subtree)
     ("=" org-clock-sum-all)
     ("SPC" my/org-reset-dwim)
     ("q" nil "quit"))
