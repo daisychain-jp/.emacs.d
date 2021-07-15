@@ -118,8 +118,12 @@ or selected by user."
     (sleep-for 0.2) ; work around for overlapping message
     (if field-value
         (message "%s: %s" field field-value)
-      (when-let ((second (nth 1 (password-store-parse-entry entry))))
-        (message "%s: %s" (car second) (cdr second))))
+      (message (string-trim-right
+                (concat
+                 (when-let ((email (assoc "email" (password-store-parse-entry entry))))
+                   (format "%s: %s\n" (car email) (cdr email)))
+                 (when-let ((second (nth 1 (password-store-parse-entry entry))))
+                   (format "%s: %s\n" (car second) (cdr second)))))))
     (sleep-for 3)
     (funcall-interactively #'my/password-store-url '(16))))
 
