@@ -61,16 +61,28 @@ to existing english word entry."
       (url-insert-buffer-contents buffer url)
       (funcall 'my/define-word--parse-weblio))))
 
+(defmacro with-org-drill-english-config (&rest body)
+  "Evaluate BODY with config for Org-Drill for english words review."
+  `(let ((org-drill-scope '("~/org/archive/archive_2021.org"
+                            "~/org/archive/archive_2020.org"
+                            "~/org/archive/archive_2019.org"))
+         (org-drill-question-tag "drill")
+         (org-drill-days-before-old 20)
+         (org-drill-maximum-items-per-session 20)
+         (truncate-lines nil))
+     (global-visual-line-mode 1)
+     ,@body
+     (global-visual-line-mode 0)))
+
 (defun my/org-english-drill ()
   "Invoke Org-Drill for English word review."
   (interactive)
-  (let ((org-drill-scope '("~/org/archive/archive_2021.org"
-                           "~/org/archive/archive_2020.org"
-                           "~/org/archive/archive_2019.org"))
-        (org-drill-question-tag "drill")
-        (org-drill-days-before-old 20)
-        (org-drill-maximum-items-per-session 20))
-    (org-drill)))
+  (with-org-drill-english-config (org-drill)))
+
+(defun my/org-english-drill-resume ()
+  "Resume Org-Drill session for english word review."
+  (interactive)
+  (with-org-drill-english-config (org-drill-resume)))
 
 (defun my/org-agenda-bulk-heading-wrap-bracket ()
   "Make org heading wrapped by brackets."

@@ -109,7 +109,7 @@
     ("Q" org-ql-view)
     ("ee" my/org-english-capture)
     ("ed" my/org-english-drill)
-    ("eD" org-drill-resume)
+    ("eD" my/org-english-drill-resume)
     ("et" org-drill-test-display)
     ("s" org-store-link)
     ("C-s" org-save-all-org-buffers)
